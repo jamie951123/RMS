@@ -1,0 +1,51 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="windowNoTitle">true</item>
+        <item name="windowActionBar">false</item>
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <!--toolbar Menu-->
+    <style name="receiving_increase_menu_theme" parent="Theme.AppCompat.Light.NoActionBar">
+        //...
+        <item name="actionMenuTextColor">@android:color/white</item>
+        <item name="actionMenuTextAppearance">@style/toolbar_menu_edit</item>
+    </style>
+    <style name="toolbar_menu_edit">
+        <item name="android:textSize">@dimen/toolbarsize</item>
+    </style>
+
+    <!--Dialog Box-->
+    <style name="CustomDialog" parent="@style/Theme.AppCompat.Light.Dialog">
+        <item name="android:windowNoTitle">false</item>
+    </style>
+    <!--navigation action bar-->
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+    <!--navigation item-->
+    <style name="DrawerArrowStyle" parent="Widget.AppCompat.DrawerArrowToggle">
+        <item name="spinBars">true</item>
+        <!--<item name="color">@color/blue0895ef</item>-->
+    </style>
+
+    <!--checkBox-->
+    <style name="BlueCheck">
+        <item name="colorAccent">#0895ef</item>
+    </style>
+
+    <style name="PinkCheck">
+        <item name="colorAccent">#FFE040FB</item>
+    </style>
+    <!--product-tab-->
+    <style name="MineCustomTabText" parent="TextAppearance.Design.Tab">
+        <item name="android:textSize">10sp</item>
+    </style>
+</resources>

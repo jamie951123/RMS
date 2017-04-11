@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.example.james.rms">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+    <meta-data
+        android:name="android.app.default_searchable"
+        android:value=".SearchableActivity" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/stock"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme"
+        tools:node="replace">
+        <!--LoginActivity-->
+        <activity
+            android:name=".LoginActivity"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.SEARCH" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+            </intent-filter>
+            <meta-data
+                android:name="android.app.searchable"
+                android:resource="@xml/searchable" />
+        </activity>
+        <!--Product-->
+        <activity
+            android:name=".ProductPool.Tab.ProductContainer"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait" />
+        <activity android:name=".ProductPool.Tab.ProductDetail" />
+        <activity android:name=".ProductPool.Tab.ProductAction" />
+        <!--Navigation-->
+        <activity
+            android:name=".Controller.NavigationController"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait" />
+        <!--Receiving-->
+        <activity
+            android:name=".Receiving.Tab.ReceivingContainer"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait" />
+        <!--Operation-->
+        <activity android:name=".Operation.OperationContainer"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait" />
+        <activity android:name=".Operation.ProductAction.ProductIncrease"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".Operation.ReceivingAction.ReceivingIncrease"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait">
+            <!--<intent-filter>-->
+                <!--<action android:name="android.intent.action.MAIN" />-->
+
+                <!--<category android:name="android.intent.category.LAUNCHER" />-->
+            <!--</intent-filter>-->
+        </activity>
+    </application>
+
+</manifest>

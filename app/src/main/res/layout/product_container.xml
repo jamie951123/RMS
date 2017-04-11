@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+    <com.example.james.rms.Controller.MyViewPager
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:id="@+id/product_container_pages">
+    </com.example.james.rms.Controller.MyViewPager>
+    <!--<android.support.design.widget.TabLayout-->
+        <!--android:id="@+id/product_tabLayout"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:background="@color/black1F1F1F"-->
+        <!--app:tabIndicatorColor = "@color/blue337AB7"-->
+        <!--app:tabGravity="fill"-->
+        <!--app:tabTextAppearance="@style/MineCustomTabText"-->
+
+        <!--/>-->
+</LinearLayout>

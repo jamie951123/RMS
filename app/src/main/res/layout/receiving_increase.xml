@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical"
+    android:background="@color/grayE8E8E8"
+    tools:context="com.example.james.rms.Operation.ReceivingAction.ReceivingIncrease">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/receiving_increase_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/blue0895ef"
+        app:popupTheme="@style/AppTheme.PopupOverlay"
+        android:theme="@style/receiving_increase_menu_theme">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="@string/receiving_increase_title"
+            android:gravity = "center"
+            android:textColor="@color/whiteFFFFFF"
+            android:lines="2"
+            android:maxLines="2"
+            android:textSize="@dimen/toolbarsize"
+            android:id="@+id/receiving_increase_toolbar_title" />
+
+
+    </android.support.v7.widget.Toolbar>
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/whiteFFFFFF"
+        android:foreground="?android:attr/selectableItemBackground"
+        android:layout_margin="4dp"
+        card_view:cardCornerRadius="10dp"
+        android:layout_weight="3">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="@dimen/insizecard">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/whiteFFFFFF"
+            android:orientation="vertical">
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:hint="@string/remark"
+                android:gravity="top|left"
+                android:background="@android:color/transparent"
+                android:id="@+id/receiving_increase_remark"
+                android:cursorVisible="false"/>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/gray3C3D40" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:foreground="?android:attr/selectableItemBackground"
+                android:orientation="vertical">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:layout_weight="2">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:hint="@string/label_receivingDate"
+                        android:layout_weight="1"
+                        android:id="@+id/receiving_increase_datePicker"
+                        android:gravity="center_vertical"
+                        android:textColor="@color/black1F1F1F"
+                        android:textSize="20sp"
+                        android:drawableRight="@drawable/alarm_color"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </LinearLayout>
+    </android.support.v7.widget.CardView>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@color/gray3C3D40" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1">
+    <android.support.design.widget.CoordinatorLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/receiving_increase_listview"/>
+
+    <com.github.clans.fab.FloatingActionButton
+        android:id="@+id/receiving_increase_fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|right"
+        android:layout_marginBottom="60px"
+        android:layout_marginRight="30px"
+        android:paddingBottom="50px"
+        app:fab_colorNormal="@color/blue0895ef"
+        android:src="@drawable/menu_white">
+
+    </com.github.clans.fab.FloatingActionButton>
+
+</android.support.design.widget.CoordinatorLayout>
+    </LinearLayout>
+</LinearLayout>

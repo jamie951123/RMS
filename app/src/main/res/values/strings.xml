@@ -1,0 +1,121 @@
+<resources>
+    <string name="app_name">RMS</string>
+    <!--Common-->
+    <string name="loading">Loading</string>
+    <string name="waiting">Please wait...</string>
+    <string name="logout">Logout</string>
+    <string name="leave">Leave</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="confirme">Confirme</string>
+    <string name="cancel">Cancel</string>
+    <string name="submit">Submit</string>
+    <string name="create">Create</string>
+    <string name="back">Back</string>
+    <string name="previous">Previous</string>
+    <string name="createReceivingOrder">Create Receiving Order</string>
+    <string name="createQusetion">Create?</string>
+    <!--Error-->
+    <string name="missingField">Missing</string>
+    <!--searchview-->
+    <string name="search_hint">Search...</string>
+    <!--ErrorMessage-->
+    <string name="loginValueIsNull">Please Input Username and Password</string>
+    <string name="productAction">Please Input ProductCode and ProductName</string>
+    <!--navigation-->
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="action_settings">Settings</string>
+    <!--navigation Bar Item-->
+    <string name="allproduct">All Product</string>
+    <string name="receiving">Receiving</string>
+    <string name="inventory">Inventory</string>
+    <string name="stockout">StockOut</string>
+    <string name="record">Record</string>
+    <string name="other">Other</string>
+    <string name="setting">Setting</string>
+    <!--Login-->
+    <string name="username">User name</string>
+    <string name="password">Password</string>
+    <string name="remember">Remember</string>
+    <string name="loginSuccessful">LoginSuccessful</string>
+    <string name="loginFail">LoginFail</string>
+    <!--Product-->
+    <string name="productId">ProductId:</string>
+    <string name="productCode">ProductCode:</string>
+    <string name="productName">ProductName:</string>
+    <string name="partyId">PartyId:</string>
+    <string name="status">Status:</string>
+    <string name="createDate">Create Date:</string>
+    <string name="closeDate">Close Date:</string>
+    <string name="remark">Remark:</string>
+    <string name="productDescriptionEN">Description(EN):</string>
+    <string name="productDescriptionCH">Description(CH):</string>
+
+    <!--ProductAction-->
+    <string name="addProduct">Add Product</string>
+    <string name="action_productId">ProductId</string>
+    <string name="action_productCode">Product Code</string>
+    <string name="action_productName">Product Name</string>
+    <string name="action_partyId">PartyId</string>
+    <string name="action_status">Status</string>
+    <string name="action_createDate">Create Date</string>
+    <string name="action_closeDate">Close Date</string>
+    <string name="action_remark">Remark</string>
+    <string name="action_productDescriptionEN">Description (EN)</string>
+    <string name="action_productDescriptionCH">Description (CH)</string>
+
+    <!--ProductIncrease-->
+    <string name="increase_addProduct">Add Product</string>
+    <string name="increase_productId">ProductId</string>
+    <string name="increase_productCode">Product Code</string>
+    <string name="increase_productName">Product Name</string>
+    <string name="increase_partyId">PartyId</string>
+    <string name="increase_status">Status</string>
+    <string name="increase_createDate">Create Date</string>
+    <string name="increase_closeDate">Close Date</string>
+    <string name="increase_remark">Remark</string>
+    <string name="increase_productDescriptionEN">Description (EN)</string>
+    <string name="increase_productDescriptionCH">Description (CH)</string>
+
+    <!--InsertProduct-->
+    <string name="insertSuccessful">InsertSuccessful</string>
+    <string name="insertFail">InsertFail</string>
+    <string name="queryfail">Queryfail</string>
+
+    <!--ReceivingOrder-->
+    <string name="receivingOrder_orderId">OrderId:</string>
+    <string name="receivingOrder_date">DeceivingDate:</string>
+    <string name="receivingOrder_remark">Remark:</string>
+    <string name="receivingOrder_status">Status:</string>
+    <string name="receivingOrder_createDate">CreateDate:</string>
+    <string name="receivingOrder_closeDate">CloseDate:</string>
+    <string name="receivingOrder_actualQty">ActualQty</string>
+    <string name="receivingOrder_estimateQty">EstimateQty:</string>
+
+    <!--ReceivingItem-->
+    <string name="receivingItem_receivingID">ReceivingID:</string>
+    <string name="receivingItem_productId">ProductId:</string>
+    <string name="receivingItem_itemStatus">Status:</string>
+    <string name="receivingItem_itemCreateDate">CreateDate:</string>
+    <string name="receivingItem_itemReceivingDate">ReceivingDate:</string>
+    <string name="receivingItem_itemGrossWeight">GrossWeight:</string>
+    <string name="receivingItem_itemGrossWeightUnit">Unit:</string>
+    <string name="receivingItem_itemRemark">Remark:</string>
+    <string name="receivingItem_partyId">PartyId:</string>
+    <string name="receivingItem_orderId">OrderId:</string>
+    <string name="receivingItem_ProductCode">ProductCode:</string>
+    <string name="receivingItem_ProductName">ProductName:</string>
+    <!--ReceivingIcerease-->
+    <string name="receiving_increase_title">Create ReceivingOrder</string>
+    <!--Action-->
+    <string name="add_product">Add Product</string>
+    <string name="add_receiving_order">Add Receiving Order</string>
+    <string name="add_stock_out_order">Add Stockout Order</string>
+    
+    <!--label-->
+    <string name="label_grossweight">GW:</string>
+    <string name="label_quantity">Qty:</string>
+    <string name="label_receivingDate">Receiving Date</string>
+
+</resources>

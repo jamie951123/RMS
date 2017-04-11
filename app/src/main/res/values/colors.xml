@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+
+    <!--background-->
+    <color name="backgroundE8E8E8">#E8E8E8</color>
+    <!--white-->
+    <color name="whiteFFFFFF">#FFFFFF</color>
+    <!--gray-->
+    <color name="grayE8E8E8">#E8E8E8</color>
+    <color name="gray3C3D40">#3C3D40</color>
+    <!--blue-->
+    <color name="blue0895ef">#0895ef</color>
+    <color name="blue337AB7">#337AB7</color>
+    <!--black-->
+    <color name="black1F1F1F">#1F1F1F</color>
+    <!--organe-->
+    <color name="organeFF4000">#FF4000</color>
+    <!--green-->
+    <color name="greenA5DC86">#A5DC86</color>
+</resources>
