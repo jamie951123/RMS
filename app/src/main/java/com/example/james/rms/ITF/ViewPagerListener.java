@@ -11,5 +11,5 @@ import java.util.List;
  */
 
 public interface ViewPagerListener<T> {
-    public void transferViewPager(int rid,List<T> models);
+    void transferViewPager(int rid,List<T> models);
 }
