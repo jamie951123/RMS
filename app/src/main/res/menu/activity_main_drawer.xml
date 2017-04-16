@@ -40,6 +40,12 @@
                 android:icon="@drawable/setting"
                 android:title="@string/setting"
                 android:checkable="true"/>
+            <item
+                android:id="@+id/nav_logout"
+                android:icon="@drawable/logout_black"
+                android:title="@string/logout"
+                android:checkable="true"/>
+
         </menu>
     </group>
     </item>

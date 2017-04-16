@@ -13,8 +13,8 @@ import java.util.List;
 
 public interface ReceivingService {
 
-    public List<V_ReceivingItemModel> findReceivingItemByPartyId(String json);
+     List<V_ReceivingItemModel> findReceivingItemByPartyId(String json);
 
-    public List<ReceivingOrderModel> findReceivingOrderByPartyId(String json);
+     List<ReceivingOrderModel> findReceivingOrderByPartyId(String json);
 
 }

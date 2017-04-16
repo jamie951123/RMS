@@ -18,7 +18,7 @@ public class ReceivingDaoImpl implements ReceivingDao {
     ReceivingSplit receivingSplit = new ReceivingSplit();
     @Override
     public List<V_ReceivingItemModel> findReceivingItemByPartyId(String json) {
-        Log.d("asd","request_findReceivingItemByPartyId :" + json);
+        Log.d("asd","findReceivingItemByPartyId(Request--JSON):" + json);
         String result = "";
         try {
             result = new HttpPostAsync().execute(ReceivingPHPPath.findReceivingItemByPartyId(),json).get();
@@ -28,14 +28,14 @@ public class ReceivingDaoImpl implements ReceivingDao {
             e.printStackTrace();
         }
         List<V_ReceivingItemModel> VReceivingItemModel = receivingSplit.convertReceivingItem(result);
-        Log.d("asd","response_findReceivingItemByPartyId :" + VReceivingItemModel.toString());
+        Log.d("asd","findReceivingItemByPartyId(Response) :" + VReceivingItemModel.toString());
         return VReceivingItemModel;
     }
 
     @Override
     public List<ReceivingOrderModel> findReceivingOrderByPartyId(String json) {
         String result = "";
-        Log.d("asd","request_findReceivingOrderByPartyId :" + json);
+        Log.d("asd","findReceivingOrderByPartyId(Request--JSON) :" + json);
         try {
             result = new HttpPostAsync().execute(ReceivingPHPPath.findReceivingOrderByPartyId(),json).get();
         } catch (InterruptedException e) {
@@ -44,14 +44,14 @@ public class ReceivingDaoImpl implements ReceivingDao {
             e.printStackTrace();
         }
         List<ReceivingOrderModel> receivingOrderModel = receivingSplit.convertReceivingOrder(result);
-        Log.d("asd","response_findReceivingOrderByPartyId :" + receivingOrderModel.toString());
+        Log.d("asd","findReceivingOrderByPartyId(Response) :" + receivingOrderModel.toString());
         return receivingOrderModel;
     }
 
     @Override
     public List<ReceivingOrderModel> findReceivingOrderByPartyIdAndCreateDate(String json) {
         String result = "";
-        Log.d("asd","request_findReceivingOrderByPartyIdAndCreateDate :" + json);
+        Log.d("asd","findReceivingOrderByPartyIdAndCreateDate(Request--JSON) :" + json);
         try {
             result = new HttpPostAsync().execute(ReceivingPHPPath.findOrderIdByPartyIdAndCreateDate(),json).get();
         } catch (InterruptedException e) {
@@ -60,14 +60,14 @@ public class ReceivingDaoImpl implements ReceivingDao {
             e.printStackTrace();
         }
         List<ReceivingOrderModel> receivingOrderModel = receivingSplit.convertReceivingOrder(result);
-        Log.d("asd","response_findReceivingOrderByPartyIdAndCreateDate :" + receivingOrderModel.toString());
+        Log.d("asd","findReceivingOrderByPartyIdAndCreateDate(Response) :" + receivingOrderModel.toString());
         return receivingOrderModel;
     }
 
     @Override
     public String insertIntoReceivingOrder(String json) {
         String result ="";
-        Log.d("asd","request_insertIntoReceivingOrder :" + json);
+        Log.d("asd","insertIntoReceivingOrder(Request--JSON) :" + json);
         try{
             result = new HttpPostAsync().execute(ReceivingPHPPath.insertToReceivingOrder(),json).get();
         }catch (InterruptedException e) {
@@ -75,14 +75,14 @@ public class ReceivingDaoImpl implements ReceivingDao {
         } catch (ExecutionException e) {
             e.printStackTrace();
         }
-        Log.d("asd","response_insertIntoReceivingOrder :" + result);
+        Log.d("asd","insertIntoReceivingOrder(Response):" + result);
         return result;
     }
 
     @Override
     public String insertIntoReceivingItem(String json) {
         String result ="";
-        Log.d("asd","request_insertIntoReceivingItem :" + json);
+        Log.d("asd","insertIntoReceivingItem(Request--JSON) :" + json);
         try{
             result = new HttpPostAsync().execute(ReceivingPHPPath.insertToReceivingItem(),json).get();
         }catch (InterruptedException e) {
@@ -90,7 +90,7 @@ public class ReceivingDaoImpl implements ReceivingDao {
         } catch (ExecutionException e) {
             e.printStackTrace();
         }
-        Log.d("asd","response_insertIntoReceivingItem :" + result);
+        Log.d("asd","insertIntoReceivingItem(Response):" + result);
         return result;
     }
 }

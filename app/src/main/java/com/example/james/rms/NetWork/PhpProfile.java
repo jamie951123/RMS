@@ -6,9 +6,7 @@ package com.example.james.rms.NetWork;
 
 public class PhpProfile {
     //Serve
-//    public static String serve                                   = "http://iveebcard.netne.net/";
-//    public static String serve                                   = "http://192.168.0.3/RMS/";
-     public static String serve                                    = "http://123.203.113.89:999/RMS/";
+    public static String serve                                    = "http://123.203.117.130:1123/";
     //GET
     final static String getUserProfile                             = "LOGIN/getUserProfile.php";
 

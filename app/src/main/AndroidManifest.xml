@@ -19,7 +19,7 @@
         tools:node="replace">
         <!--LoginActivity-->
         <activity
-            android:name=".LoginActivity"
+            android:name=".Login.LoginActivity"
             android:configChanges="orientation"
             android:screenOrientation="portrait">
             <intent-filter>

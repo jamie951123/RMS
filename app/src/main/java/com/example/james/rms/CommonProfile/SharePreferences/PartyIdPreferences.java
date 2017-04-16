@@ -3,9 +3,6 @@ package com.example.james.rms.CommonProfile.SharePreferences;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-import com.example.james.rms.CommonProfile.ObjectUtil;
-import com.example.james.rms.Login.Model.LoginModel;
-
 import java.util.HashMap;
 
 /**
