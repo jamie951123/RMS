@@ -7,12 +7,18 @@ package com.example.james.rms.NetWork;
 public class ServeProfile {
     public static String serve                                    = "http://123.203.117.130:1123/";
 
-    //Product
+    //Login
     final static String login_findAll                             = "/rms/login/findAll";
     final static String login_checklogin                          = "/rms/login/checklogin";
+    //Product
+    final static String product_findAll                             = "/rms/product/findAll";
 
     //Receiving
 
+
+    public static String getProduct_findAll() {
+        return product_findAll;
+    }
 
     public static String getServe() {
         return serve;
