@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.james.rms.CommonProfile.MyBaseAdapter;
+import com.example.james.rms.CommonProfile.ObjectUtil;
 import com.example.james.rms.Core.Product.Model.ProductModel;
 import com.example.james.rms.R;
 
@@ -40,7 +41,7 @@ public class ProductListAdapter extends MyBaseAdapter<ProductModel>{
         viewHolder.product_productCode.setText(getItem(position).getProductCode());
         viewHolder.product_descriptionEN.setText(getItem(position).getProductDescriptionEN());
         viewHolder.product_descriptionCH.setText(getItem(position).getProductDescriptionCH());
-        viewHolder.product_createDate.setText(getItem(position).getCreateDate());
+        viewHolder.product_createDate.setText(ObjectUtil.dateToString(getItem(position).getCreateDate()));
         return convertView;
     }
 

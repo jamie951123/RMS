@@ -2,11 +2,18 @@ package com.example.james.rms.Core.Product.Dao;
 
 import android.util.Log;
 
+import com.example.james.rms.CommonProfile.GsonUtil;
 import com.example.james.rms.Core.Product.Model.ProductInsertModel;
 import com.example.james.rms.Core.Product.Model.ProductModel;
-import com.example.james.rms.Core.Product.ProductPHPPath;
+import com.example.james.rms.Core.Product.ProductServerPath;
+import com.example.james.rms.NetWork.HttpGetAsync;
 import com.example.james.rms.NetWork.HttpPostAsync;
+import com.google.gson.Gson;
+import com.google.gson.JsonSyntaxException;
+import com.google.gson.reflect.TypeToken;
 
+import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
@@ -16,36 +23,76 @@ import java.util.concurrent.ExecutionException;
 
 public class ProductDaoImpl implements ProductDao {
 
-    ProductSplit productSplit = new ProductSplit();
     @Override
-    public List<ProductModel> findAllFromUserProfile(String json) {
-        Log.d("asd:","request_findAllFromUserProfile: :"+json);
+    public List<ProductModel> findAll() {
+        Log.d("asd:","[ProductModel]-findAll(Request--JSON) :");
         String result = "";
+        List<ProductModel> products = new ArrayList<>();
         try {
-            result = new HttpPostAsync().execute(ProductPHPPath.findProductPoolByPartyId(),json).get();
+            result = new HttpGetAsync().execute(ProductServerPath.serve_findAll()).get();
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {
             e.printStackTrace();
         }
-        Log.d("asd:","response_findAllFromUserProfile: :"+result);
-        List<ProductModel> productModels = productSplit.convertProductPool(result);
-        return productModels;
+        Log.d("asd:","[ProductModel]-findAll(Response--String): :"+result);
+        try{
+            Gson gson = new Gson();
+            Type listType = new TypeToken<List<ProductModel>>() {}.getType();
+            products = gson.fromJson(result,listType);
+            Log.d("asd","[ProductModel]-findAll(Gson): "+products);
+        }catch(JsonSyntaxException e){
+            e.printStackTrace();
+        }
+        return products;
     }
 
-    public ProductInsertModel insertProduct(String json){
-        Log.d("asd:","request_insertProduct: :"+json);
+    @Override
+    public List<ProductModel> findByPartyId(String json) {
+        Log.d("asd:","[ProductModel]-findByPartyId(Request--JSON)  :" +json);
         String result = "";
+        List<ProductModel> products = new ArrayList<>();
         try {
-            result = new HttpPostAsync().execute(ProductPHPPath.insertProduct(),json).get();
+            result = new HttpPostAsync().execute(ProductServerPath.serve_findByPartyId(),json).get();
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {
             e.printStackTrace();
         }
-        Log.d("asd:","response_insertProduct: :"+result);
-        ProductInsertModel productInsertModel = productSplit.convertProductInsertResponse(result);
+        Log.d("asd","[ProductModel]-findByPartyId(Response-String): "+result);
+        try{
+            Gson gson = GsonUtil.fromJson();
+            Type listType = new TypeToken<List<ProductModel>>() {}.getType();
+            products = gson.fromJson(result,listType);
+            Log.d("asd","[ProductModel]-findByPartyId(Gson): "+products);
+        }catch (Exception e){
+            e.printStackTrace();
+            Log.d("asd","[ProductModel]-findByPartyId(Error) : Convert GsonError ");
+        }
 
-        return productInsertModel;
+        return products;
+    }
+
+    public ProductModel insertProduct(String json){
+        Log.d("asd:","[ProductModel]-insertProduct-[Request (JSON)]: :"+json);
+        String result = "";
+        try {
+            result = new HttpPostAsync().execute(ProductServerPath.insertProduct(),json).get();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+        Log.d("asd:","[ProductModel]-insertProduct-[Response(String)]: :"+result);
+
+        ProductModel productModel = new ProductModel();
+        try{
+            Gson gson = new Gson();
+            productModel = gson.fromJson(result,ProductModel.class);
+        }catch (JsonSyntaxException e){
+            e.printStackTrace();
+        }
+
+        return productModel;
     }
 }

@@ -17,7 +17,9 @@ import java.util.concurrent.ExecutionException;
 
 public interface ProductService {
 
-    public List<ProductModel> findAllFromUserProfile(String json);
+     List<ProductModel> findAll();
 
-    public ProductInsertModel insertProduct(String json);
+     List<ProductModel> findByPartyId(String json);
+
+     ProductModel insertProduct(String json);
 }

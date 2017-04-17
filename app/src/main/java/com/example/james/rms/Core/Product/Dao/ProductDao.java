@@ -10,7 +10,9 @@ import java.util.List;
  */
 
 public interface ProductDao {
-    public List<ProductModel> findAllFromUserProfile(String json);
+    List<ProductModel> findAll();
 
-    public ProductInsertModel insertProduct(String json);
+    List<ProductModel> findByPartyId(String json);
+
+    ProductModel insertProduct(String json);
 }

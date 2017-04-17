@@ -83,7 +83,7 @@ public class ReceivingCombine {
         JSONArray jsonArray = new JSONArray();
         for (ReceivingItemModel item : receivingItemModel) {
             JSONObject jsonObject           = new JSONObject();
-            String productId                = item.getProductId();
+            Long productId                = item.getProductId();
             String itemStatus               = item.getItemStatus();
             String itemCreateDate           = item.getItemCreateDate();
             String itemReceivingDate        = item.getItemReceivingDate();

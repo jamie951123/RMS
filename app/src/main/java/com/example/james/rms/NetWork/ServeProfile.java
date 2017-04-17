@@ -11,8 +11,9 @@ public class ServeProfile {
     final static String login_findAll                             = "/rms/login/findAll";
     final static String login_checklogin                          = "/rms/login/checklogin";
     //Product
-    final static String product_findAll                             = "/rms/product/findAll";
-
+    final static String product_findAll                            = "/rms/product/findAll";
+    final static String product_findByPartyId                     = "/rms/product/findByPartyId";
+    final static String product_insert                             = "/rms/product/insertProduct";
     //Receiving
 
 
@@ -34,5 +35,13 @@ public class ServeProfile {
 
     public static String getLogin_checklogin() {
         return login_checklogin;
+    }
+
+    public static String getProduct_findByPartyId() {
+        return product_findByPartyId;
+    }
+
+    public static String getProduct_insert() {
+        return product_insert;
     }
 }

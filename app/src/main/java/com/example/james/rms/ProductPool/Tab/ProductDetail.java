@@ -51,13 +51,15 @@ public class ProductDetail extends MyBaseFragment implements AdapterView.OnItemC
         String partyId =  partyIdPreferences.getPreferences_PartyId().get("partyId");
         //HttpOK
         String combine_partyId = productCombine.combine_partyId(partyId);
-        List<ProductModel> productModels = productService.findAllFromUserProfile(combine_partyId);
+        List<ProductModel> productModels = productService.findByPartyId(combine_partyId);
         //ListView
-        productAdapter = new ProductListAdapter(getActivity(),productModels);
-        listView.setAdapter(productAdapter);
-        listView.setOnItemClickListener(this);
-        listView.setDivider(null);
-        Intent intent = new Intent();
+        if(productModels != null){
+            productAdapter = new ProductListAdapter(getActivity(),productModels);
+            listView.setAdapter(productAdapter);
+            listView.setOnItemClickListener(this);
+            listView.setDivider(null);
+        }
+
 
         return rootView;
     }

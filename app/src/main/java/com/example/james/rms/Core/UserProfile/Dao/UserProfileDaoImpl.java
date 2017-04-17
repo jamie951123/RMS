@@ -33,12 +33,12 @@ public class UserProfileDaoImpl implements UserProfileDao {
         } catch (ExecutionException e) {
             e.printStackTrace();
         }
-        Log.d("asd","findAll(Response): "+result);
+        Log.d("asd","[UserProfile]-findAll(Response): "+result);
         try{
             Gson gson = new Gson();
             Type listType = new TypeToken<List<UserProfile>>() {}.getType();
             userProfile = gson.fromJson(result,listType);
-            Log.d("asd","findAll(Gson): "+userProfile);
+            Log.d("asd","[UserProfile]-findAll(Gson): "+userProfile);
         }catch (Exception e){
 
         }
@@ -52,7 +52,7 @@ public class UserProfileDaoImpl implements UserProfileDao {
 
     @Override
     public LoginModel checkLogin(String json,String url) {
-        Log.d("asd","checkLogin--Request(JSON) :"+ json);
+        Log.d("asd","[UserProfile]-checkLogin--Request(JSON) :"+ json);
         String result = "";
         try {
             result = new HttpPostAsync().execute(url,json).get();
@@ -61,13 +61,13 @@ public class UserProfileDaoImpl implements UserProfileDao {
         } catch (ExecutionException e) {
             e.printStackTrace();
         }
-        Log.d("asd","checkLogin(Response) :"+ result);
+        Log.d("asd","[UserProfile]-checkLogin(Response) :"+ result);
 
         LoginModel loginModel = new LoginModel();
         try {
             Gson gson = new Gson();
             loginModel = gson.fromJson(result,LoginModel.class);
-            Log.d("asd","checkLogin(Split) : "+loginModel);
+            Log.d("asd","[UserProfile]-checkLogin(Split) : "+loginModel);
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -13,6 +13,7 @@ import com.example.james.rms.CommonProfile.ObjectUtil;
 import com.example.james.rms.CommonProfile.SharePreferences.PartyIdPreferences;
 import com.example.james.rms.Controller.NavigationController;
 import com.example.james.rms.Core.Product.Model.ProductInsertModel;
+import com.example.james.rms.Core.Product.Model.ProductModel;
 import com.example.james.rms.ProductPool.ProductCombine;
 import com.example.james.rms.ProductPool.Service.ProductService;
 import com.example.james.rms.ProductPool.Service.ProductServiceImpl;
@@ -82,7 +83,7 @@ public class ProductIncrease extends AppCompatActivity implements View.OnClickLi
         String descriptionCN = increase_descriptionCN.getText().toString();
         String descriptionEN = increase_descriptionEN.getText().toString();
         String remark        = increase_remark.getText().toString();
-        String createDate      = ObjectUtil.dateToString(new Date());
+        Date createDate      = new Date();
         String partyId       = partyId_Preferences;
         switch (v.getId()){
             case (R.id.increase_submit):
@@ -92,8 +93,10 @@ public class ProductIncrease extends AppCompatActivity implements View.OnClickLi
                 }
                 String result = productCombine.combine_AddProduct(productCode,puductName,descriptionCN,
                         descriptionEN,remark,createDate,partyId);
-                ProductInsertModel productInsertModel = productService.insertProduct(result);
-                Toast.makeText(this,productInsertModel.getInsertMessage(),Toast.LENGTH_SHORT).show();
+                ProductModel productModel = productService.insertProduct(result);
+                if(productModel != null) {
+                    Toast.makeText(this,R.string.insert_successful,Toast.LENGTH_SHORT).show();
+                }
                 Intent intent = new Intent();
                 intent = intent.setClass(this, NavigationController.class);
                 startActivity(intent);

@@ -16,12 +16,17 @@ public class ProductServiceImpl implements ProductService {
     private ProductDao productDao = new ProductDaoImpl();
 
     @Override
-    public List<ProductModel> findAllFromUserProfile(String json) {
-        return productDao.findAllFromUserProfile(json);
+    public List<ProductModel> findAll() {
+        return null;
     }
 
     @Override
-    public ProductInsertModel insertProduct(String json) {
+    public List<ProductModel> findByPartyId(String json) {
+        return productDao.findByPartyId(json);
+    }
+
+    @Override
+    public ProductModel insertProduct(String json) {
         return productDao.insertProduct(json);
     }
 }

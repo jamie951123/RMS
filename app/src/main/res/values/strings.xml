@@ -15,6 +15,7 @@
     <string name="previous">Previous</string>
     <string name="createReceivingOrder">Create Receiving Order</string>
     <string name="createQusetion">Create?</string>
+    <string name="insert_successful">Insert Successful</string>
     <!--Error-->
     <string name="missingField">Missing</string>
     <!--searchview-->

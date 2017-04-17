@@ -87,7 +87,7 @@ public class ReceivingIncrease extends AppCompatActivity implements View.OnClick
         common_partyId =  partyIdPreferences.getPreferences_PartyId().get("partyId");
         //HttpOK
         String combine_partyId = productCombine.combine_partyId(common_partyId);
-        List<ProductModel> allModel = productService.findAllFromUserProfile(combine_partyId);
+        List<ProductModel> allModel = productService.findByPartyId(combine_partyId);
         rlLastestmodel = modelConvert(allModel);
         rlAllmodel     = modelConvert(allModel);
         listviewLastestModel = new ArrayList<>();
@@ -151,7 +151,7 @@ public class ReceivingIncrease extends AppCompatActivity implements View.OnClick
         List<ReceivingItemModel> receivingItemModels = new ArrayList<>();
         for(ReceivingIncreaseModel item : listviewLastestModel ){
             ReceivingItemModel receivingItemModel = new ReceivingItemModel();
-            String productId           = item.getProductModel().getProductId();
+            Long productId           = item.getProductModel().getProductId();
             String itemCreateDate      = createDate;
             String itemReceivingDate   = receivingDate;
             BigDecimal itemGrossWeight = item.getGrossWeight();

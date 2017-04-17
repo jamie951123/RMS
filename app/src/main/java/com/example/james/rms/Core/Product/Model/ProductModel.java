@@ -1,20 +1,32 @@
 package com.example.james.rms.Core.Product.Model;
 
+import java.util.Date;
+
 /**
  * Created by james on 26/3/2017.
  */
 
 public class ProductModel {
-    String productId;
-    String productCode;
-    String productName;
-    String partyId;
-    String status;
-    String createDate;
-    String closeDate;
-    String remark;
-    String productDescriptionEN;
-    String productDescriptionCH;
+
+    private Long productId;
+
+    private String productCode;
+
+    private String productName;
+
+    private String partyId;
+
+    private String status;
+
+    private Date createDate;
+
+    private Date closeDate;
+
+    private String remark;
+
+    private String productDescriptionEN;
+
+    private String productDescriptionCH;
 
     public ProductModel getProductModel(){
         ProductModel items = new ProductModel();
@@ -31,28 +43,11 @@ public class ProductModel {
         return items;
     }
 
-
-    public String getProductDescriptionEN() {
-        return productDescriptionEN;
-    }
-
-    public void setProductDescriptionEN(String productDescriptionEN) {
-        this.productDescriptionEN = productDescriptionEN;
-    }
-
-    public String getProductDescriptionCH() {
-        return productDescriptionCH;
-    }
-
-    public void setProductDescriptionCH(String productDescriptionCH) {
-        this.productDescriptionCH = productDescriptionCH;
-    }
-
-    public String getProductId() {
+    public Long getProductId() {
         return productId;
     }
 
-    public void setProductId(String productId) {
+    public void setProductId(Long productId) {
         this.productId = productId;
     }
 
@@ -88,19 +83,19 @@ public class ProductModel {
         this.status = status;
     }
 
-    public String getCreateDate() {
+    public Date getCreateDate() {
         return createDate;
     }
 
-    public void setCreateDate(String createDate) {
+    public void setCreateDate(Date createDate) {
         this.createDate = createDate;
     }
 
-    public String getCloseDate() {
+    public Date getCloseDate() {
         return closeDate;
     }
 
-    public void setCloseDate(String closeDate) {
+    public void setCloseDate(Date closeDate) {
         this.closeDate = closeDate;
     }
 
@@ -110,5 +105,37 @@ public class ProductModel {
 
     public void setRemark(String remark) {
         this.remark = remark;
+    }
+
+    public String getProductDescriptionEN() {
+        return productDescriptionEN;
+    }
+
+    public void setProductDescriptionEN(String productDescriptionEN) {
+        this.productDescriptionEN = productDescriptionEN;
+    }
+
+    public String getProductDescriptionCH() {
+        return productDescriptionCH;
+    }
+
+    public void setProductDescriptionCH(String productDescriptionCH) {
+        this.productDescriptionCH = productDescriptionCH;
+    }
+
+    @Override
+    public String toString() {
+        return "ProductModel{" +
+                "productId=" + productId +
+                ", productCode='" + productCode + '\'' +
+                ", productName='" + productName + '\'' +
+                ", partyId='" + partyId + '\'' +
+                ", status='" + status + '\'' +
+                ", createDate=" + createDate +
+                ", closeDate=" + closeDate +
+                ", remark='" + remark + '\'' +
+                ", productDescriptionEN='" + productDescriptionEN + '\'' +
+                ", productDescriptionCH='" + productDescriptionCH + '\'' +
+                '}';
     }
 }

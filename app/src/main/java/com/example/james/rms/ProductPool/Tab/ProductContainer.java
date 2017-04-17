@@ -2,19 +2,14 @@ package com.example.james.rms.ProductPool.Tab;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.james.rms.CommonProfile.MyBaseFragment;
 import com.example.james.rms.Controller.MyViewPager;
-import com.example.james.rms.ProductPool.Tab.ProductAction;
 import com.example.james.rms.ProductPool.Adapter.ProductContainer_Adapter;
-import com.example.james.rms.ProductPool.Tab.ProductDetail;
 import com.example.james.rms.R;
-import com.example.james.rms.Receiving.Tab.Receiving_order;
 
 import java.util.ArrayList;
 import java.util.List;

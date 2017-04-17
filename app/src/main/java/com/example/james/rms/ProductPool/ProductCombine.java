@@ -2,6 +2,10 @@ package com.example.james.rms.ProductPool;
 
 import android.util.Log;
 
+import com.example.james.rms.CommonProfile.GsonUtil;
+import com.example.james.rms.Core.Product.Model.ProductModel;
+import com.google.gson.Gson;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -16,39 +20,36 @@ public class ProductCombine {
 
     public String combine_partyId(String partyId) {
         String result="";
-        JSONArray jsonArray = new JSONArray();
         JSONObject jsonObject = new JSONObject();
         try {
             jsonObject.put("partyId", partyId);
-            jsonArray.put(jsonObject);
-            result = jsonArray.toString();
+            result = jsonObject.toString();
         }catch (JSONException e){
 
         }
-        Log.v("asd" , "combine_partyId : " + result);
         return result;
     }
 
     public String combine_AddProduct(String productCode,String productName,
                                      String descriptionCN, String descriptionEN, String remark,
-                                     String createDate,String partyId){
+                                     Date createDate,String partyId){
         String result="";
-        JSONArray jsonArray = new JSONArray();
+        ProductModel productModel = new ProductModel();
+        productModel.setProductCode(productCode);
+        productModel.setProductName(productName);
+        productModel.setProductDescriptionCH(descriptionCN);
+        productModel.setProductDescriptionEN(descriptionEN);
+        productModel.setRemark(remark);
+        productModel.setCreateDate(createDate);
+        productModel.setPartyId(partyId);
         JSONObject jsonObject = new JSONObject();
         try {
             jsonObject.put("productCode",productCode);
-            jsonObject.put("productName",productName);
-            jsonObject.put("productDescriptionCH",descriptionCN);
-            jsonObject.put("productDescriptionEN",descriptionEN);
-            jsonObject.put("remark",remark);
-            jsonObject.put("createDate",createDate);;
-            jsonObject.put("partyId",partyId);
-            jsonArray.put(jsonObject);
-            result = jsonArray.toString();
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        Log.v("asd" , "combine_AddProduct : " + result);
+        Gson gson = GsonUtil.toJson();
+        result = gson.toJson(productModel);
         return result;
     }
 }

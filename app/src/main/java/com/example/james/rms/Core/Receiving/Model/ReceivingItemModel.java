@@ -8,8 +8,8 @@ import java.util.Date;
  */
 
 public class ReceivingItemModel {
-    private String receivingID;
-    private String productId;
+    private Long receivingID;
+    private Long productId;
     private String itemStatus;
     private String itemCreateDate;
     private String itemReceivingDate;
@@ -39,19 +39,19 @@ public class ReceivingItemModel {
                 '}';
     }
 
-    public String getReceivingID() {
+    public Long getReceivingID() {
         return receivingID;
     }
 
-    public void setReceivingID(String receivingID) {
+    public void setReceivingID(Long receivingID) {
         this.receivingID = receivingID;
     }
 
-    public String getProductId() {
+    public Long getProductId() {
         return productId;
     }
 
-    public void setProductId(String productId) {
+    public void setProductId(Long productId) {
         this.productId = productId;
     }
 
