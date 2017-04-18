@@ -9,7 +9,7 @@ import android.widget.ListView;
 import com.example.james.rms.CommonProfile.Graphics.GenericChat;
 import com.example.james.rms.CommonProfile.MyBaseFragment;
 import com.example.james.rms.CommonProfile.ObjectUtil;
-import com.example.james.rms.Core.Receiving.Model.V_ReceivingItemModel;
+import com.example.james.rms.Core.Receiving.Model.ReceivingItemModel;
 import com.example.james.rms.R;
 import com.example.james.rms.Receiving.Adapter.ReceivingItemListAdapter;
 import com.github.mikephil.charting.charts.HorizontalBarChart;
@@ -29,7 +29,7 @@ public class Receiving_item extends MyBaseFragment {
     @BindView(R.id.receivingItem_HorbarChart)
     HorizontalBarChart horizontalBarChart;
 
-    private List<V_ReceivingItemModel> VReceivingItemModelList;
+    private List<ReceivingItemModel> receivingItemModels;
     private ReceivingItemListAdapter receivingItemListAdapter;
 
     private float spaceForBar = 1f;
@@ -60,8 +60,8 @@ public class Receiving_item extends MyBaseFragment {
 
     @Override
     public void transferViewPager(int rid, List models) {
-        VReceivingItemModelList = new ArrayList<>(models);
-        receivingItemListAdapter = new ReceivingItemListAdapter(getActivity(), VReceivingItemModelList);
+        receivingItemModels = new ArrayList<>(models);
+        receivingItemListAdapter = new ReceivingItemListAdapter(getActivity(), receivingItemModels);
         listView.setAdapter(receivingItemListAdapter);
         listView.setDivider(null);
 
@@ -72,10 +72,10 @@ public class Receiving_item extends MyBaseFragment {
 
     public List<BarEntry> getCharDate(){
         List<BarEntry> barEntries = new ArrayList<>();
-        for(int i = 0; i< VReceivingItemModelList.size(); i++){
-            V_ReceivingItemModel VReceivingItemModel = VReceivingItemModelList.get(i);
+        for(int i = 0; i< receivingItemModels.size(); i++){
+            ReceivingItemModel receivingItemModel = receivingItemModels.get(i);
             BarEntry barEntry = new BarEntry (i*spaceForBar,
-                    VReceivingItemModel.getItemGrossWeight().intValueExact(), VReceivingItemModel.getProductCode());
+                    receivingItemModel.getItemGrossWeight().intValueExact(), receivingItemModel.getProductModel().getProductCode());
             barEntries.add(barEntry);
         }
         return barEntries;
@@ -83,9 +83,9 @@ public class Receiving_item extends MyBaseFragment {
 
     public List<String> getLabel(){
         List<String> theName = new ArrayList<>();
-        for(int i = 0; i< VReceivingItemModelList.size(); i++){
-            V_ReceivingItemModel VReceivingItemModel = VReceivingItemModelList.get(i);
-            theName.add(VReceivingItemModel.getProductCode());
+        for(int i = 0; i< receivingItemModels.size(); i++){
+            ReceivingItemModel receivingItemModel = receivingItemModels.get(i);
+            theName.add(receivingItemModel.getProductModel().getProductCode());
         }
         return theName;
     }

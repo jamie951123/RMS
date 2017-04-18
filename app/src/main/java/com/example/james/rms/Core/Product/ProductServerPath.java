@@ -1,6 +1,5 @@
 package com.example.james.rms.Core.Product;
 
-import com.example.james.rms.NetWork.PhpProfile;
 import com.example.james.rms.NetWork.ServeProfile;
 
 /**

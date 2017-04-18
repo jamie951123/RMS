@@ -111,19 +111,19 @@ public class ReceivingIncrease extends AppCompatActivity implements View.OnClick
         String createDate       = ObjectUtil.dateToString(new Date());
         String orderJson        = insertReceivingOrder(itemSize,receivingDate,createDate);
 //        Date receivingDate_date = ObjectUtil.stringToDate_onlyDate(receivingDate);
-        if(ObjectUtil.isNotNullEmpty(orderJson)){
-            ReceivingIncreaseService receivingIncreaseService = new ReceivingIncreaseServiceImpl();
-            receivingIncreaseService.insertIntoReceivingOrder(orderJson);
-            ReceivingCombine receivingCombine = new ReceivingCombine();
-            String partyIdAndCreateDateJSON = receivingCombine.combine_partyIdAndCreateDate(common_partyId,createDate);
-            List<ReceivingOrderModel> receivingOrderModel = receivingIncreaseService.findReceivingOrderByPartyIdAndCreateDate(partyIdAndCreateDateJSON);
-            String orderId = receivingOrderModel.get(0).getOrderId();
-            String itemJson = insertReceivingItem(receivingDate,orderId,createDate);
-            receivingIncreaseService.insertIntoReceivingItem(itemJson);
-
-            Log.d("asd","orderId :" +receivingOrderModel.get(0).getOrderId());
-            Log.d("asd","itemJson :" +itemJson);
-        }
+//        if(ObjectUtil.isNotNullEmpty(orderJson)){
+//            ReceivingIncreaseService receivingIncreaseService = new ReceivingIncreaseServiceImpl();
+//            receivingIncreaseService.insertIntoReceivingOrder(orderJson);
+//            ReceivingCombine receivingCombine = new ReceivingCombine();
+//            String partyIdAndCreateDateJSON = receivingCombine.combine_partyIdAndCreateDate(common_partyId,createDate);
+//            List<ReceivingOrderModel> receivingOrderModel = receivingIncreaseService.findReceivingOrderByPartyIdAndCreateDate(partyIdAndCreateDateJSON);
+//            String orderId = receivingOrderModel.get(0).getOrderId();
+//            String itemJson = insertReceivingItem(receivingDate,orderId,createDate);
+//            receivingIncreaseService.insertIntoReceivingItem(itemJson);
+//
+//            Log.d("asd","orderId :" +receivingOrderModel.get(0).getOrderId());
+//            Log.d("asd","itemJson :" +itemJson);
+//        }
         return super.onOptionsItemSelected(menuItem);
     }
 
@@ -146,37 +146,37 @@ public class ReceivingIncrease extends AppCompatActivity implements View.OnClick
 
     }
 
-    public String insertReceivingItem(String receivingDate,String rlOrderId,String createDate){
-        String json = null;
-        List<ReceivingItemModel> receivingItemModels = new ArrayList<>();
-        for(ReceivingIncreaseModel item : listviewLastestModel ){
-            ReceivingItemModel receivingItemModel = new ReceivingItemModel();
-            Long productId           = item.getProductModel().getProductId();
-            String itemCreateDate      = createDate;
-            String itemReceivingDate   = receivingDate;
-            BigDecimal itemGrossWeight = item.getGrossWeight();
-            String itemGrossWeightUnit = item.getGrossWeightUnit();
-            Integer itemQty            = item.getQty();
-            String itemQtyUnit         = item.getQtyUnit();
-            String itemRemark          = item.getRemark();
-            String partyId             = common_partyId;
-            String orderId             = rlOrderId;
-            receivingItemModel.setProductId(productId);
-            receivingItemModel.setItemCreateDate(itemCreateDate);
-            receivingItemModel.setItemReceivingDate(itemReceivingDate);
-            receivingItemModel.setItemGrossWeight(itemGrossWeight);
-            receivingItemModel.setItemGrossWeightUnit(itemGrossWeightUnit);
-            receivingItemModel.setItemQty(itemQty);
-            receivingItemModel.setItemQtyUnit(itemQtyUnit);
-            receivingItemModel.setItemRemark(itemRemark);
-            receivingItemModel.setPartyId(partyId);
-            receivingItemModel.setOrderId(orderId);
-            receivingItemModels.add(receivingItemModel);
-        }
-        ReceivingCombine receivingCombine = new ReceivingCombine();
-        json = receivingCombine.combine_AddReceivingItem(receivingItemModels);
-        return json;
-    }
+//    public String insertReceivingItem(Date receivingDate,Long rlOrderId,Date createDate){
+//        String json = null;
+//        List<ReceivingItemModel> receivingItemModels = new ArrayList<>();
+//        for(ReceivingIncreaseModel item : listviewLastestModel ){
+//            ReceivingItemModel receivingItemModel = new ReceivingItemModel();
+//            Long productId              = item.getProductModel().getProductId();
+//            Date itemCreateDate         = createDate;
+//            Date itemReceivingDate      = receivingDate;
+//            BigDecimal itemGrossWeight = item.getGrossWeight();
+//            String itemGrossWeightUnit = item.getGrossWeightUnit();
+//            Integer itemQty            = item.getQty();
+//            String itemQtyUnit         = item.getQtyUnit();
+//            String itemRemark          = item.getRemark();
+//            String partyId             = common_partyId;
+//            String orderId             = rlOrderId;
+//            receivingItemModel.setProductId(productId);
+//            receivingItemModel.setItemCreateDate(itemCreateDate);
+//            receivingItemModel.setItemReceivingDate(itemReceivingDate);
+//            receivingItemModel.setItemGrossWeight(itemGrossWeight);
+//            receivingItemModel.setItemGrossWeightUnit(itemGrossWeightUnit);
+//            receivingItemModel.setItemQty(itemQty);
+//            receivingItemModel.setItemQtyUnit(itemQtyUnit);
+//            receivingItemModel.setItemRemark(itemRemark);
+//            receivingItemModel.setPartyId(partyId);
+//            receivingItemModel.setOrderId(orderId);
+//            receivingItemModels.add(receivingItemModel);
+//        }
+//        ReceivingCombine receivingCombine = new ReceivingCombine();
+//        json = receivingCombine.combine_AddReceivingItem(receivingItemModels);
+//        return json;
+//    }
     public String insertReceivingOrder(int itemSize,String receivingDate,String createDate){
         String json = null;
         if(ObjectUtil.isNotNullEmpty(receivingDate) && ObjectUtil.isNotNullEmpty(common_partyId)) {

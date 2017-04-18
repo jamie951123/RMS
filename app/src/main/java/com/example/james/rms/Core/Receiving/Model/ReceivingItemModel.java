@@ -1,5 +1,7 @@
 package com.example.james.rms.Core.Receiving.Model;
 
+import com.example.james.rms.Core.Product.Model.ProductModel;
+
 import java.math.BigDecimal;
 import java.util.Date;
 
@@ -10,32 +12,34 @@ import java.util.Date;
 public class ReceivingItemModel {
     private Long receivingID;
     private Long productId;
+    private Long orderId;
     private String itemStatus;
-    private String itemCreateDate;
-    private String itemReceivingDate;
+    private Date itemCreateDate;
+    private Date itemReceivingDate;
     private BigDecimal itemGrossWeight;
     private String itemGrossWeightUnit;
     private Integer itemQty;
     private String itemQtyUnit;
     private String itemRemark;
     private String partyId;
-    private String orderId;
+    private ProductModel product;
 
     @Override
     public String toString() {
         return "ReceivingItemModel{" +
-                "receivingID='" + receivingID + '\'' +
-                ", productId='" + productId + '\'' +
+                "receivingID=" + receivingID +
+                ", productId=" + productId +
+                ", orderId=" + orderId +
                 ", itemStatus='" + itemStatus + '\'' +
-                ", itemCreateDate='" + itemCreateDate + '\'' +
-                ", itemReceivingDate='" + itemReceivingDate + '\'' +
+                ", itemCreateDate=" + itemCreateDate +
+                ", itemReceivingDate=" + itemReceivingDate +
                 ", itemGrossWeight=" + itemGrossWeight +
                 ", itemGrossWeightUnit='" + itemGrossWeightUnit + '\'' +
                 ", itemQty=" + itemQty +
                 ", itemQtyUnit='" + itemQtyUnit + '\'' +
                 ", itemRemark='" + itemRemark + '\'' +
                 ", partyId='" + partyId + '\'' +
-                ", orderId='" + orderId + '\'' +
+                ", productModel=" + product +
                 '}';
     }
 
@@ -55,6 +59,14 @@ public class ReceivingItemModel {
         this.productId = productId;
     }
 
+    public Long getOrderId() {
+        return orderId;
+    }
+
+    public void setOrderId(Long orderId) {
+        this.orderId = orderId;
+    }
+
     public String getItemStatus() {
         return itemStatus;
     }
@@ -63,19 +75,19 @@ public class ReceivingItemModel {
         this.itemStatus = itemStatus;
     }
 
-    public String getItemCreateDate() {
+    public Date getItemCreateDate() {
         return itemCreateDate;
     }
 
-    public void setItemCreateDate(String itemCreateDate) {
+    public void setItemCreateDate(Date itemCreateDate) {
         this.itemCreateDate = itemCreateDate;
     }
 
-    public String getItemReceivingDate() {
+    public Date getItemReceivingDate() {
         return itemReceivingDate;
     }
 
-    public void setItemReceivingDate(String itemReceivingDate) {
+    public void setItemReceivingDate(Date itemReceivingDate) {
         this.itemReceivingDate = itemReceivingDate;
     }
 
@@ -127,11 +139,11 @@ public class ReceivingItemModel {
         this.partyId = partyId;
     }
 
-    public String getOrderId() {
-        return orderId;
+    public ProductModel getProductModel() {
+        return product;
     }
 
-    public void setOrderId(String orderId) {
-        this.orderId = orderId;
+    public void setProductModel(ProductModel product) {
+        this.product = product;
     }
 }

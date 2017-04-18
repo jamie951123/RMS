@@ -15,8 +15,19 @@ public class ServeProfile {
     final static String product_findByPartyId                     = "/rms/product/findByPartyId";
     final static String product_insert                             = "/rms/product/insertProduct";
     //Receiving
+    final static String orderFindByPartyId                        = "rms/receiving/order/findByPartyId";
+    final static String itemFindByPartyId                        = "rms/receiving/item/findByPartyId";
+    final static String insertReceivingOrder                               = "rms/receiving/order/insertReceivingOrder";
+    final static String insertReceivingItem                               = "rms/receiving/item/insertReceivingItem";
 
 
+    public static String getInsertReceivingOrder() {
+        return insertReceivingOrder;
+    }
+
+    public static String getInsertReceivingItem() {
+        return insertReceivingItem;
+    }
     public static String getProduct_findAll() {
         return product_findAll;
     }
@@ -43,5 +54,13 @@ public class ServeProfile {
 
     public static String getProduct_insert() {
         return product_insert;
+    }
+
+    public static String getOrderFindByPartyId() {
+        return orderFindByPartyId;
+    }
+
+    public static String getItemFindByPartyId() {
+        return itemFindByPartyId;
     }
 }

@@ -96,10 +96,12 @@ public class ProductIncrease extends AppCompatActivity implements View.OnClickLi
                 ProductModel productModel = productService.insertProduct(result);
                 if(productModel != null) {
                     Toast.makeText(this,R.string.insert_successful,Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent();
+                    intent = intent.setClass(this, NavigationController.class);
+                    startActivity(intent);
+                    break;
                 }
-                Intent intent = new Intent();
-                intent = intent.setClass(this, NavigationController.class);
-                startActivity(intent);
+                Toast.makeText(this,R.string.insert_fail,Toast.LENGTH_SHORT).show();
         }
     }
 

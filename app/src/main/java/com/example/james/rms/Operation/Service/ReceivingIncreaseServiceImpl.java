@@ -16,7 +16,8 @@ public class ReceivingIncreaseServiceImpl implements ReceivingIncreaseService {
 
     @Override
     public List<ReceivingOrderModel> findReceivingOrderByPartyIdAndCreateDate(String json) {
-        return receivingDao.findReceivingOrderByPartyIdAndCreateDate(json);
+//        return receivingDao.findReceivingOrderByPartyIdAndCreateDate(json);
+        return null;
     }
 
     @Override

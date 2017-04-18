@@ -2,9 +2,8 @@ package com.example.james.rms.Receiving.Service;
 
 import com.example.james.rms.Core.Receiving.Dao.ReceivingDao;
 import com.example.james.rms.Core.Receiving.Dao.ReceivingDaoImpl;
-import com.example.james.rms.Core.Receiving.Model.V_ReceivingItemModel;
+import com.example.james.rms.Core.Receiving.Model.ReceivingItemModel;
 import com.example.james.rms.Core.Receiving.Model.ReceivingOrderModel;
-
 
 import java.util.List;
 
@@ -15,7 +14,7 @@ import java.util.List;
 public class ReceivingServiceImpl implements ReceivingService {
     ReceivingDao receivingDao = new ReceivingDaoImpl();
     @Override
-    public List<V_ReceivingItemModel> findReceivingItemByPartyId(String json) {
+    public List<ReceivingItemModel> findReceivingItemByPartyId(String json) {
         return receivingDao.findReceivingItemByPartyId(json);
     }
 

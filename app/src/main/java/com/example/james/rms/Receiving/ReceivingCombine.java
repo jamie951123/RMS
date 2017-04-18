@@ -1,11 +1,10 @@
 package com.example.james.rms.Receiving;
 
-import android.content.Intent;
-
-import com.example.james.rms.CommonProfile.ObjectUtil;
+import com.example.james.rms.CommonProfile.GsonUtil;
 import com.example.james.rms.Core.Receiving.Model.ReceivingItemModel;
 import com.example.james.rms.Core.Receiving.Model.ReceivingOrderModel;
-import com.example.james.rms.Operation.Model.ReceivingIncreaseModel;
+import com.example.james.rms.Core.SearchObject.ReceivingSearchObject;
+import com.google.gson.Gson;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -22,15 +21,14 @@ import java.util.List;
 public class ReceivingCombine {
 
     public String combine_partyId(String partyId) {
+        ReceivingSearchObject receivingSearchObject = new ReceivingSearchObject();
+        receivingSearchObject.setPartyId(partyId);
         String result="";
-        JSONArray jsonArray = new JSONArray();
-        JSONObject jsonObject = new JSONObject();
-        try {
-            jsonObject.put("partyId", partyId);
-            jsonArray.put(jsonObject);
-            result = jsonArray.toString();
-        }catch (JSONException e){
-
+        try{
+            Gson gson = GsonUtil.toJson();
+            result = gson.toJson(receivingSearchObject);
+        }catch (Exception e){
+            e.printStackTrace();
         }
         return result;
     }
@@ -83,17 +81,17 @@ public class ReceivingCombine {
         JSONArray jsonArray = new JSONArray();
         for (ReceivingItemModel item : receivingItemModel) {
             JSONObject jsonObject           = new JSONObject();
-            Long productId                = item.getProductId();
+            Long productId                  = item.getProductId();
             String itemStatus               = item.getItemStatus();
-            String itemCreateDate           = item.getItemCreateDate();
-            String itemReceivingDate        = item.getItemReceivingDate();
+            Date itemCreateDate             = item.getItemCreateDate();
+            Date itemReceivingDate          = item.getItemReceivingDate();
             BigDecimal itemGrossWeight      = item.getItemGrossWeight();
             String itemGrossWeightUnit      = item.getItemGrossWeightUnit();
-            Integer itemQty = item.getItemQty();
-            String itemQtyUnit = item.getItemQtyUnit();
-            String itemRemark = item.getItemRemark();
-            String partyId = item.getPartyId();
-            String orderId = item.getOrderId();
+            Integer itemQty                 = item.getItemQty();
+            String itemQtyUnit              = item.getItemQtyUnit();
+            String itemRemark               = item.getItemRemark();
+            String partyId                  = item.getPartyId();
+            Long orderId                    = item.getOrderId();
             try {
                 jsonObject.put("productId", productId);
                 jsonObject.put("status", itemStatus);

@@ -1,22 +1,19 @@
 package com.example.james.rms.Receiving.Tab;
 
 import android.os.Bundle;
-import android.support.v4.view.GravityCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
-import com.example.james.rms.CommonProfile.DialogBox.ClassicDialog;
 import com.example.james.rms.CommonProfile.MyBaseFragment;
 import com.example.james.rms.CommonProfile.ObjectType;
 import com.example.james.rms.CommonProfile.ObjectUtil;
 import com.example.james.rms.CommonProfile.SharePreferences.PartyIdPreferences;
 import com.example.james.rms.Controller.NavigationController;
-import com.example.james.rms.Core.Receiving.Model.V_ReceivingItemModel;
+import com.example.james.rms.Core.Receiving.Model.ReceivingItemModel;
 import com.example.james.rms.Core.Receiving.Model.ReceivingOrderModel;
-import com.example.james.rms.Core.Receiving.ReceivingPHPPath;
 import com.example.james.rms.ITF.ViewPagerListener;
 import com.example.james.rms.R;
 import com.example.james.rms.Receiving.Adapter.ReceivingOrderListAdapter;
@@ -43,7 +40,7 @@ public class Receiving_order extends MyBaseFragment implements AdapterView.OnIte
 
     //Result
     List<ReceivingOrderModel> receivingOrderModels;
-    List<V_ReceivingItemModel> VReceivingItemModels;
+    List<ReceivingItemModel> receivingItemModels;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -52,22 +49,20 @@ public class Receiving_order extends MyBaseFragment implements AdapterView.OnIte
         //Preferences
         PartyIdPreferences partyIdPreferences = new PartyIdPreferences(getActivity(),"loginInformation",getActivity().MODE_PRIVATE);
         String partyId =  partyIdPreferences.getPreferences_PartyId().get("partyId");
-        //url
-        String url_findReceivingOrder = ReceivingPHPPath.findReceivingOrderByPartyId();
-        String url_findReceivingItem = ReceivingPHPPath.findReceivingItemByPartyId();
         //partyId
         String combine_partyId = receivingCombine.combine_partyId(partyId);
 
         //HttpOK
         receivingOrderModels = receivingService.findReceivingOrderByPartyId(combine_partyId);
-        VReceivingItemModels = receivingService.findReceivingItemByPartyId(combine_partyId);
+        receivingItemModels = receivingService.findReceivingItemByPartyId(combine_partyId);
 
         //listView
-        receivingOrderListAdapter = new ReceivingOrderListAdapter(getActivity(),receivingOrderModels);
-        listView.setAdapter(receivingOrderListAdapter);
-        listView.setOnItemClickListener(this);
-        listView.setDivider(null);
-
+        if(receivingOrderModels != null) {
+            receivingOrderListAdapter = new ReceivingOrderListAdapter(getActivity(), receivingOrderModels);
+            listView.setAdapter(receivingOrderListAdapter);
+            listView.setOnItemClickListener(this);
+            listView.setDivider(null);
+        }
         return rootView;
     }
     @Override
@@ -75,9 +70,9 @@ public class Receiving_order extends MyBaseFragment implements AdapterView.OnIte
         Long order_orderId = ObjectType.stringToLong(receivingOrderModels.get(position).getOrderId());
         if(order_orderId ==null) return;
 
-        List<V_ReceivingItemModel> itemModels = new ArrayList<>();
-        for(V_ReceivingItemModel items : VReceivingItemModels){
-            Long item_orderId = ObjectType.stringToLong(items.getOrderId());;
+        List<ReceivingItemModel> itemModels = new ArrayList<>();
+        for(ReceivingItemModel items : receivingItemModels){
+            Long item_orderId = items.getOrderId();
             if(order_orderId.equals(item_orderId))itemModels.add(items);
         }
 

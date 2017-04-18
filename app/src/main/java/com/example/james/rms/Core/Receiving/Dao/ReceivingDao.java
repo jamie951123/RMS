@@ -1,6 +1,6 @@
 package com.example.james.rms.Core.Receiving.Dao;
 
-import com.example.james.rms.Core.Receiving.Model.V_ReceivingItemModel;
+import com.example.james.rms.Core.Receiving.Model.ReceivingItemModel;
 import com.example.james.rms.Core.Receiving.Model.ReceivingOrderModel;
 
 import java.util.List;
@@ -10,11 +10,12 @@ import java.util.List;
  */
 
 public interface ReceivingDao {
-    List<V_ReceivingItemModel> findReceivingItemByPartyId(String json);
 
     List<ReceivingOrderModel> findReceivingOrderByPartyId(String json);
 
-    List<ReceivingOrderModel> findReceivingOrderByPartyIdAndCreateDate(String json);
+//    List<ReceivingOrderModel> findReceivingOrderByPartyIdAndCreateDate(String json);
+
+    List<ReceivingItemModel> findReceivingItemByPartyId(String json);
 
     String insertIntoReceivingOrder(String json);
 

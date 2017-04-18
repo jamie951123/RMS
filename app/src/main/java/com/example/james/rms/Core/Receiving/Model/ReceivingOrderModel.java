@@ -1,5 +1,7 @@
 package com.example.james.rms.Core.Receiving.Model;
 
+import com.example.james.rms.Core.Product.Model.ProductModel;
+
 /**
  * Created by james on 26/3/2017.
  */
@@ -111,5 +113,6 @@ public class ReceivingOrderModel {
     public void setItemQty(Integer itemQty) {
         this.itemQty = itemQty;
     }
+
 }
 

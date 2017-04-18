@@ -1,12 +1,10 @@
 package com.example.james.rms.ProductPool;
 
-import android.util.Log;
-
 import com.example.james.rms.CommonProfile.GsonUtil;
 import com.example.james.rms.Core.Product.Model.ProductModel;
+import com.example.james.rms.Core.SearchObject.ProductSearchObject;
 import com.google.gson.Gson;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -19,13 +17,14 @@ import java.util.Date;
 public class ProductCombine {
 
     public String combine_partyId(String partyId) {
+        ProductSearchObject productSearchObject = new ProductSearchObject();
+        productSearchObject.setPartyId(partyId);
         String result="";
-        JSONObject jsonObject = new JSONObject();
-        try {
-            jsonObject.put("partyId", partyId);
-            result = jsonObject.toString();
-        }catch (JSONException e){
-
+        try{
+            Gson gson = GsonUtil.toJson();
+            result = gson.toJson(productSearchObject);
+        }catch (Exception e){
+            e.printStackTrace();
         }
         return result;
     }
