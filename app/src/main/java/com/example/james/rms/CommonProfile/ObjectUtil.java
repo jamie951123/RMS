@@ -27,6 +27,13 @@ public class ObjectUtil {
         return result;
     }
 
+    public static  String longToString(Long data){
+        String result = "";
+        if(data != null){
+            result = data.toString();
+        }
+        return result;
+    }
     public static boolean isLongValue(String data){
         boolean result = true;
         if(!data.matches("\\d+(?:\\.\\d+)?")) {

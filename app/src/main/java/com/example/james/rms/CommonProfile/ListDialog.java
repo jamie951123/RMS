@@ -1,10 +1,9 @@
 package com.example.james.rms.CommonProfile;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.support.v7.app.AlertDialog;
 
-import com.example.james.rms.Core.Product.Model.ProductModel;
+import com.example.james.rms.Core.Model.ProductModel;
 
 import java.util.List;
 

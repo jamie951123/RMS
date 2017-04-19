@@ -9,7 +9,7 @@ import android.widget.ListView;
 import com.example.james.rms.CommonProfile.Graphics.GenericChat;
 import com.example.james.rms.CommonProfile.MyBaseFragment;
 import com.example.james.rms.CommonProfile.ObjectUtil;
-import com.example.james.rms.Core.Receiving.Model.ReceivingItemModel;
+import com.example.james.rms.Core.Model.ReceivingItemModel;
 import com.example.james.rms.R;
 import com.example.james.rms.Receiving.Adapter.ReceivingItemListAdapter;
 import com.github.mikephil.charting.charts.HorizontalBarChart;

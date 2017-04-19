@@ -1,19 +1,19 @@
-package com.example.james.rms.Core.Receiving.Model;
+package com.example.james.rms.Core.Model;
 
-import com.example.james.rms.Core.Product.Model.ProductModel;
+import java.util.Date;
 
 /**
  * Created by james on 26/3/2017.
  */
 
 public class ReceivingOrderModel {
-    private String orderId;
+    private Long orderId;
     private String partyId;
-    private String receivingDate;
+    private Date receivingDate;
     private String remark;
     private String status;
-    private String createDate;
-    private String closeDate;
+    private Date createDate;
+    private Date closeDate;
     private Integer actualQty;
     private Integer estimateQty;
     private Integer itemQty;
@@ -21,24 +21,24 @@ public class ReceivingOrderModel {
     @Override
     public String toString() {
         return "ReceivingOrderModel{" +
-                "orderId='" + orderId + '\'' +
-                ", partyId='" + partyId + '\'' +
-                ", receivingDate='" + receivingDate + '\'' +
+                "orderId=" + orderId +
+                ", partyId=" + partyId +
+                ", receivingDate=" + receivingDate +
                 ", remark='" + remark + '\'' +
                 ", status='" + status + '\'' +
-                ", createDate='" + createDate + '\'' +
-                ", closeDate='" + closeDate + '\'' +
+                ", createDate=" + createDate +
+                ", closeDate=" + closeDate +
                 ", actualQty=" + actualQty +
                 ", estimateQty=" + estimateQty +
                 ", itemQty=" + itemQty +
                 '}';
     }
 
-    public String getOrderId() {
+    public Long getOrderId() {
         return orderId;
     }
 
-    public void setOrderId(String orderId) {
+    public void setOrderId(Long orderId) {
         this.orderId = orderId;
     }
 
@@ -50,11 +50,11 @@ public class ReceivingOrderModel {
         this.partyId = partyId;
     }
 
-    public String getReceivingDate() {
+    public Date getReceivingDate() {
         return receivingDate;
     }
 
-    public void setReceivingDate(String receivingDate) {
+    public void setReceivingDate(Date receivingDate) {
         this.receivingDate = receivingDate;
     }
 
@@ -74,19 +74,19 @@ public class ReceivingOrderModel {
         this.status = status;
     }
 
-    public String getCreateDate() {
+    public Date getCreateDate() {
         return createDate;
     }
 
-    public void setCreateDate(String createDate) {
+    public void setCreateDate(Date createDate) {
         this.createDate = createDate;
     }
 
-    public String getCloseDate() {
+    public Date getCloseDate() {
         return closeDate;
     }
 
-    public void setCloseDate(String closeDate) {
+    public void setCloseDate(Date closeDate) {
         this.closeDate = closeDate;
     }
 
@@ -113,6 +113,5 @@ public class ReceivingOrderModel {
     public void setItemQty(Integer itemQty) {
         this.itemQty = itemQty;
     }
-
 }
 

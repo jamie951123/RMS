@@ -1,8 +1,8 @@
 package com.example.james.rms.Receiving.Service;
 
 
-import com.example.james.rms.Core.Receiving.Model.ReceivingItemModel;
-import com.example.james.rms.Core.Receiving.Model.ReceivingOrderModel;
+import com.example.james.rms.Core.Model.ReceivingItemModel;
+import com.example.james.rms.Core.Model.ReceivingOrderModel;
 
 import java.util.List;
 

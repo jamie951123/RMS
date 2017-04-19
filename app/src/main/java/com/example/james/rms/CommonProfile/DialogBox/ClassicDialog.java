@@ -1,16 +1,11 @@
 package com.example.james.rms.CommonProfile.DialogBox;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
-import android.view.View;
-import android.widget.Toast;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
-import com.example.james.rms.Controller.NavigationController;
-import com.example.james.rms.Core.Product.Model.ProductModel;
 import com.example.james.rms.Operation.OperationContainer;
 import com.example.james.rms.R;
 

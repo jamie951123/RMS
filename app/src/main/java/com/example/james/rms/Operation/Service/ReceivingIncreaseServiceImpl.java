@@ -1,9 +1,11 @@
 package com.example.james.rms.Operation.Service;
 
 
-import com.example.james.rms.Core.Receiving.Dao.ReceivingDao;
-import com.example.james.rms.Core.Receiving.Dao.ReceivingDaoImpl;
-import com.example.james.rms.Core.Receiving.Model.ReceivingOrderModel;
+import com.example.james.rms.Core.Model.ReceivingOrderAndItemContainer;
+import com.example.james.rms.Core.Dao.ReceivingDao;
+import com.example.james.rms.Core.Dao.ReceivingDaoImpl;
+import com.example.james.rms.Core.Model.ReceivingItemModel;
+import com.example.james.rms.Core.Model.ReceivingOrderModel;
 
 import java.util.List;
 
@@ -21,12 +23,18 @@ public class ReceivingIncreaseServiceImpl implements ReceivingIncreaseService {
     }
 
     @Override
-    public String insertIntoReceivingOrder(String json) {
+    public ReceivingOrderModel insertIntoReceivingOrder(String json) {
         return receivingDao.insertIntoReceivingOrder(json);
     }
 
     @Override
-    public String insertIntoReceivingItem(String json) {
+    public List<ReceivingItemModel> insertIntoReceivingItem(String json) {
         return receivingDao.insertIntoReceivingItem(json);
     }
+
+    @Override
+    public List<ReceivingOrderAndItemContainer> saveOrderAndItem(String json) {
+        return receivingDao.saveOrderAndItem(json);
+    }
+
 }

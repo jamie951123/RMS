@@ -8,7 +8,7 @@ import android.widget.TextView;
 
 import com.example.james.rms.CommonProfile.MyBaseAdapter;
 import com.example.james.rms.CommonProfile.ObjectUtil;
-import com.example.james.rms.Core.Receiving.Model.ReceivingItemModel;
+import com.example.james.rms.Core.Model.ReceivingItemModel;
 import com.example.james.rms.R;
 
 import java.util.List;

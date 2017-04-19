@@ -1,6 +1,5 @@
 package com.example.james.rms.Operation.ReceivingAction;
 
-import com.example.james.rms.Core.Product.Model.ProductModel;
 import com.example.james.rms.Operation.Model.ReceivingIncreaseModel;
 
 import java.util.HashMap;

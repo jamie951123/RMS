@@ -1,7 +1,7 @@
 package com.example.james.rms.ProductPool;
 
 import com.example.james.rms.CommonProfile.GsonUtil;
-import com.example.james.rms.Core.Product.Model.ProductModel;
+import com.example.james.rms.Core.Model.ProductModel;
 import com.example.james.rms.Core.SearchObject.ProductSearchObject;
 import com.google.gson.Gson;
 

@@ -1,6 +1,6 @@
 package com.example.james.rms.Operation.Model;
 
-import com.example.james.rms.Core.Product.Model.ProductModel;
+import com.example.james.rms.Core.Model.ProductModel;
 
 import java.math.BigDecimal;
 

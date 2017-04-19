@@ -8,12 +8,11 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.example.james.rms.CommonProfile.MyBaseFragment;
-import com.example.james.rms.CommonProfile.ObjectType;
 import com.example.james.rms.CommonProfile.ObjectUtil;
 import com.example.james.rms.CommonProfile.SharePreferences.PartyIdPreferences;
 import com.example.james.rms.Controller.NavigationController;
-import com.example.james.rms.Core.Receiving.Model.ReceivingItemModel;
-import com.example.james.rms.Core.Receiving.Model.ReceivingOrderModel;
+import com.example.james.rms.Core.Model.ReceivingItemModel;
+import com.example.james.rms.Core.Model.ReceivingOrderModel;
 import com.example.james.rms.ITF.ViewPagerListener;
 import com.example.james.rms.R;
 import com.example.james.rms.Receiving.Adapter.ReceivingOrderListAdapter;
@@ -67,7 +66,7 @@ public class Receiving_order extends MyBaseFragment implements AdapterView.OnIte
     }
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        Long order_orderId = ObjectType.stringToLong(receivingOrderModels.get(position).getOrderId());
+        Long order_orderId = receivingOrderModels.get(position).getOrderId();
         if(order_orderId ==null) return;
 
         List<ReceivingItemModel> itemModels = new ArrayList<>();

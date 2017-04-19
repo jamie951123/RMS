@@ -1,9 +1,8 @@
 package com.example.james.rms.ProductPool.Service;
 
-import com.example.james.rms.Core.Product.Dao.ProductDao;
-import com.example.james.rms.Core.Product.Dao.ProductDaoImpl;
-import com.example.james.rms.Core.Product.Model.ProductInsertModel;
-import com.example.james.rms.Core.Product.Model.ProductModel;
+import com.example.james.rms.Core.Dao.ProductDao;
+import com.example.james.rms.Core.Dao.ProductDaoImpl;
+import com.example.james.rms.Core.Model.ProductModel;
 
 import java.util.List;
 

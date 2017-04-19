@@ -1,4 +1,4 @@
-package com.example.james.rms.Core.Receiving;
+package com.example.james.rms.Core.ServePath;
 
 import com.example.james.rms.NetWork.ServeProfile;
 
@@ -35,6 +35,12 @@ public class ReceivingServePath {
         return serve_path;
     }
 
+    public static String saveOrderAndItem(){
+        String serve = ServeProfile.getServe();
+        String path = ServeProfile.getSaveOrderAndItem();
+        String serve_path = serve+path;
+        return serve_path;
+    }
 //    public static String findOrderIdByPartyIdAndCreateDate(){
 //        String serve = PhpProfile.getServe();
 //        String path = PhpProfile.getFindReceivingOrderByPartyIdAndCreateDate();

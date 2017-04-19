@@ -8,7 +8,7 @@ import android.widget.TextView;
 
 import com.example.james.rms.CommonProfile.MyBaseAdapter;
 import com.example.james.rms.CommonProfile.ObjectUtil;
-import com.example.james.rms.Core.Receiving.Model.ReceivingOrderModel;
+import com.example.james.rms.Core.Model.ReceivingOrderModel;
 import com.example.james.rms.R;
 
 import java.util.List;
@@ -36,11 +36,11 @@ public class ReceivingOrderListAdapter extends MyBaseAdapter<ReceivingOrderModel
             viewHolder = new ViewHolder(convertView);
             convertView.setTag(viewHolder);
         }
-        viewHolder.receivingOrder_orderId.setText(getItem(position).getOrderId());
+        viewHolder.receivingOrder_orderId.setText(ObjectUtil.longToString(getItem(position).getOrderId()));
         viewHolder.receivingOrder_status.setText(getItem(position).getStatus());
-        viewHolder.receivingOrder_date.setText(getItem(position).getReceivingDate());
-        viewHolder.receivingOrder_createDate.setText(getItem(position).getCreateDate());
-        viewHolder.receivingOrder_closeDate.setText(getItem(position).getCloseDate());
+        viewHolder.receivingOrder_date.setText(ObjectUtil.dateToString(getItem(position).getReceivingDate()));
+        viewHolder.receivingOrder_createDate.setText(ObjectUtil.dateToString(getItem(position).getCreateDate()));
+        viewHolder.receivingOrder_closeDate.setText(ObjectUtil.dateToString(getItem(position).getCloseDate()));
         viewHolder.receivingOrder_remark.setText(getItem(position).getRemark());
         viewHolder.receivingOrder_actualQty.setText(ObjectUtil.intToString(getItem(position).getActualQty()));
         viewHolder.receivingOrder_estimateQty.setText(ObjectUtil.intToString(getItem(position).getEstimateQty()));

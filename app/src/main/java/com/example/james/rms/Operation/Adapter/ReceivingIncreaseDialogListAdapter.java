@@ -7,7 +7,6 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.james.rms.CommonProfile.MyBaseAdapter;
-import com.example.james.rms.Core.Product.Model.ProductModel;
 import com.example.james.rms.Operation.Model.ReceivingIncreaseModel;
 import com.example.james.rms.R;
 

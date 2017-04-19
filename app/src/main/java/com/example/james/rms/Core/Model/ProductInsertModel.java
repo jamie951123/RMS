@@ -1,4 +1,4 @@
-package com.example.james.rms.Core.Product.Model;
+package com.example.james.rms.Core.Model;
 
 import java.util.List;
 

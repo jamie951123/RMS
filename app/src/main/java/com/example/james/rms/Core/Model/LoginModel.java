@@ -1,4 +1,4 @@
-package com.example.james.rms.Core.UserProfile.Model;
+package com.example.james.rms.Core.Model;
 
 
 

@@ -1,7 +1,6 @@
-package com.example.james.rms.Core.Product.Dao;
+package com.example.james.rms.Core.Dao;
 
-import com.example.james.rms.Core.Product.Model.ProductInsertModel;
-import com.example.james.rms.Core.Product.Model.ProductModel;
+import com.example.james.rms.Core.Model.ProductModel;
 
 import java.util.List;
 

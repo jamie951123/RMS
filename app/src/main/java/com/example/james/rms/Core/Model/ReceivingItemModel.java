@@ -1,6 +1,6 @@
-package com.example.james.rms.Core.Receiving.Model;
+package com.example.james.rms.Core.Model;
 
-import com.example.james.rms.Core.Product.Model.ProductModel;
+import com.example.james.rms.Core.Model.ProductModel;
 
 import java.math.BigDecimal;
 import java.util.Date;

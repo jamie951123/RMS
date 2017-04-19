@@ -1,8 +1,8 @@
 package com.example.james.rms.Receiving;
 
 import com.example.james.rms.CommonProfile.GsonUtil;
-import com.example.james.rms.Core.Receiving.Model.ReceivingItemModel;
-import com.example.james.rms.Core.Receiving.Model.ReceivingOrderModel;
+import com.example.james.rms.Core.Model.ReceivingItemModel;
+import com.example.james.rms.Core.Model.ReceivingOrderModel;
 import com.example.james.rms.Core.SearchObject.ReceivingSearchObject;
 import com.google.gson.Gson;
 
@@ -48,32 +48,15 @@ public class ReceivingCombine {
         return result;
     }
     public String combine_AddReceivingOrder(ReceivingOrderModel receivingOrderModel){
-        String partyId        = receivingOrderModel.getPartyId();
-        String receivingDate  = receivingOrderModel.getReceivingDate();
-        String createDate     = receivingOrderModel.getCreateDate();
-        String remark         = receivingOrderModel.getRemark();
-        String status         = receivingOrderModel.getStatus();
-        Integer actualQty     = receivingOrderModel.getActualQty();
-        Integer estimateQty   = receivingOrderModel.getEstimateQty();
-        Integer itemQty       = receivingOrderModel.getItemQty();
-        String result="";
-        JSONArray jsonArray = new JSONArray();
-        JSONObject jsonObject = new JSONObject();
+       String json = null;
         try {
-            jsonObject.put("partyId", partyId);
-            jsonObject.put("receivingDate", receivingDate);
-            jsonObject.put("createDate", createDate);
-            jsonObject.put("remark", remark);
-            jsonObject.put("status", status);
-            jsonObject.put("actualQty", actualQty);
-            jsonObject.put("estimateQty", estimateQty);
-            jsonObject.put("itemQty", itemQty);
-            jsonArray.put(jsonObject);
-            result = jsonArray.toString();
-        }catch (JSONException e){
-
+           Gson gson = GsonUtil.toJson();
+            json = gson.toJson(receivingOrderModel) ;
+        }catch (Exception e){
+            e.printStackTrace();
         }
-        return result;
+
+        return json;
     }
 
     public String combine_AddReceivingItem(List<ReceivingItemModel> receivingItemModel) {

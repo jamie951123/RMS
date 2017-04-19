@@ -1,6 +1,5 @@
 package com.example.james.rms.ProductPool.Tab;
 
-import android.content.Intent;
 import android.os.Bundle;
 
 import android.view.LayoutInflater;
@@ -12,9 +11,7 @@ import android.widget.ListView;
 import com.example.james.rms.CommonProfile.MyBaseFragment;
 import com.example.james.rms.CommonProfile.ObjectUtil;
 import com.example.james.rms.CommonProfile.SharePreferences.PartyIdPreferences;
-import com.example.james.rms.Core.Product.Dao.ProductDao;
-import com.example.james.rms.Core.Product.Dao.ProductDaoImpl;
-import com.example.james.rms.Core.Product.Model.ProductModel;
+import com.example.james.rms.Core.Model.ProductModel;
 import com.example.james.rms.ProductPool.Adapter.ProductListAdapter;
 import com.example.james.rms.ProductPool.ProductCombine;
 import com.example.james.rms.ProductPool.Service.ProductService;

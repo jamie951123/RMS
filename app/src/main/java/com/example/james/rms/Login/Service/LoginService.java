@@ -1,7 +1,7 @@
 package com.example.james.rms.Login.Service;
 
-import com.example.james.rms.Core.UserProfile.Model.LoginModel;
-import com.example.james.rms.Core.UserProfile.Model.UserProfile;
+import com.example.james.rms.Core.Model.LoginModel;
+import com.example.james.rms.Core.Model.UserProfile;
 
 import java.util.List;
 

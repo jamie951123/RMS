@@ -17,9 +17,13 @@ public class ServeProfile {
     //Receiving
     final static String orderFindByPartyId                        = "rms/receiving/order/findByPartyId";
     final static String itemFindByPartyId                        = "rms/receiving/item/findByPartyId";
-    final static String insertReceivingOrder                               = "rms/receiving/order/insertReceivingOrder";
-    final static String insertReceivingItem                               = "rms/receiving/item/insertReceivingItem";
+    final static String insertReceivingOrder                         = "rms/receiving/order/insertReceivingOrder";
+    final static String insertReceivingItem                          = "rms/receiving/item/insertReceivingItem";
+    final static String saveOrderAndItem                           = "rms/receiving/orderitem/saveOrderAndItem";
 
+    public static String getSaveOrderAndItem() {
+        return saveOrderAndItem;
+    }
 
     public static String getInsertReceivingOrder() {
         return insertReceivingOrder;

@@ -1,4 +1,4 @@
-package com.example.james.rms.Core.UserProfile;
+package com.example.james.rms.Core.ServePath;
 
 import com.example.james.rms.NetWork.ServeProfile;
 

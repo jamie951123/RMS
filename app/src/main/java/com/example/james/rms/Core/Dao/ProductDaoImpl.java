@@ -1,11 +1,10 @@
-package com.example.james.rms.Core.Product.Dao;
+package com.example.james.rms.Core.Dao;
 
 import android.util.Log;
 
 import com.example.james.rms.CommonProfile.GsonUtil;
-import com.example.james.rms.Core.Product.Model.ProductInsertModel;
-import com.example.james.rms.Core.Product.Model.ProductModel;
-import com.example.james.rms.Core.Product.ProductServerPath;
+import com.example.james.rms.Core.Model.ProductModel;
+import com.example.james.rms.Core.ServePath.ProductServerPath;
 import com.example.james.rms.NetWork.HttpGetAsync;
 import com.example.james.rms.NetWork.HttpPostAsync;
 import com.google.gson.Gson;

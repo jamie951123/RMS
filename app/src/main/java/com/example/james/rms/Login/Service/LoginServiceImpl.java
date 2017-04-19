@@ -1,10 +1,10 @@
 package com.example.james.rms.Login.Service;
 
-import com.example.james.rms.Core.UserProfile.Dao.UserProfileDao;
-import com.example.james.rms.Core.UserProfile.Dao.UserProfileDaoImpl;
-import com.example.james.rms.Core.UserProfile.LoginServePath;
-import com.example.james.rms.Core.UserProfile.Model.LoginModel;
-import com.example.james.rms.Core.UserProfile.Model.UserProfile;
+import com.example.james.rms.Core.Dao.UserProfileDao;
+import com.example.james.rms.Core.Dao.UserProfileDaoImpl;
+import com.example.james.rms.Core.ServePath.LoginServePath;
+import com.example.james.rms.Core.Model.LoginModel;
+import com.example.james.rms.Core.Model.UserProfile;
 
 import java.util.List;
 
