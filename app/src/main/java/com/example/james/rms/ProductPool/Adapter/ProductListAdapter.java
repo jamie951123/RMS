@@ -42,6 +42,7 @@ public class ProductListAdapter extends MyBaseAdapter<ProductModel>{
         viewHolder.product_descriptionEN.setText(getItem(position).getProductDescriptionEN());
         viewHolder.product_descriptionCH.setText(getItem(position).getProductDescriptionCH());
         viewHolder.product_createDate.setText(ObjectUtil.dateToString(getItem(position).getCreateDate()));
+        viewHolder.product_status.setText(getItem(position).getStatus());
         return convertView;
     }
 
@@ -74,6 +75,8 @@ public class ProductListAdapter extends MyBaseAdapter<ProductModel>{
         TextView product_createDate;
         @BindView(R.id.product_descriptionCH)
         TextView product_descriptionCH;
+        @BindView(R.id.product_status)
+        TextView product_status;
 
         public ViewHolder(View view){
             ButterKnife.bind(this,view);

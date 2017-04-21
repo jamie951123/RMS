@@ -2,6 +2,7 @@ package com.example.james.rms.ProductPool;
 
 import com.example.james.rms.CommonProfile.GsonUtil;
 import com.example.james.rms.Core.Model.ProductModel;
+import com.example.james.rms.Core.Model.Status;
 import com.example.james.rms.Core.SearchObject.ProductSearchObject;
 import com.google.gson.Gson;
 
@@ -41,6 +42,7 @@ public class ProductCombine {
         productModel.setRemark(remark);
         productModel.setCreateDate(createDate);
         productModel.setPartyId(partyId);
+        productModel.setStatus(Status.PROGRESS.name());
         JSONObject jsonObject = new JSONObject();
         try {
             jsonObject.put("productCode",productCode);
