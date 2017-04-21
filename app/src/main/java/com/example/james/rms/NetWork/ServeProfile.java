@@ -5,8 +5,8 @@ package com.example.james.rms.NetWork;
  */
 
 public class ServeProfile {
-    public static String serve                                    = "http://123.203.117.130:1123/";
-
+//    public static String serve                                    = "http://123.203.117.130:1123/";
+    public static String serve                                    = "http://192.168.43.36:1123/";
     //Login
     final static String login_findAll                             = "/rms/login/findAll";
     final static String login_checklogin                          = "/rms/login/checklogin";

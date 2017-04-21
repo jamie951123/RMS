@@ -75,7 +75,7 @@ public class Receiving_item extends MyBaseFragment {
         for(int i = 0; i< receivingItemModels.size(); i++){
             ReceivingItemModel receivingItemModel = receivingItemModels.get(i);
             BarEntry barEntry = new BarEntry (i*spaceForBar,
-                    receivingItemModel.getItemGrossWeight().intValueExact(), receivingItemModel.getProductModel().getProductCode());
+                    receivingItemModel.getItemGrossWeight() == null ? 0 : receivingItemModel.getItemGrossWeight().intValueExact(), receivingItemModel.getProductModel() == null ? "" : receivingItemModel.getProductModel().getProductCode());
             barEntries.add(barEntry);
         }
         return barEntries;
@@ -85,7 +85,7 @@ public class Receiving_item extends MyBaseFragment {
         List<String> theName = new ArrayList<>();
         for(int i = 0; i< receivingItemModels.size(); i++){
             ReceivingItemModel receivingItemModel = receivingItemModels.get(i);
-            theName.add(receivingItemModel.getProductModel().getProductCode());
+            theName.add(receivingItemModel.getProductModel() == null ? "":ObjectUtil.isNullEmpty(receivingItemModel.getProductModel().getProductCode()) ? "":receivingItemModel.getProductModel().getProductCode());
         }
         return theName;
     }

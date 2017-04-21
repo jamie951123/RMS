@@ -24,6 +24,10 @@ public class ReceivingItemModel {
     private String partyId;
     private ProductModel product;
 
+    public ReceivingItemModel() {
+        this.product = new ProductModel();
+    }
+
     @Override
     public String toString() {
         return "ReceivingItemModel{" +
