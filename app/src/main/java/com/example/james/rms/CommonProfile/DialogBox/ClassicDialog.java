@@ -3,12 +3,14 @@ package com.example.james.rms.CommonProfile.DialogBox;
 import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.view.View;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.example.james.rms.Operation.OperationContainer;
 import com.example.james.rms.R;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -17,25 +19,13 @@ import java.util.List;
 
 public class ClassicDialog {
     Context context;
-    int color;
-    String title;
-    String content;
     MaterialDialog materialDialog;
 
-    public ClassicDialog(Context context, int color, String title, String content) {
-        this.context = context;
-        this.color = color;
-        this.title = title;
-        this.content = content;
-    }
-    public ClassicDialog(Context context,String content){
-        this.context = context;
-        this.content = content;
-    }
+
     public ClassicDialog(Context context){
         this.context = context;
     }
-    public void showIndeterminate(){
+    public void showIndeterminate(int color, String title, String content){
                  materialDialog = new MaterialDialog.Builder(context)
                 .title(title)
                 .content(content)
@@ -45,7 +35,7 @@ public class ClassicDialog {
                 .show();
     }
 
-    public void showLeave(){
+    public void showLeave(String content){
         materialDialog = new MaterialDialog.Builder(context)
                 .content(content)
                 .canceledOnTouchOutside(false)
@@ -71,7 +61,7 @@ public class ClassicDialog {
                 .show();
     }
 
-    public void showBackPrevious(){
+    public void showBackPrevious(String content){
         materialDialog = new MaterialDialog.Builder(context)
                 .content(content)
                 .canceledOnTouchOutside(false)
@@ -127,6 +117,24 @@ public class ClassicDialog {
                         dialog.dismiss();
                     }
                 })
+                .show();
+    }
+
+    public void showSingleChoice(String title, List<String> list){
+        new MaterialDialog.Builder(this.context)
+                .title(title)
+                .items(list)
+                .itemsCallbackSingleChoice(-1, new MaterialDialog.ListCallbackSingleChoice() {
+                    @Override
+                    public boolean onSelection(MaterialDialog dialog, View view, int which, CharSequence text) {
+                        /**
+                         * If you use alwaysCallSingleChoiceCallback(), which is discussed below,
+                         * returning false here won't allow the newly selected radio button to actually be selected.
+                         **/
+                        return true;
+                    }
+                })
+                .positiveText(R.string.choose)
                 .show();
     }
     public void dismiss(){

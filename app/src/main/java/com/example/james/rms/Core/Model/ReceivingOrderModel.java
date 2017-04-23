@@ -9,30 +9,14 @@ import java.util.Date;
 public class ReceivingOrderModel {
     private Long orderId;
     private String partyId;
-    private Date receivingDate;
     private String remark;
     private String status;
+    private Date receivingDate;
     private Date createDate;
     private Date closeDate;
     private Integer actualQty;
     private Integer estimateQty;
     private Integer itemQty;
-
-    @Override
-    public String toString() {
-        return "ReceivingOrderModel{" +
-                "orderId=" + orderId +
-                ", partyId=" + partyId +
-                ", receivingDate=" + receivingDate +
-                ", remark='" + remark + '\'' +
-                ", status='" + status + '\'' +
-                ", createDate=" + createDate +
-                ", closeDate=" + closeDate +
-                ", actualQty=" + actualQty +
-                ", estimateQty=" + estimateQty +
-                ", itemQty=" + itemQty +
-                '}';
-    }
 
     public Long getOrderId() {
         return orderId;
@@ -112,6 +96,22 @@ public class ReceivingOrderModel {
 
     public void setItemQty(Integer itemQty) {
         this.itemQty = itemQty;
+    }
+
+    @Override
+    public String toString() {
+        return "ReceivingOrderModel{" +
+                "orderId=" + orderId +
+                ", partyId='" + partyId + '\'' +
+                ", receivingDate='" + receivingDate + '\'' +
+                ", remark='" + remark + '\'' +
+                ", status=" + status +
+                ", createDate=" + createDate +
+                ", closeDate=" + closeDate +
+                ", actualQty=" + actualQty +
+                ", estimateQty=" + estimateQty +
+                ", itemQty=" + itemQty +
+                '}';
     }
 }
 

@@ -213,8 +213,8 @@ public class NavigationController extends AppCompatActivity implements Navigatio
                     break;
             }
             if(!isFirst){
-                ClassicDialog classicDialog = new ClassicDialog(this,getString(R.string.leave));
-                classicDialog.showLeave();
+                ClassicDialog classicDialog = new ClassicDialog(this);
+                classicDialog.showLeave(getString(R.string.leave));
             }
         }
     }

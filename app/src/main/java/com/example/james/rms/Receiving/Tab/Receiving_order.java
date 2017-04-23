@@ -11,14 +11,14 @@ import com.example.james.rms.CommonProfile.MyBaseFragment;
 import com.example.james.rms.CommonProfile.ObjectUtil;
 import com.example.james.rms.CommonProfile.SharePreferences.PartyIdPreferences;
 import com.example.james.rms.Controller.NavigationController;
+import com.example.james.rms.Core.Dao.ReceivingDao;
+import com.example.james.rms.Core.Dao.ReceivingDaoImpl;
 import com.example.james.rms.Core.Model.ReceivingItemModel;
 import com.example.james.rms.Core.Model.ReceivingOrderModel;
 import com.example.james.rms.ITF.ViewPagerListener;
 import com.example.james.rms.R;
 import com.example.james.rms.Receiving.Adapter.ReceivingOrderListAdapter;
 import com.example.james.rms.Receiving.ReceivingCombine;
-import com.example.james.rms.Receiving.Service.ReceivingService;
-import com.example.james.rms.Receiving.Service.ReceivingServiceImpl;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,7 +33,7 @@ public class Receiving_order extends MyBaseFragment implements AdapterView.OnIte
 
     private ReceivingCombine receivingCombine = new ReceivingCombine();
     //
-    private ReceivingService receivingService = new ReceivingServiceImpl();
+    private ReceivingDao receivingDao = new ReceivingDaoImpl();
     //
     private ReceivingOrderListAdapter receivingOrderListAdapter;
 
@@ -52,8 +52,8 @@ public class Receiving_order extends MyBaseFragment implements AdapterView.OnIte
         String combine_partyId = receivingCombine.combine_partyId(partyId);
 
         //HttpOK
-        receivingOrderModels = receivingService.findReceivingOrderByPartyId(combine_partyId);
-        receivingItemModels = receivingService.findReceivingItemByPartyId(combine_partyId);
+        receivingOrderModels = receivingDao.findReceivingOrderByPartyId(combine_partyId);
+        receivingItemModels = receivingDao.findReceivingItemByPartyId(combine_partyId);
 
         //listView
         if(receivingOrderModels != null) {

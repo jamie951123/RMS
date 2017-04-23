@@ -7,6 +7,7 @@ package com.example.james.rms.NetWork;
 public class ServeProfile {
     public static String serve                                    = "http://123.203.117.130:1123/";
 //    public static String serve                                    = "http://192.168.43.36:1123/";
+//public static String serve                                    = "http://10.16.81.188:1123/";
     //Login
     final static String login_findAll                             = "/rms/login/findAll";
     final static String login_checklogin                          = "/rms/login/checklogin";
@@ -20,6 +21,12 @@ public class ServeProfile {
     final static String insertReceivingOrder                         = "rms/receiving/order/insertReceivingOrder";
     final static String insertReceivingItem                          = "rms/receiving/item/insertReceivingItem";
     final static String saveOrderAndItem                           = "rms/receiving/orderitem/saveOrderAndItem";
+    //WeightProfile
+    final static String weight_findAll                              = "rms/weight/findAll";
+    final static String weight_findByPartyId                        = "rms/weight/findByPartyId";
+    //QuantityProfile
+    final static String quantity_findAll                                = "rms/quantity/findAll";
+    final static String quantity_findByPartyId                        = "rms/quantity/findByPartyId";
 
     public static String getSaveOrderAndItem() {
         return saveOrderAndItem;
@@ -66,5 +73,21 @@ public class ServeProfile {
 
     public static String getItemFindByPartyId() {
         return itemFindByPartyId;
+    }
+
+    public static String getWeight_findAll() {
+        return weight_findAll;
+    }
+
+    public static String getWeight_findByPartyId() {
+        return weight_findByPartyId;
+    }
+
+    public static String getQuantity_findAll() {
+        return quantity_findAll;
+    }
+
+    public static String getQuantity_findByPartyId() {
+        return quantity_findByPartyId;
     }
 }

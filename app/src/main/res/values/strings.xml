@@ -17,6 +17,9 @@
     <string name="createQusetion">Create?</string>
     <string name="insert_successful">Insert Successful</string>
     <string name="insert_fail">Insert Fail</string>
+    <string name="choose">Choose</string>
+    <string name="close">Close</string>
+    <string name="choice">Choice</string>
     <!--Error-->
     <string name="missingField">Missing</string>
     <!--searchview-->
@@ -120,4 +123,10 @@
     <string name="label_quantity">Qty:</string>
     <string name="label_receivingDate">Receiving Date</string>
     <string name="label_status">Status:</string>
+    <string name="label_input">Please Input</string>
+    <string name="label_number">Number</string>
+    <!--title-->
+    <string name="title_input_qty">Quantity</string>
+    <string name="title_input_grossweight">GrossWeight</string>
+
 </resources>

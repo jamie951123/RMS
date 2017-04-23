@@ -1,6 +1,9 @@
 package com.example.james.rms.Operation.Adapter;
 
 import android.content.Context;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -9,13 +12,26 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.james.rms.CommonProfile.DialogBox.QuantityDialog;
 import com.example.james.rms.CommonProfile.MyBaseAdapter;
 import com.example.james.rms.CommonProfile.ObjectUtil;
+import com.example.james.rms.Core.Dao.QuantityProfileDao;
+import com.example.james.rms.Core.Dao.QuantityProfileDaoImpl;
+import com.example.james.rms.Core.Dao.WeightProfileDao;
+import com.example.james.rms.Core.Dao.WeightProfileDaoImpl;
+import com.example.james.rms.Core.Model.QuantityProfileModel;
+import com.example.james.rms.Core.Model.WeightProfileModel;
+import com.example.james.rms.Core.TranslateModel.QuantityDialogModel;
+import com.example.james.rms.ITF.ConnectQuantityDialogListener;
 import com.example.james.rms.Operation.Model.ReceivingIncreaseModel;
+import com.example.james.rms.Operation.ReceivingAction.Communicate_Interface;
+import com.example.james.rms.Operation.ReceivingAction.ReceivingIncreaseDialog;
 import com.example.james.rms.R;
 
 import java.math.BigDecimal;
+import java.util.HashMap;
 import java.util.List;
 
 import butterknife.BindView;
@@ -26,10 +42,14 @@ import butterknife.ButterKnife;
  * Created by james on 27/3/2017.
  */
 
-public class ReceivingIncreaseListAdapter extends MyBaseAdapter<ReceivingIncreaseModel> {
+public class ReceivingIncreaseListAdapter extends MyBaseAdapter<ReceivingIncreaseModel> implements View.OnClickListener,QuantityDialog.ConnectDialogToAdapter{
+    List<WeightProfileModel> weightProfileModelList;
+    List<QuantityProfileModel> quantityProfileModels;
     // 用來控制CheckBox的選中狀況
-    public ReceivingIncreaseListAdapter(Context context, List<ReceivingIncreaseModel> lastestModel) {
+    public ReceivingIncreaseListAdapter(Context context, List<ReceivingIncreaseModel> lastestModel,List<WeightProfileModel> weightProfileModelList,List<QuantityProfileModel> quantityProfileModels) {
         super(context,lastestModel);
+        this.weightProfileModelList = weightProfileModelList;
+        this.quantityProfileModels = quantityProfileModels;
     }
 
     @Override
@@ -44,10 +64,14 @@ public class ReceivingIncreaseListAdapter extends MyBaseAdapter<ReceivingIncreas
         }
         viewHolder.receiving_increase_list_item_productCode.setText(getItem(position).getProductModel().getProductName());
         viewHolder.receiving_increase_list_item_productName.setText(getItem(position).getProductModel().getProductCode());
-        viewHolder.qtyEditText.setText(ObjectUtil.intToString(getItem(position).getQty()));
-        viewHolder.grossweightEditText.setText(ObjectUtil.bigDecimalToString(getItem(position).getGrossWeight()));
-        viewHolder.qtyEditText.addTextChangedListener(textWatch(position,"qty"));
-        viewHolder.grossweightEditText.addTextChangedListener(textWatch(position,"grossweight"));
+        viewHolder.qty.setText(ObjectUtil.intToString(getItem(position).getQty()));
+        viewHolder.grossweight.setText(ObjectUtil.bigDecimalToString(getItem(position).getGrossWeight()));
+        viewHolder.qty.addTextChangedListener(textWatch(position,"qty"));
+        viewHolder.grossweight.addTextChangedListener(textWatch(position,"grossweight"));
+        viewHolder.qty.setTag(position);
+        viewHolder.qty.setOnClickListener(this);
+        viewHolder.grossweight.setTag(position);
+        viewHolder.grossweight.setOnClickListener(this);
         return convertView;
     }
 
@@ -68,16 +92,63 @@ public class ReceivingIncreaseListAdapter extends MyBaseAdapter<ReceivingIncreas
         return false;
     }
 
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.receiving_increase_list_item_qty:
+                createDialogBox(v,"QTY");
+                break;
+            case R.id.receiving_increase_list_item_grossweigth:
+                createDialogBox(v,"GW");
+        }
+    }
+
+    public void createDialogBox(View v,String key){
+        QuantityDialog quantityDialog = new QuantityDialog();
+        FragmentManager fm =  ((AppCompatActivity) this.getContext()).getSupportFragmentManager();
+        Fragment fragment = fm.findFragmentByTag(key);
+        if (fragment != null) {
+            fm.beginTransaction().remove(fragment).commit();
+        }
+        ConnectQuantityDialogListener listener = quantityDialog;
+        QuantityDialogModel quantityDialogModel = new QuantityDialogModel();
+        quantityDialogModel.setKey(key);
+        Integer position = (Integer)v.getTag();
+        Log.d("asd","ReceivingIcreaseListAdapter---getItemPosition : " + position);
+        if(key.equalsIgnoreCase("QTY")){
+            Integer qty = getItem(position).getQty();
+            String qtyUnit = getItem(position).getQtyUnit();
+            quantityDialogModel.setQty(qty);
+            quantityDialogModel.setQtyUnit(qtyUnit);
+            quantityDialogModel.setQuantityProfileModels(this.quantityProfileModels);
+        }else if(key.equalsIgnoreCase("GW")){
+            BigDecimal gw = getItem(position).getGrossWeight();
+            String gwUnit = getItem(position).getGrossWeightUnit();
+            quantityDialogModel.setGrossWeight(gw);
+            quantityDialogModel.setGrossWeightUnit(gwUnit);
+            quantityDialogModel.setWeightProfileModelList(this.weightProfileModelList);
+        }
+        listener.fromReceivingIncreaseListAdapter(quantityDialogModel);
+        quantityDialog.show(fm,key);
+//        Communicate_Interface communicateInterface = receivingIncreaseDialog;
+//        communicateInterface.putOriginalProductModels(rlAllmodel,rlLastestmodel,isSelected);
+//        Toast.makeText(this,"ReceivingIncrease",Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void fromQuantityDialog(HashMap<String, Object> map) {
+
+    }
 
     public static class ViewHolder{
         @BindView(R.id.receiving_increase_list_item_productCode)
         TextView receiving_increase_list_item_productCode;
         @BindView(R.id.receiving_increase_list_item_productName)
         TextView receiving_increase_list_item_productName;
-        @BindView(R.id.receiving_increase_list_item_edittext_qty)
-        EditText qtyEditText;
-        @BindView(R.id.receiving_increase_list_item_edittext_grossweigth)
-        EditText grossweightEditText;
+        @BindView(R.id.receiving_increase_list_item_qty)
+        TextView qty;
+        @BindView(R.id.receiving_increase_list_item_grossweigth)
+        TextView grossweight;
         public ViewHolder(View view){
             ButterKnife.bind(this,view);
         }

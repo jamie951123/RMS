@@ -12,10 +12,10 @@ import android.widget.Toast;
 import com.example.james.rms.CommonProfile.ObjectUtil;
 import com.example.james.rms.CommonProfile.SharePreferences.PartyIdPreferences;
 import com.example.james.rms.Controller.NavigationController;
+import com.example.james.rms.Core.Dao.ProductDao;
+import com.example.james.rms.Core.Dao.ProductDaoImpl;
 import com.example.james.rms.Core.Model.ProductModel;
 import com.example.james.rms.ProductPool.ProductCombine;
-import com.example.james.rms.ProductPool.Service.ProductService;
-import com.example.james.rms.ProductPool.Service.ProductServiceImpl;
 import com.example.james.rms.R;
 
 import java.text.DateFormat;
@@ -50,7 +50,7 @@ public class ProductIncrease extends AppCompatActivity implements View.OnClickLi
 
     //
     private ProductCombine productCombine = new ProductCombine();
-    private ProductService productService = new ProductServiceImpl();
+    private ProductDao productDao = new ProductDaoImpl();
     //
     DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
     //
@@ -92,7 +92,7 @@ public class ProductIncrease extends AppCompatActivity implements View.OnClickLi
                 }
                 String result = productCombine.combine_AddProduct(productCode,puductName,descriptionCN,
                         descriptionEN,remark,createDate,partyId);
-                ProductModel productModel = productService.insertProduct(result);
+                ProductModel productModel = productDao.insertProduct(result);
                 if(productModel != null) {
                     Toast.makeText(this,R.string.insert_successful,Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent();

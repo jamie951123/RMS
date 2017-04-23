@@ -107,16 +107,16 @@
                         android:textColor="@color/colorAccent"
                         android:text="@string/label_quantity"/>
 
-                    <EditText
+                    <TextView
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:gravity="center"
-                        android:background="@drawable/edittextborder"
+                        android:background="@drawable/blueborder"
                         android:layout_weight="1"
                         android:inputType="number"
                         android:layout_marginTop="@dimen/rl_increase_list_item_edittext"
                         android:layout_marginBottom="@dimen/rl_increase_list_item_edittext"
-                        android:id="@+id/receiving_increase_list_item_edittext_qty"/>
+                        android:id="@+id/receiving_increase_list_item_qty"/>
                 </LinearLayout>
 
                 <LinearLayout
@@ -133,12 +133,12 @@
                         android:textColor="@color/colorAccent"
                         android:text="@string/label_grossweight"/>
 
-                    <EditText
+                    <TextView
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:gravity="center"
-                        android:background="@drawable/edittextborder"
-                        android:id="@+id/receiving_increase_list_item_edittext_grossweigth"
+                        android:background="@drawable/blueborder"
+                        android:id="@+id/receiving_increase_list_item_grossweigth"
                         android:inputType="number"
                         android:layout_marginTop="@dimen/rl_increase_list_item_edittext"
                         android:layout_marginBottom="@dimen/rl_increase_list_item_edittext"

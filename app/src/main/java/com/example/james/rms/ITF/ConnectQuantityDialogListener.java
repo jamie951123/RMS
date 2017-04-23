@@ -1,0 +1,13 @@
+package com.example.james.rms.ITF;
+
+import com.example.james.rms.Core.TranslateModel.QuantityDialogModel;
+
+import java.util.HashMap;
+
+/**
+ * Created by jamie on 2017/4/24.
+ */
+
+public interface ConnectQuantityDialogListener {
+        void fromReceivingIncreaseListAdapter(QuantityDialogModel quantityDialogModel);
+}

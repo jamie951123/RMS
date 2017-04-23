@@ -48,7 +48,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
         loginPreferences = new LoginPreferences(this,"loginInformation", MODE_PRIVATE);
-        classicDialog = new ClassicDialog(this,R.color.blue0895ef,getString(R.string.loading),getString(R.string.waiting));
+        classicDialog = new ClassicDialog(this);
         btnCancel.setOnClickListener(this);
         btnLogin.setOnClickListener(this);
         if( loginPreferences.getPreferences_loginInformation() != null){
@@ -87,7 +87,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     loginPreferences.clear_loginInformation();
                     setEditUsernameAndPassWord("", "");
                 }
-                    classicDialog.showIndeterminate();
+                    classicDialog.showIndeterminate(R.color.blue0895ef,getString(R.string.loading),getString(R.string.waiting));
                     String loginValue = loginCombine.combine_loginValue(username, password);
                     loginService.checkLogin(loginValue);
                     LoginModel loginModel = loginService.checkLogin(loginValue);

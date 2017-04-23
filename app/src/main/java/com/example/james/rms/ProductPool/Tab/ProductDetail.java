@@ -11,11 +11,11 @@ import android.widget.ListView;
 import com.example.james.rms.CommonProfile.MyBaseFragment;
 import com.example.james.rms.CommonProfile.ObjectUtil;
 import com.example.james.rms.CommonProfile.SharePreferences.PartyIdPreferences;
+import com.example.james.rms.Core.Dao.ProductDao;
+import com.example.james.rms.Core.Dao.ProductDaoImpl;
 import com.example.james.rms.Core.Model.ProductModel;
 import com.example.james.rms.ProductPool.Adapter.ProductListAdapter;
 import com.example.james.rms.ProductPool.ProductCombine;
-import com.example.james.rms.ProductPool.Service.ProductService;
-import com.example.james.rms.ProductPool.Service.ProductServiceImpl;
 import com.example.james.rms.R;
 
 import java.util.List;
@@ -32,7 +32,7 @@ public class ProductDetail extends MyBaseFragment implements AdapterView.OnItemC
     @BindView(R.id.listView)
     ListView listView;
 
-    private ProductService productService = new ProductServiceImpl();
+    private ProductDao productDao = new ProductDaoImpl();
     //
     private ProductCombine productCombine = new ProductCombine();
     //
@@ -48,7 +48,7 @@ public class ProductDetail extends MyBaseFragment implements AdapterView.OnItemC
         String partyId =  partyIdPreferences.getPreferences_PartyId().get("partyId");
         //HttpOK
         String combine_partyId = productCombine.combine_partyId(partyId);
-        List<ProductModel> productModels = productService.findByPartyId(combine_partyId);
+        List<ProductModel> productModels = productDao.findByPartyId(combine_partyId);
         //ListView
         if(productModels != null){
             productAdapter = new ProductListAdapter(getActivity(),productModels);
