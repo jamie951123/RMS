@@ -1,4 +1,4 @@
-package com.example.james.rms.Core.TranslateModel;
+package com.example.james.rms.Core.TransferModel;
 
 import com.example.james.rms.Core.Model.QuantityProfileModel;
 import com.example.james.rms.Core.Model.WeightProfileModel;
@@ -18,6 +18,7 @@ public class QuantityDialogModel {
     String qtyUnit;
     List<WeightProfileModel> weightProfileModelList;
     List<QuantityProfileModel> quantityProfileModels;
+    Integer position;
 
     public String getKey() {
         return key;
@@ -75,16 +76,13 @@ public class QuantityDialogModel {
         this.quantityProfileModels = quantityProfileModels;
     }
 
-    @Override
-    public String toString() {
-        return "QuantityDialogModel{" +
-                "key='" + key + '\'' +
-                ", grossWeight=" + grossWeight +
-                ", grossWeightUnit='" + grossWeightUnit + '\'' +
-                ", qty=" + qty +
-                ", qtyUnit='" + qtyUnit + '\'' +
-                ", weightProfileModelList=" + weightProfileModelList +
-                ", quantityProfileModels=" + quantityProfileModels +
-                '}';
+    public Integer getPosition() {
+        return position;
     }
+
+    public void setPosition(Integer position) {
+        this.position = position;
+    }
+
+
 }

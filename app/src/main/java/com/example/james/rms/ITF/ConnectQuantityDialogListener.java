@@ -1,8 +1,6 @@
 package com.example.james.rms.ITF;
 
-import com.example.james.rms.Core.TranslateModel.QuantityDialogModel;
-
-import java.util.HashMap;
+import com.example.james.rms.Core.TransferModel.QuantityDialogModel;
 
 /**
  * Created by jamie on 2017/4/24.

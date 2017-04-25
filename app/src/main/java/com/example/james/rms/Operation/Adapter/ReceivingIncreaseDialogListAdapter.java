@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.james.rms.CommonProfile.MyBaseAdapter;
+import com.example.james.rms.CommonProfile.ObjectUtil;
 import com.example.james.rms.Operation.Model.ReceivingIncreaseModel;
 import com.example.james.rms.R;
 
@@ -56,8 +57,7 @@ public class ReceivingIncreaseDialogListAdapter extends MyBaseAdapter<ReceivingI
 
     @Override
     public boolean productNameMatch(ReceivingIncreaseModel productModel, String value) {
-        boolean result = productModel.getProductModel().getProductName().toUpperCase().contains(value.toUpperCase());
-        return result;
+        return ObjectUtil.isNullEmpty(productModel.getProductModel().getProductName()) ? false : productModel.getProductModel().getProductName().toUpperCase().contains(value.toUpperCase());
     }
 
     @Override

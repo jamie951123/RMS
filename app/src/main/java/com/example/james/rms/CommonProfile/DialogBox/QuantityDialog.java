@@ -15,13 +15,13 @@ import android.widget.TextView;
 import com.example.james.rms.CommonProfile.ObjectUtil;
 import com.example.james.rms.Core.Model.QuantityProfileModel;
 import com.example.james.rms.Core.Model.WeightProfileModel;
-import com.example.james.rms.Core.TranslateModel.QuantityDialogModel;
+import com.example.james.rms.Core.TransferModel.QuantityDialogModel;
 import com.example.james.rms.ITF.ConnectQuantityDialogListener;
 import com.example.james.rms.R;
+
+import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -43,8 +43,10 @@ public class QuantityDialog extends DialogFragment implements View.OnClickListen
     @BindView(R.id.quantity_dialog_number)
     EditText numEdit;
 
+    private String dialog_title;
     private List<String> units = new ArrayList<>();
     private QuantityDialogModel quantityDialogModel;
+
     @Override
     public void fromReceivingIncreaseListAdapter(QuantityDialogModel quantityDialogModel) {
         this.quantityDialogModel = quantityDialogModel;
@@ -52,18 +54,27 @@ public class QuantityDialog extends DialogFragment implements View.OnClickListen
         Log.d("asd", "QuantityDialog : " + this.quantityDialogModel.toString());
         if (quantityDialogModel != null) {
             if (quantityDialogModel.getKey().equalsIgnoreCase("QTY")) {
-                units = getQTYUnit(quantityDialogModel.getQuantityProfileModels(),quantityDialogModel.getQtyUnit());
-                if (quantityDialogModel.getQty() != null)
-                    numEdit.setText(quantityDialogModel.getQty().toString());
+                handlerQty();
             } else if (quantityDialogModel.getKey().equalsIgnoreCase("GW")) {
-                units = getGWUnit(quantityDialogModel.getWeightProfileModelList(),quantityDialogModel.getGrossWeightUnit());
-                if (quantityDialogModel.getGrossWeight() != null)
-                    numEdit.setText(quantityDialogModel.getGrossWeight().toString());
-
+                handlerGw();
             }
         }
     }
 
+    private void handlerQty(){
+        dialog_title = "Quantity";
+        units = getQTYUnit(quantityDialogModel.getQuantityProfileModels(),quantityDialogModel.getQtyUnit());
+        if (quantityDialogModel.getQty() != null)
+            numEdit.setText(quantityDialogModel.getQty().toString());
+    }
+
+    private void handlerGw(){
+        dialog_title = "Weight";
+        units = getGWUnit(quantityDialogModel.getWeightProfileModelList(),quantityDialogModel.getGrossWeightUnit());
+        if (quantityDialogModel.getGrossWeight() != null)
+            numEdit.setText(quantityDialogModel.getGrossWeight().toString());
+
+    }
     private List<String> getGWUnit(List<WeightProfileModel> weightProfileModelList, String gwUnit) {
         List<String> unit = new ArrayList<>();
         if(ObjectUtil.isNotNullEmpty(gwUnit)){
@@ -93,9 +104,6 @@ public class QuantityDialog extends DialogFragment implements View.OnClickListen
         return unit;
     }
 
-    public interface ConnectDialogToAdapter{
-        void fromQuantityDialog(HashMap<String,Object> map);
-    }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -105,6 +113,7 @@ public class QuantityDialog extends DialogFragment implements View.OnClickListen
         getDialog().setCanceledOnTouchOutside(false);
         close.setOnClickListener(this);
         choice.setOnClickListener(this);
+        title.setText(dialog_title);
         ArrayAdapter dropDownAdapter = new ArrayAdapter(getActivity(),android.R.layout.simple_spinner_dropdown_item,units){
             @Override
             public View getDropDownView(int position, View convertView, ViewGroup parent) {
@@ -122,18 +131,11 @@ public class QuantityDialog extends DialogFragment implements View.OnClickListen
         return view;
     }
 
-    private List<String> getUnit() {
-        List<String> units = new ArrayList<>();
-        units.add("A");
-        units.add("B");
-        return units;
-    }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.quantity_dialog_unit:
-                List<String> units = getUnit();
                 ClassicDialog classicDialog = new ClassicDialog(getActivity());
                 classicDialog.showSingleChoice(getString(R.string.label_input),units);
                 break;
@@ -147,6 +149,16 @@ public class QuantityDialog extends DialogFragment implements View.OnClickListen
                 String unti = dialog_spinner.getSelectedItem().toString();
                 Log.d("asd","num :" +num);
                 Log.d("asd","unti :" +unti);
+                if("QTY".equalsIgnoreCase(this.quantityDialogModel.getKey())){
+                    if(num != null)
+                    this.quantityDialogModel.setQty(num);
+                    this.quantityDialogModel.setQtyUnit(unti);
+                }else if ("GW".equalsIgnoreCase(this.quantityDialogModel.getKey())){
+                    if(num != null)
+                    this.quantityDialogModel.setGrossWeight(new BigDecimal(num));
+                    this.quantityDialogModel.setGrossWeightUnit(unti);
+                }
+
                 if (getDialog().isShowing()){
                     getDialog().dismiss();
                 }

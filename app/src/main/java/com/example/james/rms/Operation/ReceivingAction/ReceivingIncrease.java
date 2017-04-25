@@ -206,8 +206,6 @@ public class ReceivingIncrease extends AppCompatActivity implements View.OnClick
             receivingItemModel.setItemStatus(Status.PROGRESS.name());
             receivingItemModels.add(receivingItemModel);
         }
-//        ReceivingCombine receivingCombine = new ReceivingCombine();
-//        json = receivingCombine.combine_AddReceivingItem(receivingItemModels);
         return receivingItemModels;
     }
     public ReceivingOrderModel getReceivingOrder(int itemSize,Date receivingDate,Date createDate,String orderRemark){

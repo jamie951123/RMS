@@ -59,7 +59,7 @@ public class ReceivingOrderListAdapter extends MyBaseAdapter<ReceivingOrderModel
 
     @Override
     public boolean receivingRemarkMatch(ReceivingOrderModel receivingOrderModel, String string) {
-        return receivingOrderModel.getRemark().toUpperCase().contains(string.toUpperCase());
+        return  ObjectUtil.isNullEmpty(receivingOrderModel.getRemark()) ? false : receivingOrderModel.getRemark().toUpperCase().contains(string.toUpperCase());
     }
 
     static class ViewHolder{

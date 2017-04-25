@@ -50,8 +50,11 @@ public class ReceivingContainer extends MyBaseFragment implements NavToRL {
             MyBaseFragment myBaseFragment = (MyBaseFragment)fragment;
             return myBaseFragment.onQueryTextChange(newText);
         }catch (ClassCastException e){
-            return false;
+            e.printStackTrace();
+        }catch (Exception e){
+            e.printStackTrace();
         }
+        return false;
     }
 
     @Override

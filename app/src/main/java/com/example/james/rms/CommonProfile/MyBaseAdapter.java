@@ -1,6 +1,7 @@
 package com.example.james.rms.CommonProfile;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.widget.BaseAdapter;
 import android.widget.Filter;
@@ -113,7 +114,10 @@ public abstract class MyBaseAdapter<T> extends BaseAdapter implements RmsCompare
         @SuppressWarnings("unchecked")
         @Override
         protected void publishResults(CharSequence constraint, FilterResults results) {
+            Log.d("asd","RL Orgin :" +filteredData);
             filteredData = (ArrayList<T>) results.values;
+            Log.d("asd","RL results :" +results);
+            Log.d("asd","RL filteredData :" +filteredData);
             notifyDataSetChanged();
         }
     }
