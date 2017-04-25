@@ -19,6 +19,7 @@ import android.widget.Toast;
 
 import com.example.james.rms.CommonProfile.DialogBox.ClassicDialog;
 import com.example.james.rms.CommonProfile.DialogBox.MyDatePicker;
+import com.example.james.rms.CommonProfile.DialogBox.NumberDialog;
 import com.example.james.rms.CommonProfile.GsonUtil;
 import com.example.james.rms.CommonProfile.ObjectUtil;
 import com.example.james.rms.CommonProfile.SharePreferences.PartyIdPreferences;
@@ -30,6 +31,7 @@ import com.example.james.rms.Core.Dao.ReceivingDao;
 import com.example.james.rms.Core.Dao.ReceivingDaoImpl;
 import com.example.james.rms.Core.Dao.WeightProfileDao;
 import com.example.james.rms.Core.Dao.WeightProfileDaoImpl;
+import com.example.james.rms.Core.Model.NumberType;
 import com.example.james.rms.Core.Model.QuantityProfileModel;
 import com.example.james.rms.Core.Model.ReceivingOrderAndItemContainer;
 import com.example.james.rms.Core.Model.ProductModel;
@@ -37,6 +39,7 @@ import com.example.james.rms.Core.Model.ReceivingItemModel;
 import com.example.james.rms.Core.Model.ReceivingOrderModel;
 import com.example.james.rms.Core.Model.Status;
 import com.example.james.rms.Core.Model.WeightProfileModel;
+import com.example.james.rms.Core.TransferModel.NumberDialogModel;
 import com.example.james.rms.Operation.Adapter.ReceivingIncreaseListAdapter;
 import com.example.james.rms.Operation.Model.ReceivingIncreaseModel;
 import com.example.james.rms.ProductPool.ProductCombine;
@@ -58,7 +61,8 @@ import static com.example.james.rms.R.id.receiving_increase_fab;
  */
 
 public class ReceivingIncrease extends AppCompatActivity implements View.OnClickListener,
-        Communicate_Interface,MyDatePicker.MyDatePickerService {
+        Communicate_Interface,MyDatePicker.MyDatePickerService,
+        NumberDialog.QDtoReceivingIncrease{
     @BindView(R.id.receiving_increase_fab)
     FloatingActionButton fab_btn;
     @BindView(R.id.receiving_increase_listview)
@@ -288,5 +292,21 @@ public class ReceivingIncrease extends AppCompatActivity implements View.OnClick
     public void passDateToReceivingIncrease(String date_str,Date date) {
         datePicker_btn.setText(date_str);
         Log.v("asd","passDateToReceivingIncrease :" +date_str);
+    }
+
+    @Override
+    public void returnData(NumberDialogModel numberDialogModel) {
+        switch (numberDialogModel.getKey()){
+            case NumberType.qty:
+                this.listviewLastestModel.get(numberDialogModel.getPosition()).setQty(numberDialogModel.getQty());
+                this.listviewLastestModel.get(numberDialogModel.getPosition()).setQtyUnit(numberDialogModel.getQtyUnit());
+                break;
+            case NumberType.gw:
+                this.listviewLastestModel.get(numberDialogModel.getPosition()).setGrossWeight(numberDialogModel.getGrossWeight());
+                this.listviewLastestModel.get(numberDialogModel.getPosition()).setGrossWeightUnit(numberDialogModel.getGrossWeightUnit());
+        }
+        if(listView != null){
+            listView.invalidateViews();
+        }
     }
 }

@@ -98,10 +98,12 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="horizontal"
+                    android:id="@+id/receiving_increase_qtylinear"
+                    android:background="@drawable/blueborder"
                     android:layout_weight="1">
 
                     <TextView
-                        android:layout_width="70dp"
+                        android:layout_width="80dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:gravity="center"
@@ -112,22 +114,31 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:gravity="center"
-                        android:background="@drawable/blueborder"
-                        android:layout_weight="1"
-                        android:inputType="number"
+                        android:layout_weight="2"
                         android:layout_marginTop="@dimen/rl_increase_list_item_edittext"
                         android:layout_marginBottom="@dimen/rl_increase_list_item_edittext"
                         android:id="@+id/receiving_increase_list_item_qty"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:id="@+id/receiving_increase_list_item_qtyunit"
+                        android:layout_marginTop="@dimen/rl_increase_list_item_edittext"
+                        android:layout_marginBottom="@dimen/rl_increase_list_item_edittext"
+                        android:layout_weight="2"/>
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:id="@+id/receiving_increase_gwlinear"
+                    android:background="@drawable/blueborder"
                     android:layout_weight="1"
                     android:orientation="horizontal">
 
                     <TextView
-                        android:layout_width="70dp"
+                        android:layout_width="80dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:gravity="center"
@@ -138,12 +149,19 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:gravity="center"
-                        android:background="@drawable/blueborder"
                         android:id="@+id/receiving_increase_list_item_grossweigth"
-                        android:inputType="number"
                         android:layout_marginTop="@dimen/rl_increase_list_item_edittext"
                         android:layout_marginBottom="@dimen/rl_increase_list_item_edittext"
-                        android:layout_weight="1"/>
+                        android:layout_weight="2"/>
+
+                        <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:id="@+id/receiving_increase_list_item_gwunit"
+                        android:layout_marginTop="@dimen/rl_increase_list_item_edittext"
+                        android:layout_marginBottom="@dimen/rl_increase_list_item_edittext"
+                        android:layout_weight="2"/>
 
                 </LinearLayout>
 

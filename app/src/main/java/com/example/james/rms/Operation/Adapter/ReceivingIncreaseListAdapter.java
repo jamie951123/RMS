@@ -10,20 +10,20 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.example.james.rms.CommonProfile.DialogBox.QuantityDialog;
+import com.example.james.rms.CommonProfile.DialogBox.NumberDialog;
 import com.example.james.rms.CommonProfile.MyBaseAdapter;
 import com.example.james.rms.CommonProfile.ObjectUtil;
 import com.example.james.rms.Core.Model.QuantityProfileModel;
 import com.example.james.rms.Core.Model.WeightProfileModel;
-import com.example.james.rms.Core.TransferModel.QuantityDialogModel;
+import com.example.james.rms.Core.TransferModel.NumberDialogModel;
 import com.example.james.rms.ITF.ConnectQuantityDialogListener;
 import com.example.james.rms.Operation.Model.ReceivingIncreaseModel;
 import com.example.james.rms.R;
 
 import java.math.BigDecimal;
-import java.util.HashMap;
 import java.util.List;
 
 import butterknife.BindView;
@@ -55,16 +55,22 @@ public class ReceivingIncreaseListAdapter extends MyBaseAdapter<ReceivingIncreas
             viewHolder = new ReceivingIncreaseListAdapter.ViewHolder(convertView);
             convertView.setTag(viewHolder);
         }
+        String qtyUnit = getItem(position).getQtyUnit() == null ? "": getItem(position).getQtyUnit();
+        String gwUnit  = getItem(position).getGrossWeightUnit() == null ? "":getItem(position).getGrossWeightUnit();
         viewHolder.receiving_increase_list_item_productCode.setText(getItem(position).getProductModel().getProductName());
         viewHolder.receiving_increase_list_item_productName.setText(getItem(position).getProductModel().getProductCode());
         viewHolder.qty.setText(ObjectUtil.intToString(getItem(position).getQty()));
+        viewHolder.qtyunit.setText(qtyUnit);
         viewHolder.grossweight.setText(ObjectUtil.bigDecimalToString(getItem(position).getGrossWeight()));
+        viewHolder.gwunit.setText(gwUnit);
+
         viewHolder.qty.addTextChangedListener(textWatch(position,"qty"));
         viewHolder.grossweight.addTextChangedListener(textWatch(position,"grossweight"));
-        viewHolder.qty.setTag(position);
-        viewHolder.qty.setOnClickListener(this);
-        viewHolder.grossweight.setTag(position);
-        viewHolder.grossweight.setOnClickListener(this);
+
+        viewHolder.qtylinear.setTag(position);
+        viewHolder.qtylinear.setOnClickListener(this);
+        viewHolder.gwlinear.setTag(position);
+        viewHolder.gwlinear.setOnClickListener(this);
         return convertView;
     }
 
@@ -88,59 +94,43 @@ public class ReceivingIncreaseListAdapter extends MyBaseAdapter<ReceivingIncreas
     @Override
     public void onClick(View v) {
         switch (v.getId()){
-            case R.id.receiving_increase_list_item_qty:
+            case R.id.receiving_increase_qtylinear:
                 createDialogBox(v,"QTY");
                 break;
-            case R.id.receiving_increase_list_item_grossweigth:
+            case R.id.receiving_increase_gwlinear:
                 createDialogBox(v,"GW");
         }
     }
 
     public void createDialogBox(View v,String key){
-        QuantityDialog quantityDialog = new QuantityDialog();
+        NumberDialog numberDialog = new NumberDialog();
         FragmentManager fm =  ((AppCompatActivity) this.getContext()).getSupportFragmentManager();
         Fragment fragment = fm.findFragmentByTag(key);
         if (fragment != null) {
             fm.beginTransaction().remove(fragment).commit();
         }
-        ConnectQuantityDialogListener listener = quantityDialog;
-        QuantityDialogModel quantityDialogModel = new QuantityDialogModel();
-        quantityDialogModel.setKey(key);
+        ConnectQuantityDialogListener listener = numberDialog;
+        NumberDialogModel numberDialogModel = new NumberDialogModel();
+        numberDialogModel.setKey(key);
         Integer position = (Integer)v.getTag();
         Log.d("asd","ReceivingIcreaseListAdapter---getItemPosition : " + position);
-        quantityDialogModel.setPosition(position);
+        numberDialogModel.setPosition(position);
         if(key.equalsIgnoreCase("QTY")){
             Integer qty = getItem(position).getQty();
             String qtyUnit = getItem(position).getQtyUnit();
-            quantityDialogModel.setQty(qty);
-            quantityDialogModel.setQtyUnit(qtyUnit);
-            quantityDialogModel.setQuantityProfileModels(this.quantityProfileModels);
+            numberDialogModel.setQty(qty);
+            numberDialogModel.setQtyUnit(qtyUnit);
+            numberDialogModel.setQuantityProfileModels(this.quantityProfileModels);
         }else if(key.equalsIgnoreCase("GW")){
             BigDecimal gw = getItem(position).getGrossWeight();
             String gwUnit = getItem(position).getGrossWeightUnit();
-            quantityDialogModel.setGrossWeight(gw);
-            quantityDialogModel.setGrossWeightUnit(gwUnit);
-            quantityDialogModel.setWeightProfileModelList(this.weightProfileModelList);
+            numberDialogModel.setGrossWeight(gw);
+            numberDialogModel.setGrossWeightUnit(gwUnit);
+            numberDialogModel.setWeightProfileModelList(this.weightProfileModelList);
         }
-        listener.fromReceivingIncreaseListAdapter(quantityDialogModel);
-        quantityDialog.show(fm,key);
+        listener.fromReceivingIncreaseListAdapter(numberDialogModel);
+        numberDialog.show(fm,key);
     }
-
-//    @Override
-//    public void returnData(QuantityDialogModel quantityDialogModel) {
-//        Log.d("asd","result : " + quantityDialogModel.getQty());
-//        viewHolder.qty.setText(quantityDialogModel.getQty());
-//
-//    }
-
-//    @Override
-//    public void returnData(QuantityDialogModel quantityDialogModel) {
-//        if("QTY".equalsIgnoreCase(quantityDialogModel.getKey())){
-//            viewHolder.qty.setText(quantityDialogModel.getQty());
-//        }else if("GW".equalsIgnoreCase(quantityDialogModel.getKey())){
-//            viewHolder.grossweight.setText(quantityDialogModel.getGrossWeight() == null ? "" :quantityDialogModel.getGrossWeight() .toString());
-//        }
-//    }
 
     public static class ViewHolder{
         @BindView(R.id.receiving_increase_list_item_productCode)
@@ -151,6 +141,15 @@ public class ReceivingIncreaseListAdapter extends MyBaseAdapter<ReceivingIncreas
         TextView qty;
         @BindView(R.id.receiving_increase_list_item_grossweigth)
         TextView grossweight;
+        @BindView(R.id.receiving_increase_list_item_qtyunit)
+        TextView qtyunit;
+        @BindView(R.id.receiving_increase_list_item_gwunit)
+        TextView gwunit;
+        @BindView(R.id.receiving_increase_qtylinear)
+        LinearLayout qtylinear;
+        @BindView(R.id.receiving_increase_gwlinear)
+        LinearLayout gwlinear;
+
         public ViewHolder(View view){
             ButterKnife.bind(this,view);
         }

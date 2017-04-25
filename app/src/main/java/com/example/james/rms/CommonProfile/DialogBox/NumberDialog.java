@@ -13,10 +13,12 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import com.example.james.rms.CommonProfile.ObjectUtil;
+import com.example.james.rms.Core.Model.NumberType;
 import com.example.james.rms.Core.Model.QuantityProfileModel;
 import com.example.james.rms.Core.Model.WeightProfileModel;
-import com.example.james.rms.Core.TransferModel.QuantityDialogModel;
+import com.example.james.rms.Core.TransferModel.NumberDialogModel;
 import com.example.james.rms.ITF.ConnectQuantityDialogListener;
+import com.example.james.rms.Operation.ReceivingAction.ReceivingIncrease;
 import com.example.james.rms.R;
 
 import java.math.BigDecimal;
@@ -30,7 +32,7 @@ import butterknife.ButterKnife;
  * Created by jamie on 2017/4/22.
  */
 
-public class QuantityDialog extends DialogFragment implements View.OnClickListener,ConnectQuantityDialogListener {
+public class NumberDialog extends DialogFragment implements View.OnClickListener,ConnectQuantityDialogListener {
 
     @BindView(R.id.quantity_dialog_unit)
     android.support.v7.widget.AppCompatSpinner dialog_spinner;
@@ -45,17 +47,20 @@ public class QuantityDialog extends DialogFragment implements View.OnClickListen
 
     private String dialog_title;
     private List<String> units = new ArrayList<>();
-    private QuantityDialogModel quantityDialogModel;
+    private NumberDialogModel numberDialogModel;
 
+    public interface QDtoReceivingIncrease{
+        void returnData(NumberDialogModel numberDialogModel);
+    }
     @Override
-    public void fromReceivingIncreaseListAdapter(QuantityDialogModel quantityDialogModel) {
-        this.quantityDialogModel = quantityDialogModel;
+    public void fromReceivingIncreaseListAdapter(NumberDialogModel numberDialogModel) {
+        this.numberDialogModel = numberDialogModel;
         units = new ArrayList<>();
-        Log.d("asd", "QuantityDialog : " + this.quantityDialogModel.toString());
-        if (quantityDialogModel != null) {
-            if (quantityDialogModel.getKey().equalsIgnoreCase("QTY")) {
+        Log.d("asd", "To-[NumberDialog ]-- (NumberDialogModel)--From[ReceivingIncreaseListAdapter]" + this.numberDialogModel.toString());
+        if (numberDialogModel != null) {
+            if (numberDialogModel.getKey().equalsIgnoreCase(NumberType.qty)) {
                 handlerQty();
-            } else if (quantityDialogModel.getKey().equalsIgnoreCase("GW")) {
+            } else if (numberDialogModel.getKey().equalsIgnoreCase(NumberType.gw)) {
                 handlerGw();
             }
         }
@@ -63,16 +68,16 @@ public class QuantityDialog extends DialogFragment implements View.OnClickListen
 
     private void handlerQty(){
         dialog_title = "Quantity";
-        units = getQTYUnit(quantityDialogModel.getQuantityProfileModels(),quantityDialogModel.getQtyUnit());
-        if (quantityDialogModel.getQty() != null)
-            numEdit.setText(quantityDialogModel.getQty().toString());
+        units = getQTYUnit(numberDialogModel.getQuantityProfileModels(), numberDialogModel.getQtyUnit());
+//        if (numberDialogModel.getQty() != null)
+//            numEdit.setText(numberDialogModel.getQty());
     }
 
     private void handlerGw(){
         dialog_title = "Weight";
-        units = getGWUnit(quantityDialogModel.getWeightProfileModelList(),quantityDialogModel.getGrossWeightUnit());
-        if (quantityDialogModel.getGrossWeight() != null)
-            numEdit.setText(quantityDialogModel.getGrossWeight().toString());
+        units = getGWUnit(numberDialogModel.getWeightProfileModelList(), numberDialogModel.getGrossWeightUnit());
+//        if (numberDialogModel.getGrossWeight() != null)
+//            numEdit.setText(numberDialogModel.getGrossWeight().toString());
 
     }
     private List<String> getGWUnit(List<WeightProfileModel> weightProfileModelList, String gwUnit) {
@@ -91,17 +96,17 @@ public class QuantityDialog extends DialogFragment implements View.OnClickListen
 
 
     private List<String> getQTYUnit(List<QuantityProfileModel> quantityProfileModels,String qtyUnit) {
-        List<String> unit = new ArrayList<>();
+        List<String> units = new ArrayList<>();
         if(ObjectUtil.isNotNullEmpty(qtyUnit)){
-            unit.add(qtyUnit);
+            units.add(qtyUnit);
         }
         for(QuantityProfileModel item: quantityProfileModels){
             if(item.getQuantityUnit().equalsIgnoreCase(qtyUnit)){
                 continue;
             }
-            unit.add(item.getQuantityUnit());
+            units.add(item.getQuantityUnit());
         }
-        return unit;
+        return units;
     }
 
     @Override
@@ -114,6 +119,19 @@ public class QuantityDialog extends DialogFragment implements View.OnClickListen
         close.setOnClickListener(this);
         choice.setOnClickListener(this);
         title.setText(dialog_title);
+        if(numberDialogModel !=null ){
+            switch (numberDialogModel.getKey()){
+                case NumberType.qty :
+                    if (numberDialogModel.getQty() != null)
+                        numEdit.setText(numberDialogModel.getQty().toString());
+                    break;
+                case NumberType.gw :
+                    if (numberDialogModel.getGrossWeight() != null)
+                        numEdit.setText(numberDialogModel.getGrossWeight().toString());
+                    break;
+            }
+        }
+
         ArrayAdapter dropDownAdapter = new ArrayAdapter(getActivity(),android.R.layout.simple_spinner_dropdown_item,units){
             @Override
             public View getDropDownView(int position, View convertView, ViewGroup parent) {
@@ -147,21 +165,27 @@ public class QuantityDialog extends DialogFragment implements View.OnClickListen
             case R.id.quantity_dialog_choose:
                 Integer num = ObjectUtil.stringToInteger(numEdit.getText().toString());
                 String unti = dialog_spinner.getSelectedItem().toString();
-                Log.d("asd","num :" +num);
-                Log.d("asd","unti :" +unti);
-                if("QTY".equalsIgnoreCase(this.quantityDialogModel.getKey())){
-                    if(num != null)
-                    this.quantityDialogModel.setQty(num);
-                    this.quantityDialogModel.setQtyUnit(unti);
-                }else if ("GW".equalsIgnoreCase(this.quantityDialogModel.getKey())){
-                    if(num != null)
-                    this.quantityDialogModel.setGrossWeight(new BigDecimal(num));
-                    this.quantityDialogModel.setGrossWeightUnit(unti);
-                }
+                Log.d("asd","[NumberDialog]-{Click Choose}-num :" +num);
+                Log.d("asd","[NumberDialog]-{Click Choose}-unti :" +unti);
+                if(num != null) {
+                    switch (this.numberDialogModel.getKey()) {
+                        case NumberType.qty:
+                            this.numberDialogModel.setQty(num);
+                            this.numberDialogModel.setQtyUnit(unti);
+                            break;
+                        case NumberType.gw:
+                            this.numberDialogModel.setGrossWeight(new BigDecimal(num));
+                            this.numberDialogModel.setGrossWeightUnit(unti);
+                            break;
 
+                    }
+                }
                 if (getDialog().isShowing()){
                     getDialog().dismiss();
                 }
+                ReceivingIncrease receivingIncrease = (ReceivingIncrease)getActivity();
+                QDtoReceivingIncrease qDtoReceivingIncrease = receivingIncrease;
+                qDtoReceivingIncrease.returnData(this.numberDialogModel);
                 break;
         }
     }

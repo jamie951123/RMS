@@ -10,7 +10,7 @@ import java.util.List;
  * Created by jamie on 2017/4/24.
  */
 
-public class QuantityDialogModel {
+public class NumberDialogModel {
     String key;
     BigDecimal grossWeight;
     String grossWeightUnit;
@@ -84,5 +84,17 @@ public class QuantityDialogModel {
         this.position = position;
     }
 
-
+    @Override
+    public String toString() {
+        return "NumberDialogModel{" +
+                "key='" + key + '\'' +
+                ", grossWeight=" + grossWeight +
+                ", grossWeightUnit='" + grossWeightUnit + '\'' +
+                ", qty=" + qty +
+                ", qtyUnit='" + qtyUnit + '\'' +
+                ", weightProfileModelList=" + weightProfileModelList +
+                ", quantityProfileModels=" + quantityProfileModels +
+                ", position=" + position +
+                '}';
+    }
 }
