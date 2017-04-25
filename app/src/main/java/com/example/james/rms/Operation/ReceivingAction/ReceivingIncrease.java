@@ -31,7 +31,7 @@ import com.example.james.rms.Core.Dao.ReceivingDao;
 import com.example.james.rms.Core.Dao.ReceivingDaoImpl;
 import com.example.james.rms.Core.Dao.WeightProfileDao;
 import com.example.james.rms.Core.Dao.WeightProfileDaoImpl;
-import com.example.james.rms.Core.Model.NumberType;
+import com.example.james.rms.Core.Model.KeyModel;
 import com.example.james.rms.Core.Model.QuantityProfileModel;
 import com.example.james.rms.Core.Model.ReceivingOrderAndItemContainer;
 import com.example.james.rms.Core.Model.ProductModel;
@@ -133,6 +133,9 @@ public class ReceivingIncrease extends AppCompatActivity implements View.OnClick
         String orderRemark              = remark_edit.getText().toString();
         ReceivingOrderModel order       = getReceivingOrder(itemSize,receivingDate,createDate,orderRemark);
         List<ReceivingItemModel> item   = getReceivingItem(receivingDate,createDate);
+        if(createDate == null){
+
+        }
         if(order != null){
             ReceivingOrderAndItemContainer container = new ReceivingOrderAndItemContainer(order,item);
             String json = null;
@@ -297,11 +300,11 @@ public class ReceivingIncrease extends AppCompatActivity implements View.OnClick
     @Override
     public void returnData(NumberDialogModel numberDialogModel) {
         switch (numberDialogModel.getKey()){
-            case NumberType.qty:
+            case KeyModel.qty:
                 this.listviewLastestModel.get(numberDialogModel.getPosition()).setQty(numberDialogModel.getQty());
                 this.listviewLastestModel.get(numberDialogModel.getPosition()).setQtyUnit(numberDialogModel.getQtyUnit());
                 break;
-            case NumberType.gw:
+            case KeyModel.gw:
                 this.listviewLastestModel.get(numberDialogModel.getPosition()).setGrossWeight(numberDialogModel.getGrossWeight());
                 this.listviewLastestModel.get(numberDialogModel.getPosition()).setGrossWeightUnit(numberDialogModel.getGrossWeightUnit());
         }

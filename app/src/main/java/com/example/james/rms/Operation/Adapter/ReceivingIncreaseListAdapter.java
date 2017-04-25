@@ -10,12 +10,14 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.james.rms.CommonProfile.DialogBox.NumberDialog;
 import com.example.james.rms.CommonProfile.MyBaseAdapter;
 import com.example.james.rms.CommonProfile.ObjectUtil;
+import com.example.james.rms.Core.Model.KeyModel;
 import com.example.james.rms.Core.Model.QuantityProfileModel;
 import com.example.james.rms.Core.Model.WeightProfileModel;
 import com.example.james.rms.Core.TransferModel.NumberDialogModel;
@@ -57,15 +59,17 @@ public class ReceivingIncreaseListAdapter extends MyBaseAdapter<ReceivingIncreas
         }
         String qtyUnit = getItem(position).getQtyUnit() == null ? "": getItem(position).getQtyUnit();
         String gwUnit  = getItem(position).getGrossWeightUnit() == null ? "":getItem(position).getGrossWeightUnit();
-        viewHolder.receiving_increase_list_item_productCode.setText(getItem(position).getProductModel().getProductName());
-        viewHolder.receiving_increase_list_item_productName.setText(getItem(position).getProductModel().getProductCode());
+        viewHolder.receiving_increase_list_item_productCode.setText(getItem(position).getProductModel().getProductCode());
+        viewHolder.receiving_increase_list_item_productName.setText(getItem(position).getProductModel().getProductName());
         viewHolder.qty.setText(ObjectUtil.intToString(getItem(position).getQty()));
         viewHolder.qtyunit.setText(qtyUnit);
         viewHolder.grossweight.setText(ObjectUtil.bigDecimalToString(getItem(position).getGrossWeight()));
         viewHolder.gwunit.setText(gwUnit);
+        viewHolder.itemremark.setText(getItem(position).getRemark());
 
-        viewHolder.qty.addTextChangedListener(textWatch(position,"qty"));
-        viewHolder.grossweight.addTextChangedListener(textWatch(position,"grossweight"));
+        viewHolder.itemremark.addTextChangedListener(textWatch(position, KeyModel.remark));
+        viewHolder.qty.addTextChangedListener(textWatch(position, KeyModel.qty));
+        viewHolder.grossweight.addTextChangedListener(textWatch(position, KeyModel.gw));
 
         viewHolder.qtylinear.setTag(position);
         viewHolder.qtylinear.setOnClickListener(this);
@@ -95,10 +99,10 @@ public class ReceivingIncreaseListAdapter extends MyBaseAdapter<ReceivingIncreas
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.receiving_increase_qtylinear:
-                createDialogBox(v,"QTY");
+                createDialogBox(v, KeyModel.qty);
                 break;
             case R.id.receiving_increase_gwlinear:
-                createDialogBox(v,"GW");
+                createDialogBox(v, KeyModel.gw);
         }
     }
 
@@ -149,6 +153,8 @@ public class ReceivingIncreaseListAdapter extends MyBaseAdapter<ReceivingIncreas
         LinearLayout qtylinear;
         @BindView(R.id.receiving_increase_gwlinear)
         LinearLayout gwlinear;
+        @BindView(R.id.receiving_increase_itemremark)
+        EditText itemremark;
 
         public ViewHolder(View view){
             ButterKnife.bind(this,view);
@@ -176,15 +182,19 @@ public class ReceivingIncreaseListAdapter extends MyBaseAdapter<ReceivingIncreas
             public void onTextChanged(CharSequence s, int start, int before,
                                       int count) {
                 if(s != null && s.length()>0) {
-                    if("qty".equals(fieldId)){
-                        getItem(position).setQty(Integer.parseInt(s.toString()));
-                        Log.v("asd", "[qty][onTextChanged]" + getItem(position).getQty());
+                    switch (fieldId){
+                        case KeyModel.qty:
+                            getItem(position).setQty(Integer.parseInt(s.toString()));
+                            Log.v("asd", "[qty][onTextChanged]" + getItem(position).getQty());
+                            break;
+                        case KeyModel.gw:
+                            getItem(position).setGrossWeight(new BigDecimal(s.toString()));
+                            Log.v("asd", "[grossweight][onTextChanged]" + getItem(position).getGrossWeight());
+                            break;
+                        case KeyModel.remark:
+                            getItem(position).setRemark(s.toString());
+                            break;
                     }
-                    if("grossweight".equals(fieldId)){
-                        getItem(position).setGrossWeight(new BigDecimal(s.toString()));
-                        Log.v("asd", "[grossweight][onTextChanged]" + getItem(position).getGrossWeight());
-                    }
-
                 }
 
             }

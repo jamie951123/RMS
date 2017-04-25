@@ -13,7 +13,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import com.example.james.rms.CommonProfile.ObjectUtil;
-import com.example.james.rms.Core.Model.NumberType;
+import com.example.james.rms.Core.Model.KeyModel;
 import com.example.james.rms.Core.Model.QuantityProfileModel;
 import com.example.james.rms.Core.Model.WeightProfileModel;
 import com.example.james.rms.Core.TransferModel.NumberDialogModel;
@@ -58,9 +58,9 @@ public class NumberDialog extends DialogFragment implements View.OnClickListener
         units = new ArrayList<>();
         Log.d("asd", "To-[NumberDialog ]-- (NumberDialogModel)--From[ReceivingIncreaseListAdapter]" + this.numberDialogModel.toString());
         if (numberDialogModel != null) {
-            if (numberDialogModel.getKey().equalsIgnoreCase(NumberType.qty)) {
+            if (numberDialogModel.getKey().equalsIgnoreCase(KeyModel.qty)) {
                 handlerQty();
-            } else if (numberDialogModel.getKey().equalsIgnoreCase(NumberType.gw)) {
+            } else if (numberDialogModel.getKey().equalsIgnoreCase(KeyModel.gw)) {
                 handlerGw();
             }
         }
@@ -121,11 +121,11 @@ public class NumberDialog extends DialogFragment implements View.OnClickListener
         title.setText(dialog_title);
         if(numberDialogModel !=null ){
             switch (numberDialogModel.getKey()){
-                case NumberType.qty :
+                case KeyModel.qty :
                     if (numberDialogModel.getQty() != null)
                         numEdit.setText(numberDialogModel.getQty().toString());
                     break;
-                case NumberType.gw :
+                case KeyModel.gw :
                     if (numberDialogModel.getGrossWeight() != null)
                         numEdit.setText(numberDialogModel.getGrossWeight().toString());
                     break;
@@ -169,11 +169,11 @@ public class NumberDialog extends DialogFragment implements View.OnClickListener
                 Log.d("asd","[NumberDialog]-{Click Choose}-unti :" +unti);
                 if(num != null) {
                     switch (this.numberDialogModel.getKey()) {
-                        case NumberType.qty:
+                        case KeyModel.qty:
                             this.numberDialogModel.setQty(num);
                             this.numberDialogModel.setQtyUnit(unti);
                             break;
-                        case NumberType.gw:
+                        case KeyModel.gw:
                             this.numberDialogModel.setGrossWeight(new BigDecimal(num));
                             this.numberDialogModel.setGrossWeightUnit(unti);
                             break;
