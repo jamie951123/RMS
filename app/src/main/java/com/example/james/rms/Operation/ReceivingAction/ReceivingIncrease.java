@@ -133,8 +133,12 @@ public class ReceivingIncrease extends AppCompatActivity implements View.OnClick
         String orderRemark              = remark_edit.getText().toString();
         ReceivingOrderModel order       = getReceivingOrder(itemSize,receivingDate,createDate,orderRemark);
         List<ReceivingItemModel> item   = getReceivingItem(receivingDate,createDate);
-        if(createDate == null){
-
+        if(receivingDate == null){
+            List<String> missingField = new ArrayList<>();
+            missingField.add(getString(R.string.label_receivingDate));
+            ClassicDialog classicDialog = new ClassicDialog(this);
+            classicDialog.showMissingField(missingField);
+            return super.onOptionsItemSelected(menuItem);
         }
         if(order != null){
             ReceivingOrderAndItemContainer container = new ReceivingOrderAndItemContainer(order,item);
