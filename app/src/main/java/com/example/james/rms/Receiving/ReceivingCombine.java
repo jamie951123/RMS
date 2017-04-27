@@ -20,7 +20,7 @@ import java.util.List;
 
 public class ReceivingCombine {
 
-    public String combine_partyId(String partyId) {
+    public static String combine_partyId(String partyId) {
         ReceivingSearchObject receivingSearchObject = new ReceivingSearchObject();
         receivingSearchObject.setPartyId(partyId);
         String result="";

@@ -49,7 +49,6 @@ public class ProductIncrease extends AppCompatActivity implements View.OnClickLi
     Button increase_submit;
 
     //
-    private ProductCombine productCombine = new ProductCombine();
     private ProductDao productDao = new ProductDaoImpl();
     //
     DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
@@ -90,7 +89,7 @@ public class ProductIncrease extends AppCompatActivity implements View.OnClickLi
                     Toast.makeText(this,R.string.productAction,Toast.LENGTH_LONG).show();
                     break;
                 }
-                String result = productCombine.combine_AddProduct(productCode,puductName,descriptionCN,
+                String result = ProductCombine.combine_AddProduct(productCode,puductName,descriptionCN,
                         descriptionEN,remark,createDate,partyId);
                 ProductModel productModel = productDao.insertProduct(result);
                 if(productModel != null) {

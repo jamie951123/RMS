@@ -17,7 +17,7 @@ import java.util.Date;
 
 public class ProductCombine {
 
-    public String combine_partyId(String partyId) {
+    public static String combine_partyId(String partyId) {
         ProductSearchObject productSearchObject = new ProductSearchObject();
         productSearchObject.setPartyId(partyId);
         String result="";
@@ -30,7 +30,7 @@ public class ProductCombine {
         return result;
     }
 
-    public String combine_AddProduct(String productCode,String productName,
+    public static String combine_AddProduct(String productCode,String productName,
                                      String descriptionCN, String descriptionEN, String remark,
                                      Date createDate,String partyId){
         String result="";

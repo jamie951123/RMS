@@ -31,8 +31,6 @@ public class Receiving_order extends MyBaseFragment implements AdapterView.OnIte
     @BindView(R.id.receiving_order_listView)
     ListView listView;
 
-    private ReceivingCombine receivingCombine = new ReceivingCombine();
-    //
     private ReceivingDao receivingDao = new ReceivingDaoImpl();
     //
     private ReceivingOrderListAdapter receivingOrderListAdapter;
@@ -49,7 +47,7 @@ public class Receiving_order extends MyBaseFragment implements AdapterView.OnIte
         PartyIdPreferences partyIdPreferences = new PartyIdPreferences(getActivity(),"loginInformation",getActivity().MODE_PRIVATE);
         String partyId =  partyIdPreferences.getPreferences_PartyId().get("partyId");
         //partyId
-        String combine_partyId = receivingCombine.combine_partyId(partyId);
+        String combine_partyId = ReceivingCombine.combine_partyId(partyId);
 
         //HttpOK
         receivingOrderModels = receivingDao.findReceivingOrderByPartyId(combine_partyId);

@@ -1,4 +1,4 @@
-package com.example.james.rms.Inventory.Tab.model;
+package com.example.james.rms.Inventory.model;
 
 /**
  * Created by james on 16/3/2017.
