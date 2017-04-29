@@ -28,9 +28,10 @@ public class ServeProfile {
     final static String quantity_findAll                                = "rms/quantity/findAll";
     final static String quantity_findByPartyId                        = "rms/quantity/findByPartyId";
     //
-    final static String inventory_findAll               ="rms/inventory/findAll";
-    final static String inventory_findByPartyId         ="rms/inventory/findByPartyId";
-    final static String inventory_insertInventory       ="rms/inventory/findByPartyId";
+    final static String inventory_findAll                            ="rms/inventory/findAll";
+    final static String inventory_findByPartyId                     ="rms/inventory/findByPartyId";
+    final static String inventory_findByPartyIdAndStatus         ="rms/inventory/findByPartyIdAndStauts";
+    final static String inventory_insertInventory                ="rms/inventory/findByPartyId";
 
 
     public static String getInventory_findAll() {
@@ -106,5 +107,9 @@ public class ServeProfile {
 
     public static String getQuantity_findByPartyId() {
         return quantity_findByPartyId;
+    }
+
+    public static String getInventory_findByPartyIdAndStatus() {
+        return inventory_findByPartyIdAndStatus;
     }
 }

@@ -24,15 +24,16 @@ public class InventoryModel {
 
     private Status status;
 
-    private BigDecimal GrossWeight;
+    private BigDecimal grossWeight;
 
-    private String GrossWeightUnit;
+    private String grossWeightUnit;
 
     private Integer itemQty;
 
     private String qtyUnit;
 
-    private ProductModel Product;
+    private ProductModel product;
+
 
     public Long getInventoryId() {
         return inventoryId;
@@ -99,19 +100,19 @@ public class InventoryModel {
     }
 
     public BigDecimal getGrossWeight() {
-        return GrossWeight;
+        return grossWeight;
     }
 
     public void setGrossWeight(BigDecimal grossWeight) {
-        GrossWeight = grossWeight;
+        this.grossWeight = grossWeight;
     }
 
     public String getGrossWeightUnit() {
-        return GrossWeightUnit;
+        return grossWeightUnit;
     }
 
     public void setGrossWeightUnit(String grossWeightUnit) {
-        GrossWeightUnit = grossWeightUnit;
+        this.grossWeightUnit = grossWeightUnit;
     }
 
     public Integer getItemQty() {
@@ -131,11 +132,11 @@ public class InventoryModel {
     }
 
     public ProductModel getProduct() {
-        return Product;
+        return product;
     }
 
     public void setProduct(ProductModel product) {
-        Product = product;
+        this.product = product;
     }
 
     @Override
@@ -149,12 +150,11 @@ public class InventoryModel {
                 ", stockOutDate=" + stockOutDate +
                 ", stockInDate=" + stockInDate +
                 ", status=" + status +
-                ", GrossWeight=" + GrossWeight +
-                ", GrossWeightUnit='" + GrossWeightUnit + '\'' +
+                ", grossWeight=" + grossWeight +
+                ", grossWeightUnit='" + grossWeightUnit + '\'' +
                 ", itemQty=" + itemQty +
                 ", qtyUnit='" + qtyUnit + '\'' +
-                ", Product=" + Product +
+                ", product=" + product +
                 '}';
     }
-
 }

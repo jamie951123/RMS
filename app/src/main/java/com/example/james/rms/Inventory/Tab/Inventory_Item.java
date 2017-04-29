@@ -1,6 +1,7 @@
 package com.example.james.rms.Inventory.Tab;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,10 +12,13 @@ import com.example.james.rms.CommonProfile.SharePreferences.PartyIdPreferences;
 import com.example.james.rms.Core.Dao.InventoryDao;
 import com.example.james.rms.Core.Dao.InventoryDaoImpl;
 import com.example.james.rms.Core.Model.InventoryModel;
+import com.example.james.rms.Core.Model.Status;
+import com.example.james.rms.ITF.ViewPagerListener;
 import com.example.james.rms.Inventory.Adapter.InventoryItemListAdapter;
 import com.example.james.rms.Inventory.InventoryCombine;
 import com.example.james.rms.R;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -24,10 +28,11 @@ import butterknife.ButterKnife;
  * Created by jamie on 2017/4/27.
  */
 
-public class Inventory_Item extends MyBaseFragment {
+public class Inventory_Item extends MyBaseFragment implements ViewPagerListener{
     @BindView(R.id.inventory_item_listview)
     ListView listView;
 
+    List<InventoryModel> inventoryModels;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -37,14 +42,14 @@ public class Inventory_Item extends MyBaseFragment {
         PartyIdPreferences partyIdPreferences = new PartyIdPreferences(getActivity(),"loginInformation",getActivity().MODE_PRIVATE);
         String partyId =  partyIdPreferences.getPreferences_PartyId().get("partyId");
         //partyId
-        String combine_partyId = InventoryCombine.combine_partyId(partyId);
+        String combine_partyId = InventoryCombine.combine_partyIdAndStatus(partyId, Status.PROGRESS);
         //Service
         InventoryDao inventoryDao = new InventoryDaoImpl();
-        List<InventoryModel> inventoryModels = inventoryDao.findByPartyId(combine_partyId);
+        inventoryModels = inventoryDao.findByPartyIdAndStatus(combine_partyId);
 
+        // this is data fro recycler view
         InventoryItemListAdapter inventoryItemListAdapter = new InventoryItemListAdapter(getActivity(),inventoryModels);
         listView.setAdapter(inventoryItemListAdapter);
-        // this is data fro recycler view
         return rootView;
     }
 

@@ -10,8 +10,9 @@ import java.util.List;
 
 public interface InventoryDao {
 
-    List<InventoryModel> findByPartyId(String partyId);
+    List<InventoryModel> findByPartyId(String json);
 
     InventoryModel save(InventoryModel inventory);
 
+    List<InventoryModel> findByPartyIdAndStatus(String json);
 }

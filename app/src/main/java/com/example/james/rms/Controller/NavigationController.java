@@ -27,8 +27,14 @@ import com.example.james.rms.CommonProfile.FabButton.FabCore;
 import com.example.james.rms.CommonProfile.MyBaseFragment;
 import com.example.james.rms.CommonProfile.SharePreferences.LoginPreferences;
 import com.example.james.rms.CommonProfile.SharePreferences.NavPreferences;
+import com.example.james.rms.CommonProfile.SharePreferences.PartyIdPreferences;
 import com.example.james.rms.Controller.CommunicateService.NavToRL;
+import com.example.james.rms.Core.Dao.InventoryDao;
+import com.example.james.rms.Core.Dao.InventoryDaoImpl;
+import com.example.james.rms.Core.Model.InventoryModel;
+import com.example.james.rms.Core.Model.Status;
 import com.example.james.rms.ITF.ViewPagerListener;
+import com.example.james.rms.Inventory.InventoryCombine;
 import com.example.james.rms.Inventory.Tab.InventoryContainer;
 import com.example.james.rms.Login.LoginActivity;
 import com.example.james.rms.Operation.OperationContainer;
@@ -64,6 +70,7 @@ public class NavigationController extends AppCompatActivity implements Navigatio
     private NavPagerAdapter navPagerAdapter;
     private List<Fragment> fragments = new ArrayList<>();
 
+    String partyId;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.navigation_controller);
@@ -72,12 +79,37 @@ public class NavigationController extends AppCompatActivity implements Navigatio
         setUpActionBar();
         setUpFragmentType();
         setUpViewPager();
+        //Preferences
         NavPreferences navPreferences = new NavPreferences(this,"loginInformation",MODE_PRIVATE);
         String userName = navPreferences.getPreferences_NavPreferences().get("username");
+        partyId =  navPreferences.getPreferences_NavPreferences().get("partyId");
         View hearder = navigationView.getHeaderView(0);
         TextView navUsername  = (TextView) hearder.findViewById(R.id.navUserName);
         navUsername.setText(userName);
         FabSetting();
+    }
+
+    public void onResume(){
+        super.onResume();
+        //Service
+    }
+//    private List<InventoryModel> InventoryConfig(String partyId) {
+//        //partyId
+//        String combine_partyId = InventoryCombine.combine_partyIdAndStatus(partyId, Status.PROGRESS);
+//        //Service
+//        InventoryDao inventoryDao = new InventoryDaoImpl();
+//        List<InventoryModel> inventoryModels = inventoryDao.findByPartyIdAndStatus(combine_partyId);
+//
+//        ViewPagerListener viewPagerListener = (MyBaseFragment) fragments.get(2);
+//        viewPagerListener.transferViewPager(R.id.inventory_item,inventoryModels);
+//        return inventoryModels;
+//    }
+
+    private void setUpFragmentType(){
+//        fragments.add(new ReceivingContainer());
+        fragments.add(new ProductContainer());
+        fragments.add(new ReceivingContainer());
+        fragments.add(new InventoryContainer());
     }
 
     private void FabSetting() {
@@ -147,12 +179,6 @@ public class NavigationController extends AppCompatActivity implements Navigatio
             intent.setClass(this, LoginActivity.class);
             startActivity(intent);
         }
-    }
-    private void setUpFragmentType(){
-//        fragments.add(new ReceivingContainer());
-        fragments.add(new ProductContainer());
-        fragments.add(new ReceivingContainer());
-        fragments.add(new InventoryContainer());
     }
     private void setUpActionBar() {
         setSupportActionBar(toolbar);

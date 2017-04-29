@@ -22,6 +22,13 @@ public class InventoryServePath {
         return serve_path;
     }
 
+    public static String serve_findByPartyIdAndStatus(){
+        String serve = ServeProfile.getServe();
+        String path = ServeProfile.getInventory_findByPartyIdAndStatus();
+        String serve_path = serve+path;
+        return serve_path;
+    }
+
     public static String serve_save(){
         String serve = ServeProfile.getServe();
         String path = ServeProfile.getInventory_insertInventory();

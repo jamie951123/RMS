@@ -32,7 +32,7 @@ public class ReceivingItemListAdapter extends MyBaseAdapter<ReceivingItemModel> 
         if(convertView != null){
             viewHolder = (ViewHolder)convertView.getTag();
         }else{
-            convertView = LayoutInflater.from(getContext()).inflate(R.layout.receiving_item_item,parent,false);
+            convertView = LayoutInflater.from(getContext()).inflate(R.layout.receiving_item_listitem,parent,false);
             viewHolder = new ViewHolder(convertView);
             convertView.setTag(viewHolder);
         }
