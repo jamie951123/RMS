@@ -1,7 +1,6 @@
 package com.example.james.rms.Inventory.Tab;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,14 +10,16 @@ import com.example.james.rms.CommonProfile.MyBaseFragment;
 import com.example.james.rms.CommonProfile.SharePreferences.PartyIdPreferences;
 import com.example.james.rms.Core.Dao.InventoryDao;
 import com.example.james.rms.Core.Dao.InventoryDaoImpl;
+import com.example.james.rms.Core.Dao.InventorySumDao;
+import com.example.james.rms.Core.Dao.InventorySumDaoImpl;
 import com.example.james.rms.Core.Model.InventoryModel;
+import com.example.james.rms.Core.Model.InventorySumModel;
 import com.example.james.rms.Core.Model.Status;
 import com.example.james.rms.ITF.ViewPagerListener;
 import com.example.james.rms.Inventory.Adapter.InventoryItemListAdapter;
 import com.example.james.rms.Inventory.InventoryCombine;
 import com.example.james.rms.R;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -33,6 +34,7 @@ public class Inventory_Item extends MyBaseFragment implements ViewPagerListener{
     ListView listView;
 
     List<InventoryModel> inventoryModels;
+    List<InventorySumModel> inventorySumModels;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -42,13 +44,15 @@ public class Inventory_Item extends MyBaseFragment implements ViewPagerListener{
         PartyIdPreferences partyIdPreferences = new PartyIdPreferences(getActivity(),"loginInformation",getActivity().MODE_PRIVATE);
         String partyId =  partyIdPreferences.getPreferences_PartyId().get("partyId");
         //partyId
-        String combine_partyId = InventoryCombine.combine_partyIdAndStatus(partyId, Status.PROGRESS);
-        //Service
-        InventoryDao inventoryDao = new InventoryDaoImpl();
-        inventoryModels = inventoryDao.findByPartyIdAndStatus(combine_partyId);
-
+        String combine_partyIdAndStatus = InventoryCombine.combine_partyIdAndStatus(partyId, Status.PROGRESS);
+        //Service Inventory
+//        InventoryDao inventoryDao = new InventoryDaoImpl();
+//        inventoryModels = inventoryDao.findByPartyIdAndStatus(combine_partyIdAndStatus);
+        //Service InventorySum
+        InventorySumDao inventorySumDao = new InventorySumDaoImpl();
+        inventorySumModels = inventorySumDao.findByPartyIdAndStatusOrderByProductId(combine_partyIdAndStatus);
         // this is data fro recycler view
-        InventoryItemListAdapter inventoryItemListAdapter = new InventoryItemListAdapter(getActivity(),inventoryModels);
+        InventoryItemListAdapter inventoryItemListAdapter = new InventoryItemListAdapter(getActivity(),inventorySumModels);
         listView.setAdapter(inventoryItemListAdapter);
         return rootView;
     }

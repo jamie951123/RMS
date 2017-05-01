@@ -91,6 +91,7 @@ public class ProductDaoImpl implements ProductDao {
         }catch (JsonSyntaxException e){
             e.printStackTrace();
         }
+        Log.d("asd:","[ProductModel]-insertProduct-[Response(GSON)]: :"+productModel);
 
         return productModel;
     }

@@ -90,7 +90,7 @@
 
     <!--ReceivingOrder-->
     <string name="receivingOrder_orderId">OrderId:</string>
-    <string name="receivingOrder_date">DeceivingDate:</string>
+    <string name="receivingOrder_date">ReceivingDate:</string>
     <string name="receivingOrder_remark">Remark:</string>
     <string name="receivingOrder_status">Status:</string>
     <string name="receivingOrder_createDate">CreateDate:</string>
@@ -125,6 +125,7 @@
     <string name="label_status">Status:</string>
     <string name="label_input">Please Input</string>
     <string name="label_number">Number</string>
+    <string name="label_storage">Storage Status</string>
     <!--title-->
     <string name="title_input_qty">Quantity</string>
     <string name="title_input_grossweight">GrossWeight</string>

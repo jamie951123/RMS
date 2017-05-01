@@ -34,7 +34,6 @@ public class InventoryModel {
 
     private ProductModel product;
 
-
     public Long getInventoryId() {
         return inventoryId;
     }

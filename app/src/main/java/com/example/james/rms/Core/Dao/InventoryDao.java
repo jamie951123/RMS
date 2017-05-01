@@ -12,7 +12,9 @@ public interface InventoryDao {
 
     List<InventoryModel> findByPartyId(String json);
 
-    InventoryModel save(InventoryModel inventory);
+    InventoryModel save (String json);
+
+    List<InventoryModel> saves(String json);
 
     List<InventoryModel> findByPartyIdAndStatus(String json);
 }

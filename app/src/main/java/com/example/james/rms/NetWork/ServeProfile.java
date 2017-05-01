@@ -27,12 +27,16 @@ public class ServeProfile {
     //QuantityProfile
     final static String quantity_findAll                                = "rms/quantity/findAll";
     final static String quantity_findByPartyId                        = "rms/quantity/findByPartyId";
-    //
+    //Inventory
     final static String inventory_findAll                            ="rms/inventory/findAll";
     final static String inventory_findByPartyId                     ="rms/inventory/findByPartyId";
     final static String inventory_findByPartyIdAndStatus         ="rms/inventory/findByPartyIdAndStauts";
-    final static String inventory_insertInventory                ="rms/inventory/findByPartyId";
+    final static String inventory_insertInventory                ="rms/inventory/insertInventory";
+    final static String inventory_insertInventorys                ="rms/inventory/insertInventorys";
 
+    //InventorySum
+    final static String inventorySum_findByPartyIdAndStatus                      ="rms/inventorysum/findByPartyIdAndStatus";
+    final static String inventorySum_findByPartyIdAndStatusOrderByProductId     ="rms/inventorysum/findByPartyIdAndStatusOrderProductId";
 
     public static String getInventory_findAll() {
         return inventory_findAll;
@@ -44,6 +48,10 @@ public class ServeProfile {
 
     public static String getInventory_insertInventory() {
         return inventory_insertInventory;
+    }
+
+    public static String getInventory_insertInventorys() {
+        return inventory_insertInventorys;
     }
 
     public static String getSaveOrderAndItem() {
@@ -111,5 +119,13 @@ public class ServeProfile {
 
     public static String getInventory_findByPartyIdAndStatus() {
         return inventory_findByPartyIdAndStatus;
+    }
+
+    public static String getInventorySum_findByPartyIdAndStatus() {
+        return inventorySum_findByPartyIdAndStatus;
+    }
+
+    public static String getInventorySum_findByPartyIdAndStatusOrderByProductId() {
+        return inventorySum_findByPartyIdAndStatusOrderByProductId;
     }
 }

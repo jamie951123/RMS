@@ -3,18 +3,14 @@ package com.example.james.rms.Inventory.Adapter;
 
 import android.content.Context;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.james.rms.CommonProfile.MyBaseAdapter;
-import com.example.james.rms.Core.Model.InventoryModel;
-import com.example.james.rms.Inventory.model.RecyclerItemModel;
+import com.example.james.rms.Core.Model.InventorySumModel;
 import com.example.james.rms.R;
-import com.example.james.rms.Receiving.Adapter.ReceivingItemListAdapter;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -27,9 +23,9 @@ import de.hdodenhof.circleimageview.CircleImageView;
  * Created by james on 16/3/2017.
  */
 
-public class InventoryItemListAdapter  extends MyBaseAdapter<InventoryModel>{
+public class InventoryItemListAdapter  extends MyBaseAdapter<InventorySumModel>{
 
-    public InventoryItemListAdapter(Context context, List<InventoryModel> dataArrayList) {
+    public InventoryItemListAdapter(Context context, List<InventorySumModel> dataArrayList) {
         super(context, dataArrayList);
     }
 
@@ -47,31 +43,31 @@ public class InventoryItemListAdapter  extends MyBaseAdapter<InventoryModel>{
         BigDecimal itemGw = getItem(position).getGrossWeight();
         String itemGwUnit = getItem(position).getGrossWeightUnit();
 
-        Integer itemQty = getItem(position).getItemQty();
+        Integer itemQty = getItem(position).getQty();
         String itemQtyUnit = getItem(position).getQtyUnit();
 
-        viewHolder.productCode.setText(getItem(position).getProduct().getProductCode());
-        viewHolder.productName.setText(getItem(position).getProduct().getProductName());
+        viewHolder.productCode.setText(getItem(position).getProductCode());
+        viewHolder.productName.setText(getItem(position).getProductName());
         viewHolder.icon.setImageDrawable(ContextCompat.getDrawable(getContext(),R.drawable.inventory));
-        viewHolder.qty.setText(itemQty==null?"":itemQty.toString());
-        viewHolder.qtyunit.setText(itemQtyUnit);
-        viewHolder.gw.setText(itemGw==null?"":itemGw.toString());
-        viewHolder.gwunit.setText(itemGwUnit);
+        viewHolder.qty.setText(itemQty==null?"":itemQty.toString()+itemQtyUnit);
+        viewHolder.gw.setText(itemGw==null?"":itemGw.toString()+itemGwUnit);
+        String item_title = getContext().getString(R.string.label_storage) +"("+(position+1)+")";
+        viewHolder.title.setText(item_title);
         return convertView;
     }
 
     @Override
-    public boolean productCodeMatch(InventoryModel inventoryModel, String string) {
+    public boolean productCodeMatch(InventorySumModel inventoryModel, String string) {
         return false;
     }
 
     @Override
-    public boolean productNameMatch(InventoryModel inventoryModel, String string) {
+    public boolean productNameMatch(InventorySumModel inventoryModel, String string) {
         return false;
     }
 
     @Override
-    public boolean receivingRemarkMatch(InventoryModel inventoryModel, String string) {
+    public boolean receivingRemarkMatch(InventorySumModel inventoryModel, String string) {
         return false;
     }
 
@@ -84,12 +80,10 @@ public class InventoryItemListAdapter  extends MyBaseAdapter<InventoryModel>{
         TextView productName;
         @BindView(R.id.inventory_item_qty)
         TextView qty;
-        @BindView(R.id.inventory_item_qtyunit)
-        TextView qtyunit;
         @BindView(R.id.inventory_item_gw)
         TextView gw;
-        @BindView(R.id.inventory_item_gwunit)
-        TextView gwunit;
+        @BindView(R.id.inventory_item_title)
+        TextView title;
 
 
         public ViewHolder(View view) {
