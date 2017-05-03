@@ -164,7 +164,7 @@ public class NumberDialog extends DialogFragment implements View.OnClickListener
                 break;
             case R.id.quantity_dialog_choose:
                 Integer num = ObjectUtil.stringToInteger(numEdit.getText().toString());
-                String unti = dialog_spinner.getSelectedItem().toString();
+                String unti = dialog_spinner.getSelectedItem() == null ? null :dialog_spinner.getSelectedItem().toString();
                 Log.d("asd","[NumberDialog]-{Click Choose}-num :" +num);
                 Log.d("asd","[NumberDialog]-{Click Choose}-unti :" +unti);
                 if(num != null) {

@@ -27,20 +27,15 @@ import com.example.james.rms.CommonProfile.FabButton.FabCore;
 import com.example.james.rms.CommonProfile.MyBaseFragment;
 import com.example.james.rms.CommonProfile.SharePreferences.LoginPreferences;
 import com.example.james.rms.CommonProfile.SharePreferences.NavPreferences;
-import com.example.james.rms.CommonProfile.SharePreferences.PartyIdPreferences;
 import com.example.james.rms.Controller.CommunicateService.NavToRL;
-import com.example.james.rms.Core.Dao.InventoryDao;
-import com.example.james.rms.Core.Dao.InventoryDaoImpl;
-import com.example.james.rms.Core.Model.InventoryModel;
-import com.example.james.rms.Core.Model.Status;
 import com.example.james.rms.ITF.ViewPagerListener;
-import com.example.james.rms.Inventory.InventoryCombine;
 import com.example.james.rms.Inventory.Tab.InventoryContainer;
 import com.example.james.rms.Login.LoginActivity;
 import com.example.james.rms.Operation.OperationContainer;
 import com.example.james.rms.ProductPool.Tab.ProductContainer;
 import com.example.james.rms.R;
 import com.example.james.rms.Receiving.Tab.ReceivingContainer;
+import com.example.james.rms.Setting.SettingContainer;
 import com.github.clans.fab.FloatingActionButton;
 import com.github.clans.fab.FloatingActionMenu;
 
@@ -159,7 +154,10 @@ public class NavigationController extends AppCompatActivity implements Navigatio
         } else if (id == R.id.nav_record) {
 //            toolbar.setTitle(R.string.record);
         } else if (id == R.id.nav_setting) {
-//            toolbar.setTitle(R.string.setting);
+            toolbar.setTitle(R.string.setting);
+            Intent intent = new Intent();
+            intent.setClass(this, SettingContainer.class);
+            startActivity(intent);
         } else if (id == R.id.nav_logout) {
             logoutStatus();
         }

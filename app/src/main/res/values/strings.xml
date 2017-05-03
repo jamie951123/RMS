@@ -129,5 +129,6 @@
     <!--title-->
     <string name="title_input_qty">Quantity</string>
     <string name="title_input_grossweight">GrossWeight</string>
-
+    <string name="title_grossweight_unit">Your Gross Weight Unit</string>
+    <string name="title_qty_unit">Your Quantity Unit</string>
 </resources>
