@@ -90,7 +90,7 @@ public class ReceivingIncrease extends AppCompatActivity implements View.OnClick
     private List<ReceivingIncreaseModel>  rlLastestmodel;
     private List<ReceivingIncreaseModel> listviewLastestModel;
     private List<WeightProfileModel> weightProfileModelList;
-    private List<QuantityProfileModel> quantityProfileModels;
+    private List<QuantityProfileModel> quantityProfileModelList;
     String common_partyId;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -107,7 +107,7 @@ public class ReceivingIncrease extends AppCompatActivity implements View.OnClick
         String combine_partyId = productCombine.combine_partyId(common_partyId);
         List<ProductModel> allModel = productDao.findByPartyId(combine_partyId);
         weightProfileModelList = weightProfileDao.findByPartyId(combine_partyId);
-        quantityProfileModels  = quantityProfileDao.findByPartyId(combine_partyId);
+        quantityProfileModelList  = quantityProfileDao.findByPartyId(combine_partyId);
         //
         rlLastestmodel = modelConvert(allModel);
         rlAllmodel     = modelConvert(allModel);
@@ -266,7 +266,7 @@ public class ReceivingIncrease extends AppCompatActivity implements View.OnClick
     public void putLastestProductModel(List<ReceivingIncreaseModel> lastestModel, HashMap<Integer, Boolean> isSelected) {
         this.isSelected           = isSelected;
         this.listviewLastestModel = lastestModel;
-        ReceivingIncreaseListAdapter receivingIncreaseListAdapter = new ReceivingIncreaseListAdapter(this,listviewLastestModel,weightProfileModelList,quantityProfileModels);
+        ReceivingIncreaseListAdapter receivingIncreaseListAdapter = new ReceivingIncreaseListAdapter(this,listviewLastestModel,weightProfileModelList,quantityProfileModelList);
         listView.setAdapter(receivingIncreaseListAdapter);
         Log.v("asd","lastestModel :" +lastestModel.toString());
     }

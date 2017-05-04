@@ -7,20 +7,20 @@ import java.util.Date;
  */
 
 public class QuantityProfileModel {
-    private Long profileId;
+    private Long quantityId;
 
     private String partyId;
 
     private String quantityUnit;
 
-    private Date creteDate;
+    private Date createDate;
 
-    public Long getProfileId() {
-        return profileId;
+    public Long getQuantityId() {
+        return quantityId;
     }
 
-    public void setProfileId(Long profileId) {
-        this.profileId = profileId;
+    public void setQuantityId(Long quantityId) {
+        this.quantityId = quantityId;
     }
 
     public String getPartyId() {
@@ -39,21 +39,19 @@ public class QuantityProfileModel {
         this.quantityUnit = quantityUnit;
     }
 
-    public Date getCreteDate() {
-        return creteDate;
+    public Date getCreateDate() {
+        return createDate;
     }
 
-    public void setCreteDate(Date creteDate) {
-        this.creteDate = creteDate;
+    public void setCreateDate(Date createDate) {
+        this.createDate = createDate;
     }
 
     @Override
     public String toString() {
-        return "QuantityProfileModel{" +
-                "profileId=" + profileId +
-                ", partyId='" + partyId + '\'' +
-                ", quantityUnit='" + quantityUnit + '\'' +
-                ", creteDate=" + creteDate +
-                '}';
+        return "QuantityProfile [quantityId=" + quantityId + ", partyId=" + partyId + ", quantityUnit=" + quantityUnit
+                + ", createDate=" + createDate + "]";
     }
+
+
 }

@@ -7,7 +7,7 @@ import java.util.Date;
  */
 
 public class WeightProfileModel {
-    private Long profileId;
+    private Long weightId;
 
     private String partyId;
 
@@ -15,12 +15,12 @@ public class WeightProfileModel {
 
     private Date createDate;
 
-    public Long getProfileId() {
-        return profileId;
+    public Long getWeightId() {
+        return weightId;
     }
 
-    public void setProfileId(Long profileId) {
-        this.profileId = profileId;
+    public void setWeightId(Long weightId) {
+        this.weightId = weightId;
     }
 
     public String getPartyId() {
@@ -47,13 +47,5 @@ public class WeightProfileModel {
         this.createDate = createDate;
     }
 
-    @Override
-    public String toString() {
-        return "WeightProfileModel{" +
-                "profileId=" + profileId +
-                ", partyId='" + partyId + '\'' +
-                ", weightUnit='" + weightUnit + '\'' +
-                ", createDate=" + createDate +
-                '}';
-    }
+
 }

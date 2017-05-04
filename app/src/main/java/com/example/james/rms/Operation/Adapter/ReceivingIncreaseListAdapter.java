@@ -119,13 +119,13 @@ public class ReceivingIncreaseListAdapter extends MyBaseAdapter<ReceivingIncreas
         Integer position = (Integer)v.getTag();
         Log.d("asd","ReceivingIcreaseListAdapter---getItemPosition : " + position);
         numberDialogModel.setPosition(position);
-        if(key.equalsIgnoreCase("QTY")){
+        if(key.equalsIgnoreCase(KeyModel.qty)){
             Integer qty = getItem(position).getQty();
             String qtyUnit = getItem(position).getQtyUnit();
             numberDialogModel.setQty(qty);
             numberDialogModel.setQtyUnit(qtyUnit);
             numberDialogModel.setQuantityProfileModels(this.quantityProfileModels);
-        }else if(key.equalsIgnoreCase("GW")){
+        }else if(key.equalsIgnoreCase(KeyModel.gw)){
             BigDecimal gw = getItem(position).getGrossWeight();
             String gwUnit = getItem(position).getGrossWeightUnit();
             numberDialogModel.setGrossWeight(gw);
