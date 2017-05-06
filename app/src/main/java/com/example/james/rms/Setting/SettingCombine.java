@@ -1,7 +1,7 @@
 package com.example.james.rms.Setting;
 
 import com.example.james.rms.CommonProfile.GsonUtil;
-import com.example.james.rms.Core.SearchObject.ProductSearchObject;
+import com.example.james.rms.Core.Model.WeightProfileModel;
 import com.example.james.rms.Core.SearchObject.SettingSearchObject;
 import com.google.gson.Gson;
 
@@ -17,6 +17,17 @@ public class SettingCombine {
         try{
             Gson gson = GsonUtil.toJson();
             result = gson.toJson(settingSearchObject);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+    public static String gson(WeightProfileModel weightProfile) {
+        String result="";
+        try{
+            Gson gson = GsonUtil.toJson();
+            result = gson.toJson(weightProfile);
         }catch (Exception e){
             e.printStackTrace();
         }

@@ -20,6 +20,7 @@
     <string name="choose">Choose</string>
     <string name="close">Close</string>
     <string name="choice">Choice</string>
+    <string name="setting">Setting</string>
     <!--Error-->
     <string name="missingField">Missing</string>
     <!--searchview-->
@@ -38,7 +39,6 @@
     <string name="stockout">StockOut</string>
     <string name="record">Record</string>
     <string name="other">Other</string>
-    <string name="setting">Setting</string>
     <!--Login-->
     <string name="username">User name</string>
     <string name="password">Password</string>

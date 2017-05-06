@@ -154,7 +154,7 @@ public class NavigationController extends AppCompatActivity implements Navigatio
         } else if (id == R.id.nav_record) {
 //            toolbar.setTitle(R.string.record);
         } else if (id == R.id.nav_setting) {
-            toolbar.setTitle(R.string.setting);
+//            toolbar.setTitle(R.string.setting);
             Intent intent = new Intent();
             intent.setClass(this, SettingContainer.class);
             startActivity(intent);

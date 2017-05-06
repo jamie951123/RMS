@@ -41,10 +41,10 @@ public class InventoryItemListAdapter  extends MyBaseAdapter<InventorySumModel>{
         }
 
         BigDecimal itemGw = getItem(position).getGrossWeight();
-        String itemGwUnit = getItem(position).getGrossWeightUnit();
+        String itemGwUnit = getItem(position).getWeightUnit();
 
         Integer itemQty = getItem(position).getQty();
-        String itemQtyUnit = getItem(position).getQtyUnit();
+        String itemQtyUnit = getItem(position).getQuantityUnit();
 
         viewHolder.productCode.setText(getItem(position).getProductCode());
         viewHolder.productName.setText(getItem(position).getProductName());

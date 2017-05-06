@@ -12,6 +12,11 @@ import android.widget.Toast;
 import com.daimajia.swipe.SimpleSwipeListener;
 import com.daimajia.swipe.SwipeLayout;
 import com.daimajia.swipe.adapters.BaseSwipeAdapter;
+import com.example.james.rms.CommonProfile.MyBaseSwipeAdapter;
+import com.example.james.rms.CommonProfile.ResponseStatus;
+import com.example.james.rms.Core.Dao.WeightProfileDao;
+import com.example.james.rms.Core.Dao.WeightProfileDaoImpl;
+import com.example.james.rms.Core.Model.ResponseMessage;
 import com.example.james.rms.Core.Model.WeightProfileModel;
 import com.example.james.rms.R;
 import com.daimajia.androidanimations.library.Techniques;
@@ -26,9 +31,8 @@ import butterknife.ButterKnife;
  * Created by jamie on 2017/5/4.
  */
 
-public class SettingListAdapter  extends BaseSwipeAdapter {
-    private Context mContext;
-    private List<WeightProfileModel> list;
+public class SettingListAdapter  extends MyBaseSwipeAdapter<WeightProfileModel> {
+
 
     public SettingListAdapter(Context mContext, List<WeightProfileModel> list) {
         this.mContext = mContext;
@@ -41,8 +45,8 @@ public class SettingListAdapter  extends BaseSwipeAdapter {
     }
 
     @Override
-    public View generateView(int position, ViewGroup parent) {
-        View v = LayoutInflater.from(mContext).inflate(R.layout.setting_swipe_listitem, null);
+    public View generateView(final int position, ViewGroup parent) {
+        View v = LayoutInflater.from(getmContext()).inflate(R.layout.setting_swipe_listitem, null);
         SwipeLayout swipeLayout = (SwipeLayout)v.findViewById(getSwipeLayoutResourceId(position));
         swipeLayout.addSwipeListener(new SimpleSwipeListener() {
             @Override
@@ -53,13 +57,22 @@ public class SettingListAdapter  extends BaseSwipeAdapter {
         swipeLayout.setOnDoubleClickListener(new SwipeLayout.DoubleClickListener() {
             @Override
             public void onDoubleClick(SwipeLayout layout, boolean surface) {
-                Toast.makeText(mContext, "DoubleClick", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getmContext(), "DoubleClick", Toast.LENGTH_SHORT).show();
             }
         });
         v.findViewById(R.id.setting_delete).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(mContext, "click delete", Toast.LENGTH_SHORT).show();
+                WeightProfileModel w = getItem(position);
+                String gson = SettingCombine.gson(w);
+                WeightProfileDao weightProfileDao = new WeightProfileDaoImpl();
+                ResponseMessage responseMessage = weightProfileDao.delete(gson);
+                if(responseMessage != null && responseMessage.getStatus().equalsIgnoreCase(ResponseStatus.getSuccessful())){
+                    getList().remove(position);
+                    Toast.makeText(getmContext(), responseMessage.getMessage(), Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                Toast.makeText(getmContext(), "Delete fail", Toast.LENGTH_SHORT).show();
             }
         });
         return v;
@@ -69,27 +82,16 @@ public class SettingListAdapter  extends BaseSwipeAdapter {
     public void fillValues(int position, View convertView) {
         ViewHolder viewHolder = new ViewHolder(convertView);
         //front
-        viewHolder.front_image.setImageDrawable(ContextCompat.getDrawable(this.mContext,R.drawable.industrial_scales_color));
+        viewHolder.front_image.setImageDrawable(ContextCompat.getDrawable(getmContext(),R.drawable.industrial_scales_color));
         viewHolder.front_unit.setText(getItem(position).getWeightUnit());
         viewHolder.behind_edit_unit.setText(getItem(position).getWeightUnit());
-        viewHolder.behind_image.setImageDrawable(ContextCompat.getDrawable(this.mContext,R.drawable.pencil_color));
+        viewHolder.behind_image.setImageDrawable(ContextCompat.getDrawable(getmContext(),R.drawable.pencil_color));
     }
 
     @Override
     public int getCount() {
         return list.size();
     }
-
-    @Override
-    public WeightProfileModel getItem(int position) {
-        return list.get(position);
-    }
-
-    @Override
-    public long getItemId(int position) {
-        return position;
-    }
-
     class ViewHolder{
         //front
         @BindView(R.id.setting_front_image)

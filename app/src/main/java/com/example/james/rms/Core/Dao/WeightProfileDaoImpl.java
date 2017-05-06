@@ -3,6 +3,7 @@ package com.example.james.rms.Core.Dao;
 import android.util.Log;
 
 import com.example.james.rms.CommonProfile.GsonUtil;
+import com.example.james.rms.Core.Model.ResponseMessage;
 import com.example.james.rms.Core.Model.WeightProfileModel;
 import com.example.james.rms.Core.ServePath.WeightServePath;
 import com.example.james.rms.NetWork.HttpGetAsync;
@@ -71,6 +72,34 @@ public class WeightProfileDaoImpl implements WeightProfileDao {
         }
         Log.d("asd","[WeightProfileModel]-findByPartyId(Response) :" + weightProfileModels.toString());
         return weightProfileModels;
+    }
+
+    @Override
+    public ResponseMessage delete(String json) {
+        Log.d("asd","[WeightProfileModel]-delete(Request--JSON):" + json);
+        String result = "";
+        try {
+            result = new HttpPostAsync().execute(WeightServePath.serve_delete(),json).get();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+        Log.d("asd:","[WeightProfileModel]-delete-[Response(String)] : "+result);
+        ResponseMessage responseMessage = new ResponseMessage();
+        try{
+            Gson gson = GsonUtil.fromJson();
+            responseMessage = gson.fromJson(result,ResponseMessage.class);
+            Log.d("asd:","[WeightProfileModel]-delete-[Response(Gson)] : "+result);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        if(responseMessage == null){
+            Log.d("asd","[WeightProfileModel]-delete(Response) [Error] : Serve have not response anything");
+            return null;
+        }
+        Log.d("asd","[WeightProfileModel]-delete(Response) :" + responseMessage.toString());
+        return responseMessage;
     }
 
 

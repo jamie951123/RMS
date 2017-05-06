@@ -1,5 +1,6 @@
 package com.example.james.rms.Core.Dao;
 
+import com.example.james.rms.Core.Model.ResponseMessage;
 import com.example.james.rms.Core.Model.WeightProfileModel;
 
 import java.util.List;
@@ -11,4 +12,6 @@ import java.util.List;
 public interface WeightProfileDao {
     List<WeightProfileModel> findAll();
     List<WeightProfileModel> findByPartyId(String partyId);
+    ResponseMessage delete(String weightProfile);
+
 }

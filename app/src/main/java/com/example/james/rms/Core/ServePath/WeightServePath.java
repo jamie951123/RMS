@@ -22,4 +22,10 @@ public class WeightServePath {
         return serve_path;
     }
 
+    public static String serve_delete(){
+        String serve = ServeProfile.getServe();
+        String path = ServeProfile.getWeight_delete();
+        String serve_path = serve+path;
+        return serve_path;
+    }
 }

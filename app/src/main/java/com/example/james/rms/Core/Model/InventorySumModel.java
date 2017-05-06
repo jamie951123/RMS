@@ -12,17 +12,21 @@ public class InventorySumModel {
 
     private Long productId;
 
+    private Long weightId;
+
+    private Long quantityId;
+
     private String partyId;
 
     private Status status;
 
     private BigDecimal grossWeight;
 
-    private String grossWeightUnit;
+    private String weightUnit;
 
     private Integer qty;
 
-    private String qtyUnit;
+    private String quantityUnit;
 
     private String productCode;
 
@@ -42,6 +46,22 @@ public class InventorySumModel {
 
     public void setProductId(Long productId) {
         this.productId = productId;
+    }
+
+    public Long getWeightId() {
+        return weightId;
+    }
+
+    public void setWeightId(Long weightId) {
+        this.weightId = weightId;
+    }
+
+    public Long getQuantityId() {
+        return quantityId;
+    }
+
+    public void setQuantityId(Long quantityId) {
+        this.quantityId = quantityId;
     }
 
     public String getPartyId() {
@@ -68,12 +88,12 @@ public class InventorySumModel {
         this.grossWeight = grossWeight;
     }
 
-    public String getGrossWeightUnit() {
-        return grossWeightUnit;
+    public String getWeightUnit() {
+        return weightUnit;
     }
 
-    public void setGrossWeightUnit(String grossWeightUnit) {
-        this.grossWeightUnit = grossWeightUnit;
+    public void setWeightUnit(String weightUnit) {
+        this.weightUnit = weightUnit;
     }
 
     public Integer getQty() {
@@ -84,12 +104,12 @@ public class InventorySumModel {
         this.qty = qty;
     }
 
-    public String getQtyUnit() {
-        return qtyUnit;
+    public String getQuantityUnit() {
+        return quantityUnit;
     }
 
-    public void setQtyUnit(String qtyUnit) {
-        this.qtyUnit = qtyUnit;
+    public void setQuantityUnit(String quantityUnit) {
+        this.quantityUnit = quantityUnit;
     }
 
     public String getProductCode() {
@@ -108,19 +128,13 @@ public class InventorySumModel {
         this.productName = productName;
     }
 
+
     @Override
     public String toString() {
-        return "InventorySum{" +
-                "id='" + id + '\'' +
-                ", productId=" + productId +
-                ", partyId='" + partyId + '\'' +
-                ", status=" + status +
-                ", grossWeight=" + grossWeight +
-                ", grossWeightUnit='" + grossWeightUnit + '\'' +
-                ", qty=" + qty +
-                ", qtyUnit='" + qtyUnit + '\'' +
-                ", productCode='" + productCode + '\'' +
-                ", productName='" + productName + '\'' +
-                '}';
+        return "InventorySum [id=" + id + ", productId=" + productId + ", weightId=" + weightId + ", quantityId="
+                + quantityId + ", partyId=" + partyId + ", status=" + status + ", grossWeight=" + grossWeight
+                + ", weightUnit=" + weightUnit + ", qty=" + qty + ", quantityUnit=" + quantityUnit + ", productCode="
+                + productCode + ", productName=" + productName + "]";
     }
+
 }

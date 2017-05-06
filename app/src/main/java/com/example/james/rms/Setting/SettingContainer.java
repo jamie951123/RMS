@@ -1,7 +1,10 @@
 package com.example.james.rms.Setting;
 
 import android.os.Bundle;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
@@ -29,6 +32,8 @@ public class SettingContainer extends AppCompatActivity {
     ListView wlistView;
     @BindView(R.id.setting_qlistview)
     ListView qlistView;
+    @BindView(R.id.setting_toolbar)
+    Toolbar toolbar;
 
     private SettingListAdapter wAdapter;
 
@@ -40,6 +45,7 @@ public class SettingContainer extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.setting);
         ButterKnife.bind(this);
+        setUpActionBar();
         //Preferences
         PartyIdPreferences partyIdPreferences = new PartyIdPreferences(this,"loginInformation",MODE_PRIVATE);
         String partyId = partyIdPreferences.getPreferences_PartyId().get("partyId");
@@ -54,22 +60,17 @@ public class SettingContainer extends AppCompatActivity {
 
     }
 
-//    private List<QuantityProfileModel> qSetting() {
-//        List<QuantityProfileModel> data = new ArrayList<>();
-//        QuantityProfileModel w = new QuantityProfileModel();
-//        w.setQuantityUnit("KG");
-//        w.setQuantityUnit("G");
-//        data.add(w);
-//        return data;
-//    }
-//
-//    private List<WeightProfileModel> wSetting() {
-//        List<WeightProfileModel> data = new ArrayList<>();
-//        WeightProfileModel w = new WeightProfileModel();
-//        w.setWeightUnit("G");
-//        data.add( w);
-//        data.add( w);
-//        return data;
-//    }
+    private void setUpActionBar() {
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle(R.string.setting);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
+    }
 
 }

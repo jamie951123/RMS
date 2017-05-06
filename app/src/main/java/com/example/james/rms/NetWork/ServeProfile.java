@@ -5,7 +5,8 @@ package com.example.james.rms.NetWork;
  */
 
 public class ServeProfile {
-    public static String serve                                    = "http://123.203.117.130:1123/";
+    public static String serve                                    = "http://123.203.112.174:1123/";
+//    public static String serve                                    = "http://123.203.117.130:1123/";
 //    public static String serve                                    = "http://192.168.43.36:1123/";
 //public static String serve                                    = "http://10.16.81.188:1123/";
     //Login
@@ -24,9 +25,12 @@ public class ServeProfile {
     //WeightProfile
     final static String weight_findAll                              = "rms/weight/findAll";
     final static String weight_findByPartyId                        = "rms/weight/findByPartyId";
+    final static String weight_delete                            ="rms/weight/delete";
     //QuantityProfile
     final static String quantity_findAll                                = "rms/quantity/findAll";
     final static String quantity_findByPartyId                        = "rms/quantity/findByPartyId";
+    final static String quantity_delete                            ="rms/quantity/delete";
+
     //Inventory
     final static String inventory_findAll                            ="rms/inventory/findAll";
     final static String inventory_findByPartyId                     ="rms/inventory/findByPartyId";
@@ -127,5 +131,13 @@ public class ServeProfile {
 
     public static String getInventorySum_findByPartyIdAndStatusOrderByProductId() {
         return inventorySum_findByPartyIdAndStatusOrderByProductId;
+    }
+
+    public static String getWeight_delete() {
+        return weight_delete;
+    }
+
+    public static String getQuantity_delete() {
+        return quantity_delete;
     }
 }
