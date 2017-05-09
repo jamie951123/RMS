@@ -16,6 +16,7 @@ public class ServeProfile {
     final static String product_findAll                            = "/rms/product/findAll";
     final static String product_findByPartyId                     = "/rms/product/findByPartyId";
     final static String product_insert                             = "/rms/product/insertProduct";
+    final static String product_updateWeightIdNullByWeightIdAndPartyId  = "/rms/product/updateWeightIdNullByWeightIdAndPartyId";
     //Receiving
     final static String orderFindByPartyId                        = "rms/receiving/order/findByPartyId";
     final static String itemFindByPartyId                        = "rms/receiving/item/findByPartyId";
@@ -135,6 +136,10 @@ public class ServeProfile {
 
     public static String getWeight_delete() {
         return weight_delete;
+    }
+
+    public static String getProduct_updateWeightIdNullByWeightIdAndPartyId() {
+        return product_updateWeightIdNullByWeightIdAndPartyId;
     }
 
     public static String getQuantity_delete() {

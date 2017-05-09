@@ -17,9 +17,7 @@ public class ReceivingItemModel {
     private Date itemCreateDate;
     private Date itemReceivingDate;
     private BigDecimal itemGrossWeight;
-    private String itemGrossWeightUnit;
     private Integer itemQty;
-    private String itemQtyUnit;
     private String itemRemark;
     private String partyId;
     private ProductModel product;
@@ -38,9 +36,7 @@ public class ReceivingItemModel {
                 ", itemCreateDate=" + itemCreateDate +
                 ", itemReceivingDate=" + itemReceivingDate +
                 ", itemGrossWeight=" + itemGrossWeight +
-                ", itemGrossWeightUnit='" + itemGrossWeightUnit + '\'' +
                 ", itemQty=" + itemQty +
-                ", itemQtyUnit='" + itemQtyUnit + '\'' +
                 ", itemRemark='" + itemRemark + '\'' +
                 ", partyId='" + partyId + '\'' +
                 ", productModel=" + product +
@@ -103,28 +99,12 @@ public class ReceivingItemModel {
         this.itemGrossWeight = itemGrossWeight;
     }
 
-    public String getItemGrossWeightUnit() {
-        return itemGrossWeightUnit;
-    }
-
-    public void setItemGrossWeightUnit(String itemGrossWeightUnit) {
-        this.itemGrossWeightUnit = itemGrossWeightUnit;
-    }
-
     public Integer getItemQty() {
         return itemQty;
     }
 
     public void setItemQty(Integer itemQty) {
         this.itemQty = itemQty;
-    }
-
-    public String getItemQtyUnit() {
-        return itemQtyUnit;
-    }
-
-    public void setItemQtyUnit(String itemQtyUnit) {
-        this.itemQtyUnit = itemQtyUnit;
     }
 
     public String getItemRemark() {

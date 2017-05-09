@@ -14,4 +14,6 @@ public interface ProductDao {
     List<ProductModel> findByPartyId(String json);
 
     ProductModel insertProduct(String json);
-}
+
+    Integer updateWeightIdNullByWeightIdAndPartyId(String json);
+        }

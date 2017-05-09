@@ -26,11 +26,7 @@ public class InventoryModel {
 
     private BigDecimal grossWeight;
 
-    private String grossWeightUnit;
-
     private Integer itemQty;
-
-    private String qtyUnit;
 
     private ProductModel product;
 
@@ -106,28 +102,12 @@ public class InventoryModel {
         this.grossWeight = grossWeight;
     }
 
-    public String getGrossWeightUnit() {
-        return grossWeightUnit;
-    }
-
-    public void setGrossWeightUnit(String grossWeightUnit) {
-        this.grossWeightUnit = grossWeightUnit;
-    }
-
     public Integer getItemQty() {
         return itemQty;
     }
 
     public void setItemQty(Integer itemQty) {
         this.itemQty = itemQty;
-    }
-
-    public String getQtyUnit() {
-        return qtyUnit;
-    }
-
-    public void setQtyUnit(String qtyUnit) {
-        this.qtyUnit = qtyUnit;
     }
 
     public ProductModel getProduct() {
@@ -150,9 +130,7 @@ public class InventoryModel {
                 ", stockInDate=" + stockInDate +
                 ", status=" + status +
                 ", grossWeight=" + grossWeight +
-                ", grossWeightUnit='" + grossWeightUnit + '\'' +
                 ", itemQty=" + itemQty +
-                ", qtyUnit='" + qtyUnit + '\'' +
                 ", product=" + product +
                 '}';
     }

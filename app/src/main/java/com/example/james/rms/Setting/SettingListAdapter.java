@@ -14,6 +14,8 @@ import com.daimajia.swipe.SwipeLayout;
 import com.daimajia.swipe.adapters.BaseSwipeAdapter;
 import com.example.james.rms.CommonProfile.MyBaseSwipeAdapter;
 import com.example.james.rms.CommonProfile.ResponseStatus;
+import com.example.james.rms.Core.Dao.ProductDao;
+import com.example.james.rms.Core.Dao.ProductDaoImpl;
 import com.example.james.rms.Core.Dao.WeightProfileDao;
 import com.example.james.rms.Core.Dao.WeightProfileDaoImpl;
 import com.example.james.rms.Core.Model.ResponseMessage;
@@ -65,14 +67,21 @@ public class SettingListAdapter  extends MyBaseSwipeAdapter<WeightProfileModel> 
             public void onClick(View view) {
                 WeightProfileModel w = getItem(position);
                 String gson = SettingCombine.gson(w);
-                WeightProfileDao weightProfileDao = new WeightProfileDaoImpl();
-                ResponseMessage responseMessage = weightProfileDao.delete(gson);
-                if(responseMessage != null && responseMessage.getStatus().equalsIgnoreCase(ResponseStatus.getSuccessful())){
-                    getList().remove(position);
-                    Toast.makeText(getmContext(), responseMessage.getMessage(), Toast.LENGTH_SHORT).show();
-                    return;
+
+                ProductDao productDao = new ProductDaoImpl();
+                Integer deleteCount = productDao.updateWeightIdNullByWeightIdAndPartyId(gson);
+                if(deleteCount != null){
+                    WeightProfileDao weightProfileDao = new WeightProfileDaoImpl();
+                    ResponseMessage responseMessage = weightProfileDao.delete(gson);
+                    if(responseMessage != null && responseMessage.getStatus().equalsIgnoreCase(ResponseStatus.getSuccessful())){
+                        getList().remove(position);
+                        notifyDataSetChanged();
+                        Toast.makeText(getmContext(), responseMessage.getMessage(), Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                    Toast.makeText(getmContext(), "Delete fail", Toast.LENGTH_SHORT).show();
                 }
-                Toast.makeText(getmContext(), "Delete fail", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getmContext(), "deleteCount is null", Toast.LENGTH_SHORT).show();
             }
         });
         return v;

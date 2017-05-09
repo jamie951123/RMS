@@ -3,6 +3,7 @@ package com.example.james.rms.Core.Dao;
 import android.util.Log;
 
 import com.example.james.rms.CommonProfile.GsonUtil;
+import com.example.james.rms.CommonProfile.ObjectUtil;
 import com.example.james.rms.Core.Model.ProductModel;
 import com.example.james.rms.Core.ServePath.ProductServerPath;
 import com.example.james.rms.NetWork.HttpGetAsync;
@@ -76,7 +77,7 @@ public class ProductDaoImpl implements ProductDao {
         Log.d("asd:","[ProductModel]-insertProduct-[Request (JSON)]: :"+json);
         String result = "";
         try {
-            result = new HttpPostAsync().execute(ProductServerPath.insertProduct(),json).get();
+            result = new HttpPostAsync().execute(ProductServerPath.serve_insertProduct(),json).get();
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {
@@ -95,4 +96,24 @@ public class ProductDaoImpl implements ProductDao {
 
         return productModel;
     }
+
+    @Override
+    public Integer updateWeightIdNullByWeightIdAndPartyId(String json) {
+        Log.d("asd:","[ProductModel]-updateWeightIdNullByWeightIdAndPartyId-[Request (JSON)]: :"+json);
+        String result = "";
+        try {
+            result = new HttpPostAsync().execute(ProductServerPath.serve_updateWeightIdNullByWeightIdAndPartyId(),json).get();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+        Log.d("asd:","[ProductModel]-updateWeightIdNullByWeightIdAndPartyId-[Response(String)]: :"+result);
+        if(ObjectUtil.isNotNullEmpty(result)){
+            return Integer.parseInt(result);
+        }
+        Log.d("asd:","[ProductModel]-updateWeightIdNullByWeightIdAndPartyId-[ERROR]: -- Updata fail");
+        return null;
+    }
+
 }

@@ -22,11 +22,16 @@ public static String serve_findAll(){
         return serve_path;
     }
 
-    public static String insertProduct(){
+    public static String serve_insertProduct(){
         String serve = ServeProfile.getServe();
         String path = ServeProfile.getProduct_insert();
         String serve_path = serve+path;
         return serve_path;
     }
-
+    public static String serve_updateWeightIdNullByWeightIdAndPartyId(){
+        String serve = ServeProfile.getServe();
+        String path = ServeProfile.getProduct_updateWeightIdNullByWeightIdAndPartyId();
+        String serve_path = serve+path;
+        return serve_path;
+    }
 }

@@ -28,6 +28,14 @@ public class ProductModel {
 
     private String productDescriptionCH;
 
+    private Long weightId;
+
+    private Long quantityId;
+
+    WeightProfileModel weightprofile;
+
+    QuantityProfileModel quantityProfile;
+
     public ProductModel getProductModel(){
         ProductModel items = new ProductModel();
         items.productId = productId;
@@ -40,6 +48,8 @@ public class ProductModel {
         items.remark = remark;
         items.productDescriptionEN = productDescriptionEN;
         items.productDescriptionCH = productDescriptionCH;
+        items.weightprofile = weightprofile;
+        items.quantityProfile = quantityProfile;
         return items;
     }
 
@@ -123,6 +133,38 @@ public class ProductModel {
         this.productDescriptionCH = productDescriptionCH;
     }
 
+    public Long getWeightId() {
+        return weightId;
+    }
+
+    public void setWeightId(Long weightId) {
+        this.weightId = weightId;
+    }
+
+    public Long getQuantityId() {
+        return quantityId;
+    }
+
+    public void setQuantityId(Long quantityId) {
+        this.quantityId = quantityId;
+    }
+
+    public WeightProfileModel getWeightprofile() {
+        return weightprofile;
+    }
+
+    public void setWeightprofile(WeightProfileModel weightprofile) {
+        this.weightprofile = weightprofile;
+    }
+
+    public QuantityProfileModel getQuantityProfile() {
+        return quantityProfile;
+    }
+
+    public void setQuantityProfile(QuantityProfileModel quantityProfile) {
+        this.quantityProfile = quantityProfile;
+    }
+
     @Override
     public String toString() {
         return "ProductModel{" +
@@ -130,12 +172,16 @@ public class ProductModel {
                 ", productCode='" + productCode + '\'' +
                 ", productName='" + productName + '\'' +
                 ", partyId='" + partyId + '\'' +
-                ", status='" + status + '\'' +
+                ", status=" + status +
                 ", createDate=" + createDate +
                 ", closeDate=" + closeDate +
                 ", remark='" + remark + '\'' +
                 ", productDescriptionEN='" + productDescriptionEN + '\'' +
                 ", productDescriptionCH='" + productDescriptionCH + '\'' +
+                ", weightId=" + weightId +
+                ", quantityId=" + quantityId +
+                ", weightprofile=" + weightprofile +
+                ", quantityProfile=" + quantityProfile +
                 '}';
     }
 }

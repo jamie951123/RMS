@@ -43,7 +43,7 @@ public class ReceivingItemListAdapter extends MyBaseAdapter<ReceivingItemModel> 
         viewHolder.receivingItem_itemReceivingDate.setText(ObjectUtil.dateToString(getItem(position).getItemReceivingDate()));
         viewHolder.receivingItem_itemRemark.setText(getItem(position).getItemRemark());
         viewHolder.receivingItem_itemGrossWeight.setText(ObjectUtil.bigDecimalToString(getItem(position).getItemGrossWeight()));
-        viewHolder.receivingItem_itemGrossWeightUnit.setText(getItem(position).getItemGrossWeightUnit());
+        viewHolder.receivingItem_itemGrossWeightUnit.setText(getItem(position).getProductModel().getWeightprofile()==null?"":getItem(position).getProductModel().getWeightprofile().getWeightUnit() );
         return convertView;
     }
 
