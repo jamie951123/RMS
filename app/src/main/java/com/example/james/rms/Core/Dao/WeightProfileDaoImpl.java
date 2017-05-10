@@ -90,7 +90,7 @@ public class WeightProfileDaoImpl implements WeightProfileDao {
         try{
             Gson gson = GsonUtil.fromJson();
             responseMessage = gson.fromJson(result,ResponseMessage.class);
-            Log.d("asd:","[WeightProfileModel]-delete-[Response(Gson)] : "+result);
+            Log.d("asd:","[WeightProfileModel]-delete-[Response(Gson)] : "+responseMessage);
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -98,7 +98,6 @@ public class WeightProfileDaoImpl implements WeightProfileDao {
             Log.d("asd","[WeightProfileModel]-delete(Response) [Error] : Serve have not response anything");
             return null;
         }
-        Log.d("asd","[WeightProfileModel]-delete(Response) :" + responseMessage.toString());
         return responseMessage;
     }
 

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <com.daimajia.swipe.SwipeLayout xmlns:swipe="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/setting_swipe"
+    android:id="@+id/setting_weight_swipe"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -17,7 +17,7 @@
         android:weightSum="10">
 
         <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/setting_behind_image"
+            android:id="@+id/setting_weight_behind_image"
             android:layout_width="40dp"
             android:layout_height="43dp"
             android:layout_weight="1"
@@ -30,11 +30,11 @@
             android:layout_height="wrap_content"
             android:layout_weight="5"
             android:textColor="#fff"
-            android:id="@+id/setting_edit_unit"
+            android:id="@+id/setting_weight_edit_unit"
             android:textSize="17sp"/>
 
         <Button
-            android:id="@+id/setting_delete"
+            android:id="@+id/setting_weight_delete"
             android:layout_width="0dp"
             android:layout_height="40dp"
             android:layout_weight="4"
@@ -56,7 +56,7 @@
             android:orientation="vertical"
             android:gravity="center">
             <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/setting_front_image"
+                android:id="@+id/setting_weight_front_image"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -75,7 +75,7 @@
                 android:textColor="@color/black1F1F1F"
                 android:textSize="20sp"
                 android:gravity="center"
-                android:id="@+id/setting_front_unit"/>
+                android:id="@+id/setting_weight_front_unit"/>
         </LinearLayout>
 
 

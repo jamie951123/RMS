@@ -17,6 +17,8 @@ public class ServeProfile {
     final static String product_findByPartyId                     = "/rms/product/findByPartyId";
     final static String product_insert                             = "/rms/product/insertProduct";
     final static String product_updateWeightIdNullByWeightIdAndPartyId  = "/rms/product/updateWeightIdNullByWeightIdAndPartyId";
+    final static String product_updateQuantityIdNullByWeightIdAndPartyId  = "/rms/product/updateQuantityIdNullByWeightIdAndPartyId";
+
     //Receiving
     final static String orderFindByPartyId                        = "rms/receiving/order/findByPartyId";
     final static String itemFindByPartyId                        = "rms/receiving/item/findByPartyId";
@@ -26,11 +28,11 @@ public class ServeProfile {
     //WeightProfile
     final static String weight_findAll                              = "rms/weight/findAll";
     final static String weight_findByPartyId                        = "rms/weight/findByPartyId";
-    final static String weight_delete                            ="rms/weight/delete";
+    final static String weight_delete                               ="rms/weight/delete";
     //QuantityProfile
     final static String quantity_findAll                                = "rms/quantity/findAll";
     final static String quantity_findByPartyId                        = "rms/quantity/findByPartyId";
-    final static String quantity_delete                            ="rms/quantity/delete";
+    final static String quantity_delete                                 ="rms/quantity/delete";
 
     //Inventory
     final static String inventory_findAll                            ="rms/inventory/findAll";
@@ -144,5 +146,9 @@ public class ServeProfile {
 
     public static String getQuantity_delete() {
         return quantity_delete;
+    }
+
+    public static String getProduct_updateQuantityIdNullByWeightIdAndPartyId() {
+        return product_updateQuantityIdNullByWeightIdAndPartyId;
     }
 }

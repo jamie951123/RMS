@@ -34,4 +34,11 @@ public static String serve_findAll(){
         String serve_path = serve+path;
         return serve_path;
     }
+    public static String serve_updateQuantityIdNullByWeightIdAndPartyId(){
+        String serve = ServeProfile.getServe();
+        String path = ServeProfile.getProduct_updateQuantityIdNullByWeightIdAndPartyId();
+        String serve_path = serve+path;
+        return serve_path;
+    }
+
 }

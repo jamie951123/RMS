@@ -4,9 +4,8 @@ import android.util.Log;
 
 import com.example.james.rms.CommonProfile.GsonUtil;
 import com.example.james.rms.Core.Model.QuantityProfileModel;
-import com.example.james.rms.Core.Model.WeightProfileModel;
+import com.example.james.rms.Core.Model.ResponseMessage;
 import com.example.james.rms.Core.ServePath.QuantityServePath;
-import com.example.james.rms.Core.ServePath.WeightServePath;
 import com.example.james.rms.NetWork.HttpGetAsync;
 import com.example.james.rms.NetWork.HttpPostAsync;
 import com.google.gson.Gson;
@@ -73,5 +72,32 @@ public class QuantityProfileDaoImpl implements QuantityProfileDao {
         }
         Log.d("asd","[QuantityProfileModel]-findByPartyId(Response) :" + quantityProfileModels.toString());
         return quantityProfileModels;
+    }
+
+    @Override
+    public ResponseMessage delete(String json) {
+        Log.d("asd","[QuantityProfileModel]-delete(Request--JSON):" + json);
+        String result = "";
+        try {
+            result = new HttpPostAsync().execute(QuantityServePath.serve_quantityDelete(),json).get();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+        Log.d("asd:","[QuantityProfileModel]-delete-[Response(String)] : "+result);
+        ResponseMessage responseMessage = new ResponseMessage();
+        try{
+            Gson gson = GsonUtil.fromJson();
+            responseMessage = gson.fromJson(result,ResponseMessage.class);
+            Log.d("asd:","[QuantityProfileModel]-delete-[Response(Gson)] : "+responseMessage);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        if(responseMessage == null){
+            Log.d("asd","[QuantityProfileModel]-delete(Response) [Error] : Serve have not response anything");
+            return null;
+        }
+        return responseMessage;
     }
 }

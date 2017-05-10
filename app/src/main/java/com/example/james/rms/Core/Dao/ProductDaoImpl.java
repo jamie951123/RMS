@@ -116,4 +116,23 @@ public class ProductDaoImpl implements ProductDao {
         return null;
     }
 
+    @Override
+    public Integer updateQuantityIdNullByWeightIdAndPartyId(String json) {
+        Log.d("asd:","[ProductModel]-updateQuantityIdNullByWeightIdAndPartyId-[Request (JSON)]: :"+json);
+        String result = "";
+        try {
+            result = new HttpPostAsync().execute(ProductServerPath.serve_updateQuantityIdNullByWeightIdAndPartyId(),json).get();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+        Log.d("asd:","[ProductModel]-updateQuantityIdNullByWeightIdAndPartyId-[Response(String)]: :"+result);
+        if(ObjectUtil.isNotNullEmpty(result)){
+            return Integer.parseInt(result);
+        }
+        Log.d("asd:","[ProductModel]-updateQuantityIdNullByWeightIdAndPartyId-[ERROR]: -- Updata fail");
+        return null;
+    }
+
 }
