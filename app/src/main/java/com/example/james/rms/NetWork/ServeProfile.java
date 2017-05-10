@@ -5,29 +5,29 @@ package com.example.james.rms.NetWork;
  */
 
 public class ServeProfile {
-    public static String serve                                    = "http://123.203.112.174:1123/";
+    public static String serve                                    = "http://123.203.112.174:1123/RMS_Serve/";
 //    public static String serve                                    = "http://123.203.117.130:1123/";
 //    public static String serve                                    = "http://192.168.43.36:1123/";
 //public static String serve                                    = "http://10.16.81.188:1123/";
     //Login
-    final static String login_findAll                             = "/rms/login/findAll";
-    final static String login_checklogin                          = "/rms/login/checklogin";
+    final static String login_findAll                                                    = "rms/login/findAll";
+    final static String login_checklogin                                                 = "rms/login/checklogin";
     //Product
-    final static String product_findAll                            = "/rms/product/findAll";
-    final static String product_findByPartyId                     = "/rms/product/findByPartyId";
-    final static String product_insert                             = "/rms/product/insertProduct";
-    final static String product_updateWeightIdNullByWeightIdAndPartyId  = "/rms/product/updateWeightIdNullByWeightIdAndPartyId";
-    final static String product_updateQuantityIdNullByWeightIdAndPartyId  = "/rms/product/updateQuantityIdNullByWeightIdAndPartyId";
+    final static String product_findAll                                                 = "rms/product/findAll";
+    final static String product_findByPartyId                                            = "rms/product/findByPartyId";
+    final static String product_insert                                                  = "rms/product/insertProduct";
+    final static String product_updateWeightIdNullByWeightIdAndPartyId                  = "rms/product/updateWeightIdNullByWeightIdAndPartyId";
+    final static String product_updateQuantityIdNullByWeightIdAndPartyId                    = "rms/product/updateQuantityIdNullByWeightIdAndPartyId";
 
     //Receiving
-    final static String orderFindByPartyId                        = "rms/receiving/order/findByPartyId";
-    final static String itemFindByPartyId                        = "rms/receiving/item/findByPartyId";
-    final static String insertReceivingOrder                         = "rms/receiving/order/insertReceivingOrder";
-    final static String insertReceivingItem                          = "rms/receiving/item/insertReceivingItem";
-    final static String saveOrderAndItem                           = "rms/receiving/orderitem/saveOrderAndItem";
+    final static String orderFindByPartyId                                      = "rms/receiving/order/findByPartyId";
+    final static String itemFindByPartyId                                       = "rms/receiving/item/findByPartyId";
+    final static String insertReceivingOrder                                    = "rms/receiving/order/insertReceivingOrder";
+    final static String insertReceivingItem                                      = "rms/receiving/item/insertReceivingItem";
+    final static String saveOrderAndItem                                     = "rms/receiving/orderitem/saveOrderAndItem";
     //WeightProfile
-    final static String weight_findAll                              = "rms/weight/findAll";
-    final static String weight_findByPartyId                        = "rms/weight/findByPartyId";
+    final static String weight_findAll                                           = "rms/weight/findAll";
+    final static String weight_findByPartyId                                  = "rms/weight/findByPartyId";
     final static String weight_delete                               ="rms/weight/delete";
     //QuantityProfile
     final static String quantity_findAll                                = "rms/quantity/findAll";
