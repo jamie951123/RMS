@@ -101,5 +101,32 @@ public class WeightProfileDaoImpl implements WeightProfileDao {
         return responseMessage;
     }
 
+    @Override
+    public WeightProfileModel save(String json) {
+        Log.d("asd","[WeightProfileModel]-save(Request--JSON):" + json);
+        String result = "";
+        try {
+            result = new HttpPostAsync().execute(WeightServePath.serve_save(),json).get();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+        Log.d("asd:","[WeightProfileModel]-save-[Response(String)] : "+result);
+        WeightProfileModel weightProfileModel = new WeightProfileModel();
+        try{
+            Gson gson = GsonUtil.fromJson();
+            weightProfileModel = gson.fromJson(result,WeightProfileModel.class);
+            Log.d("asd:","[WeightProfileModel]-save-[Response(Gson)] : "+weightProfileModel);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        if(weightProfileModel == null){
+            Log.d("asd","[WeightProfileModel]-save(Response) [Error] : Serve have not response anything");
+            return null;
+        }
+        return weightProfileModel;
+    }
+
 
 }

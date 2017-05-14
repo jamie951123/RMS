@@ -131,4 +131,6 @@
     <string name="title_input_grossweight">GrossWeight</string>
     <string name="title_grossweight_unit">Your Gross Weight Unit</string>
     <string name="title_qty_unit">Your Quantity Unit</string>
+    <string name="add_weight_unit">Add Weight Unit</string>
+    <string name="add_quantity_unit">Add Quantity Unit</string>
 </resources>

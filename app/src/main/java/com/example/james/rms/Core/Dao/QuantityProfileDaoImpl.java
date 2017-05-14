@@ -100,4 +100,32 @@ public class QuantityProfileDaoImpl implements QuantityProfileDao {
         }
         return responseMessage;
     }
+
+    @Override
+    public QuantityProfileModel save(String json) {
+        Log.d("asd","[QuantityProfileModel]-save(Request--JSON):" + json);
+        String result = "";
+        try {
+            result = new HttpPostAsync().execute(QuantityServePath.serve_save(),json).get();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+        Log.d("asd:","[QuantityProfileModel]-save-[Response(String)] : "+result);
+        QuantityProfileModel quantityProfileModel = new QuantityProfileModel();
+        try{
+            Gson gson = GsonUtil.fromJson();
+            quantityProfileModel = gson.fromJson(result,QuantityProfileModel.class);
+            Log.d("asd:","[QuantityProfileModel]-save-[Response(Gson)] : "+quantityProfileModel);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+        if(quantityProfileModel == null){
+            Log.d("asd","[QuantityProfileModel]-save(Response) [Error] : Serve have not response anything");
+            return null;
+        }
+        return quantityProfileModel;
+    }
 }

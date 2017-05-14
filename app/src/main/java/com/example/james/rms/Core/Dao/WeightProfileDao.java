@@ -13,5 +13,5 @@ public interface WeightProfileDao {
     List<WeightProfileModel> findAll();
     List<WeightProfileModel> findByPartyId(String partyId);
     ResponseMessage delete(String weightProfile);
-
+    WeightProfileModel save (String json);
 }

@@ -28,4 +28,12 @@ public class WeightServePath {
         String serve_path = serve+path;
         return serve_path;
     }
+
+    public static String serve_save(){
+        String serve = ServeProfile.getServe();
+        String path = ServeProfile.getWeight_save();
+        String serve_path = serve+path;
+        return serve_path;
+    }
+
 }

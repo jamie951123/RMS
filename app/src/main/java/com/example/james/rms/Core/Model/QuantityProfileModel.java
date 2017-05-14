@@ -49,9 +49,11 @@ public class QuantityProfileModel {
 
     @Override
     public String toString() {
-        return "QuantityProfile [quantityId=" + quantityId + ", partyId=" + partyId + ", quantityUnit=" + quantityUnit
-                + ", createDate=" + createDate + "]";
+        return "QuantityProfileModel{" +
+                "quantityId=" + quantityId +
+                ", partyId='" + partyId + '\'' +
+                ", quantityUnit='" + quantityUnit + '\'' +
+                ", createDate=" + createDate +
+                '}';
     }
-
-
 }

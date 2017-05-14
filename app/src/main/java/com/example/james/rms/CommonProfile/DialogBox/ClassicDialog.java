@@ -3,21 +3,25 @@ package com.example.james.rms.CommonProfile.DialogBox;
 import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.text.InputType;
+import android.util.Log;
 import android.view.View;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.example.james.rms.CommonProfile.DialogBox.Service.ClassicDialogService;
+import com.example.james.rms.Core.Model.KeyModel;
 import com.example.james.rms.Operation.OperationContainer;
 import com.example.james.rms.R;
+import com.example.james.rms.Setting.SettingContainer;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by james on 15/3/2017.
  */
 
-public class ClassicDialog {
+public class ClassicDialog{
     Context context;
     MaterialDialog materialDialog;
 
@@ -136,6 +140,41 @@ public class ClassicDialog {
                 })
                 .positiveText(R.string.choose)
                 .show();
+    }
+
+    public void showInputBox(String title, final String content, String hint,final String key){
+        new MaterialDialog.Builder(context)
+                .title(title)
+                .content(content)
+                .inputRangeRes(1, 20, R.color.colorAccent)
+                .inputType(InputType.TYPE_CLASS_TEXT)
+                .onNegative(new MaterialDialog.SingleButtonCallback() {
+                    @Override
+                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                        dialog.dismiss();
+                    }
+                })
+
+                .input(hint, null, new MaterialDialog.InputCallback() {
+                    @Override
+                    public void onInput(MaterialDialog dialog, CharSequence input) {
+                        // Do something
+                        Log.d("asd","[ClassicDialog]-showInputBox : " +input);
+                        dialog.getActionButton(DialogAction.POSITIVE).setEnabled(true);
+                        ClassicDialogService c;
+                        if(context instanceof SettingContainer){
+                            SettingContainer settingContainer = (SettingContainer)context;
+                            c = settingContainer;
+                            switch (key){
+                                case KeyModel.gw:
+                                    c.settingPagesWeight(String.valueOf(input));
+                                    break;
+                                case KeyModel.qty:
+                                    c.settingPagesQty(String.valueOf(input));
+                            }
+                        }
+                    }
+                }).show();
     }
     public void dismiss(){
         materialDialog.dismiss();

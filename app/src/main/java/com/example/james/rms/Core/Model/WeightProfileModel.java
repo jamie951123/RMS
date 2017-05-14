@@ -47,5 +47,13 @@ public class WeightProfileModel {
         this.createDate = createDate;
     }
 
-
+    @Override
+    public String toString() {
+        return "WeightProfileModel{" +
+                "weightId=" + weightId +
+                ", partyId='" + partyId + '\'' +
+                ", weightUnit='" + weightUnit + '\'' +
+                ", createDate=" + createDate +
+                '}';
+    }
 }

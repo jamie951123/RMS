@@ -13,4 +13,5 @@ public interface QuantityProfileDao {
     List<QuantityProfileModel> findAll();
     List<QuantityProfileModel> findByPartyId(String partyId);
     ResponseMessage delete(String quantityProfile);
+    QuantityProfileModel save(String json);
 }

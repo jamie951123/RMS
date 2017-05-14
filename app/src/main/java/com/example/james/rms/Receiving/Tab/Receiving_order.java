@@ -19,6 +19,7 @@ import com.example.james.rms.ITF.ViewPagerListener;
 import com.example.james.rms.R;
 import com.example.james.rms.Receiving.Adapter.ReceivingOrderListAdapter;
 import com.example.james.rms.Receiving.ReceivingCombine;
+import com.example.james.rms.Setting.SettingContainer;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -72,7 +73,6 @@ public class Receiving_order extends MyBaseFragment implements AdapterView.OnIte
             Long item_orderId = items.getOrderId();
             if(order_orderId.equals(item_orderId))itemModels.add(items);
         }
-
         NavigationController controller = (NavigationController)getActivity();
         ViewPagerListener viewPagerListener = (ViewPagerListener)controller;
         viewPagerListener.transferViewPager(R.id.receiving_item,itemModels);

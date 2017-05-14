@@ -29,10 +29,13 @@ public class ServeProfile {
     final static String weight_findAll                                           = "rms/weight/findAll";
     final static String weight_findByPartyId                                  = "rms/weight/findByPartyId";
     final static String weight_delete                               ="rms/weight/delete";
+    final static String weight_save                                 ="rms/weight/save";
+
     //QuantityProfile
     final static String quantity_findAll                                = "rms/quantity/findAll";
     final static String quantity_findByPartyId                        = "rms/quantity/findByPartyId";
     final static String quantity_delete                                 ="rms/quantity/delete";
+    final static String quantity_save                                ="rms/quantity/save";
 
     //Inventory
     final static String inventory_findAll                            ="rms/inventory/findAll";
@@ -150,5 +153,13 @@ public class ServeProfile {
 
     public static String getProduct_updateQuantityIdNullByWeightIdAndPartyId() {
         return product_updateQuantityIdNullByWeightIdAndPartyId;
+    }
+
+    public static String getWeight_save() {
+        return weight_save;
+    }
+
+    public static String getQuantity_save() {
+        return quantity_save;
     }
 }
