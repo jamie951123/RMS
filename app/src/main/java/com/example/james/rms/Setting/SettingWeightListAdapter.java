@@ -6,11 +6,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.daimajia.swipe.SimpleSwipeListener;
 import com.daimajia.swipe.SwipeLayout;
+import com.example.james.rms.CommonProfile.Listview.ListViewGrowthUtil;
 import com.example.james.rms.CommonProfile.MyBaseSwipeAdapter;
 import com.example.james.rms.CommonProfile.ResponseStatus;
 import com.example.james.rms.Core.Dao.ProductDao;
@@ -34,10 +36,12 @@ import butterknife.ButterKnife;
 
 public class SettingWeightListAdapter extends MyBaseSwipeAdapter<WeightProfileModel> {
 
+    private ListView listView;
 
-    public SettingWeightListAdapter(Context mContext, List<WeightProfileModel> list) {
+    public SettingWeightListAdapter(Context mContext, List<WeightProfileModel> list, ListView listView) {
         this.mContext = mContext;
         this.list = list;
+        this.listView = listView;
     }
 
     @Override
@@ -75,6 +79,8 @@ public class SettingWeightListAdapter extends MyBaseSwipeAdapter<WeightProfileMo
                     if(responseMessage != null && responseMessage.getStatus().equalsIgnoreCase(ResponseStatus.getSuccessful())){
                         getList().remove(position);
                         notifyDataSetChanged();
+                        ListViewGrowthUtil.setListViewHeightBasedOnChildren(listView);
+
                         Toast.makeText(getmContext(), responseMessage.getMessage(), Toast.LENGTH_SHORT).show();
                         return;
                     }

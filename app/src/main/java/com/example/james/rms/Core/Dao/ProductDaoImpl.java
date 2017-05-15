@@ -117,11 +117,11 @@ public class ProductDaoImpl implements ProductDao {
     }
 
     @Override
-    public Integer updateQuantityIdNullByWeightIdAndPartyId(String json) {
+    public Integer updateQuantityIdNullByQuantityIdAndPartyId(String json) {
         Log.d("asd:","[ProductModel]-updateQuantityIdNullByWeightIdAndPartyId-[Request (JSON)]: :"+json);
         String result = "";
         try {
-            result = new HttpPostAsync().execute(ProductServerPath.serve_updateQuantityIdNullByWeightIdAndPartyId(),json).get();
+            result = new HttpPostAsync().execute(ProductServerPath.serve_updateQuantityIdNullByQuantityIdAndPartyId(),json).get();
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {

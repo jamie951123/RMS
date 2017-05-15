@@ -128,4 +128,19 @@ public class QuantityProfileDaoImpl implements QuantityProfileDao {
         }
         return quantityProfileModel;
     }
+
+    @Override
+    public QuantityProfileModel updateQtyUnit(String json) {
+        Log.d("asd","[QuantityProfileModel]-updateQtyUnit(Request--JSON):" + json);
+        String result = "";
+        try {
+            result = new HttpPostAsync().execute(QuantityServePath.serve_save(),json).get();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
 }

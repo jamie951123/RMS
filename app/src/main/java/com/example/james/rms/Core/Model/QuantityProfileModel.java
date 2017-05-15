@@ -15,6 +15,10 @@ public class QuantityProfileModel {
 
     private Date createDate;
 
+    private Date modifyTime;
+
+    private String modifyBy;
+
     public Long getQuantityId() {
         return quantityId;
     }
@@ -47,6 +51,22 @@ public class QuantityProfileModel {
         this.createDate = createDate;
     }
 
+    public Date getModifyTime() {
+        return modifyTime;
+    }
+
+    public void setModifyTime(Date modifyTime) {
+        this.modifyTime = modifyTime;
+    }
+
+    public String getModifyBy() {
+        return modifyBy;
+    }
+
+    public void setModifyBy(String modifyBy) {
+        this.modifyBy = modifyBy;
+    }
+
     @Override
     public String toString() {
         return "QuantityProfileModel{" +
@@ -54,6 +74,8 @@ public class QuantityProfileModel {
                 ", partyId='" + partyId + '\'' +
                 ", quantityUnit='" + quantityUnit + '\'' +
                 ", createDate=" + createDate +
+                ", modifyTime=" + modifyTime +
+                ", modifyBy='" + modifyBy + '\'' +
                 '}';
     }
 }

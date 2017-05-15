@@ -17,7 +17,7 @@ public class ServeProfile {
     final static String product_findByPartyId                                            = "rms/product/findByPartyId";
     final static String product_insert                                                  = "rms/product/insertProduct";
     final static String product_updateWeightIdNullByWeightIdAndPartyId                  = "rms/product/updateWeightIdNullByWeightIdAndPartyId";
-    final static String product_updateQuantityIdNullByWeightIdAndPartyId                    = "rms/product/updateQuantityIdNullByWeightIdAndPartyId";
+    final static String product_updateQuantityIdNullByQuantityIdAndPartyId                    = "rms/product/updateQuantityIdNullByQuantityIdAndPartyId";
 
     //Receiving
     final static String orderFindByPartyId                                      = "rms/receiving/order/findByPartyId";
@@ -36,6 +36,7 @@ public class ServeProfile {
     final static String quantity_findByPartyId                        = "rms/quantity/findByPartyId";
     final static String quantity_delete                                 ="rms/quantity/delete";
     final static String quantity_save                                ="rms/quantity/save";
+    final static String quantity_updateQtyByQuantityIdAndPartyIdAndQtyUnit                                ="rms/quantity/updateQtyByQuantityIdAndPartyIdAndQtyUnit";
 
     //Inventory
     final static String inventory_findAll                            ="rms/inventory/findAll";
@@ -147,19 +148,23 @@ public class ServeProfile {
         return product_updateWeightIdNullByWeightIdAndPartyId;
     }
 
-    public static String getQuantity_delete() {
-        return quantity_delete;
-    }
-
-    public static String getProduct_updateQuantityIdNullByWeightIdAndPartyId() {
-        return product_updateQuantityIdNullByWeightIdAndPartyId;
+    public static String getProduct_updateQuantityIdNullByQuantityIdAndPartyId() {
+        return product_updateQuantityIdNullByQuantityIdAndPartyId;
     }
 
     public static String getWeight_save() {
         return weight_save;
     }
 
+    public static String getQuantity_delete() {
+        return quantity_delete;
+    }
+
     public static String getQuantity_save() {
         return quantity_save;
+    }
+
+    public static String getQuantity_updateQtyByQuantityIdAndPartyIdAndQtyUnit() {
+        return quantity_updateQtyByQuantityIdAndPartyIdAndQtyUnit;
     }
 }

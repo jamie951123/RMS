@@ -126,6 +126,11 @@
     <string name="label_input">Please Input</string>
     <string name="label_number">Number</string>
     <string name="label_storage">Storage Status</string>
+    <string name="label_add">Add</string>
+    <string name="label_delete">Delete</string>
+    <string name="label_edit">Edit</string>
+    <string name="label_save">Save</string>
+
     <!--title-->
     <string name="title_input_qty">Quantity</string>
     <string name="title_input_grossweight">GrossWeight</string>

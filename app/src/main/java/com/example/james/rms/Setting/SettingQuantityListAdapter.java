@@ -5,7 +5,9 @@ import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -13,6 +15,7 @@ import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
 import com.daimajia.swipe.SimpleSwipeListener;
 import com.daimajia.swipe.SwipeLayout;
+import com.example.james.rms.CommonProfile.Listview.ListViewGrowthUtil;
 import com.example.james.rms.CommonProfile.MyBaseSwipeAdapter;
 import com.example.james.rms.CommonProfile.ResponseStatus;
 import com.example.james.rms.Core.Dao.ProductDao;
@@ -34,9 +37,12 @@ import butterknife.ButterKnife;
 
 public class SettingQuantityListAdapter extends MyBaseSwipeAdapter<QuantityProfileModel> {
 
-    public SettingQuantityListAdapter(Context mContext, List<QuantityProfileModel> list) {
+    private ListView listView;
+
+    public SettingQuantityListAdapter(Context mContext, List<QuantityProfileModel> list,ListView listView) {
         this.mContext = mContext;
         this.list = list;
+        this.listView = listView;
     }
 
     @Override
@@ -67,13 +73,14 @@ public class SettingQuantityListAdapter extends MyBaseSwipeAdapter<QuantityProfi
                 String gson = SettingCombine.gsonQuantityProfile(qtymodel);
 
                 ProductDao productDao = new ProductDaoImpl();
-                Integer deleteCount = productDao.updateQuantityIdNullByWeightIdAndPartyId(gson);
+                Integer deleteCount = productDao.updateQuantityIdNullByQuantityIdAndPartyId(gson);
                 if(deleteCount != null){
                     QuantityProfileDao quantityProfileDao = new QuantityProfileDaoImpl();
                     ResponseMessage responseMessage = quantityProfileDao.delete(gson);
                     if(responseMessage != null && responseMessage.getStatus().equalsIgnoreCase(ResponseStatus.getSuccessful())){
                         getList().remove(position);
                         notifyDataSetChanged();
+                        ListViewGrowthUtil.setListViewHeightBasedOnChildren(listView);
                         Toast.makeText(getmContext(), responseMessage.getMessage(), Toast.LENGTH_SHORT).show();
                         return;
                     }
@@ -86,13 +93,20 @@ public class SettingQuantityListAdapter extends MyBaseSwipeAdapter<QuantityProfi
     }
 
     @Override
-    public void fillValues(int position, View convertView) {
+    public void fillValues(final int position, View convertView) {
         SettingQuantityListAdapter.ViewHolder viewHolder = new SettingQuantityListAdapter.ViewHolder(convertView);
         //front
         viewHolder.front_image.setImageDrawable(ContextCompat.getDrawable(getmContext(),R.drawable.box_color));
         viewHolder.front_unit.setText(getItem(position).getQuantityUnit());
         viewHolder.behind_edit_unit.setText(getItem(position).getQuantityUnit());
         viewHolder.behind_image.setImageDrawable(ContextCompat.getDrawable(getmContext(),R.drawable.pencil_color));
+        viewHolder.save.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+               String test =  getItem(position).getQuantityUnit();
+                Toast.makeText(getmContext(), test, Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     @Override
@@ -110,7 +124,8 @@ public class SettingQuantityListAdapter extends MyBaseSwipeAdapter<QuantityProfi
         EditText behind_edit_unit;
         @BindView(R.id.setting_qty_behind_image)
         de.hdodenhof.circleimageview.CircleImageView behind_image;
-
+        @BindView(R.id.setting_qty_save)
+        Button save;
         public ViewHolder(View view) {
             ButterKnife.bind(this,view);
         }

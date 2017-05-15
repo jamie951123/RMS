@@ -33,14 +33,34 @@
             android:id="@+id/setting_weight_edit_unit"
             android:textSize="17sp"/>
 
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="4"
+        android:orientation="vertical">
+
         <Button
             android:id="@+id/setting_weight_delete"
-            android:layout_width="0dp"
-            android:layout_height="40dp"
-            android:layout_weight="4"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
             android:background="@color/whiteFFFFFF"
-            android:text="Delete"
+            android:text="@string/label_delete"
             android:textColor="#FF5534" />
+        <View
+            android:layout_width="0dp"
+            android:layout_height="2dp"
+            android:background="@color/gray3C3D40"></View>
+        <Button
+            android:id="@+id/setting_weight_edit"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/whiteFFFFFF"
+            android:text="@string/label_save"
+            android:textColor="#FF5534" />
+
+        </LinearLayout>
     </LinearLayout>
 
     <LinearLayout

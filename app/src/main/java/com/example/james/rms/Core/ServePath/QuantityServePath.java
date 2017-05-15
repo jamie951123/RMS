@@ -36,5 +36,11 @@ public class QuantityServePath {
         return serve_path;
     }
 
+    public static String serve_updateQtyByQuantityIdAndPartyIdAndQtyUnit(){
+        String serve = ServeProfile.getServe();
+        String path = ServeProfile.getQuantity_updateQtyByQuantityIdAndPartyIdAndQtyUnit();
+        String serve_path = serve+path;
+        return serve_path;
+    }
 
 }

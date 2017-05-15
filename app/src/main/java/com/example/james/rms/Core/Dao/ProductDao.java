@@ -17,5 +17,5 @@ public interface ProductDao {
 
     Integer updateWeightIdNullByWeightIdAndPartyId(String json);
 
-    Integer updateQuantityIdNullByWeightIdAndPartyId(String json);
+    Integer updateQuantityIdNullByQuantityIdAndPartyId(String json);
 }
