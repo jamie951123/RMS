@@ -52,7 +52,7 @@
             android:layout_height="2dp"
             android:background="@color/gray3C3D40"></View>
         <Button
-            android:id="@+id/setting_weight_edit"
+            android:id="@+id/setting_weight_save"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"

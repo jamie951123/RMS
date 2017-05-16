@@ -66,7 +66,7 @@ public class SettingContainer extends AppCompatActivity implements View.OnClickL
         //weight
         WeightProfileDao weightProfileDao = new WeightProfileDaoImpl();
         weightProfileModelList = weightProfileDao.findByPartyId(common_partyId);
-        wAdapter = new SettingWeightListAdapter(this,weightProfileModelList,wlistView);
+        wAdapter = new SettingWeightListAdapter(this,weightProfileModelList,wlistView,partyId);
         wlistView.setAdapter(wAdapter);
         wAdapter.setMode(Attributes.Mode.Single);
         waddbtn.setOnClickListener(this);
@@ -74,7 +74,7 @@ public class SettingContainer extends AppCompatActivity implements View.OnClickL
         //quantity
         QuantityProfileDao quantityProfileDao = new QuantityProfileDaoImpl();
         quantityProfileModelList = quantityProfileDao.findByPartyId(common_partyId);
-        qAdapter = new SettingQuantityListAdapter(this,quantityProfileModelList,qlistView);
+        qAdapter = new SettingQuantityListAdapter(this,quantityProfileModelList,qlistView,partyId);
         qlistView.setAdapter(qAdapter);
         qAdapter.setMode(Attributes.Mode.Single);
         qaddbtn.setOnClickListener(this);

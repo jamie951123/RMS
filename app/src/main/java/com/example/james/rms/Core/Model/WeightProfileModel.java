@@ -15,6 +15,11 @@ public class WeightProfileModel {
 
     private Date createDate;
 
+    private Date modifyTime;
+
+    private String modifyBy;
+
+
     public Long getWeightId() {
         return weightId;
     }
@@ -47,6 +52,22 @@ public class WeightProfileModel {
         this.createDate = createDate;
     }
 
+    public Date getModifyTime() {
+        return modifyTime;
+    }
+
+    public void setModifyTime(Date modifyTime) {
+        this.modifyTime = modifyTime;
+    }
+
+    public String getModifyBy() {
+        return modifyBy;
+    }
+
+    public void setModifyBy(String modifyBy) {
+        this.modifyBy = modifyBy;
+    }
+
     @Override
     public String toString() {
         return "WeightProfileModel{" +
@@ -54,6 +75,8 @@ public class WeightProfileModel {
                 ", partyId='" + partyId + '\'' +
                 ", weightUnit='" + weightUnit + '\'' +
                 ", createDate=" + createDate +
+                ", modifyTime=" + modifyTime +
+                ", modifyBy='" + modifyBy + '\'' +
                 '}';
     }
 }

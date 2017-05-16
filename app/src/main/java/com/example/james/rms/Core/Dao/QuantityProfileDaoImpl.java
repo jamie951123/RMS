@@ -3,6 +3,7 @@ package com.example.james.rms.Core.Dao;
 import android.util.Log;
 
 import com.example.james.rms.CommonProfile.GsonUtil;
+import com.example.james.rms.CommonProfile.ObjectUtil;
 import com.example.james.rms.Core.Model.QuantityProfileModel;
 import com.example.james.rms.Core.Model.ResponseMessage;
 import com.example.james.rms.Core.ServePath.QuantityServePath;
@@ -129,18 +130,23 @@ public class QuantityProfileDaoImpl implements QuantityProfileDao {
         return quantityProfileModel;
     }
 
-    @Override
-    public QuantityProfileModel updateQtyUnit(String json) {
-        Log.d("asd","[QuantityProfileModel]-updateQtyUnit(Request--JSON):" + json);
-        String result = "";
-        try {
-            result = new HttpPostAsync().execute(QuantityServePath.serve_save(),json).get();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        }
-
-        return null;
-    }
+//    @Override
+//    public Integer updateQtyUnit(String json) {
+//        Log.d("asd","[QuantityProfileModel]-updateQtyUnit(Request--JSON):" + json);
+//        String result = "";
+//        try {
+//            result = new HttpPostAsync().execute(QuantityServePath.serve_updateQtyByQuantityIdAndPartyIdAndQtyUnit(),json).get();
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        } catch (ExecutionException e) {
+//            e.printStackTrace();
+//        }
+//        Log.d("asd:","[QuantityProfileModel]-updateQtyUnit-[Response(String)]: :"+result);
+//        if(ObjectUtil.isNotNullEmpty(result)){
+//            return Integer.parseInt(result);
+//        }
+//        Log.d("asd:","[QuantityProfileModel]-updateQtyUnit-[ERROR]: -- Updata fail");
+//
+//        return null;
+//    }
 }

@@ -44,6 +44,7 @@ import com.example.james.rms.Operation.Adapter.ReceivingIncreaseListAdapter;
 import com.example.james.rms.Operation.Model.ReceivingIncreaseModel;
 import com.example.james.rms.ProductPool.ProductCombine;
 import com.example.james.rms.R;
+import com.example.james.rms.Receiving.ReceivingCombine;
 import com.github.clans.fab.FloatingActionButton;
 import com.google.gson.Gson;
 import java.math.BigDecimal;
@@ -76,8 +77,6 @@ public class ReceivingIncrease extends AppCompatActivity implements View.OnClick
 
     private ProductDao productDao = new ProductDaoImpl();
     //
-    private ProductCombine productCombine = new ProductCombine();
-    //
     private WeightProfileDao weightProfileDao = new WeightProfileDaoImpl();
     //
     private QuantityProfileDao quantityProfileDao = new QuantityProfileDaoImpl();
@@ -104,7 +103,7 @@ public class ReceivingIncrease extends AppCompatActivity implements View.OnClick
         PartyIdPreferences partyIdPreferences = new PartyIdPreferences(this,"loginInformation",MODE_PRIVATE);
         common_partyId =  partyIdPreferences.getPreferences_PartyId().get("partyId");
         //HttpOK
-        String combine_partyId = productCombine.combine_partyId(common_partyId);
+        String combine_partyId = ReceivingCombine.combine_partyId(common_partyId);
         List<ProductModel> allModel = productDao.findByPartyId(combine_partyId);
         weightProfileModelList = weightProfileDao.findByPartyId(combine_partyId);
         quantityProfileModelList  = quantityProfileDao.findByPartyId(combine_partyId);

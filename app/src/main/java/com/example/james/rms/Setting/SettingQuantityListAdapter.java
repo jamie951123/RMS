@@ -1,7 +1,9 @@
 package com.example.james.rms.Setting;
 
+import android.app.Activity;
 import android.content.Context;
 import android.support.v4.content.ContextCompat;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +17,7 @@ import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
 import com.daimajia.swipe.SimpleSwipeListener;
 import com.daimajia.swipe.SwipeLayout;
+import com.example.james.rms.CommonProfile.ActivityUtil;
 import com.example.james.rms.CommonProfile.Listview.ListViewGrowthUtil;
 import com.example.james.rms.CommonProfile.MyBaseSwipeAdapter;
 import com.example.james.rms.CommonProfile.ResponseStatus;
@@ -26,6 +29,7 @@ import com.example.james.rms.Core.Model.QuantityProfileModel;
 import com.example.james.rms.Core.Model.ResponseMessage;
 import com.example.james.rms.R;
 
+import java.util.Date;
 import java.util.List;
 
 import butterknife.BindView;
@@ -38,11 +42,12 @@ import butterknife.ButterKnife;
 public class SettingQuantityListAdapter extends MyBaseSwipeAdapter<QuantityProfileModel> {
 
     private ListView listView;
-
-    public SettingQuantityListAdapter(Context mContext, List<QuantityProfileModel> list,ListView listView) {
+    private String partyId;
+    public SettingQuantityListAdapter(Context mContext, List<QuantityProfileModel> list,ListView listView,String partyId) {
         this.mContext = mContext;
         this.list = list;
         this.listView = listView;
+        this.partyId = partyId;
     }
 
     @Override
@@ -94,7 +99,7 @@ public class SettingQuantityListAdapter extends MyBaseSwipeAdapter<QuantityProfi
 
     @Override
     public void fillValues(final int position, View convertView) {
-        SettingQuantityListAdapter.ViewHolder viewHolder = new SettingQuantityListAdapter.ViewHolder(convertView);
+        final SettingQuantityListAdapter.ViewHolder viewHolder = new SettingQuantityListAdapter.ViewHolder(convertView);
         //front
         viewHolder.front_image.setImageDrawable(ContextCompat.getDrawable(getmContext(),R.drawable.box_color));
         viewHolder.front_unit.setText(getItem(position).getQuantityUnit());
@@ -103,8 +108,24 @@ public class SettingQuantityListAdapter extends MyBaseSwipeAdapter<QuantityProfi
         viewHolder.save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               String test =  getItem(position).getQuantityUnit();
-                Toast.makeText(getmContext(), test, Toast.LENGTH_SHORT).show();
+                String lastestUnit = viewHolder.behind_edit_unit.getText().toString();
+                QuantityProfileModel quantityProfileModel = getItem(position);
+                quantityProfileModel.setQuantityUnit(lastestUnit);
+                quantityProfileModel.setModifyBy(partyId);
+                quantityProfileModel.setModifyTime(new Date());
+                String json = SettingCombine.gsonQuantityProfile(quantityProfileModel);
+                //Service
+                QuantityProfileDao quantityProfileDao = new QuantityProfileDaoImpl();
+                QuantityProfileModel result = quantityProfileDao.save(json);
+                if(result != null){
+                    viewHolder.front_unit.setText(lastestUnit);
+                    ((SwipeLayout)(listView.getChildAt(position - listView.getFirstVisiblePosition()))).close(true);
+                    ActivityUtil.hideSoftKeyboard((Activity)getmContext());
+                    Log.d("asd","[SettingQuantityListAdapter]-[save]-[Successful] : " + result);
+                }else{
+                    Log.d("asd","[SettingQuantityListAdapter]-[save] -[Fail] : " + result);
+                }
+
             }
         });
     }

@@ -14,5 +14,4 @@ public interface QuantityProfileDao {
     List<QuantityProfileModel> findByPartyId(String partyId);
     ResponseMessage delete(String quantityProfile);
     QuantityProfileModel save(String json);
-    QuantityProfileModel updateQtyUnit(String json);
 }

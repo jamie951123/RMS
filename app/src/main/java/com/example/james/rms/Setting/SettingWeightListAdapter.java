@@ -1,10 +1,13 @@
 package com.example.james.rms.Setting;
 
+import android.app.Activity;
 import android.content.Context;
 import android.support.v4.content.ContextCompat;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -12,6 +15,7 @@ import android.widget.Toast;
 
 import com.daimajia.swipe.SimpleSwipeListener;
 import com.daimajia.swipe.SwipeLayout;
+import com.example.james.rms.CommonProfile.ActivityUtil;
 import com.example.james.rms.CommonProfile.Listview.ListViewGrowthUtil;
 import com.example.james.rms.CommonProfile.MyBaseSwipeAdapter;
 import com.example.james.rms.CommonProfile.ResponseStatus;
@@ -25,6 +29,7 @@ import com.example.james.rms.R;
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
 
+import java.util.Date;
 import java.util.List;
 
 import butterknife.BindView;
@@ -37,11 +42,12 @@ import butterknife.ButterKnife;
 public class SettingWeightListAdapter extends MyBaseSwipeAdapter<WeightProfileModel> {
 
     private ListView listView;
-
-    public SettingWeightListAdapter(Context mContext, List<WeightProfileModel> list, ListView listView) {
+    private String partyId;
+    public SettingWeightListAdapter(Context mContext, List<WeightProfileModel> list, ListView listView,String partyId) {
         this.mContext = mContext;
         this.list = list;
         this.listView = listView;
+        this.partyId = partyId;
     }
 
     @Override
@@ -93,13 +99,35 @@ public class SettingWeightListAdapter extends MyBaseSwipeAdapter<WeightProfileMo
     }
 
     @Override
-    public void fillValues(int position, View convertView) {
-        ViewHolder viewHolder = new ViewHolder(convertView);
+    public void fillValues(final int position, View convertView) {
+        final ViewHolder viewHolder = new ViewHolder(convertView);
         //front
         viewHolder.front_image.setImageDrawable(ContextCompat.getDrawable(getmContext(),R.drawable.industrial_scales_color));
         viewHolder.front_unit.setText(getItem(position).getWeightUnit());
         viewHolder.behind_edit_unit.setText(getItem(position).getWeightUnit());
         viewHolder.behind_image.setImageDrawable(ContextCompat.getDrawable(getmContext(),R.drawable.pencil_color));
+        viewHolder.save.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String lastestUnit = viewHolder.behind_edit_unit.getText().toString();
+                WeightProfileModel weightProfileModel = getItem(position);
+                weightProfileModel.setWeightUnit(lastestUnit);
+                weightProfileModel.setModifyBy(partyId);
+                weightProfileModel.setModifyTime(new Date());
+                String json = SettingCombine.gsonWeightProfile(weightProfileModel);
+                //Service
+                WeightProfileDao weightProfileDao = new WeightProfileDaoImpl();
+                weightProfileModel = weightProfileDao.save(json);
+                if(weightProfileModel != null){
+                    viewHolder.front_unit.setText(lastestUnit);
+                    ((SwipeLayout)(listView.getChildAt(position - listView.getFirstVisiblePosition()))).close(true);
+                    ActivityUtil.hideSoftKeyboard((Activity)getmContext());
+                    Log.d("asd","[SettingWeightListAdapter]-[save]-[Successful] : " + weightProfileModel);
+                }else{
+                    Log.d("asd","[SettingWeightListAdapter]-[save] -[Fail] : " + weightProfileModel);
+                }
+            }
+        });
     }
 
     @Override
@@ -117,7 +145,8 @@ public class SettingWeightListAdapter extends MyBaseSwipeAdapter<WeightProfileMo
         EditText behind_edit_unit;
         @BindView(R.id.setting_weight_behind_image)
         de.hdodenhof.circleimageview.CircleImageView behind_image;
-
+        @BindView(R.id.setting_weight_save)
+        Button save;
         public ViewHolder(View view) {
             ButterKnife.bind(this,view);
         }

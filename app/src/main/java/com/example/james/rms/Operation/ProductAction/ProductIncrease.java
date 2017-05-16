@@ -14,13 +14,20 @@ import com.example.james.rms.CommonProfile.SharePreferences.PartyIdPreferences;
 import com.example.james.rms.Controller.NavigationController;
 import com.example.james.rms.Core.Dao.ProductDao;
 import com.example.james.rms.Core.Dao.ProductDaoImpl;
+import com.example.james.rms.Core.Dao.QuantityProfileDao;
+import com.example.james.rms.Core.Dao.QuantityProfileDaoImpl;
+import com.example.james.rms.Core.Dao.WeightProfileDao;
+import com.example.james.rms.Core.Dao.WeightProfileDaoImpl;
 import com.example.james.rms.Core.Model.ProductModel;
+import com.example.james.rms.Core.Model.QuantityProfileModel;
+import com.example.james.rms.Core.Model.WeightProfileModel;
 import com.example.james.rms.ProductPool.ProductCombine;
 import com.example.james.rms.R;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -53,8 +60,13 @@ public class ProductIncrease extends AppCompatActivity implements View.OnClickLi
     //
     DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
     //
-    String partyId_Preferences="";
+    private WeightProfileDao weightProfileDao = new WeightProfileDaoImpl();
+    //
+    private QuantityProfileDao quantityProfileDao = new QuantityProfileDaoImpl();
 
+    String common_partyId;
+    private List<WeightProfileModel> weightProfileModelList;
+    private List<QuantityProfileModel> quantityProfileModelList;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,8 +76,11 @@ public class ProductIncrease extends AppCompatActivity implements View.OnClickLi
         increase_submit.setOnClickListener(this);
         //Preferences
         PartyIdPreferences partyIdPreferences = new PartyIdPreferences(this,"loginInformation",MODE_PRIVATE);
-        partyId_Preferences =  partyIdPreferences.getPreferences_PartyId().get("partyId");
-        //
+        common_partyId =  partyIdPreferences.getPreferences_PartyId().get("partyId");
+        //HttpOK
+        String combine_partyId = ProductCombine.combine_partyId(common_partyId);
+        weightProfileModelList = weightProfileDao.findByPartyId(combine_partyId);
+        quantityProfileModelList  = quantityProfileDao.findByPartyId(combine_partyId);
         setActionDate();
 
     }
@@ -82,7 +97,7 @@ public class ProductIncrease extends AppCompatActivity implements View.OnClickLi
         String descriptionEN = increase_descriptionEN.getText().toString();
         String remark        = increase_remark.getText().toString();
         Date createDate      = new Date();
-        String partyId       = partyId_Preferences;
+        String partyId       = common_partyId;
         switch (v.getId()){
             case (R.id.increase_submit):
                 if(!checkConCatFieldIsNotNUll(productCode,puductName)){
