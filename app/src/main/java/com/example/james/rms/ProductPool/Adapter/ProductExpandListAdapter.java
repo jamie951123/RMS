@@ -51,7 +51,7 @@ public class ProductExpandListAdapter  extends AnimatedExpandableListView.Animat
 
     @Override
     public int getRealChildrenCount(int groupPosition) {
-        return 1;
+        return 1 ;
     }
 
     @Override
