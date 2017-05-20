@@ -13,13 +13,13 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:paddingBottom="@dimen/card_margin"
+        android:paddingTop="@dimen/card_margin"
         android:paddingLeft="@dimen/card_margin"
         android:paddingRight="@dimen/card_margin"
-        android:paddingTop="@dimen/card_margin"
         android:layout_weight="1">
-        <ListView
+        <com.example.james.rms.CommonProfile.Library.AnimatedExpandableListView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/listView"></ListView>
+            android:id="@+id/product_listView"></com.example.james.rms.CommonProfile.Library.AnimatedExpandableListView>
     </LinearLayout>
 </LinearLayout>

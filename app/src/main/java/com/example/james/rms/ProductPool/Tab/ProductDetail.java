@@ -6,15 +6,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ListView;
+import android.widget.ExpandableListView;
 
+import com.example.james.rms.CommonProfile.Library.AnimatedExpandableListView;
 import com.example.james.rms.CommonProfile.MyBaseFragment;
-import com.example.james.rms.CommonProfile.ObjectUtil;
 import com.example.james.rms.CommonProfile.SharePreferences.PartyIdPreferences;
 import com.example.james.rms.Core.Dao.ProductDao;
 import com.example.james.rms.Core.Dao.ProductDaoImpl;
 import com.example.james.rms.Core.Model.ProductModel;
-import com.example.james.rms.ProductPool.Adapter.ProductListAdapter;
+import com.example.james.rms.ProductPool.Adapter.ProductExpandListAdapter;
 import com.example.james.rms.ProductPool.ProductCombine;
 import com.example.james.rms.R;
 
@@ -29,14 +29,14 @@ import butterknife.ButterKnife;
 
 public class ProductDetail extends MyBaseFragment implements AdapterView.OnItemClickListener{
 
-    @BindView(R.id.listView)
-    ListView listView;
+    @BindView(R.id.product_listView)
+    AnimatedExpandableListView listView;
 
     private ProductDao productDao = new ProductDaoImpl();
     //
     private ProductCombine productCombine = new ProductCombine();
     //
-    private ProductListAdapter productAdapter ;
+    private ProductExpandListAdapter productAdapter ;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -51,11 +51,28 @@ public class ProductDetail extends MyBaseFragment implements AdapterView.OnItemC
         List<ProductModel> productModels = productDao.findByPartyId(combine_partyId);
         //ListView
         if(productModels != null){
-            productAdapter = new ProductListAdapter(getActivity(),productModels);
+            productAdapter = new ProductExpandListAdapter(getActivity(),productModels);
             listView.setAdapter(productAdapter);
             listView.setOnItemClickListener(this);
-            listView.setDivider(null);
+//            listView.setDivider(null);
         }
+
+        listView.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
+
+            @Override
+            public boolean onGroupClick(ExpandableListView parent, View v, int groupPosition, long id) {
+                // We call collapseGroupWithAnimation(int) and
+                // expandGroupWithAnimation(int) to animate group
+                // expansion/collapse.
+                if (listView.isGroupExpanded(groupPosition)) {
+                    listView.collapseGroupWithAnimation(groupPosition);
+                } else {
+                    listView.expandGroupWithAnimation(groupPosition);
+                }
+                return true;
+            }
+
+        });
 
 
         return rootView;
@@ -68,11 +85,11 @@ public class ProductDetail extends MyBaseFragment implements AdapterView.OnItemC
 
     @Override
     public boolean onQueryTextChange(String newText) {
-        if(ObjectUtil.isNullEmpty(newText)){
-            productAdapter.filterByProductName("");
-        }else {
-            productAdapter.filterByProductName(newText);
-        }
+//        if(ObjectUtil.isNullEmpty(newText)){
+//            productAdapter.filterByProductName("");
+//        }else {
+//            productAdapter.filterByProductName(newText);
+//        }
         return true;
     }
 
