@@ -1,12 +1,11 @@
 package com.example.james.rms.ProductPool.Adapter;
 
 import android.content.Context;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.example.james.rms.CommonProfile.Library.AnimatedExpandableListView;
+import com.example.james.rms.CommonProfile.MyExpandableListAdapter;
 import com.example.james.rms.CommonProfile.ObjectUtil;
 import com.example.james.rms.Core.Model.ProductModel;
 import com.example.james.rms.R;
@@ -20,15 +19,28 @@ import butterknife.ButterKnife;
  * Created by jamie on 2017/5/18.
  */
 
-public class ProductExpandListAdapter  extends AnimatedExpandableListView.AnimatedExpandableListAdapter {
+public class ProductExpandListAdapter extends MyExpandableListAdapter<ProductModel> {
 
-    private LayoutInflater inflater;
 
-    private List<ProductModel> productModelList;
+    public ProductExpandListAdapter(Context context, List<ProductModel> dataArrayList) {
+        super(context, dataArrayList);
+    }
 
-    public ProductExpandListAdapter(Context context, List<ProductModel> productModelList) {
-        inflater = LayoutInflater.from(context);
-        this.productModelList = productModelList;
+    @Override
+    public View getGroupView(int groupPosition, boolean isExpanded, View convertView, ViewGroup parent) {
+        GroupHolder holder;
+        ProductModel productModel = getGroup(groupPosition);
+        if (convertView == null) {
+            convertView = getLayoutInflater().inflate(R.layout.product_expandablelist_group, parent, false);
+            holder = new GroupHolder(convertView);
+            convertView.setTag(holder);
+        } else {
+            holder = (GroupHolder) convertView.getTag();
+        }
+        holder.productCode.setText(productModel.getProductCode());
+        holder.productName.setText(productModel.getProductName());
+        holder.createDate.setText(ObjectUtil.dateToString(productModel.getCreateDate()));
+        return convertView;
     }
 
     @Override
@@ -36,7 +48,7 @@ public class ProductExpandListAdapter  extends AnimatedExpandableListView.Animat
         ChildHolder holder;
         ProductModel productModel = getChild(groupPosition,childPosition);
         if (convertView == null) {
-            convertView = inflater.inflate(R.layout.product_expandablelist_item, parent, false);
+            convertView = getLayoutInflater().inflate(R.layout.product_expandablelist_item, parent, false);
             holder = new ChildHolder(convertView);
             convertView.setTag(holder);
         } else {
@@ -55,58 +67,22 @@ public class ProductExpandListAdapter  extends AnimatedExpandableListView.Animat
     }
 
     @Override
-    public int getGroupCount() {
-        return productModelList.size();
+    public boolean productCodeMatch(ProductModel productModel, String string) {
+        boolean result = productModel.getProductCode().toUpperCase().contains(string.toUpperCase());
+        return result;
     }
 
     @Override
-    public ProductModel getGroup(int groupPosition) {
-        return productModelList.get(groupPosition);
+    public boolean productNameMatch(ProductModel productModel, String value) {
+
+        return  ObjectUtil.isNullEmpty(productModel.getProductName()) ? false: productModel.getProductName().toUpperCase().contains(value.toUpperCase());
     }
 
     @Override
-    public ProductModel getChild(int groupPosition, int childPosition) {
-        return productModelList.get(groupPosition);
+    public boolean receivingRemarkMatch(ProductModel productModel, String string) {
+        return false;
     }
 
-    @Override
-    public long getGroupId(int groupPosition) {
-        return groupPosition;
-    }
-
-    @Override
-    public long getChildId(int groupPosition, int childPosition) {
-        return childPosition;
-    }
-
-    @Override
-    public boolean hasStableIds() {
-        return true;
-    }
-
-    @Override
-    public View getGroupView(int groupPosition, boolean isExpanded, View convertView, ViewGroup parent) {
-        GroupHolder holder;
-        ProductModel productModel = getGroup(groupPosition);
-        if (convertView == null) {
-            convertView = inflater.inflate(R.layout.product_expandablelist_group, parent, false);
-            holder = new GroupHolder(convertView);
-            convertView.setTag(holder);
-        } else {
-            holder = (GroupHolder) convertView.getTag();
-        }
-        holder.productCode.setText(productModel.getProductCode());
-        holder.productName.setText(productModel.getProductName());
-        holder.createDate.setText(ObjectUtil.dateToString(productModel.getCreateDate()));
-        return convertView;
-    }
-
-
-
-    @Override
-    public boolean isChildSelectable(int groupPosition, int childPosition) {
-        return true;
-    }
 
     static class ChildHolder {
         @BindView(R.id.product_status)

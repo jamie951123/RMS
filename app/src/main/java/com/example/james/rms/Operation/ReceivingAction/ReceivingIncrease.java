@@ -32,28 +32,30 @@ import com.example.james.rms.Core.Dao.ReceivingDaoImpl;
 import com.example.james.rms.Core.Dao.WeightProfileDao;
 import com.example.james.rms.Core.Dao.WeightProfileDaoImpl;
 import com.example.james.rms.Core.Model.KeyModel;
-import com.example.james.rms.Core.Model.QuantityProfileModel;
-import com.example.james.rms.Core.Model.ReceivingOrderAndItemContainer;
 import com.example.james.rms.Core.Model.ProductModel;
+import com.example.james.rms.Core.Model.QuantityProfileModel;
 import com.example.james.rms.Core.Model.ReceivingItemModel;
+import com.example.james.rms.Core.Model.ReceivingOrderAndItemContainer;
 import com.example.james.rms.Core.Model.ReceivingOrderModel;
 import com.example.james.rms.Core.Model.Status;
 import com.example.james.rms.Core.Model.WeightProfileModel;
 import com.example.james.rms.Core.TransferModel.NumberDialogModel;
 import com.example.james.rms.Operation.Adapter.ReceivingIncreaseListAdapter;
 import com.example.james.rms.Operation.Model.ReceivingIncreaseModel;
-import com.example.james.rms.ProductPool.ProductCombine;
 import com.example.james.rms.R;
 import com.example.james.rms.Receiving.ReceivingCombine;
 import com.github.clans.fab.FloatingActionButton;
 import com.google.gson.Gson;
+
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
+
 import static com.example.james.rms.R.id.receiving_increase_datePicker;
 import static com.example.james.rms.R.id.receiving_increase_fab;
 

@@ -1,11 +1,8 @@
 package com.example.james.rms.CommonProfile;
 
 import android.content.Context;
-import android.view.View;
-import android.view.ViewGroup;
 
 import com.daimajia.swipe.adapters.BaseSwipeAdapter;
-import com.example.james.rms.Core.Model.WeightProfileModel;
 
 import java.util.List;
 

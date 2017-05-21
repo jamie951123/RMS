@@ -1,23 +1,22 @@
 package com.example.james.rms.Login;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.james.rms.CommonProfile.DialogBox.ClassicDialog;
-import com.example.james.rms.CommonProfile.SharePreferences.LoginPreferences;
 import com.example.james.rms.CommonProfile.ObjectUtil;
+import com.example.james.rms.CommonProfile.SharePreferences.LoginPreferences;
 import com.example.james.rms.Controller.NavigationController;
+import com.example.james.rms.Core.Model.LoginModel;
+import com.example.james.rms.Core.Model.UserProfile;
 import com.example.james.rms.Login.Service.LoginService;
 import com.example.james.rms.Login.Service.LoginServiceImpl;
-import com.example.james.rms.Core.Model.UserProfile;
-import com.example.james.rms.Core.Model.LoginModel;
 import com.example.james.rms.R;
-
 
 import java.util.List;
 

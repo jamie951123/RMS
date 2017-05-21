@@ -1,7 +1,5 @@
 package com.example.james.rms.Core.Model;
 
-import com.example.james.rms.Core.Model.ProductModel;
-
 import java.math.BigDecimal;
 import java.util.Date;
 

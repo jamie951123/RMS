@@ -2,7 +2,6 @@ package com.example.james.rms.ProductPool.Adapter;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
 
 import com.example.james.rms.CommonProfile.MyPagerAdapter;
 

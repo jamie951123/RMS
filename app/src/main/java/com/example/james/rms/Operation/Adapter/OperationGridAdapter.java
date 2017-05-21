@@ -1,7 +1,6 @@
 package com.example.james.rms.Operation.Adapter;
 
 import android.content.Context;
-import android.media.Image;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,15 +8,11 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.james.rms.CommonProfile.MyBaseAdapter;
 import com.example.james.rms.Operation.OperationContainer;
-import com.example.james.rms.ProductPool.Adapter.ProductListAdapter;
 import com.example.james.rms.R;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

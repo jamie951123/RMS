@@ -1,7 +1,6 @@
 package com.example.james.rms.ProductPool.Tab;
 
 import android.os.Bundle;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +9,7 @@ import android.widget.ExpandableListView;
 
 import com.example.james.rms.CommonProfile.Library.AnimatedExpandableListView;
 import com.example.james.rms.CommonProfile.MyBaseFragment;
+import com.example.james.rms.CommonProfile.ObjectUtil;
 import com.example.james.rms.CommonProfile.SharePreferences.PartyIdPreferences;
 import com.example.james.rms.Core.Dao.ProductDao;
 import com.example.james.rms.Core.Dao.ProductDaoImpl;
@@ -36,7 +36,7 @@ public class ProductDetail extends MyBaseFragment implements AdapterView.OnItemC
     //
     private ProductCombine productCombine = new ProductCombine();
     //
-    private ProductExpandListAdapter productAdapter ;
+    private ProductExpandListAdapter productExpandListAdapter ;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -51,8 +51,8 @@ public class ProductDetail extends MyBaseFragment implements AdapterView.OnItemC
         List<ProductModel> productModels = productDao.findByPartyId(combine_partyId);
         //ListView
         if(productModels != null){
-            productAdapter = new ProductExpandListAdapter(getActivity(),productModels);
-            listView.setAdapter(productAdapter);
+            productExpandListAdapter = new ProductExpandListAdapter(getActivity(),productModels);
+            listView.setAdapter(productExpandListAdapter);
             listView.setOnItemClickListener(this);
 //            listView.setDivider(null);
         }
@@ -61,9 +61,6 @@ public class ProductDetail extends MyBaseFragment implements AdapterView.OnItemC
 
             @Override
             public boolean onGroupClick(ExpandableListView parent, View v, int groupPosition, long id) {
-                // We call collapseGroupWithAnimation(int) and
-                // expandGroupWithAnimation(int) to animate group
-                // expansion/collapse.
                 if (listView.isGroupExpanded(groupPosition)) {
                     listView.collapseGroupWithAnimation(groupPosition);
                 } else {
@@ -85,11 +82,11 @@ public class ProductDetail extends MyBaseFragment implements AdapterView.OnItemC
 
     @Override
     public boolean onQueryTextChange(String newText) {
-//        if(ObjectUtil.isNullEmpty(newText)){
-//            productAdapter.filterByProductName("");
-//        }else {
-//            productAdapter.filterByProductName(newText);
-//        }
+        if(ObjectUtil.isNullEmpty(newText)){
+            productExpandListAdapter.filterByProductName("");
+        }else {
+            productExpandListAdapter.filterByProductName(newText);
+        }
         return true;
     }
 

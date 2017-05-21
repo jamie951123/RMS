@@ -2,18 +2,13 @@ package com.example.james.rms.CommonProfile.DialogBox;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
-import android.content.Context;
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
-import android.util.Log;
 import android.widget.DatePicker;
 
 import com.example.james.rms.CommonProfile.ObjectUtil;
 import com.example.james.rms.Operation.ReceivingAction.ReceivingIncrease;
-import com.example.james.rms.R;
 
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 

@@ -8,8 +8,6 @@ import android.widget.ListView;
 
 import com.example.james.rms.CommonProfile.MyBaseFragment;
 import com.example.james.rms.CommonProfile.SharePreferences.PartyIdPreferences;
-import com.example.james.rms.Core.Dao.InventoryDao;
-import com.example.james.rms.Core.Dao.InventoryDaoImpl;
 import com.example.james.rms.Core.Dao.InventorySumDao;
 import com.example.james.rms.Core.Dao.InventorySumDaoImpl;
 import com.example.james.rms.Core.Model.InventoryModel;

@@ -9,11 +9,10 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
 
-import com.example.james.rms.CommonProfile.DialogBox.ClassicDialog;
 import com.example.james.rms.Controller.NavigationController;
-import com.example.james.rms.Operation.ReceivingAction.ReceivingIncrease;
 import com.example.james.rms.Operation.Adapter.OperationGridAdapter;
 import com.example.james.rms.Operation.ProductAction.ProductIncrease;
+import com.example.james.rms.Operation.ReceivingAction.ReceivingIncrease;
 import com.example.james.rms.R;
 
 import java.util.ArrayList;

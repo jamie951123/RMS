@@ -19,7 +19,6 @@ import com.example.james.rms.ITF.ViewPagerListener;
 import com.example.james.rms.R;
 import com.example.james.rms.Receiving.Adapter.ReceivingOrderListAdapter;
 import com.example.james.rms.Receiving.ReceivingCombine;
-import com.example.james.rms.Setting.SettingContainer;
 
 import java.util.ArrayList;
 import java.util.List;

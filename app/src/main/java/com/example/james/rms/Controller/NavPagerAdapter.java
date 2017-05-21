@@ -5,7 +5,6 @@ import android.support.v4.app.FragmentManager;
 
 import com.example.james.rms.CommonProfile.MyPagerAdapter;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
