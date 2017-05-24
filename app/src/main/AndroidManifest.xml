@@ -17,6 +17,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:node="replace">
+        <!--Facebook-->
+        <meta-data android:name="com.facebook.sdk.ApplicationId" android:value="@string/facebook_app_id"/>
+
         <!--LoginActivity-->
         <activity
             android:name=".Login.LoginActivity"
@@ -74,5 +77,7 @@
             android:configChanges="orientation"
             android:screenOrientation="portrait"></activity>
     </application>
-
+    <provider android:authorities="com.facebook.app.FacebookContentProvider1234"
+        android:name="com.facebook.FacebookContentProvider"
+        android:exported="true" />
 </manifest>

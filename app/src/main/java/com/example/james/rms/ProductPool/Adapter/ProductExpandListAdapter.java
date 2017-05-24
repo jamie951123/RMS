@@ -84,6 +84,20 @@ public class ProductExpandListAdapter extends MyExpandableListAdapter<ProductMod
     }
 
 
+    static class GroupHolder {
+        @BindView(R.id.product_productCode)
+        TextView productCode;
+        @BindView(R.id.product_productName)
+        TextView productName;
+        @BindView(R.id.product_createDate)
+        TextView createDate;
+        //        @BindView(R.id.product_product_image)
+        de.hdodenhof.circleimageview.CircleImageView productImage;
+        public GroupHolder(View view){
+            ButterKnife.bind(this,view);
+        }
+    }
+
     static class ChildHolder {
         @BindView(R.id.product_status)
         TextView status;
@@ -99,18 +113,5 @@ public class ProductExpandListAdapter extends MyExpandableListAdapter<ProductMod
         }
     }
 
-    static class GroupHolder {
-        @BindView(R.id.product_productCode)
-        TextView productCode;
-        @BindView(R.id.product_productName)
-        TextView productName;
-        @BindView(R.id.product_createDate)
-        TextView createDate;
-//        @BindView(R.id.product_product_image)
-        de.hdodenhof.circleimageview.CircleImageView productImage;
-        public GroupHolder(View view){
-            ButterKnife.bind(this,view);
-        }
-    }
 
 }

@@ -5,8 +5,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ListView;
 
+import com.example.james.rms.CommonProfile.Library.AnimatedExpandableListView;
 import com.example.james.rms.CommonProfile.MyBaseFragment;
 import com.example.james.rms.CommonProfile.ObjectUtil;
 import com.example.james.rms.CommonProfile.SharePreferences.PartyIdPreferences;
@@ -17,7 +17,7 @@ import com.example.james.rms.Core.Model.ReceivingItemModel;
 import com.example.james.rms.Core.Model.ReceivingOrderModel;
 import com.example.james.rms.ITF.ViewPagerListener;
 import com.example.james.rms.R;
-import com.example.james.rms.Receiving.Adapter.ReceivingOrderListAdapter;
+import com.example.james.rms.Receiving.Adapter.ReceivingOrderExpandListAdapter;
 import com.example.james.rms.Receiving.ReceivingCombine;
 
 import java.util.ArrayList;
@@ -29,12 +29,11 @@ import butterknife.ButterKnife;
 public class Receiving_order extends MyBaseFragment implements AdapterView.OnItemClickListener{
 
     @BindView(R.id.receiving_order_listView)
-    ListView listView;
+    AnimatedExpandableListView listView;
 
     private ReceivingDao receivingDao = new ReceivingDaoImpl();
     //
-    private ReceivingOrderListAdapter receivingOrderListAdapter;
-
+    private ReceivingOrderExpandListAdapter receivingOrderExpandListAdapter;
     //Result
     List<ReceivingOrderModel> receivingOrderModels;
     List<ReceivingItemModel> receivingItemModels;
@@ -55,10 +54,10 @@ public class Receiving_order extends MyBaseFragment implements AdapterView.OnIte
 
         //listView
         if(receivingOrderModels != null) {
-            receivingOrderListAdapter = new ReceivingOrderListAdapter(getActivity(), receivingOrderModels);
-            listView.setAdapter(receivingOrderListAdapter);
+            receivingOrderExpandListAdapter = new ReceivingOrderExpandListAdapter(getActivity(), receivingOrderModels);
+            listView.setAdapter(receivingOrderExpandListAdapter);
             listView.setOnItemClickListener(this);
-            listView.setDivider(null);
+//            listView.setDivider(null);
         }
         return rootView;
     }
@@ -87,9 +86,9 @@ public class Receiving_order extends MyBaseFragment implements AdapterView.OnIte
     @Override
     public boolean onQueryTextChange(String newText) {
         if(ObjectUtil.isNullEmpty(newText)){
-            receivingOrderListAdapter.filterByRemark("");
+            receivingOrderExpandListAdapter.filterByRemark("");
         }else {
-            receivingOrderListAdapter.filterByRemark(newText);
+            receivingOrderExpandListAdapter.filterByRemark(newText);
         }
         return true;
     }

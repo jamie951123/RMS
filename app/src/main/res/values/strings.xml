@@ -1,5 +1,8 @@
 <resources>
     <string name="app_name">RMS</string>
+    <!--Facebook-->
+    <string name="facebook_app_id">1864463713806695</string>
+
     <!--Common-->
     <string name="loading">Loading</string>
     <string name="waiting">Please wait...</string>
