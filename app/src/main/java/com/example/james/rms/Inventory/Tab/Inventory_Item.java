@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 
 import com.example.james.rms.CommonProfile.MyBaseFragment;
+import com.example.james.rms.CommonProfile.ObjectUtil;
 import com.example.james.rms.CommonProfile.SharePreferences.PartyIdPreferences;
 import com.example.james.rms.Core.Dao.InventorySumDao;
 import com.example.james.rms.Core.Dao.InventorySumDaoImpl;
@@ -33,6 +34,8 @@ public class Inventory_Item extends MyBaseFragment implements ViewPagerListener{
 
     List<InventoryModel> inventoryModels;
     List<InventorySumModel> inventorySumModels;
+
+    private InventoryItemListAdapter inventoryItemListAdapter;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -50,7 +53,7 @@ public class Inventory_Item extends MyBaseFragment implements ViewPagerListener{
         InventorySumDao inventorySumDao = new InventorySumDaoImpl();
         inventorySumModels = inventorySumDao.findByPartyIdAndStatusOrderByProductId(combine_partyIdAndStatus);
         // this is data fro recycler view
-        InventoryItemListAdapter inventoryItemListAdapter = new InventoryItemListAdapter(getActivity(),inventorySumModels);
+        inventoryItemListAdapter = new InventoryItemListAdapter(getActivity(),inventorySumModels);
         listView.setAdapter(inventoryItemListAdapter);
         return rootView;
     }
@@ -63,7 +66,12 @@ public class Inventory_Item extends MyBaseFragment implements ViewPagerListener{
 
     @Override
     public boolean onQueryTextChange(String newText) {
-        return false;
+        if(ObjectUtil.isNullEmpty(newText)){
+            inventoryItemListAdapter.filterByProductCode("");
+        }else {
+            inventoryItemListAdapter.filterByProductCode(newText);
+        }
+        return true;
     }
 
     @Override

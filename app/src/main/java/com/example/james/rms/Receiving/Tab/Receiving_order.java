@@ -26,7 +26,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class Receiving_order extends MyBaseFragment implements AdapterView.OnItemClickListener{
+public class Receiving_order extends MyBaseFragment implements AdapterView.OnItemClickListener,AdapterView.OnItemLongClickListener {
 
     @BindView(R.id.receiving_order_listView)
     AnimatedExpandableListView listView;
@@ -54,9 +54,10 @@ public class Receiving_order extends MyBaseFragment implements AdapterView.OnIte
 
         //listView
         if(receivingOrderModels != null) {
-            receivingOrderExpandListAdapter = new ReceivingOrderExpandListAdapter(getActivity(), receivingOrderModels);
+            receivingOrderExpandListAdapter = new ReceivingOrderExpandListAdapter(getActivity(), receivingOrderModels,receivingItemModels);
             listView.setAdapter(receivingOrderExpandListAdapter);
-            listView.setOnItemClickListener(this);
+            listView.setOnItemLongClickListener(this);
+            listView.setGroupIndicator(null);
 //            listView.setDivider(null);
         }
         return rootView;
@@ -98,4 +99,19 @@ public class Receiving_order extends MyBaseFragment implements AdapterView.OnIte
     }
 
 
+    @Override
+    public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+        Long order_orderId = receivingOrderModels.get(position).getOrderId();
+        if(order_orderId ==null) return true;
+
+        List<ReceivingItemModel> itemModels = new ArrayList<>();
+        for(ReceivingItemModel items : receivingItemModels){
+            Long item_orderId = items.getOrderId();
+            if(order_orderId.equals(item_orderId))itemModels.add(items);
+        }
+        NavigationController controller = (NavigationController)getActivity();
+        ViewPagerListener viewPagerListener = (ViewPagerListener)controller;
+        viewPagerListener.transferViewPager(R.id.receiving_item,itemModels);
+        return true;
+    }
 }

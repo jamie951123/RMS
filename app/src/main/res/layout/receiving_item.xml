@@ -27,10 +27,16 @@
         android:paddingRight="@dimen/card_margin"
         android:paddingTop="@dimen/card_margin"
         android:layout_weight="1">
-        <ListView
+
+        <com.example.james.rms.CommonProfile.Library.AnimatedExpandableListView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/receiving_item_listView"></ListView>
+            android:id="@+id/receiving_item_listView"></com.example.james.rms.CommonProfile.Library.AnimatedExpandableListView>
+        <!---->
+        <!--<ListView-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:id="@+id/receiving_item_listView"></ListView>-->
     </LinearLayout>
 
 </LinearLayout>

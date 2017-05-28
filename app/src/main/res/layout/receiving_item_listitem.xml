@@ -5,184 +5,184 @@
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
-    <!-- Single ListItem -->
-    <android.support.v7.widget.CardView
-        android:id="@+id/receivingOrder_card_view"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/whiteFFFFFF"
-        android:foreground="?android:attr/selectableItemBackground"
-        android:layout_margin="4dp"
-        card_view:cardCornerRadius="10dp">
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:paddingBottom="@dimen/card_margin"
-            android:paddingLeft="@dimen/card_margin"
-            android:paddingRight="@dimen/card_margin"
-            android:paddingTop="@dimen/card_margin"
-            android:orientation="vertical">
+    <!--&lt;!&ndash; Single ListItem &ndash;&gt;-->
+    <!--<android.support.v7.widget.CardView-->
+        <!--android:id="@+id/receivingOrder_card_view"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:background="@color/whiteFFFFFF"-->
+        <!--android:foreground="?android:attr/selectableItemBackground"-->
+        <!--android:layout_margin="4dp"-->
+        <!--card_view:cardCornerRadius="10dp">-->
+        <!--<LinearLayout-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:paddingBottom="@dimen/card_margin"-->
+            <!--android:paddingLeft="@dimen/card_margin"-->
+            <!--android:paddingRight="@dimen/card_margin"-->
+            <!--android:paddingTop="@dimen/card_margin"-->
+            <!--android:orientation="vertical">-->
 
-    <!-- Product Code -->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="1">
+    <!--&lt;!&ndash; Product Code &ndash;&gt;-->
+    <!--<LinearLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:layout_weight="1">-->
 
-        <TextView
-            android:id="@+id/receivingItem_ProductCode"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:padding="10dip"
-            android:textSize="20dip"
-            android:text="test"
-            android:textStyle="bold"/>
-    </LinearLayout>
+        <!--<TextView-->
+            <!--android:id="@+id/receivingItem_ProductCode"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:gravity="center"-->
+            <!--android:padding="10dip"-->
+            <!--android:textSize="20dip"-->
+            <!--android:text="test"-->
+            <!--android:textStyle="bold"/>-->
+    <!--</LinearLayout>-->
 
-    <!-- Product Name -->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="horizontal"
-        android:layout_weight="2">
+    <!--&lt;!&ndash; Product Name &ndash;&gt;-->
+    <!--<LinearLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:orientation="horizontal"-->
+        <!--android:layout_weight="2">-->
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="2"
-            android:text="@string/receivingItem_ProductName"/>
-        <TextView
-            android:id="@+id/receivingItem_ProductName"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"/>
-    </LinearLayout>
+        <!--<TextView-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:layout_weight="2"-->
+            <!--android:text="@string/receivingItem_ProductName"/>-->
+        <!--<TextView-->
+            <!--android:id="@+id/receivingItem_ProductName"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:layout_weight="1"/>-->
+    <!--</LinearLayout>-->
 
-    <!-- Items Status-->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="horizontal"
-        android:layout_weight="2">
+    <!--&lt;!&ndash; Items Status&ndash;&gt;-->
+    <!--<LinearLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:orientation="horizontal"-->
+        <!--android:layout_weight="2">-->
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="2"
-            android:text="@string/receivingItem_itemStatus"/>
-        <TextView
-            android:id="@+id/receivingItem_itemStatus"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"/>
-    </LinearLayout>
+        <!--<TextView-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:layout_weight="2"-->
+            <!--android:text="@string/receivingItem_itemStatus"/>-->
+        <!--<TextView-->
+            <!--android:id="@+id/receivingItem_itemStatus"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:layout_weight="1"/>-->
+    <!--</LinearLayout>-->
 
-    <!-- Create Date-->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="horizontal"
-        android:layout_weight="2">
+    <!--&lt;!&ndash; Create Date&ndash;&gt;-->
+    <!--<LinearLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:orientation="horizontal"-->
+        <!--android:layout_weight="2">-->
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="2"
-            android:text="@string/receivingItem_itemCreateDate"/>
-        <TextView
-            android:id="@+id/receivingItem_itemCreateDate"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"/>
-    </LinearLayout>
+        <!--<TextView-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:layout_weight="2"-->
+            <!--android:text="@string/receivingItem_itemCreateDate"/>-->
+        <!--<TextView-->
+            <!--android:id="@+id/receivingItem_itemCreateDate"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:layout_weight="1"/>-->
+    <!--</LinearLayout>-->
 
-    <!-- Receiving Date-->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="horizontal"
-        android:layout_weight="2">
+    <!--&lt;!&ndash; Receiving Date&ndash;&gt;-->
+    <!--<LinearLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:orientation="horizontal"-->
+        <!--android:layout_weight="2">-->
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="2"
-            android:text="@string/receivingItem_itemReceivingDate"/>
-        <TextView
-            android:id="@+id/receivingItem_itemReceivingDate"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"/>
-    </LinearLayout>
+        <!--<TextView-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:layout_weight="2"-->
+            <!--android:text="@string/receivingItem_itemReceivingDate"/>-->
+        <!--<TextView-->
+            <!--android:id="@+id/receivingItem_itemReceivingDate"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:layout_weight="1"/>-->
+    <!--</LinearLayout>-->
 
-    <!--Item Remark-->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="horizontal"
-        android:layout_weight="2">
+    <!--&lt;!&ndash;Item Remark&ndash;&gt;-->
+    <!--<LinearLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:orientation="horizontal"-->
+        <!--android:layout_weight="2">-->
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="2"
-            android:text="@string/receivingItem_itemRemark"/>
-        <TextView
-            android:id="@+id/receivingItem_itemRemark"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"/>
-    </LinearLayout>
+        <!--<TextView-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:layout_weight="2"-->
+            <!--android:text="@string/receivingItem_itemRemark"/>-->
+        <!--<TextView-->
+            <!--android:id="@+id/receivingItem_itemRemark"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:layout_weight="1"/>-->
+    <!--</LinearLayout>-->
 
-    <!-- ItemGrossWeight Unit-->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="horizontal"
-        android:layout_weight="2">
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:orientation="horizontal">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textStyle="bold"
-                android:text="@string/receivingItem_itemGrossWeight"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textStyle="bold"
-                android:text="/"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textStyle="bold"
-                android:text="@string/receivingItem_itemGrossWeightUnit"/>
-        </LinearLayout>
+    <!--&lt;!&ndash; ItemGrossWeight Unit&ndash;&gt;-->
+    <!--<LinearLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:orientation="horizontal"-->
+        <!--android:layout_weight="2">-->
+        <!--<LinearLayout-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:layout_weight="1"-->
+            <!--android:orientation="horizontal">-->
+            <!--<TextView-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:textStyle="bold"-->
+                <!--android:text="@string/receivingItem_itemGrossWeight"/>-->
+            <!--<TextView-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:textStyle="bold"-->
+                <!--android:text="/"/>-->
+            <!--<TextView-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:textStyle="bold"-->
+                <!--android:text="@string/receivingItem_itemGrossWeightUnit"/>-->
+        <!--</LinearLayout>-->
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/receivingItem_itemGrossWeight"/>
+        <!--<LinearLayout-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:layout_weight="1">-->
+            <!--<TextView-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:id="@+id/receivingItem_itemGrossWeight"/>-->
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="/"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/receivingItem_itemGrossWeightUnit"/>
-        </LinearLayout>
-    </LinearLayout>
+            <!--<TextView-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:text="/"/>-->
+            <!--<TextView-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:id="@+id/receivingItem_itemGrossWeightUnit"/>-->
+        <!--</LinearLayout>-->
+    <!--</LinearLayout>-->
 
-</LinearLayout>
-</android.support.v7.widget.CardView>
+<!--</LinearLayout>-->
+<!--</android.support.v7.widget.CardView>-->
 </LinearLayout>

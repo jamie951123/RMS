@@ -2,6 +2,7 @@ package com.example.james.rms.Inventory.Tab;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -47,6 +48,15 @@ public class InventoryContainer extends MyBaseFragment implements ViewPagerListe
 
     @Override
     public boolean onQueryTextChange(String newText) {
+        Fragment fragment = fragments.get(pager.getCurrentItem());
+        try{
+            MyBaseFragment myBaseFragment = (MyBaseFragment)fragment;
+            return myBaseFragment.onQueryTextChange(newText);
+        }catch (ClassCastException e){
+            e.printStackTrace();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
         return false;
     }
 

@@ -54,6 +54,8 @@ public class ProductDetail extends MyBaseFragment implements AdapterView.OnItemC
             productExpandListAdapter = new ProductExpandListAdapter(getActivity(),productModels);
             listView.setAdapter(productExpandListAdapter);
             listView.setOnItemClickListener(this);
+            listView.setGroupIndicator(null);
+
 //            listView.setDivider(null);
         }
 

@@ -4,13 +4,14 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ListView;
 
 import com.example.james.rms.CommonProfile.Graphics.GenericChat;
+import com.example.james.rms.CommonProfile.Library.AnimatedExpandableListView;
 import com.example.james.rms.CommonProfile.MyBaseFragment;
 import com.example.james.rms.CommonProfile.ObjectUtil;
 import com.example.james.rms.Core.Model.ReceivingItemModel;
 import com.example.james.rms.R;
+import com.example.james.rms.Receiving.Adapter.ReceivingItemExpandListAdapter;
 import com.example.james.rms.Receiving.Adapter.ReceivingItemListAdapter;
 import com.github.mikephil.charting.charts.HorizontalBarChart;
 import com.github.mikephil.charting.data.BarEntry;
@@ -23,14 +24,16 @@ import butterknife.ButterKnife;
 
 public class Receiving_item extends MyBaseFragment {
 
+//    @BindView(R.id.receiving_item_listView)
+//    ListView listView;
     @BindView(R.id.receiving_item_listView)
-    ListView listView;
-
+    AnimatedExpandableListView listView;
     @BindView(R.id.receivingItem_HorbarChart)
     HorizontalBarChart horizontalBarChart;
 
     private List<ReceivingItemModel> receivingItemModels;
-    private ReceivingItemListAdapter receivingItemListAdapter;
+//    private ReceivingItemListAdapter receivingItemListAdapter;
+    private ReceivingItemExpandListAdapter receivingItemExpandListAdapter;
 
     private float spaceForBar = 1f;
     @Override
@@ -50,9 +53,9 @@ public class Receiving_item extends MyBaseFragment {
     @Override
     public boolean onQueryTextChange(String newText) {
         if(!ObjectUtil.isNotNullEmpty(newText)){
-            receivingItemListAdapter.filterByRemark("");
+            receivingItemExpandListAdapter.filterByProductCode("");
         }else {
-            receivingItemListAdapter.filterByRemark(newText);
+            receivingItemExpandListAdapter.filterByProductCode(newText);
         }
         return true;
     }
@@ -61,9 +64,11 @@ public class Receiving_item extends MyBaseFragment {
     @Override
     public void transferViewPager(int rid, List models) {
         receivingItemModels = new ArrayList<>(models);
-        receivingItemListAdapter = new ReceivingItemListAdapter(getActivity(), receivingItemModels);
-        listView.setAdapter(receivingItemListAdapter);
-        listView.setDivider(null);
+        receivingItemExpandListAdapter = new ReceivingItemExpandListAdapter(getActivity(), receivingItemModels);
+        listView.setAdapter(receivingItemExpandListAdapter);
+        listView.setGroupIndicator(null);
+
+//        listView.setDivider(null);
 
         GenericChat genericChat = new GenericChat();
         genericChat.horizontalBarChart(getActivity(),horizontalBarChart,getCharDate(),getLabel());

@@ -1,15 +1,22 @@
 package com.example.james.rms.Receiving.Adapter;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.james.rms.CommonProfile.MyExpandableListAdapter;
 import com.example.james.rms.CommonProfile.ObjectUtil;
+import com.example.james.rms.Controller.NavigationController;
+import com.example.james.rms.Core.Model.ReceivingItemModel;
 import com.example.james.rms.Core.Model.ReceivingOrderModel;
+import com.example.james.rms.ITF.ViewPagerListener;
 import com.example.james.rms.R;
+import com.example.james.rms.Receiving.Tab.Receiving_order;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -21,12 +28,15 @@ import butterknife.ButterKnife;
 
 public class ReceivingOrderExpandListAdapter extends MyExpandableListAdapter<ReceivingOrderModel> {
 
-    public ReceivingOrderExpandListAdapter(Context context, List<ReceivingOrderModel> dataArrayList) {
+    private List<ReceivingItemModel> receivingItemModels;
+
+    public ReceivingOrderExpandListAdapter(Context context, List<ReceivingOrderModel> dataArrayList,List<ReceivingItemModel> receivingItemModels) {
         super(context, dataArrayList);
+        this.receivingItemModels = receivingItemModels;
     }
 
     @Override
-    public View getGroupView(int groupPosition, boolean isExpanded, View convertView, ViewGroup parent) {
+    public View getGroupView(final int groupPosition, boolean isExpanded, View convertView, ViewGroup parent) {
         GroupHolder holder;
         ReceivingOrderModel receivingOrderModel = getGroup(groupPosition);
         if (convertView == null) {
@@ -40,6 +50,26 @@ public class ReceivingOrderExpandListAdapter extends MyExpandableListAdapter<Rec
         holder.receivingOrder_date.setText(ObjectUtil.dateToString(receivingOrderModel.getReceivingDate()));
         holder.receivingOrder_actualQty.setText(ObjectUtil.intToString(receivingOrderModel.getActualQty()));
         holder.receivingOrder_estimateQty.setText(ObjectUtil.intToString(receivingOrderModel.getEstimateQty()));
+        holder.receivingOrder_next.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(getContext() instanceof NavigationController){
+                    Long order_orderId = getGroup(groupPosition).getOrderId();
+                    if(order_orderId ==null) return;
+
+                    List<ReceivingItemModel> itemModels = new ArrayList<>();
+                    for(ReceivingItemModel items : receivingItemModels){
+                        Long item_orderId = items.getOrderId();
+                        if(order_orderId.equals(item_orderId))itemModels.add(items);
+                    }
+                    NavigationController controller = (NavigationController)getContext();
+                    ViewPagerListener viewPagerListener = (ViewPagerListener)controller;
+                    viewPagerListener.transferViewPager(R.id.receiving_item,itemModels);
+                    Log.v("asd","asd");
+                }
+
+            }
+        });
         return convertView;
     }
 
@@ -83,6 +113,8 @@ public class ReceivingOrderExpandListAdapter extends MyExpandableListAdapter<Rec
     }
 
     static class GroupHolder {
+//        @BindView(R.id.receivingOrder_image)
+//        TextView receivingOrder_image;
         @BindView(R.id.receivingOrder_orderId)
         TextView receivingOrder_orderId;
         @BindView(R.id.receivingOrder_date)
@@ -91,6 +123,8 @@ public class ReceivingOrderExpandListAdapter extends MyExpandableListAdapter<Rec
         TextView receivingOrder_actualQty;
         @BindView(R.id.receivingOrder_estimateQty)
         TextView receivingOrder_estimateQty;
+        @BindView(R.id.receivingOrder_next)
+        Button receivingOrder_next;
 
         public GroupHolder(View view){
             ButterKnife.bind(this,view);
@@ -98,6 +132,7 @@ public class ReceivingOrderExpandListAdapter extends MyExpandableListAdapter<Rec
     }
 
     static class ChildHolder {
+
         @BindView(R.id.receivingOrder_status)
         TextView receivingOrder_status;
         @BindView(R.id.receivingOrder_createDate)

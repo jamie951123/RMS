@@ -281,6 +281,9 @@ public class NavigationController extends AppCompatActivity implements Navigatio
                 case R.id.receiving_item:
                     myBaseFragment.transferViewPager(R.id.receiving_item,models);
                     break;
+//                case R.layout.receiving_order_expendablelist_group:
+//                    myBaseFragment.transferViewPager(R.layout.receiving_order_expendablelist_group,models);
+
             }
         }catch (ClassCastException e){
         }

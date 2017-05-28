@@ -57,17 +57,18 @@ public class InventoryItemListAdapter  extends MyBaseAdapter<InventorySumModel>{
     }
 
     @Override
-    public boolean productCodeMatch(InventorySumModel inventoryModel, String string) {
+    public boolean productCodeMatch(InventorySumModel inventorySumModel, String string) {
+        boolean result = inventorySumModel.getProductCode().toUpperCase().contains(string.toUpperCase());
+        return result;
+    }
+
+    @Override
+    public boolean productNameMatch(InventorySumModel inventorySumModel, String string) {
         return false;
     }
 
     @Override
-    public boolean productNameMatch(InventorySumModel inventoryModel, String string) {
-        return false;
-    }
-
-    @Override
-    public boolean receivingRemarkMatch(InventorySumModel inventoryModel, String string) {
+    public boolean receivingRemarkMatch(InventorySumModel inventorySumModel, String string) {
         return false;
     }
 
