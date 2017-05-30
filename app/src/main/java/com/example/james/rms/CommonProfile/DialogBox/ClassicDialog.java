@@ -11,17 +11,22 @@ import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.example.james.rms.CommonProfile.DialogBox.Service.ClassicDialogService;
 import com.example.james.rms.Core.Model.KeyModel;
+import com.example.james.rms.Core.Model.QuantityProfileModel;
+import com.example.james.rms.Core.Model.WeightProfileModel;
 import com.example.james.rms.Operation.OperationContainer;
+import com.example.james.rms.Operation.ProductAction.ProductIncrease;
 import com.example.james.rms.R;
 import com.example.james.rms.Setting.SettingContainer;
 
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
  * Created by james on 15/3/2017.
  */
 
-public class ClassicDialog{
+public class ClassicDialog {
     Context context;
     MaterialDialog materialDialog;
 
@@ -142,7 +147,7 @@ public class ClassicDialog{
                 .show();
     }
 
-    public void showInputBox(String title, final String content, String hint,final String key){
+    public void showInputBox(String title, final String content, String hint,final String key,final String partyId){
         new MaterialDialog.Builder(context)
                 .title(title)
                 .content(content)
@@ -167,14 +172,82 @@ public class ClassicDialog{
                             c = settingContainer;
                             switch (key){
                                 case KeyModel.gw:
-                                    c.settingPagesWeight(String.valueOf(input));
+                                    WeightProfileModel weightProfileModel = new WeightProfileModel();
+                                    weightProfileModel.setCreateDate(new Date());
+                                    weightProfileModel.setPartyId(partyId);
+                                    weightProfileModel.setWeightUnit(String.valueOf(input));
+                                    c.settingPagesWeight(weightProfileModel);
                                     break;
                                 case KeyModel.qty:
-                                    c.settingPagesQty(String.valueOf(input));
+                                    QuantityProfileModel quantityProfileModel = new QuantityProfileModel();
+                                    quantityProfileModel.setCreateDate(new Date());
+                                    quantityProfileModel.setQuantityUnit(String.valueOf(input));
+                                    quantityProfileModel.setPartyId(partyId);
+                                    c.settingPagesQty(quantityProfileModel);
                             }
                         }
                     }
                 }).show();
+    }
+
+    public void showSingleChoice(String title, String hint,final List modeles,final String key){
+        List<String> stringList = new ArrayList<>();
+
+        if(modeles instanceof List<?>){
+            for(Object obj : modeles){
+                if (obj instanceof WeightProfileModel) {
+                    WeightProfileModel w = (WeightProfileModel)obj;
+                    stringList.add(w.getWeightUnit());
+                } else if (obj instanceof QuantityProfileModel) {
+                    QuantityProfileModel q = (QuantityProfileModel)obj;
+                    stringList.add(q.getQuantityUnit());
+
+                }
+            }
+        }
+
+        new MaterialDialog.Builder(this.context)
+                .title(title)
+                .items(stringList)
+                .positiveText(R.string.choose)
+                .onNegative(new MaterialDialog.SingleButtonCallback() {
+                    @Override
+                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                        dialog.dismiss();
+                    }
+                })
+                .itemsCallbackSingleChoice(-1, new MaterialDialog.ListCallbackSingleChoice() {
+                    @Override
+                    public boolean onSelection(MaterialDialog dialog, View view, int which, CharSequence text) {
+
+                        if(context instanceof ProductIncrease) {
+                            ProductIncrease productIncrease = (ProductIncrease)context;
+                            ClassicDialogService c = productIncrease;
+
+                            List<WeightProfileModel> weightProfileModelList = new ArrayList<>();
+                            List<QuantityProfileModel> quantityProfileModelList = new ArrayList<>();
+                            for (Object obj : modeles) {
+                                if (obj instanceof WeightProfileModel) {
+                                    WeightProfileModel w = (WeightProfileModel) obj;
+                                    weightProfileModelList.add(w);
+                                } else if (obj instanceof QuantityProfileModel) {
+                                    QuantityProfileModel q = (QuantityProfileModel) obj;
+                                    quantityProfileModelList.add(q);
+                                }
+                            }
+                            switch (key){
+                                case KeyModel.gw:
+                                    c.settingPagesWeight(weightProfileModelList.get(which));
+                                    break;
+                                case KeyModel.qty:
+                                    c.settingPagesQty(quantityProfileModelList.get(which));
+                            }
+
+                        }
+                        return true;
+                    }
+                })
+                .show();
     }
     public void dismiss(){
         materialDialog.dismiss();

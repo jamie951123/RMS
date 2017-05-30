@@ -77,12 +77,82 @@
             </LinearLayout>
         </LinearLayout>
 
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="16dp"
+                android:id="@+id/liner_weight_unit"
+                android:background="@color/whiteFFFFFF"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="@string/label_weight_unit"
+                    android:gravity="center"
+                    android:layout_weight="2"/>
+
+                <View
+                    android:layout_width="2dp"
+                    android:layout_height="match_parent"
+                    android:background="@color/blue0895ef"/>
+
+                <Button
+                    android:id="@+id/product_increase_weight_unit"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:background="@drawable/spinner_style"
+                    android:spinnerMode="dialog"></Button>
+
+            </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="16dp"
+            android:id="@+id/liner_quantity_unit"
+            android:background="@color/whiteFFFFFF"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="@string/label_quantity_unit"
+                android:gravity="center"
+                android:layout_weight="2"/>
+
+            <View
+                android:layout_width="2dp"
+                android:layout_height="match_parent"
+                android:background="@color/blue0895ef"/>
+
+            <Button
+                android:id="@+id/product_increase_quantity_unit"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:background="@drawable/spinner_style"
+                android:spinnerMode="dialog"></Button>
+
+        </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="horizontal"
             android:id="@+id/liner_productDescriptionCH"
-            android:layout_below="@+id/liner_productCode"
             android:layout_marginTop="16dp"
             android:background="@color/whiteFFFFFF">
 

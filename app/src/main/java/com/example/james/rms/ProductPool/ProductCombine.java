@@ -32,7 +32,7 @@ public class ProductCombine {
 
     public static String combine_AddProduct(String productCode,String productName,
                                      String descriptionCN, String descriptionEN, String remark,
-                                     Date createDate,String partyId){
+                                     Date createDate,String partyId,Long weightId,Long quantityId){
         String result="";
         ProductModel productModel = new ProductModel();
         productModel.setProductCode(productCode);
@@ -43,12 +43,8 @@ public class ProductCombine {
         productModel.setCreateDate(createDate);
         productModel.setPartyId(partyId);
         productModel.setStatus(Status.PROGRESS.name());
-        JSONObject jsonObject = new JSONObject();
-        try {
-            jsonObject.put("productCode",productCode);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+        productModel.setWeightId(weightId);
+        productModel.setQuantityId(quantityId);
         Gson gson = GsonUtil.toJson();
         result = gson.toJson(productModel);
         return result;

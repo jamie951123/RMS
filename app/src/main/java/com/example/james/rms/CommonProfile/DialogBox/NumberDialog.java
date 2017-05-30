@@ -33,10 +33,12 @@ import butterknife.ButterKnife;
  * Created by jamie on 2017/4/22.
  */
 
-public class NumberDialog extends DialogFragment implements View.OnClickListener,ConnectQuantityDialogListener {
+public class NumberDialog extends DialogFragment implements View.OnClickListener,ConnectQuantityDialogListener  {
 
+//    @BindView(R.id.quantity_dialog_unit)
+//    android.support.v7.widget.AppCompatSpinner dialog_spinner;
     @BindView(R.id.quantity_dialog_unit)
-    android.support.v7.widget.AppCompatSpinner dialog_spinner;
+    Button quantity_dialog_unit;
     @BindView(R.id.quantity_title)
     TextView title;
     @BindView(R.id.quantity_dialog_close)
@@ -125,28 +127,31 @@ public class NumberDialog extends DialogFragment implements View.OnClickListener
                 case KeyModel.qty :
                     if (numberDialogModel.getQty() != null)
                         numEdit.setText(numberDialogModel.getQty().toString());
+                        quantity_dialog_unit.setText(numberDialogModel.getQtyUnit());
+                        quantity_dialog_unit.setCompoundDrawablesWithIntrinsicBounds( R.drawable.industrial_scales_color, 0, 0, 0);
                     break;
                 case KeyModel.gw :
                     if (numberDialogModel.getGrossWeight() != null)
                         numEdit.setText(numberDialogModel.getGrossWeight().toString());
+                        quantity_dialog_unit.setText(numberDialogModel.getGrossWeightUnit());
+                        quantity_dialog_unit.setCompoundDrawablesWithIntrinsicBounds( R.drawable.box_color, 0, 0, 0);
                     break;
             }
         }
-
-        ArrayAdapter dropDownAdapter = new ArrayAdapter(getActivity(),android.R.layout.simple_spinner_dropdown_item,units){
-            @Override
-            public View getDropDownView(int position, View convertView, ViewGroup parent) {
-                View view = super.getDropDownView(position, convertView, parent);
-                if (position % 2 == 0) { // we're on an even row
-                    view.setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.grayFOF5F5));
-                } else {
-                    view.setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.grayA3C2C2));
-                }
-                return view;
-            }
-        };
-        dropDownAdapter.setDropDownViewResource(R.layout.spinner_item);
-        dialog_spinner.setAdapter(dropDownAdapter);
+//        ArrayAdapter dropDownAdapter = new ArrayAdapter(getActivity(),android.R.layout.simple_spinner_dropdown_item,units){
+//            @Override
+//            public View getDropDownView(int position, View convertView, ViewGroup parent) {
+//                View view = super.getDropDownView(position, convertView, parent);
+//                if (position % 2 == 0) { // we're on an even row
+//                    view.setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.grayFOF5F5));
+//                } else {
+//                    view.setBackgroundColor(ContextCompat.getColor(getActivity(), R.color.grayA3C2C2));
+//                }
+//                return view;
+//            }
+//        };
+//        dropDownAdapter.setDropDownViewResource(R.layout.spinner_item);
+//        dialog_spinner.setAdapter(dropDownAdapter);
         return view;
     }
 
@@ -155,8 +160,8 @@ public class NumberDialog extends DialogFragment implements View.OnClickListener
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.quantity_dialog_unit:
-                ClassicDialog classicDialog = new ClassicDialog(getActivity());
-                classicDialog.showSingleChoice(getString(R.string.label_input),units);
+//                ClassicDialog classicDialog = new ClassicDialog(getActivity());
+//                classicDialog.showSingleChoice(getString(R.string.label_input),units);
                 break;
             case R.id.quantity_dialog_close:
                 if (getDialog().isShowing()){
@@ -165,18 +170,18 @@ public class NumberDialog extends DialogFragment implements View.OnClickListener
                 break;
             case R.id.quantity_dialog_choose:
                 Integer num = ObjectUtil.stringToInteger(numEdit.getText().toString());
-                String unti = dialog_spinner.getSelectedItem() == null ? null :dialog_spinner.getSelectedItem().toString();
+//                String unti = dialog_spinner.getSelectedItem() == null ? null :dialog_spinner.getSelectedItem().toString();
                 Log.d("asd","[NumberDialog]-{Click Choose}-num :" +num);
-                Log.d("asd","[NumberDialog]-{Click Choose}-unti :" +unti);
+//                Log.d("asd","[NumberDialog]-{Click Choose}-unti :" +unti);
                 if(num != null) {
                     switch (this.numberDialogModel.getKey()) {
                         case KeyModel.qty:
                             this.numberDialogModel.setQty(num);
-                            this.numberDialogModel.setQtyUnit(unti);
+//                            this.numberDialogModel.setQtyUnit(unti);
                             break;
                         case KeyModel.gw:
                             this.numberDialogModel.setGrossWeight(new BigDecimal(num));
-                            this.numberDialogModel.setGrossWeightUnit(unti);
+//                            this.numberDialogModel.setGrossWeightUnit(unti);
                             break;
 
                     }

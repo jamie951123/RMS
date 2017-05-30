@@ -3,12 +3,16 @@ package com.example.james.rms.Operation.ProductAction;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.AppCompatSpinner;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.example.james.rms.CommonProfile.DialogBox.ClassicDialog;
+import com.example.james.rms.CommonProfile.DialogBox.Service.ClassicDialogService;
 import com.example.james.rms.CommonProfile.ObjectUtil;
 import com.example.james.rms.CommonProfile.SharePreferences.PartyIdPreferences;
 import com.example.james.rms.Controller.NavigationController;
@@ -18,11 +22,13 @@ import com.example.james.rms.Core.Dao.QuantityProfileDao;
 import com.example.james.rms.Core.Dao.QuantityProfileDaoImpl;
 import com.example.james.rms.Core.Dao.WeightProfileDao;
 import com.example.james.rms.Core.Dao.WeightProfileDaoImpl;
+import com.example.james.rms.Core.Model.KeyModel;
 import com.example.james.rms.Core.Model.ProductModel;
 import com.example.james.rms.Core.Model.QuantityProfileModel;
 import com.example.james.rms.Core.Model.WeightProfileModel;
 import com.example.james.rms.ProductPool.ProductCombine;
 import com.example.james.rms.R;
+import com.example.james.rms.Setting.SettingContainer;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -36,7 +42,7 @@ import butterknife.ButterKnife;
  * Created by james on 13/3/2017.
  */
 
-public class ProductIncrease extends AppCompatActivity implements View.OnClickListener{
+public class ProductIncrease extends AppCompatActivity implements View.OnClickListener, ClassicDialogService {
 
     @BindView(R.id.increase_imageView)
     ImageView increase_imageView;
@@ -55,6 +61,12 @@ public class ProductIncrease extends AppCompatActivity implements View.OnClickLi
     @BindView(R.id.increase_submit)
     Button increase_submit;
 
+    @BindView(R.id.product_increase_weight_unit)
+    Button product_increase_weight_unit;
+    @BindView(R.id.product_increase_quantity_unit)
+    Button product_increase_quantity_unit;
+    private Long weightId = null;
+    private Long quantityId = null;
     //
     private ProductDao productDao = new ProductDaoImpl();
     //
@@ -74,6 +86,8 @@ public class ProductIncrease extends AppCompatActivity implements View.OnClickLi
         ButterKnife.bind(this);
 
         increase_submit.setOnClickListener(this);
+        product_increase_weight_unit.setOnClickListener(this);
+        product_increase_quantity_unit.setOnClickListener(this);
         //Preferences
         PartyIdPreferences partyIdPreferences = new PartyIdPreferences(this,"loginInformation",MODE_PRIVATE);
         common_partyId =  partyIdPreferences.getPreferences_PartyId().get("partyId");
@@ -98,6 +112,8 @@ public class ProductIncrease extends AppCompatActivity implements View.OnClickLi
         String remark        = increase_remark.getText().toString();
         Date createDate      = new Date();
         String partyId       = common_partyId;
+
+        ClassicDialog classicDialog = new ClassicDialog(this);
         switch (v.getId()){
             case (R.id.increase_submit):
                 if(!checkConCatFieldIsNotNUll(productCode,puductName)){
@@ -105,7 +121,7 @@ public class ProductIncrease extends AppCompatActivity implements View.OnClickLi
                     break;
                 }
                 String result = ProductCombine.combine_AddProduct(productCode,puductName,descriptionCN,
-                        descriptionEN,remark,createDate,partyId);
+                        descriptionEN,remark,createDate,partyId,weightId,quantityId);
                 ProductModel productModel = productDao.insertProduct(result);
                 if(productModel != null) {
                     Toast.makeText(this,R.string.insert_successful,Toast.LENGTH_SHORT).show();
@@ -115,6 +131,14 @@ public class ProductIncrease extends AppCompatActivity implements View.OnClickLi
                     break;
                 }
                 Toast.makeText(this,R.string.insert_fail,Toast.LENGTH_SHORT).show();
+                break;
+
+            case (R.id.product_increase_weight_unit):
+                classicDialog.showSingleChoice(getString(R.string.title_select_weight_unit),null,this.weightProfileModelList, KeyModel.gw);
+                break;
+            case (R.id.product_increase_quantity_unit):
+                classicDialog.showSingleChoice(getString(R.string.title_select_quantity_unit),null,this.quantityProfileModelList, KeyModel.qty);
+                break;
         }
     }
 
@@ -124,5 +148,19 @@ public class ProductIncrease extends AppCompatActivity implements View.OnClickLi
             result = false;
         }
         return result;
+    }
+
+    @Override
+    public void settingPagesWeight(WeightProfileModel weightProfileModel) {
+        product_increase_weight_unit.setText(weightProfileModel.getWeightUnit());
+        weightId = weightProfileModel.getWeightId();
+        Log.v("asd","settingPagesWeight :" + weightProfileModel.toString());
+    }
+
+    @Override
+    public void settingPagesQty(QuantityProfileModel quantityProfileModel) {
+        product_increase_quantity_unit.setText(quantityProfileModel.getQuantityUnit());
+        quantityId = quantityProfileModel.getQuantityId();
+        Log.v("asd","settingPagesQty :" + quantityProfileModel.toString());
     }
 }

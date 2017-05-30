@@ -46,7 +46,6 @@
             android:configChanges="orientation"
             android:screenOrientation="portrait" />
         <activity android:name=".ProductPool.Tab.ProductDetail" />
-        <activity android:name=".ProductPool.Tab.ProductAction" />
         <!--Navigation-->
         <activity
             android:name=".Controller.NavigationController"
@@ -63,7 +62,14 @@
             android:screenOrientation="portrait" />
         <activity android:name=".Operation.ProductAction.ProductIncrease"
             android:configChanges="orientation"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait">
+            <!--<intent-filter>-->
+                <!--<action android:name="android.intent.action.MAIN" />-->
+
+                <!--<category android:name="android.intent.category.LAUNCHER" />-->
+            <!--</intent-filter>-->
+
+        </activity>
         <activity android:name=".Operation.ReceivingAction.ReceivingIncrease"
             android:configChanges="orientation"
             android:screenOrientation="portrait">

@@ -57,8 +57,10 @@ public class ReceivingIncreaseListAdapter extends MyBaseAdapter<ReceivingIncreas
             viewHolder = new ReceivingIncreaseListAdapter.ViewHolder(convertView);
             convertView.setTag(viewHolder);
         }
-        String qtyUnit = getItem(position).getQtyUnit() == null ? "": getItem(position).getQtyUnit();
-        String gwUnit  = getItem(position).getGrossWeightUnit() == null ? "":getItem(position).getGrossWeightUnit();
+//        String qtyUnit = getItem(position).getQtyUnit() == null ? "": getItem(position).getQtyUnit();
+//        String gwUnit  = getItem(position).getGrossWeightUnit() == null ? "":getItem(position).getGrossWeightUnit();
+        String qtyUnit = getItem(position).getProductModel().getQuantityProfile() == null?"":getItem(position).getProductModel().getQuantityProfile().getQuantityUnit();
+        String gwUnit  = getItem(position).getProductModel().getWeightprofile() == null?"": getItem(position).getProductModel().getWeightprofile().getWeightUnit();
         viewHolder.receiving_increase_list_item_productCode.setText(getItem(position).getProductModel().getProductCode());
         viewHolder.receiving_increase_list_item_productName.setText(getItem(position).getProductModel().getProductName());
         viewHolder.qty.setText(ObjectUtil.intToString(getItem(position).getQty()));
@@ -121,13 +123,13 @@ public class ReceivingIncreaseListAdapter extends MyBaseAdapter<ReceivingIncreas
         numberDialogModel.setPosition(position);
         if(key.equalsIgnoreCase(KeyModel.qty)){
             Integer qty = getItem(position).getQty();
-            String qtyUnit = getItem(position).getQtyUnit();
+            String qtyUnit = getItem(position).getProductModel().getQuantityProfile() == null?"":getItem(position).getProductModel().getQuantityProfile().getQuantityUnit();
             numberDialogModel.setQty(qty);
             numberDialogModel.setQtyUnit(qtyUnit);
             numberDialogModel.setQuantityProfileModels(this.quantityProfileModels);
         }else if(key.equalsIgnoreCase(KeyModel.gw)){
             BigDecimal gw = getItem(position).getGrossWeight();
-            String gwUnit = getItem(position).getGrossWeightUnit();
+            String gwUnit  = getItem(position).getProductModel().getWeightprofile() == null?"": getItem(position).getProductModel().getWeightprofile().getWeightUnit();
             numberDialogModel.setGrossWeight(gw);
             numberDialogModel.setGrossWeightUnit(gwUnit);
             numberDialogModel.setWeightProfileModelList(this.weightProfileModelList);

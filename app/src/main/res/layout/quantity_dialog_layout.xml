@@ -49,16 +49,29 @@
             android:hint="@string/label_number"
             android:layout_weight="1"/>
 
-        <android.support.v7.widget.AppCompatSpinner
-            android:id="@+id/quantity_dialog_unit"
+        <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginRight="7dp"
             android:layout_marginLeft="7dp"
+            android:id="@+id/quantity_dialog_unit"
             android:layout_weight="2"
             android:gravity="center"
-            android:background="@drawable/spinner_style"
-            android:spinnerMode="dialog"></android.support.v7.widget.AppCompatSpinner>
+            android:drawableLeft="@drawable/box_color"
+            android:background="@color/grayE8E8E8"
+            android:clickable="false"
+            android:focusable="false"/>
+
+        <!--<android.support.v7.widget.AppCompatSpinner-->
+            <!--android:id="@+id/quantity_dialog_unit"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginRight="7dp"-->
+            <!--android:layout_marginLeft="7dp"-->
+            <!--android:layout_weight="2"-->
+            <!--android:gravity="center"-->
+            <!--android:background="@drawable/spinner_style"-->
+            <!--android:spinnerMode="dialog"></android.support.v7.widget.AppCompatSpinner>-->
     </LinearLayout>
     </LinearLayout>
     <LinearLayout

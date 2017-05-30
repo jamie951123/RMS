@@ -32,7 +32,7 @@ import butterknife.ButterKnife;
  * Created by jamie on 2017/5/3.
  */
 
-public class SettingContainer extends AppCompatActivity implements View.OnClickListener,ClassicDialogService{
+public class SettingContainer extends AppCompatActivity implements View.OnClickListener,ClassicDialogService {
 
     @BindView(R.id.setting_wlistview)
     ListView wlistView;
@@ -99,21 +99,17 @@ public class SettingContainer extends AppCompatActivity implements View.OnClickL
         ClassicDialog classicDialog = new ClassicDialog(this);
         switch (v.getId()){
             case R.id.waddbtn:
-                classicDialog.showInputBox(getString(R.string.add_weight_unit),null,null, KeyModel.gw);
+                classicDialog.showInputBox(getString(R.string.add_weight_unit),null,null, KeyModel.gw,partyId);
                 break;
 
             case R.id.qaddbtn:
-                classicDialog.showInputBox(getString(R.string.add_weight_unit),null,null, KeyModel.qty);
+                classicDialog.showInputBox(getString(R.string.add_weight_unit),null,null, KeyModel.qty,partyId);
                 break;
         }
     }
 
     @Override
-    public void settingPagesWeight(String value) {
-        WeightProfileModel weightProfileModel = new WeightProfileModel();
-        weightProfileModel.setCreateDate(new Date());
-        weightProfileModel.setPartyId(partyId);
-        weightProfileModel.setWeightUnit(value);
+    public void settingPagesWeight(WeightProfileModel weightProfileModel) {
         String json = SettingCombine.gsonWeightProfile(weightProfileModel);
         //service
         WeightProfileDao weightProfileDao = new WeightProfileDaoImpl();
@@ -128,11 +124,7 @@ public class SettingContainer extends AppCompatActivity implements View.OnClickL
     }
 
     @Override
-    public void settingPagesQty(String value) {
-        QuantityProfileModel quantityProfileModel = new QuantityProfileModel();
-        quantityProfileModel.setCreateDate(new Date());
-        quantityProfileModel.setQuantityUnit(value);
-        quantityProfileModel.setPartyId(partyId);
+    public void settingPagesQty(QuantityProfileModel quantityProfileModel) {
         String json = SettingCombine.gsonQuantityProfile(quantityProfileModel);
         //service
         QuantityProfileDao quantityProfileDao = new QuantityProfileDaoImpl();
