@@ -100,7 +100,7 @@
     <string name="receivingOrder_closeDate">CloseDate:</string>
     <string name="receivingOrder_actualQty">ActualQty</string>
     <string name="receivingOrder_estimateQty">EstimateQty:</string>
-
+    <string name="receivingOrder_itemQty">Goods Qty:</string>
     <!--ReceivingItem-->
     <string name="receivingItem_receivingID">ReceivingID:</string>
     <string name="receivingItem_productId">ProductId:</string>

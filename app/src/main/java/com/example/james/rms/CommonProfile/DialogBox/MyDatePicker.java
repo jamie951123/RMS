@@ -16,24 +16,32 @@ import java.util.Date;
  * Created by Jamie on 9/4/2017.
  */
 
-public class MyDatePicker extends DialogFragment implements DatePickerDialog.OnDateSetListener {
+public class MyDatePicker extends DialogFragment  implements DatePickerDialog.OnDateSetListener{
+
+    private int yy;
+    private int mm;
+    private int dd;
+
     public interface MyDatePickerService{
          void passDateToReceivingIncrease(String date_str ,Date date);
     }
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         final Calendar calendar = Calendar.getInstance();
-        int yy = calendar.get(Calendar.YEAR);
-        int mm = calendar.get(Calendar.MONTH);
-        int dd = calendar.get(Calendar.DAY_OF_MONTH);
-        return new DatePickerDialog(getActivity(), this, yy, mm, dd);
+        yy = calendar.get(Calendar.YEAR);
+        mm = calendar.get(Calendar.MONTH);
+        dd = calendar.get(Calendar.DAY_OF_MONTH);
+        DatePickerDialog datePickerDialog = new DatePickerDialog(getActivity(), this, yy, mm, dd);
+        datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
+        return datePickerDialog;
     }
 
+    @Override
     public void onDateSet(DatePicker view, int year, int month, int day) {
-        String lastdatetime = setDateFormat(year,month,day);
-        Date date = ObjectUtil.stringToDate_onlyDate(lastdatetime);
+        String lastDateTime = setDateFormat(year,month+1,day);
+        Date date = ObjectUtil.stringToDate_onlyDate(lastDateTime);
         MyDatePickerService myDatePickerService = (ReceivingIncrease)getActivity();
-        myDatePickerService.passDateToReceivingIncrease(lastdatetime,date);
+        myDatePickerService.passDateToReceivingIncrease(lastDateTime,date);
     }
 
 
@@ -51,4 +59,18 @@ public class MyDatePicker extends DialogFragment implements DatePickerDialog.OnD
         String datetime = String.valueOf(year)+ "-" + month + "-" + day;
         return datetime;
     }
+
+//    final DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
+//
+//        @Override
+//        public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+//            view.setMinDate(System.currentTimeMillis());
+//            view.setMinDate(System.currentTimeMillis() - 1000);
+//            String lastdatetime = setDateFormat(year,monthOfYear+1,dayOfMonth);
+//            Date date = ObjectUtil.stringToDate_onlyDate(lastdatetime);
+//            MyDatePickerService myDatePickerService = (ReceivingIncrease)getActivity();
+//            myDatePickerService.passDateToReceivingIncrease(lastdatetime,date);
+//        }
+//    };
+
 }

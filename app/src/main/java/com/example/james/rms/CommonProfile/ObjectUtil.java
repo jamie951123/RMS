@@ -104,4 +104,12 @@ public class ObjectUtil {
         return string;
     }
 
+    public static String dateToString_OnlyDate(Date date){
+        String string = "";
+        if(date != null){
+            string = sdf_onlyDate.format(date);
+        }
+        return string;
+    }
+
 }

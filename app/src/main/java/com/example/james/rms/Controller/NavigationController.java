@@ -27,6 +27,7 @@ import com.example.james.rms.CommonProfile.FabButton.FabCore;
 import com.example.james.rms.CommonProfile.MyBaseFragment;
 import com.example.james.rms.CommonProfile.SharePreferences.LoginPreferences;
 import com.example.james.rms.CommonProfile.SharePreferences.NavPreferences;
+import com.example.james.rms.CommonProfile.StartActivityForResultKey;
 import com.example.james.rms.Controller.CommunicateService.NavToRL;
 import com.example.james.rms.ITF.ViewPagerListener;
 import com.example.james.rms.Inventory.Tab.InventoryContainer;
@@ -82,6 +83,33 @@ public class NavigationController extends AppCompatActivity implements Navigatio
         TextView navUsername  = (TextView) hearder.findViewById(R.id.navUserName);
         navUsername.setText(userName);
         FabSetting();
+
+        Integer requestCode = null;
+        if (savedInstanceState == null) {
+            Bundle extras = getIntent().getExtras();
+            if(extras == null) {
+                requestCode= null;
+            } else {
+                requestCode= extras.getInt("NavigationController");
+            }
+        }
+        if(requestCode != null) {
+            switch (requestCode) {
+                case StartActivityForResultKey.navNull:
+                    break;
+                case StartActivityForResultKey.navProduct:
+                    changeFragmentAndTitle(R.id.nav_all_product);
+                    break;
+                case StartActivityForResultKey.navReceiving:
+                    changeFragmentAndTitle(R.id.nav_receiving);
+                    break;
+                case StartActivityForResultKey.navInventory:
+                    changeFragmentAndTitle(R.id.nav_inventory);
+                    break;
+                default:
+                    break;
+            }
+        }
     }
 
     public void onResume(){
@@ -140,6 +168,15 @@ public class NavigationController extends AppCompatActivity implements Navigatio
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
+        changeFragmentAndTitle(id);
+
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawer.closeDrawer(GravityCompat.START);
+        return true;
+    }
+
+
+    private void changeFragmentAndTitle(int id) {
         if (id == R.id.nav_all_product) {
             pager.setCurrentItem(0);
             toolbar.setTitle(R.string.allproduct);
@@ -150,21 +187,17 @@ public class NavigationController extends AppCompatActivity implements Navigatio
             pager.setCurrentItem(2);
             toolbar.setTitle(R.string.inventory);
         } else if (id == R.id.nav_stockOut) {
-//            toolbar.setTitle(R.string.stockout);
+            //            toolbar.setTitle(R.string.stockout);
         } else if (id == R.id.nav_record) {
-//            toolbar.setTitle(R.string.record);
+            //            toolbar.setTitle(R.string.record);
         } else if (id == R.id.nav_setting) {
-//            toolbar.setTitle(R.string.setting);
+            //            toolbar.setTitle(R.string.setting);
             Intent intent = new Intent();
             intent.setClass(this, SettingContainer.class);
             startActivity(intent);
         } else if (id == R.id.nav_logout) {
             logoutStatus();
         }
-
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
-        return true;
     }
 
     private void logoutStatus(){

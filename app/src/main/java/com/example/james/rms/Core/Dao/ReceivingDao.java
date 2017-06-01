@@ -22,5 +22,5 @@ public interface ReceivingDao {
 
     List<ReceivingItemModel> insertIntoReceivingItem(String json);
 
-    List<ReceivingOrderAndItemContainer> saveOrderAndItem(String json);
+    ReceivingOrderAndItemContainer saveOrderAndItem(String json);
 }

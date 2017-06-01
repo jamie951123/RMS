@@ -1,5 +1,6 @@
 package com.example.james.rms.Operation.ReceivingAction;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
@@ -23,6 +24,8 @@ import com.example.james.rms.CommonProfile.DialogBox.NumberDialog;
 import com.example.james.rms.CommonProfile.GsonUtil;
 import com.example.james.rms.CommonProfile.ObjectUtil;
 import com.example.james.rms.CommonProfile.SharePreferences.PartyIdPreferences;
+import com.example.james.rms.CommonProfile.StartActivityForResultKey;
+import com.example.james.rms.Controller.NavigationController;
 import com.example.james.rms.Core.Dao.ProductDao;
 import com.example.james.rms.Core.Dao.ProductDaoImpl;
 import com.example.james.rms.Core.Dao.QuantityProfileDao;
@@ -155,10 +158,17 @@ public class ReceivingIncrease extends AppCompatActivity implements View.OnClick
                 return super.onOptionsItemSelected(menuItem);
             }
 
-            receivingDao.saveOrderAndItem(json);
+            ReceivingOrderAndItemContainer saveResult = receivingDao.saveOrderAndItem(json);
+            if(saveResult != null){
+                Intent intent = new Intent();
+                intent.putExtra("NavigationController", StartActivityForResultKey.navReceiving);
+                intent.setClass(this, NavigationController.class);
+                startActivity(intent);
+            }
         }
         return super.onOptionsItemSelected(menuItem);
     }
+
 
     @Override
     public void onClick(View v) {

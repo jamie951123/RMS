@@ -47,9 +47,10 @@ public class ReceivingOrderExpandListAdapter extends MyExpandableListAdapter<Rec
             holder = (GroupHolder) convertView.getTag();
         }
         holder.receivingOrder_orderId.setText(ObjectUtil.longToString(receivingOrderModel.getOrderId()));
-        holder.receivingOrder_date.setText(ObjectUtil.dateToString(receivingOrderModel.getReceivingDate()));
+        holder.receivingOrder_date.setText(ObjectUtil.dateToString_OnlyDate(receivingOrderModel.getReceivingDate()));
         holder.receivingOrder_actualQty.setText(ObjectUtil.intToString(receivingOrderModel.getActualQty()));
         holder.receivingOrder_estimateQty.setText(ObjectUtil.intToString(receivingOrderModel.getEstimateQty()));
+        holder.receivingOrder_itemQty.setText(ObjectUtil.intToString(receivingOrderModel.getItemQty()));
         holder.receivingOrder_next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -119,6 +120,8 @@ public class ReceivingOrderExpandListAdapter extends MyExpandableListAdapter<Rec
         TextView receivingOrder_orderId;
         @BindView(R.id.receivingOrder_date)
         TextView receivingOrder_date;
+        @BindView(R.id.receivingOrder_itemQty)
+        TextView receivingOrder_itemQty;
         @BindView(R.id.receivingOrder_actualQty)
         TextView receivingOrder_actualQty;
         @BindView(R.id.receivingOrder_estimateQty)

@@ -152,7 +152,7 @@ public class ReceivingDaoImpl implements ReceivingDao {
     }
 
     @Override
-    public List<ReceivingOrderAndItemContainer> saveOrderAndItem(String json) {
+    public ReceivingOrderAndItemContainer saveOrderAndItem(String json) {
         Log.d("asd","[ReceivingOrderAndItemContainer]-saveOrderAndItem(Request--JSON) :" + json);
         String result ="";
         try{
@@ -167,16 +167,15 @@ public class ReceivingDaoImpl implements ReceivingDao {
         try {
             Gson gson = GsonUtil.fromJson();
             container = gson.fromJson(json, ReceivingOrderAndItemContainer.class);
-            Log.d("asd", "[ReceivingOrderAndItemContainer]-saveOrderAndItem(Response-[Gson]):" + container);
-
-            if (container != null) {
+            Log.d("asd","[ReceivingOrderAndItemContainer]-saveOrderAndItem(Response):" + result);
+            if (container == null) {
                 Log.d("asd", "[ReceivingOrderAndItemContainer]-saveOrderAndItem(Response) [Error] : Serve have not response anything");
                 return null;
             }
         }catch (Exception e){
 
         }
-        Log.d("asd","[ReceivingOrderAndItemContainer]-saveOrderAndItem(Response):" + result);
-        return null;
+        Log.d("asd", "[ReceivingOrderAndItemContainer]-saveOrderAndItem(Response-[Gson]):" + container);
+        return container;
     }
 }
