@@ -53,9 +53,11 @@ public class ProductListAdapter extends MyBaseAdapter<ProductModel>{
     }
 
     @Override
-    public boolean productNameMatch(ProductModel productModel, String value) {
-
-        return  ObjectUtil.isNullEmpty(productModel.getProductName()) ? false: productModel.getProductName().toUpperCase().contains(value.toUpperCase());
+    public boolean productNameMatch(ProductModel productModel, String string) {
+        if(ObjectUtil.isNullEmpty(productModel.getProductName()) && ObjectUtil.isNullEmpty(string)){
+            return true;
+        }
+        return  ObjectUtil.isNullEmpty(productModel.getProductName()) ? false: productModel.getProductName().toUpperCase().contains(string.toUpperCase());
     }
 
     @Override

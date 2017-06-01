@@ -72,18 +72,27 @@ public class ReceivingItemExpandListAdapter extends MyExpandableListAdapter<Rece
 
     @Override
     public boolean productCodeMatch(ReceivingItemModel receivingItemModel, String string) {
+        if(ObjectUtil.isNullEmpty(receivingItemModel.getProductModel().getProductCode()) && ObjectUtil.isNullEmpty(string)){
+            return true;
+        }
         boolean result = receivingItemModel.getProductModel().getProductCode().toUpperCase().contains(string.toUpperCase());
         return result;
     }
 
     @Override
     public boolean productNameMatch(ReceivingItemModel receivingItemModel, String string) {
+        if(ObjectUtil.isNullEmpty(receivingItemModel.getProductModel().getProductName()) && ObjectUtil.isNullEmpty(string)){
+            return true;
+        }
         boolean result = receivingItemModel.getProductModel().getProductName().toUpperCase().contains(string.toUpperCase());
         return result;
     }
 
     @Override
     public boolean receivingRemarkMatch(ReceivingItemModel receivingItemModel, String string) {
+        if(ObjectUtil.isNullEmpty(receivingItemModel.getItemRemark()) && ObjectUtil.isNullEmpty(string)){
+            return true;
+        }
         return  ObjectUtil.isNullEmpty(receivingItemModel.getItemRemark()) ? false : receivingItemModel.getItemRemark().toUpperCase().contains(string.toUpperCase());
     }
 

@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.james.rms.CommonProfile.MyBaseAdapter;
+import com.example.james.rms.CommonProfile.ObjectUtil;
 import com.example.james.rms.Core.Model.InventorySumModel;
 import com.example.james.rms.R;
 
@@ -58,6 +59,9 @@ public class InventoryItemListAdapter  extends MyBaseAdapter<InventorySumModel>{
 
     @Override
     public boolean productCodeMatch(InventorySumModel inventorySumModel, String string) {
+        if(ObjectUtil.isNullEmpty(inventorySumModel.getProductCode()) && ObjectUtil.isNullEmpty(string)){
+            return true;
+        }
         boolean result = inventorySumModel.getProductCode().toUpperCase().contains(string.toUpperCase());
         return result;
     }

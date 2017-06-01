@@ -68,14 +68,19 @@ public class ProductExpandListAdapter extends MyExpandableListAdapter<ProductMod
 
     @Override
     public boolean productCodeMatch(ProductModel productModel, String string) {
+        if(ObjectUtil.isNullEmpty(productModel.getProductCode()) && ObjectUtil.isNullEmpty(string)){
+            return true;
+        }
         boolean result = productModel.getProductCode().toUpperCase().contains(string.toUpperCase());
         return result;
     }
 
     @Override
-    public boolean productNameMatch(ProductModel productModel, String value) {
-
-        return  ObjectUtil.isNullEmpty(productModel.getProductName()) ? false: productModel.getProductName().toUpperCase().contains(value.toUpperCase());
+    public boolean productNameMatch(ProductModel productModel, String string) {
+        if(ObjectUtil.isNullEmpty(productModel.getProductName()) && ObjectUtil.isNullEmpty(string)){
+            return true;
+        }
+        return  ObjectUtil.isNullEmpty(productModel.getProductName()) ? false: productModel.getProductName().toUpperCase().contains(string.toUpperCase());
     }
 
     @Override

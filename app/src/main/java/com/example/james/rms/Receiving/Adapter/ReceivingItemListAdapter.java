@@ -59,6 +59,9 @@ public class ReceivingItemListAdapter extends MyBaseAdapter<ReceivingItemModel> 
 
     @Override
     public boolean receivingRemarkMatch(ReceivingItemModel receivingItemModel, String string) {
+        if(ObjectUtil.isNullEmpty(receivingItemModel.getItemRemark()) && ObjectUtil.isNullEmpty(string)){
+            return true;
+        }
         return ObjectUtil.isNullEmpty(receivingItemModel.getItemRemark()) ? false : receivingItemModel.getItemRemark().toUpperCase().contains(string.toUpperCase());
     }
 

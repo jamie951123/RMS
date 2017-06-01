@@ -110,6 +110,9 @@ public class ReceivingOrderExpandListAdapter extends MyExpandableListAdapter<Rec
 
     @Override
     public boolean receivingRemarkMatch(ReceivingOrderModel receivingOrderModel, String string) {
+        if(ObjectUtil.isNullEmpty(receivingOrderModel.getRemark()) && ObjectUtil.isNullEmpty(string)){
+            return true;
+        }
         return  ObjectUtil.isNullEmpty(receivingOrderModel.getRemark()) ? false : receivingOrderModel.getRemark().toUpperCase().contains(string.toUpperCase());
     }
 
