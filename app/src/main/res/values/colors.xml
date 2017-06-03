@@ -23,8 +23,11 @@
     <color name="blue337AB7">#337AB7</color>
     <!--black-->
     <color name="black1F1F1F">#1F1F1F</color>
+    <!--red-->
+    <color name="redFF3333">#FF3333</color>
     <!--organe-->
     <color name="organeFF4000">#FF4000</color>
+    <color name="organeFFC266">#FFCc66</color>
     <!--green-->
     <color name="greenA5DC86">#A5DC86</color>
     <!--maroon-->

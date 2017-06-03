@@ -1,5 +1,7 @@
 package com.example.james.rms.CommonProfile;
 
+import android.util.Log;
+
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonDeserializationContext;
@@ -25,16 +27,25 @@ public class GsonUtil {
         return gson;
     }
 
+    // No Chage anythings (Date Format is Basic)
+    public static Gson toBaseJson(){
+        Gson gson = new Gson();
+        return gson;
+    }
     public static Gson fromJson(){
         GsonBuilder gsonBuilder = new GsonBuilder();
         gsonBuilder.registerTypeAdapter(Date.class, new JsonDeserializer<Date>() {
-            DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+//            DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             @Override
             public Date deserialize(final JsonElement json, final Type typeOfT, final JsonDeserializationContext context)
                     throws JsonParseException {
                 try {
-                    return new Date(json.getAsLong());
+                    Log.v("asd","json.getAsLong() : " +json.getAsLong());
+                    Date newDate = new Date(json.getAsLong());
+                    Log.v("asd","newDate : " +newDate);
+                    return newDate;
                 } catch (Exception e) {
+                    e.printStackTrace();
                     return null;
                 }
             }
@@ -42,4 +53,28 @@ public class GsonUtil {
         Gson gson = gsonBuilder.create();
         return gson;
     }
+
+    public static Gson fromStringJson(){
+        GsonBuilder gsonBuilder = new GsonBuilder();
+        gsonBuilder.registerTypeAdapter(Date.class, new JsonDeserializer<Date>() {
+                        DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            @Override
+            public Date deserialize(final JsonElement json, final Type typeOfT, final JsonDeserializationContext context)
+                    throws JsonParseException {
+                try {
+                    String Date_str = json.getAsString();
+                    Log.v("asd","json.getAsLong() : " +json.getAsString());
+                    Date newDate = df.parse(Date_str);
+                    Log.v("asd","newDate : " +newDate);
+                    return newDate;
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    return null;
+                }
+            }
+        });
+        Gson gson = gsonBuilder.create();
+        return gson;
+    }
+
 }

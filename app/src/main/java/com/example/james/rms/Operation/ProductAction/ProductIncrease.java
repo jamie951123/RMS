@@ -95,8 +95,48 @@ public class ProductIncrease extends AppCompatActivity implements View.OnClickLi
         String combine_partyId = ProductCombine.combine_partyId(common_partyId);
         weightProfileModelList = weightProfileDao.findByPartyId(combine_partyId);
         quantityProfileModelList  = quantityProfileDao.findByPartyId(combine_partyId);
+
+        String editJson = null;
+        if (savedInstanceState == null) {
+            Bundle extras = getIntent().getExtras();
+            if(extras == null) {
+                editJson= null;
+            } else {
+                editJson= extras.getString("ProductIncrease");
+            }
+        }
+
+        if(ObjectUtil.isNotNullEmpty(editJson)){
+            ProductModel editModel = ProductCombine.jsonToModel(editJson);
+            setAllField(editModel);
+            return;
+        }
+
         setActionDate();
 
+    }
+
+    private void setAllField(ProductModel productModel){
+        String weight_unit = null;
+        String quantity_unit = null;
+        if(productModel.getWeightprofile()!=null){
+            if(ObjectUtil.isNotNullEmpty(productModel.getWeightprofile().getWeightUnit())){
+                weight_unit = productModel.getWeightprofile().getWeightUnit();
+            }
+        }
+        if(productModel.getWeightprofile()!=null){
+            if(ObjectUtil.isNotNullEmpty(productModel.getQuantityProfile().getQuantityUnit())){
+                quantity_unit = productModel.getQuantityProfile().getQuantityUnit();
+            }
+        }
+        increase_puductCode.setText(productModel.getProductCode());
+        increase_puductName.setText(productModel.getProductName());
+        product_increase_weight_unit.setText(weight_unit);
+        product_increase_quantity_unit.setText(quantity_unit);
+        increase_descriptionEN.setText(productModel.getProductDescriptionEN());
+        increase_descriptionCN.setText(productModel.getProductDescriptionCH());
+        increase_createDate.setText(ObjectUtil.dateToString(productModel.getCreateDate()));
+        increase_remark.setText(productModel.getRemark());
     }
 
     private void setActionDate() {

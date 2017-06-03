@@ -49,4 +49,26 @@ public class ProductCombine {
         result = gson.toJson(productModel);
         return result;
     }
+
+    public static String modelToJson(ProductModel productModel){
+        String result = null;
+        try{
+            Gson gson = GsonUtil.toJson();
+            result = gson.toJson(productModel);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+    public static ProductModel jsonToModel(String json){
+        ProductModel productModel = new ProductModel();
+        try{
+            Gson gson = GsonUtil.fromStringJson();
+            productModel = gson.fromJson(json,ProductModel.class);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return productModel;
+    }
 }

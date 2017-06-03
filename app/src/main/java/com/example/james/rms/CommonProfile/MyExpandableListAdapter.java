@@ -176,4 +176,11 @@ public abstract class MyExpandableListAdapter<T> extends AnimatedExpandableListV
         productCodeFilter.filter(code);
     }
 
+    public List<T> getOriginalData() {
+        return originalData;
+    }
+
+    public List<T> getFilteredData() {
+        return filteredData;
+    }
 }
