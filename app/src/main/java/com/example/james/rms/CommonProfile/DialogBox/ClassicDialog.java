@@ -129,24 +129,6 @@ public class ClassicDialog {
                 .show();
     }
 
-    public void showSingleChoice(String title, List<String> list){
-        new MaterialDialog.Builder(this.context)
-                .title(title)
-                .items(list)
-                .itemsCallbackSingleChoice(-1, new MaterialDialog.ListCallbackSingleChoice() {
-                    @Override
-                    public boolean onSelection(MaterialDialog dialog, View view, int which, CharSequence text) {
-                        /**
-                         * If you use alwaysCallSingleChoiceCallback(), which is discussed below,
-                         * returning false here won't allow the newly selected radio button to actually be selected.
-                         **/
-                        return true;
-                    }
-                })
-                .positiveText(R.string.choose)
-                .show();
-    }
-
     public void showInputBox(String title, final String content, String hint,final String key,final String partyId){
         new MaterialDialog.Builder(context)
                 .title(title)
@@ -190,18 +172,21 @@ public class ClassicDialog {
                 }).show();
     }
 
-    public void showSingleChoice(String title, String hint,final List modeles,final String key){
+    public void showSingleChoice(String title, String hint,final List modeles,final String key,Long itemId){
         List<String> stringList = new ArrayList<>();
+        int defaultSelected= -1;
 
         if(modeles instanceof List<?>){
-            for(Object obj : modeles){
+            for(int i=0; i<modeles.size(); i++){
+                Object obj = modeles.get(i);
                 if (obj instanceof WeightProfileModel) {
                     WeightProfileModel w = (WeightProfileModel)obj;
                     stringList.add(w.getWeightUnit());
+                    if(itemId != null && w.getWeightId().equals(itemId))defaultSelected = i;
                 } else if (obj instanceof QuantityProfileModel) {
                     QuantityProfileModel q = (QuantityProfileModel)obj;
                     stringList.add(q.getQuantityUnit());
-
+                    if(itemId != null && q.getQuantityId().equals(itemId))defaultSelected = i;
                 }
             }
         }
@@ -210,13 +195,14 @@ public class ClassicDialog {
                 .title(title)
                 .items(stringList)
                 .positiveText(R.string.choose)
+                .canceledOnTouchOutside(false)
                 .onNegative(new MaterialDialog.SingleButtonCallback() {
                     @Override
                     public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
                         dialog.dismiss();
                     }
                 })
-                .itemsCallbackSingleChoice(-1, new MaterialDialog.ListCallbackSingleChoice() {
+                .itemsCallbackSingleChoice(defaultSelected, new MaterialDialog.ListCallbackSingleChoice() {
                     @Override
                     public boolean onSelection(MaterialDialog dialog, View view, int which, CharSequence text) {
 

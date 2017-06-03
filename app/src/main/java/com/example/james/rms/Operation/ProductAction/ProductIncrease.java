@@ -79,12 +79,15 @@ public class ProductIncrease extends AppCompatActivity implements View.OnClickLi
     String common_partyId;
     private List<WeightProfileModel> weightProfileModelList;
     private List<QuantityProfileModel> quantityProfileModelList;
+    private Long defaultWeightId;
+    private Long defaultQtyId;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.product_increase);
         ButterKnife.bind(this);
-
+        defaultWeightId = null;
+        defaultQtyId = null;
         increase_submit.setOnClickListener(this);
         product_increase_weight_unit.setOnClickListener(this);
         product_increase_quantity_unit.setOnClickListener(this);
@@ -122,11 +125,13 @@ public class ProductIncrease extends AppCompatActivity implements View.OnClickLi
         if(productModel.getWeightprofile()!=null){
             if(ObjectUtil.isNotNullEmpty(productModel.getWeightprofile().getWeightUnit())){
                 weight_unit = productModel.getWeightprofile().getWeightUnit();
+                defaultWeightId = productModel.getWeightprofile().getWeightId();
             }
         }
         if(productModel.getWeightprofile()!=null){
             if(ObjectUtil.isNotNullEmpty(productModel.getQuantityProfile().getQuantityUnit())){
                 quantity_unit = productModel.getQuantityProfile().getQuantityUnit();
+                defaultQtyId =  productModel.getQuantityProfile().getQuantityId();
             }
         }
         increase_puductCode.setText(productModel.getProductCode());
@@ -161,7 +166,7 @@ public class ProductIncrease extends AppCompatActivity implements View.OnClickLi
                     break;
                 }
                 String result = ProductCombine.combine_AddProduct(productCode,puductName,descriptionCN,
-                        descriptionEN,remark,createDate,partyId,weightId,quantityId);
+                        descriptionEN,remark,createDate,partyId,defaultWeightId,defaultQtyId);
                 ProductModel productModel = productDao.insertProduct(result);
                 if(productModel != null) {
                     Toast.makeText(this,R.string.insert_successful,Toast.LENGTH_SHORT).show();
@@ -174,10 +179,10 @@ public class ProductIncrease extends AppCompatActivity implements View.OnClickLi
                 break;
 
             case (R.id.product_increase_weight_unit):
-                classicDialog.showSingleChoice(getString(R.string.title_select_weight_unit),null,this.weightProfileModelList, KeyModel.gw);
+                classicDialog.showSingleChoice(getString(R.string.title_select_weight_unit),null,this.weightProfileModelList, KeyModel.gw,defaultWeightId);
                 break;
             case (R.id.product_increase_quantity_unit):
-                classicDialog.showSingleChoice(getString(R.string.title_select_quantity_unit),null,this.quantityProfileModelList, KeyModel.qty);
+                classicDialog.showSingleChoice(getString(R.string.title_select_quantity_unit),null,this.quantityProfileModelList, KeyModel.qty,defaultQtyId);
                 break;
         }
     }
@@ -193,14 +198,16 @@ public class ProductIncrease extends AppCompatActivity implements View.OnClickLi
     @Override
     public void settingPagesWeight(WeightProfileModel weightProfileModel) {
         product_increase_weight_unit.setText(weightProfileModel.getWeightUnit());
-        weightId = weightProfileModel.getWeightId();
+        defaultWeightId= weightProfileModel.getWeightId();
+//        weightId = weightProfileModel.getWeightId();
         Log.v("asd","settingPagesWeight :" + weightProfileModel.toString());
     }
 
     @Override
     public void settingPagesQty(QuantityProfileModel quantityProfileModel) {
         product_increase_quantity_unit.setText(quantityProfileModel.getQuantityUnit());
-        quantityId = quantityProfileModel.getQuantityId();
+        defaultQtyId = quantityProfileModel.getQuantityId();
+//        quantityId = quantityProfileModel.getQuantityId();
         Log.v("asd","settingPagesQty :" + quantityProfileModel.toString());
     }
 }
