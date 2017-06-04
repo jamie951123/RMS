@@ -15,7 +15,11 @@ import com.example.james.rms.CommonProfile.MyExpandableListAdapter;
 import com.example.james.rms.CommonProfile.ObjectUtil;
 import com.example.james.rms.CommonProfile.StartActivityForResultKey;
 import com.example.james.rms.Core.Adapter.CnGridAdapter;
+import com.example.james.rms.Core.Dao.ProductDao;
+import com.example.james.rms.Core.Dao.ProductDaoImpl;
 import com.example.james.rms.Core.Model.ProductModel;
+import com.example.james.rms.Core.SearchObject.ProductSearchObject;
+import com.example.james.rms.Core.SearchObject.SearchCombine;
 import com.example.james.rms.Operation.ProductAction.ProductIncrease;
 import com.example.james.rms.ProductPool.ProductCombine;
 import com.example.james.rms.R;
@@ -68,7 +72,10 @@ public class ProductExpandListAdapter extends MyExpandableListAdapter<ProductMod
         holder.linear_delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d("asd","linear_delete");
+                String productSearchObject = SearchCombine.combine_id(getGroup(groupPosition).getProductId());
+                ProductDao productDao = new ProductDaoImpl();
+                Integer updatedCount = productDao.updateQuantityIdAndWeightIdNullByProductId(productSearchObject);
+                Log.d("asd","updatedCount : " +updatedCount);
             }
         });
 //        ArrayList<GridComponent> gridList = new ArrayList<>();

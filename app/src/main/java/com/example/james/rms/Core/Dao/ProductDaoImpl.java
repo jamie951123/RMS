@@ -48,6 +48,29 @@ public class ProductDaoImpl implements ProductDao {
     }
 
     @Override
+    public ProductModel findByProductId(String json) {
+        Log.d("asd:","[ProductModel]-findByProductId(Request--JSON)  :" +json);
+        String result = "";
+        ProductModel product = new ProductModel();
+        try {
+            result = new HttpPostAsync().execute(ProductServerPath.serve_findByProductId(),json).get();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+        Log.d("asd:","[ProductModel]-findByProductId(Response--String): :"+result);
+        try{
+            Gson gson = GsonUtil.fromJson();
+            product = gson.fromJson(result,ProductModel.class);
+            Log.d("asd","[ProductModel]-findByProductId(Gson): "+product);
+        }catch(JsonSyntaxException e){
+            e.printStackTrace();
+        }
+        return product;
+    }
+
+    @Override
     public List<ProductModel> findByPartyId(String json) {
         Log.d("asd:","[ProductModel]-findByPartyId(Request--JSON)  :" +json);
         String result = "";
@@ -134,5 +157,25 @@ public class ProductDaoImpl implements ProductDao {
         Log.d("asd:","[ProductModel]-updateQuantityIdNullByWeightIdAndPartyId-[ERROR]: -- Updata fail");
         return null;
     }
+
+    @Override
+    public Integer updateQuantityIdAndWeightIdNullByProductId(String json) {
+        Log.d("asd:","[ProductModel]-updateQuantityIdAndWeightIdNullByProductId-[Request (JSON)]: :"+json);
+        String result = "";
+        try {
+            result = new HttpPostAsync().execute(ProductServerPath.serve_updateQuantityIdAndWeightIdNullByProductId(),json).get();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+        Log.d("asd:","[ProductModel]-updateQuantityIdAndWeightIdNullByProductId-[Response(String)]: :"+result);
+        if(ObjectUtil.isNotNullEmpty(result)){
+            return Integer.parseInt(result);
+        }
+        Log.d("asd:","[ProductModel]-updateQuantityIdAndWeightIdNullByProductId-[ERROR]: -- Updata fail");
+        return null;
+    }
+
 
 }

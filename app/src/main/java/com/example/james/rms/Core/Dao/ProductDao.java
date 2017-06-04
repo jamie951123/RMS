@@ -11,6 +11,8 @@ import java.util.List;
 public interface ProductDao {
     List<ProductModel> findAll();
 
+    ProductModel findByProductId(String json);
+
     List<ProductModel> findByPartyId(String json);
 
     ProductModel insertProduct(String json);
@@ -18,4 +20,6 @@ public interface ProductDao {
     Integer updateWeightIdNullByWeightIdAndPartyId(String json);
 
     Integer updateQuantityIdNullByQuantityIdAndPartyId(String json);
+
+    Integer updateQuantityIdAndWeightIdNullByProductId(String json);
 }

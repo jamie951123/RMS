@@ -17,9 +17,7 @@ import java.util.Date;
 
 public class ProductCombine {
 
-    public static String combine_partyId(String partyId) {
-        ProductSearchObject productSearchObject = new ProductSearchObject();
-        productSearchObject.setPartyId(partyId);
+    public static String productSearchObject(ProductSearchObject productSearchObject) {
         String result="";
         try{
             Gson gson = GsonUtil.toJson();
@@ -30,11 +28,12 @@ public class ProductCombine {
         return result;
     }
 
-    public static String combine_AddProduct(String productCode,String productName,
+    public static String combine_AddProduct(Long productId,String productCode,String productName,
                                      String descriptionCN, String descriptionEN, String remark,
                                      Date createDate,String partyId,Long weightId,Long quantityId){
         String result="";
         ProductModel productModel = new ProductModel();
+        productModel.setProductId(productId);
         productModel.setProductCode(productCode);
         productModel.setProductName(productName);
         productModel.setProductDescriptionCH(descriptionCN);

@@ -26,6 +26,7 @@ import com.example.james.rms.Core.Model.KeyModel;
 import com.example.james.rms.Core.Model.ProductModel;
 import com.example.james.rms.Core.Model.QuantityProfileModel;
 import com.example.james.rms.Core.Model.WeightProfileModel;
+import com.example.james.rms.Core.SearchObject.SearchCombine;
 import com.example.james.rms.ProductPool.ProductCombine;
 import com.example.james.rms.R;
 import com.example.james.rms.Setting.SettingContainer;
@@ -81,6 +82,7 @@ public class ProductIncrease extends AppCompatActivity implements View.OnClickLi
     private List<QuantityProfileModel> quantityProfileModelList;
     private Long defaultWeightId;
     private Long defaultQtyId;
+    ProductModel gateInProductModel = new ProductModel();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -95,7 +97,7 @@ public class ProductIncrease extends AppCompatActivity implements View.OnClickLi
         PartyIdPreferences partyIdPreferences = new PartyIdPreferences(this,"loginInformation",MODE_PRIVATE);
         common_partyId =  partyIdPreferences.getPreferences_PartyId().get("partyId");
         //HttpOK
-        String combine_partyId = ProductCombine.combine_partyId(common_partyId);
+        String combine_partyId = SearchCombine.combine_partyId(common_partyId);
         weightProfileModelList = weightProfileDao.findByPartyId(combine_partyId);
         quantityProfileModelList  = quantityProfileDao.findByPartyId(combine_partyId);
 
@@ -120,6 +122,7 @@ public class ProductIncrease extends AppCompatActivity implements View.OnClickLi
     }
 
     private void setAllField(ProductModel productModel){
+        this.gateInProductModel = productModel;
         String weight_unit = null;
         String quantity_unit = null;
         if(productModel.getWeightprofile()!=null){
@@ -128,7 +131,7 @@ public class ProductIncrease extends AppCompatActivity implements View.OnClickLi
                 defaultWeightId = productModel.getWeightprofile().getWeightId();
             }
         }
-        if(productModel.getWeightprofile()!=null){
+        if(productModel.getQuantityProfile()!=null){
             if(ObjectUtil.isNotNullEmpty(productModel.getQuantityProfile().getQuantityUnit())){
                 quantity_unit = productModel.getQuantityProfile().getQuantityUnit();
                 defaultQtyId =  productModel.getQuantityProfile().getQuantityId();
@@ -150,6 +153,10 @@ public class ProductIncrease extends AppCompatActivity implements View.OnClickLi
 
     @Override
     public void onClick(View v) {
+        Long productId = null;
+        if(gateInProductModel != null){
+            productId = gateInProductModel.getProductId();
+        }
         String productCode   = increase_puductCode.getText().toString();
         String puductName    = increase_puductName.getText().toString();
         String descriptionCN = increase_descriptionCN.getText().toString();
@@ -165,7 +172,7 @@ public class ProductIncrease extends AppCompatActivity implements View.OnClickLi
                     Toast.makeText(this,R.string.productAction,Toast.LENGTH_LONG).show();
                     break;
                 }
-                String result = ProductCombine.combine_AddProduct(productCode,puductName,descriptionCN,
+                String result = ProductCombine.combine_AddProduct(productId,productCode,puductName,descriptionCN,
                         descriptionEN,remark,createDate,partyId,defaultWeightId,defaultQtyId);
                 ProductModel productModel = productDao.insertProduct(result);
                 if(productModel != null) {

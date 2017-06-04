@@ -14,6 +14,7 @@ import com.example.james.rms.Core.Dao.InventorySumDaoImpl;
 import com.example.james.rms.Core.Model.InventoryModel;
 import com.example.james.rms.Core.Model.InventorySumModel;
 import com.example.james.rms.Core.Model.Status;
+import com.example.james.rms.Core.SearchObject.SearchCombine;
 import com.example.james.rms.ITF.ViewPagerListener;
 import com.example.james.rms.Inventory.Adapter.InventoryItemListAdapter;
 import com.example.james.rms.Inventory.InventoryCombine;
@@ -45,7 +46,7 @@ public class Inventory_Item extends MyBaseFragment implements ViewPagerListener{
         PartyIdPreferences partyIdPreferences = new PartyIdPreferences(getActivity(),"loginInformation",getActivity().MODE_PRIVATE);
         String partyId =  partyIdPreferences.getPreferences_PartyId().get("partyId");
         //partyId
-        String combine_partyIdAndStatus = InventoryCombine.combine_partyIdAndStatus(partyId, Status.PROGRESS);
+        String combine_partyIdAndStatus = SearchCombine.combine_partyIdAndStatus(partyId, Status.PROGRESS);
         //Service Inventory
 //        InventoryDao inventoryDao = new InventoryDaoImpl();
 //        inventoryModels = inventoryDao.findByPartyIdAndStatus(combine_partyIdAndStatus);

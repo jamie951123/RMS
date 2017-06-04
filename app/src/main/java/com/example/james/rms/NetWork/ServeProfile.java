@@ -15,10 +15,11 @@ public class ServeProfile {
     //Product
     final static String product_findAll                                                 = "rms/product/findAll";
     final static String product_findByPartyId                                            = "rms/product/findByPartyId";
+    final static String product_findByProductId                                         = "rms/product/findByProductId";
     final static String product_insert                                                  = "rms/product/insertProduct";
     final static String product_updateWeightIdNullByWeightIdAndPartyId                  = "rms/product/updateWeightIdNullByWeightIdAndPartyId";
     final static String product_updateQuantityIdNullByQuantityIdAndPartyId                    = "rms/product/updateQuantityIdNullByQuantityIdAndPartyId";
-
+    final static String product_updateQuantityIdAndWeightIdNullByProductId              = "rms/product/updateQuantityIdAndWeightIdNullByProductId";
     //Receiving
     final static String orderFindByPartyId                                      = "rms/receiving/order/findByPartyId";
     final static String itemFindByPartyId                                       = "rms/receiving/item/findByPartyId";
@@ -78,6 +79,10 @@ public class ServeProfile {
     }
     public static String getProduct_findAll() {
         return product_findAll;
+    }
+
+    public static String getProduct_findByProductId() {
+        return product_findByProductId;
     }
 
     public static String getServe() {
@@ -166,5 +171,9 @@ public class ServeProfile {
 
     public static String getQuantity_updateQtyByQuantityIdAndPartyIdAndQtyUnit() {
         return quantity_updateQtyByQuantityIdAndPartyIdAndQtyUnit;
+    }
+
+    public static String getProduct_updateQuantityIdAndWeightIdNullByProductId() {
+        return product_updateQuantityIdAndWeightIdNullByProductId;
     }
 }

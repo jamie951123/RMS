@@ -7,20 +7,5 @@ import com.example.james.rms.Core.Model.Status;
  */
 
 public class InventorySearchObject extends HomeSearchObject{
-    Status status;
 
-    public Status getStatus() {
-        return status;
-    }
-
-    public void setStatus(Status status) {
-        this.status = status;
-    }
-
-    @Override
-    public String toString() {
-        return "InventorySearchObject{" +
-                "status=" + status +
-                '}';
-    }
 }

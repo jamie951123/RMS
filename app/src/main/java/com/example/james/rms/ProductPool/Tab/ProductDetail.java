@@ -14,6 +14,7 @@ import com.example.james.rms.CommonProfile.SharePreferences.PartyIdPreferences;
 import com.example.james.rms.Core.Dao.ProductDao;
 import com.example.james.rms.Core.Dao.ProductDaoImpl;
 import com.example.james.rms.Core.Model.ProductModel;
+import com.example.james.rms.Core.SearchObject.SearchCombine;
 import com.example.james.rms.ProductPool.Adapter.ProductExpandListAdapter;
 import com.example.james.rms.ProductPool.ProductCombine;
 import com.example.james.rms.R;
@@ -47,7 +48,7 @@ public class ProductDetail extends MyBaseFragment implements AdapterView.OnItemC
         PartyIdPreferences partyIdPreferences = new PartyIdPreferences(getActivity(),"loginInformation",getActivity().MODE_PRIVATE);
         String partyId =  partyIdPreferences.getPreferences_PartyId().get("partyId");
         //HttpOK
-        String combine_partyId = productCombine.combine_partyId(partyId);
+        String combine_partyId = SearchCombine.combine_partyId(partyId);
         List<ProductModel> productModels = productDao.findByPartyId(combine_partyId);
         //ListView
         if(productModels != null){

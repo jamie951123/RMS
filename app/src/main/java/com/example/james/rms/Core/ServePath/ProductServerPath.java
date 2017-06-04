@@ -41,4 +41,17 @@ public static String serve_findAll(){
         return serve_path;
     }
 
+    public static String serve_findByProductId(){
+        String serve = ServeProfile.getServe();
+        String path = ServeProfile.getProduct_findByProductId();
+        String serve_path = serve+path;
+        return serve_path;
+    }
+
+    public static String serve_updateQuantityIdAndWeightIdNullByProductId(){
+        String serve = ServeProfile.getServe();
+        String path = ServeProfile.getProduct_updateQuantityIdAndWeightIdNullByProductId();
+        String serve_path = serve+path;
+        return serve_path;
+    }
 }
