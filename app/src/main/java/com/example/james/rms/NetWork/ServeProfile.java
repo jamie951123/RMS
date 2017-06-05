@@ -5,8 +5,10 @@ package com.example.james.rms.NetWork;
  */
 
 public class ServeProfile {
-    public static String serve                                    = "http://123.203.112.174:1123/RMS_Serve/";
-//    public static String serve                                    = "http://123.203.117.130:1123/";
+    public static String serve                                    = "http://123.203.112.174:1123/";
+//    public static String serve                                    = "http://123.203.112.174:1123/RMS_Serve/";
+
+    //    public static String serve                                    = "http://123.203.117.130:1123/";
 //    public static String serve                                    = "http://192.168.43.36:1123/";
 //public static String serve                                    = "http://10.16.81.188:1123/";
     //Login
@@ -17,6 +19,7 @@ public class ServeProfile {
     final static String product_findByPartyId                                            = "rms/product/findByPartyId";
     final static String product_findByProductId                                         = "rms/product/findByProductId";
     final static String product_insert                                                  = "rms/product/insertProduct";
+    final static String product_deleteByProductId                                       = "rms/product/deleteByProductId";
     final static String product_updateWeightIdNullByWeightIdAndPartyId                  = "rms/product/updateWeightIdNullByWeightIdAndPartyId";
     final static String product_updateQuantityIdNullByQuantityIdAndPartyId                    = "rms/product/updateQuantityIdNullByQuantityIdAndPartyId";
     final static String product_updateQuantityIdAndWeightIdNullByProductId              = "rms/product/updateQuantityIdAndWeightIdNullByProductId";
@@ -45,10 +48,16 @@ public class ServeProfile {
     final static String inventory_findByPartyIdAndStatus         ="rms/inventory/findByPartyIdAndStauts";
     final static String inventory_insertInventory                ="rms/inventory/insertInventory";
     final static String inventory_insertInventorys                ="rms/inventory/insertInventorys";
+    final static String inventory_deleteByProductId             ="rms/inventory/deleteByProductId";
 
     //InventorySum
     final static String inventorySum_findByPartyIdAndStatus                      ="rms/inventorysum/findByPartyIdAndStatus";
     final static String inventorySum_findByPartyIdAndStatusOrderByProductId     ="rms/inventorysum/findByPartyIdAndStatusOrderProductId";
+
+
+    public static String getInventory_deleteByProductId() {
+        return inventory_deleteByProductId;
+    }
 
     public static String getInventory_findAll() {
         return inventory_findAll;
@@ -175,5 +184,9 @@ public class ServeProfile {
 
     public static String getProduct_updateQuantityIdAndWeightIdNullByProductId() {
         return product_updateQuantityIdAndWeightIdNullByProductId;
+    }
+
+    public static String getProduct_deleteByProductId() {
+        return product_deleteByProductId;
     }
 }

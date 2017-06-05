@@ -3,7 +3,9 @@ package com.example.james.rms.Core.Dao;
 import android.util.Log;
 
 import com.example.james.rms.CommonProfile.GsonUtil;
+import com.example.james.rms.CommonProfile.ObjectUtil;
 import com.example.james.rms.Core.Model.InventoryModel;
+import com.example.james.rms.Core.Model.ResponseMessage;
 import com.example.james.rms.Core.ServePath.InventoryServePath;
 import com.example.james.rms.NetWork.HttpPostAsync;
 import com.google.gson.Gson;
@@ -128,6 +130,31 @@ public class InventoryDaoImpl implements InventoryDao {
         }
         Log.d("asd","[InventoryModel]-findByPartyIdAndStatus(Response) :" + inventoryModels.toString());
         return inventoryModels;
+    }
+
+    @Override
+    public ResponseMessage deleteByProductId(String product_json) {
+        Log.d("asd","[InventoryModel]-saves(Request--JSON):" + product_json);
+        String result = "";
+        try {
+            result = new HttpPostAsync().execute(InventoryServePath.serve_deleteByProductId(),product_json).get();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+        Log.d("asd:","[InventoryModel]-saves-[Response(String)]: :"+result);
+        if(ObjectUtil.isNotNullEmpty(result)){
+            ResponseMessage responseMessage = new ResponseMessage();
+            try {
+                Gson gson = GsonUtil.fromJson();
+                responseMessage = gson.fromJson(result,responseMessage.getClass());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return responseMessage;
+        }
+        return null;
     }
 }
 

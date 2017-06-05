@@ -1,6 +1,7 @@
 package com.example.james.rms.Core.Dao;
 
 import com.example.james.rms.Core.Model.ProductModel;
+import com.example.james.rms.Core.Model.ResponseMessage;
 
 import java.util.List;
 
@@ -22,4 +23,7 @@ public interface ProductDao {
     Integer updateQuantityIdNullByQuantityIdAndPartyId(String json);
 
     Integer updateQuantityIdAndWeightIdNullByProductId(String json);
+
+    ResponseMessage deleteByProductId(String json);
+
 }

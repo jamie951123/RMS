@@ -5,6 +5,7 @@ import android.util.Log;
 import com.example.james.rms.CommonProfile.GsonUtil;
 import com.example.james.rms.CommonProfile.ObjectUtil;
 import com.example.james.rms.Core.Model.ProductModel;
+import com.example.james.rms.Core.Model.ResponseMessage;
 import com.example.james.rms.Core.ServePath.ProductServerPath;
 import com.example.james.rms.NetWork.HttpGetAsync;
 import com.example.james.rms.NetWork.HttpPostAsync;
@@ -174,6 +175,31 @@ public class ProductDaoImpl implements ProductDao {
             return Integer.parseInt(result);
         }
         Log.d("asd:","[ProductModel]-updateQuantityIdAndWeightIdNullByProductId-[ERROR]: -- Updata fail");
+        return null;
+    }
+
+    @Override
+    public ResponseMessage deleteByProductId(String json) {
+        Log.d("asd:","[ProductModel]-serve_deleteByProductId-[Request (JSON)]: :"+json);
+        String result = "";
+        try {
+            result = new HttpPostAsync().execute(ProductServerPath.serve_deleteByProductId(),json).get();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+        Log.d("asd:","[ProductModel]-serve_deleteByProductId-[Response(String)]: :"+result);
+        if(ObjectUtil.isNotNullEmpty(result)){
+            ResponseMessage responseMessage = new ResponseMessage();
+            try {
+                Gson gson = GsonUtil.fromJson();
+                responseMessage = gson.fromJson(json,responseMessage.getClass());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return responseMessage;
+        }
         return null;
     }
 

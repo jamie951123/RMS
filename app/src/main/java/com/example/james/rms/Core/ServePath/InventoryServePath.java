@@ -43,5 +43,12 @@ public class InventoryServePath {
         return serve_path;
     }
 
+    public static String serve_deleteByProductId(){
+        String serve = ServeProfile.getServe();
+        String path = ServeProfile.getInventory_deleteByProductId();
+        String serve_path = serve+path;
+        return serve_path;
+    }
+
 
 }

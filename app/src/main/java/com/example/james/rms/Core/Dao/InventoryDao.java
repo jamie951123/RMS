@@ -1,6 +1,7 @@
 package com.example.james.rms.Core.Dao;
 
 import com.example.james.rms.Core.Model.InventoryModel;
+import com.example.james.rms.Core.Model.ResponseMessage;
 
 import java.util.List;
 
@@ -17,4 +18,6 @@ public interface InventoryDao {
     List<InventoryModel> saves(String json);
 
     List<InventoryModel> findByPartyIdAndStatus(String json);
+
+    ResponseMessage deleteByProductId(String product_json);
 }

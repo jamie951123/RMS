@@ -54,4 +54,12 @@ public static String serve_findAll(){
         String serve_path = serve+path;
         return serve_path;
     }
+
+    public static String serve_deleteByProductId(){
+        String serve = ServeProfile.getServe();
+        String path = ServeProfile.getProduct_deleteByProductId();
+        String serve_path = serve+path;
+        return serve_path;
+    }
+
 }

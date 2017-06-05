@@ -15,9 +15,12 @@ import com.example.james.rms.CommonProfile.MyExpandableListAdapter;
 import com.example.james.rms.CommonProfile.ObjectUtil;
 import com.example.james.rms.CommonProfile.StartActivityForResultKey;
 import com.example.james.rms.Core.Adapter.CnGridAdapter;
+import com.example.james.rms.Core.Dao.InventoryDao;
+import com.example.james.rms.Core.Dao.InventoryDaoImpl;
 import com.example.james.rms.Core.Dao.ProductDao;
 import com.example.james.rms.Core.Dao.ProductDaoImpl;
 import com.example.james.rms.Core.Model.ProductModel;
+import com.example.james.rms.Core.Model.ResponseMessage;
 import com.example.james.rms.Core.SearchObject.ProductSearchObject;
 import com.example.james.rms.Core.SearchObject.SearchCombine;
 import com.example.james.rms.Operation.ProductAction.ProductIncrease;
@@ -72,10 +75,10 @@ public class ProductExpandListAdapter extends MyExpandableListAdapter<ProductMod
         holder.linear_delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String productSearchObject = SearchCombine.combine_id(getGroup(groupPosition).getProductId());
-                ProductDao productDao = new ProductDaoImpl();
-                Integer updatedCount = productDao.updateQuantityIdAndWeightIdNullByProductId(productSearchObject);
-                Log.d("asd","updatedCount : " +updatedCount);
+                String productModel = ProductCombine.modelToJson(getFilteredData().get(groupPosition));
+                InventoryDao inventoryDao = new InventoryDaoImpl();
+                ResponseMessage responseMessage = inventoryDao.deleteByProductId(productModel);
+                Log.d("asd","responseMessage : " +responseMessage);
             }
         });
 //        ArrayList<GridComponent> gridList = new ArrayList<>();
