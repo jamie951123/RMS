@@ -180,7 +180,7 @@ public class ProductDaoImpl implements ProductDao {
 
     @Override
     public ResponseMessage deleteByProductId(String json) {
-        Log.d("asd:","[ProductModel]-serve_deleteByProductId-[Request (JSON)]: :"+json);
+        Log.d("asd:","[ProductModel]-deleteByProductId-[Request (JSON)]: :"+json);
         String result = "";
         try {
             result = new HttpPostAsync().execute(ProductServerPath.serve_deleteByProductId(),json).get();
@@ -189,12 +189,37 @@ public class ProductDaoImpl implements ProductDao {
         } catch (ExecutionException e) {
             e.printStackTrace();
         }
-        Log.d("asd:","[ProductModel]-serve_deleteByProductId-[Response(String)]: :"+result);
+        Log.d("asd:","[ProductModel]-deleteByProductId-[Response(String)]: :"+result);
         if(ObjectUtil.isNotNullEmpty(result)){
             ResponseMessage responseMessage = new ResponseMessage();
             try {
                 Gson gson = GsonUtil.fromJson();
                 responseMessage = gson.fromJson(json,responseMessage.getClass());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return responseMessage;
+        }
+        return null;
+    }
+
+    @Override
+    public ResponseMessage delete(String product_json) {
+        Log.d("asd:","[ProductModel]-delete-[Request (JSON)]: :"+product_json);
+        String result = "";
+        try {
+            result = new HttpPostAsync().execute(ProductServerPath.serve_delete(),product_json).get();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+        Log.d("asd:","[ProductModel]-delete-[Response(String)]: :"+result);
+        if(ObjectUtil.isNotNullEmpty(result)){
+            ResponseMessage responseMessage = new ResponseMessage();
+            try {
+                Gson gson = GsonUtil.fromJson();
+                responseMessage = gson.fromJson(result,responseMessage.getClass());
             } catch (Exception e) {
                 e.printStackTrace();
             }

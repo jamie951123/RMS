@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.example.james.rms.CommonProfile.MyExpandableListAdapter;
 import com.example.james.rms.CommonProfile.ObjectUtil;
+import com.example.james.rms.CommonProfile.ResponseStatus;
 import com.example.james.rms.CommonProfile.StartActivityForResultKey;
 import com.example.james.rms.Core.Adapter.CnGridAdapter;
 import com.example.james.rms.Core.Dao.InventoryDao;
@@ -76,9 +77,14 @@ public class ProductExpandListAdapter extends MyExpandableListAdapter<ProductMod
             @Override
             public void onClick(View v) {
                 String productModel = ProductCombine.modelToJson(getFilteredData().get(groupPosition));
-                InventoryDao inventoryDao = new InventoryDaoImpl();
-                ResponseMessage responseMessage = inventoryDao.deleteByProductId(productModel);
+                ProductDao productDao = new ProductDaoImpl();
+                ResponseMessage responseMessage = productDao.delete(productModel);
+                if(responseMessage != null && ResponseStatus.getSuccessful().equalsIgnoreCase(responseMessage.getMessage_status())){
+                    getFilteredData().remove(groupPosition);
+                    notifyDataSetChanged();
+                }
                 Log.d("asd","responseMessage : " +responseMessage);
+
             }
         });
 //        ArrayList<GridComponent> gridList = new ArrayList<>();

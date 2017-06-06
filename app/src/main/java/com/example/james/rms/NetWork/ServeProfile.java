@@ -20,6 +20,7 @@ public class ServeProfile {
     final static String product_findByProductId                                         = "rms/product/findByProductId";
     final static String product_insert                                                  = "rms/product/insertProduct";
     final static String product_deleteByProductId                                       = "rms/product/deleteByProductId";
+    final static String product_delete                                                  = "rms/product/delete";
     final static String product_updateWeightIdNullByWeightIdAndPartyId                  = "rms/product/updateWeightIdNullByWeightIdAndPartyId";
     final static String product_updateQuantityIdNullByQuantityIdAndPartyId                    = "rms/product/updateQuantityIdNullByQuantityIdAndPartyId";
     final static String product_updateQuantityIdAndWeightIdNullByProductId              = "rms/product/updateQuantityIdAndWeightIdNullByProductId";
@@ -29,6 +30,7 @@ public class ServeProfile {
     final static String insertReceivingOrder                                    = "rms/receiving/order/insertReceivingOrder";
     final static String insertReceivingItem                                      = "rms/receiving/item/insertReceivingItem";
     final static String saveOrderAndItem                                     = "rms/receiving/orderitem/saveOrderAndItem";
+    final static String item_deleteByProductId                                   = "rms/receiving/item/deleteByProductId";
     //WeightProfile
     final static String weight_findAll                                           = "rms/weight/findAll";
     final static String weight_findByPartyId                                  = "rms/weight/findByPartyId";
@@ -54,6 +56,14 @@ public class ServeProfile {
     final static String inventorySum_findByPartyIdAndStatus                      ="rms/inventorysum/findByPartyIdAndStatus";
     final static String inventorySum_findByPartyIdAndStatusOrderByProductId     ="rms/inventorysum/findByPartyIdAndStatusOrderProductId";
 
+
+    public static String getProduct_delete() {
+        return product_delete;
+    }
+
+    public static String getItem_deleteByProductId() {
+        return item_deleteByProductId;
+    }
 
     public static String getInventory_deleteByProductId() {
         return inventory_deleteByProductId;

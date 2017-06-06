@@ -11,8 +11,8 @@ import java.util.List;
  */
 
 public abstract class MyBaseSwipeAdapter<T>  extends BaseSwipeAdapter {
-    public Context mContext;
-    public List<T> list;
+    protected Context mContext;
+    protected List<T> list;
     @Override
     public int getCount() {
         return list.size();

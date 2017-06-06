@@ -41,6 +41,15 @@ public class ReceivingServePath {
         String serve_path = serve+path;
         return serve_path;
     }
+
+    public static String item_deleteByProductId(){
+        String serve = ServeProfile.getServe();
+        String path = ServeProfile.getItem_deleteByProductId();
+        String serve_path = serve+path;
+        return serve_path;
+    }
+
+
 //    public static String findOrderIdByPartyIdAndCreateDate(){
 //        String serve = PhpProfile.getServe();
 //        String path = PhpProfile.getFindReceivingOrderByPartyIdAndCreateDate();

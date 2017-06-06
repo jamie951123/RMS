@@ -26,4 +26,6 @@ public interface ProductDao {
 
     ResponseMessage deleteByProductId(String json);
 
+    ResponseMessage delete(String json);
+
 }

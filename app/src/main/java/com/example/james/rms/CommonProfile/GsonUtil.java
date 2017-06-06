@@ -63,9 +63,9 @@ public class GsonUtil {
                     throws JsonParseException {
                 try {
                     String Date_str = json.getAsString();
-                    Log.v("asd","json.getAsLong() : " +json.getAsString());
+//                    Log.v("asd","json.getAsLong() : " +json.getAsString());
                     Date newDate = df.parse(Date_str);
-                    Log.v("asd","newDate : " +newDate);
+//                    Log.v("asd","newDate : " +newDate);
                     return newDate;
                 } catch (Exception e) {
                     e.printStackTrace();
