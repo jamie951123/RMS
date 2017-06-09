@@ -24,7 +24,7 @@ public static String serve_findAll(){
 
     public static String serve_insertProduct(){
         String serve = ServeProfile.getServe();
-        String path = ServeProfile.getProduct_insert();
+        String path = ServeProfile.getProduct_save();
         String serve_path = serve+path;
         return serve_path;
     }

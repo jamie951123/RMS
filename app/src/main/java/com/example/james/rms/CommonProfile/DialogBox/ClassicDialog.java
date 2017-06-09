@@ -223,10 +223,14 @@ public class ClassicDialog {
                             }
                             switch (key){
                                 case KeyModel.gw:
-                                    c.settingPagesWeight(weightProfileModelList.get(which));
+                                    if(weightProfileModelList != null && !weightProfileModelList.isEmpty()) {
+                                        c.settingPagesWeight(weightProfileModelList.get(which));
+                                    }
                                     break;
                                 case KeyModel.qty:
-                                    c.settingPagesQty(quantityProfileModelList.get(which));
+                                    if(quantityProfileModelList != null && !quantityProfileModelList.isEmpty()) {
+                                        c.settingPagesQty(quantityProfileModelList.get(which));
+                                    }
                             }
 
                         }

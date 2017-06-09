@@ -30,15 +30,14 @@ import com.example.james.rms.Core.Dao.ProductDao;
 import com.example.james.rms.Core.Dao.ProductDaoImpl;
 import com.example.james.rms.Core.Dao.QuantityProfileDao;
 import com.example.james.rms.Core.Dao.QuantityProfileDaoImpl;
-import com.example.james.rms.Core.Dao.ReceivingDao;
-import com.example.james.rms.Core.Dao.ReceivingDaoImpl;
+import com.example.james.rms.Core.Dao.ReceivingOrderDao;
+import com.example.james.rms.Core.Dao.ReceivingOrderDaoImpl;
 import com.example.james.rms.Core.Dao.WeightProfileDao;
 import com.example.james.rms.Core.Dao.WeightProfileDaoImpl;
 import com.example.james.rms.Core.Model.KeyModel;
 import com.example.james.rms.Core.Model.ProductModel;
 import com.example.james.rms.Core.Model.QuantityProfileModel;
 import com.example.james.rms.Core.Model.ReceivingItemModel;
-import com.example.james.rms.Core.Model.ReceivingOrderAndItemContainer;
 import com.example.james.rms.Core.Model.ReceivingOrderModel;
 import com.example.james.rms.Core.Model.Status;
 import com.example.james.rms.Core.Model.WeightProfileModel;
@@ -86,7 +85,7 @@ public class ReceivingIncrease extends AppCompatActivity implements View.OnClick
     //
     private QuantityProfileDao quantityProfileDao = new QuantityProfileDaoImpl();
     //
-    private ReceivingDao receivingDao = new ReceivingDaoImpl();
+    private ReceivingOrderDao receivingOrderDao = new ReceivingOrderDaoImpl();
     //
     private HashMap<Integer, Boolean> isSelected;
 
@@ -137,6 +136,7 @@ public class ReceivingIncrease extends AppCompatActivity implements View.OnClick
         String orderRemark              = remark_edit.getText().toString();
         ReceivingOrderModel order       = getReceivingOrder(itemSize,receivingDate,createDate,orderRemark);
         List<ReceivingItemModel> item   = getReceivingItem(receivingDate,createDate);
+        order.setReceivingItem(item);
         if(receivingDate == null){
             List<String> missingField = new ArrayList<>();
             missingField.add(getString(R.string.label_receivingDate));
@@ -145,20 +145,15 @@ public class ReceivingIncrease extends AppCompatActivity implements View.OnClick
             return super.onOptionsItemSelected(menuItem);
         }
         if(order != null){
-            ReceivingOrderAndItemContainer container = new ReceivingOrderAndItemContainer(order,item);
-            String json = null;
-            try{
+            String result_json = null;
+            try {
                 Gson gson = GsonUtil.toJson();
-                json = gson.toJson(container);
+                result_json = gson.toJson(order);
             }catch (Exception e){
                 e.printStackTrace();
-            }
-            if(ObjectUtil.isNullEmpty(json)){
-                Toast.makeText(this,getString(R.string.insert_fail),Toast.LENGTH_SHORT).show();
                 return super.onOptionsItemSelected(menuItem);
             }
-
-            ReceivingOrderAndItemContainer saveResult = receivingDao.saveOrderAndItem(json);
+            ReceivingOrderModel saveResult = receivingOrderDao.saveOrderAndItem(result_json);
             if(saveResult != null){
                 Intent intent = new Intent();
                 intent.putExtra("NavigationController", StartActivityForResultKey.navReceiving);

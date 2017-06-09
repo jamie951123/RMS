@@ -1,6 +1,7 @@
 package com.example.james.rms.Core.Model;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by james on 26/3/2017.
@@ -17,6 +18,7 @@ public class ReceivingOrderModel {
     private Integer actualQty;
     private Integer estimateQty;
     private Integer itemQty;
+    private List<ReceivingItemModel> receivingItem;
 
     public Long getOrderId() {
         return orderId;
@@ -98,19 +100,28 @@ public class ReceivingOrderModel {
         this.itemQty = itemQty;
     }
 
+    public List<ReceivingItemModel> getReceivingItem() {
+        return receivingItem;
+    }
+
+    public void setReceivingItem(List<ReceivingItemModel> receivingItem) {
+        this.receivingItem = receivingItem;
+    }
+
     @Override
     public String toString() {
         return "ReceivingOrderModel{" +
                 "orderId=" + orderId +
                 ", partyId='" + partyId + '\'' +
-                ", receivingDate='" + receivingDate + '\'' +
                 ", remark='" + remark + '\'' +
-                ", status=" + status +
+                ", status='" + status + '\'' +
+                ", receivingDate=" + receivingDate +
                 ", createDate=" + createDate +
                 ", closeDate=" + closeDate +
                 ", actualQty=" + actualQty +
                 ", estimateQty=" + estimateQty +
                 ", itemQty=" + itemQty +
+                ", receivingItem=" + receivingItem +
                 '}';
     }
 }

@@ -11,8 +11,10 @@ import com.example.james.rms.CommonProfile.MyBaseFragment;
 import com.example.james.rms.CommonProfile.ObjectUtil;
 import com.example.james.rms.CommonProfile.SharePreferences.PartyIdPreferences;
 import com.example.james.rms.Controller.NavigationController;
-import com.example.james.rms.Core.Dao.ReceivingDao;
-import com.example.james.rms.Core.Dao.ReceivingDaoImpl;
+import com.example.james.rms.Core.Dao.ReceivingItemDao;
+import com.example.james.rms.Core.Dao.ReceivingItemDaoImpl;
+import com.example.james.rms.Core.Dao.ReceivingOrderDao;
+import com.example.james.rms.Core.Dao.ReceivingOrderDaoImpl;
 import com.example.james.rms.Core.Model.ReceivingItemModel;
 import com.example.james.rms.Core.Model.ReceivingOrderModel;
 import com.example.james.rms.ITF.ViewPagerListener;
@@ -31,7 +33,8 @@ public class Receiving_order extends MyBaseFragment implements AdapterView.OnIte
     @BindView(R.id.receiving_order_listView)
     AnimatedExpandableListView listView;
 
-    private ReceivingDao receivingDao = new ReceivingDaoImpl();
+    private ReceivingOrderDao receivingOrderDao = new ReceivingOrderDaoImpl();
+    private ReceivingItemDao receivingItemDao = new ReceivingItemDaoImpl();
     //
     private ReceivingOrderExpandListAdapter receivingOrderExpandListAdapter;
     //Result
@@ -49,8 +52,8 @@ public class Receiving_order extends MyBaseFragment implements AdapterView.OnIte
         String combine_partyId = ReceivingCombine.combine_partyId(partyId);
 
         //HttpOK
-        receivingOrderModels = receivingDao.findReceivingOrderByPartyId(combine_partyId);
-        receivingItemModels = receivingDao.findReceivingItemByPartyId(combine_partyId);
+        receivingOrderModels = receivingOrderDao.findReceivingOrderByPartyId(combine_partyId);
+        receivingItemModels = receivingItemDao.findReceivingItemByPartyId(combine_partyId);
 
         //listView
         if(receivingOrderModels != null) {

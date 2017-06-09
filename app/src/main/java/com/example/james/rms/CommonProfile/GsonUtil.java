@@ -40,9 +40,9 @@ public class GsonUtil {
             public Date deserialize(final JsonElement json, final Type typeOfT, final JsonDeserializationContext context)
                     throws JsonParseException {
                 try {
-                    Log.d("asd","json.getAsLong() : " +json.getAsLong());
+//                    Log.d("asd","json.getAsLong() : " +json.getAsLong());
                     Date newDate = new Date(json.getAsLong());
-                    Log.d("asd","newDate : " +newDate);
+//                    Log.d("asd","newDate : " +newDate);
                     return newDate;
                 } catch (Exception e) {
                     e.printStackTrace();
