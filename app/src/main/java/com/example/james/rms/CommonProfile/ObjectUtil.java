@@ -10,8 +10,8 @@ import java.util.Date;
  */
 
 public class ObjectUtil {
-    final static SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-    final static SimpleDateFormat sdf_onlyDate = new SimpleDateFormat("yyyy-MM-dd");
+    public final static SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+    public final static SimpleDateFormat sdf_onlyDate = new SimpleDateFormat("yyyy-MM-dd");
 
     public static boolean isNotNullEmpty(String string) {
         return string != null && !string.equals("") && !string.equals("null") && !string.isEmpty() && !string.trim().isEmpty();

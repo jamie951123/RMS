@@ -10,20 +10,25 @@ import java.util.List;
  */
 
 public interface ProductDao {
+
+    //Find
     List<ProductModel> findAll();
 
     ProductModel findByProductId(String json);
 
     List<ProductModel> findByPartyId(String json);
 
-    ProductModel insertProduct(String json);
+    //Save
+    ProductModel save(String json);
 
+    //Update
     Integer updateWeightIdNullByWeightIdAndPartyId(String json);
 
     Integer updateQuantityIdNullByQuantityIdAndPartyId(String json);
 
     Integer updateQuantityIdAndWeightIdNullByProductId(String json);
 
+    //Delete
     ResponseMessage deleteByProductId(String json);
 
     ResponseMessage delete(String json);

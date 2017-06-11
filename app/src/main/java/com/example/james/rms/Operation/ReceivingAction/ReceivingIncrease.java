@@ -78,7 +78,8 @@ public class ReceivingIncrease extends AppCompatActivity implements View.OnClick
     EditText remark_edit;
     @BindView(receiving_increase_datePicker)
     TextView datePicker_btn;
-
+    @BindView(R.id.receiving_increase_toolbar_title)
+    TextView receiving_increase_toolbar_title;
     private ProductDao productDao = new ProductDaoImpl();
     //
     private WeightProfileDao weightProfileDao = new WeightProfileDaoImpl();
@@ -118,6 +119,33 @@ public class ReceivingIncrease extends AppCompatActivity implements View.OnClick
         setCheckbox();
         fab_btn.setOnClickListener(this);
         datePicker_btn.setOnClickListener(this);
+
+        String receivingOrder_Json = null;
+        if (savedInstanceState == null) {
+            Bundle extras = getIntent().getExtras();
+            if(extras == null) {
+                receivingOrder_Json= null;
+            } else {
+                receivingOrder_Json= extras.getString(StartActivityForResultKey.receivingOrderModel);
+            }
+        }
+
+        if(ObjectUtil.isNotNullEmpty(receivingOrder_Json)){
+            ReceivingOrderModel receivingOrderModel = ReceivingCombine.jsonToOrderModel(receivingOrder_Json);
+            receiving_increase_toolbar_title.setText(R.string.title_edit_receiving);
+            setAllField(receivingOrderModel);
+            return;
+        }
+    }
+
+    private void setAllField(ReceivingOrderModel receivingOrderModel) {
+        remark_edit.setText(receivingOrderModel.getRemark());
+        if(receivingOrderModel.getReceivingDate() !=null) {
+            Log.v("asd","[Receiving Increase ]-[Edit]-[ReceivingDate]:" +receivingOrderModel.getReceivingDate());
+            String editRLDate = ObjectUtil.sdf_onlyDate.format(receivingOrderModel.getReceivingDate());
+            datePicker_btn.setText(editRLDate);
+
+        }
     }
 
     @Override
@@ -251,7 +279,8 @@ public class ReceivingIncrease extends AppCompatActivity implements View.OnClick
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setHomeButtonEnabled(true);
             toolbar.setNavigationIcon(R.drawable.back_white);
-            getSupportActionBar().setTitle(getString(R.string.receiving_increase_title));
+            receiving_increase_toolbar_title.setText(R.string.receiving_increase_title);
+//            getSupportActionBar().setTitle(getString(R.string.receiving_increase_title));
             toolbar.setNavigationOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

@@ -15,6 +15,7 @@ import com.example.james.rms.CommonProfile.DialogBox.ClassicDialog;
 import com.example.james.rms.CommonProfile.DialogBox.Service.ClassicDialogService;
 import com.example.james.rms.CommonProfile.ObjectUtil;
 import com.example.james.rms.CommonProfile.SharePreferences.PartyIdPreferences;
+import com.example.james.rms.CommonProfile.StartActivityForResultKey;
 import com.example.james.rms.Controller.NavigationController;
 import com.example.james.rms.Core.Dao.ProductDao;
 import com.example.james.rms.Core.Dao.ProductDaoImpl;
@@ -107,7 +108,7 @@ public class ProductIncrease extends AppCompatActivity implements View.OnClickLi
             if(extras == null) {
                 editJson= null;
             } else {
-                editJson= extras.getString("ProductIncrease");
+                editJson= extras.getString(StartActivityForResultKey.productModel);
             }
         }
 
@@ -174,7 +175,7 @@ public class ProductIncrease extends AppCompatActivity implements View.OnClickLi
                 }
                 String result = ProductCombine.combine_AddProduct(productId,productCode,puductName,descriptionCN,
                         descriptionEN,remark,createDate,partyId,defaultWeightId,defaultQtyId);
-                ProductModel productModel = productDao.insertProduct(result);
+                ProductModel productModel = productDao.save(result);
                 if(productModel != null) {
                     Toast.makeText(this,R.string.insert_successful,Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent();

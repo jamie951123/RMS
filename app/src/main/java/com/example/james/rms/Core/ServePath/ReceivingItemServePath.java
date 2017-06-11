@@ -42,5 +42,11 @@ public class ReceivingItemServePath {
         return serve_path;
     }
 
+    public static String delete(){
+        String serve = ServeProfile.getServe();
+        String path = ServeProfile.getRe_item_delete();
+        String serve_path = serve+path;
+        return serve_path;
+    }
 
 }

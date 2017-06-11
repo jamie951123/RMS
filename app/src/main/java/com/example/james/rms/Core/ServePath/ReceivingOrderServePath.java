@@ -35,4 +35,11 @@ public class ReceivingOrderServePath {
         return serve_path;
     }
 
+    public static String delete(){
+        String serve = ServeProfile.getServe();
+        String path = ServeProfile.getRe_order_delete();
+        String serve_path = serve+path;
+        return serve_path;
+    }
+
 }

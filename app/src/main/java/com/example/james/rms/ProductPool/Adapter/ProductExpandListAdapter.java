@@ -67,7 +67,7 @@ public class ProductExpandListAdapter extends MyExpandableListAdapter<ProductMod
                 String editModel = ProductCombine.modelToJson(getFilteredData().get(groupPosition));
                 Intent intent = new Intent();
                 intent.setClass(getContext(), ProductIncrease.class);
-                intent.putExtra("ProductIncrease",editModel);
+                intent.putExtra(StartActivityForResultKey.productModel,editModel);
                 getContext().startActivity(intent);
                 Log.d("asd",editModel);
             }
@@ -83,7 +83,7 @@ public class ProductExpandListAdapter extends MyExpandableListAdapter<ProductMod
                     getFilteredData().remove(groupPosition);
                     notifyDataSetChanged();
                 }
-                Log.d("asd","responseMessage : " +responseMessage);
+                Log.d("asd","[Product]-responseMessage : " +responseMessage);
 
             }
         });

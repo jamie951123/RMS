@@ -1,15 +1,22 @@
 package com.example.james.rms.Receiving.Adapter;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.james.rms.CommonProfile.MyExpandableListAdapter;
 import com.example.james.rms.CommonProfile.ObjectUtil;
+import com.example.james.rms.CommonProfile.ResponseStatus;
+import com.example.james.rms.Core.Dao.ReceivingItemDao;
+import com.example.james.rms.Core.Dao.ReceivingItemDaoImpl;
 import com.example.james.rms.Core.Model.ReceivingItemModel;
+import com.example.james.rms.Core.Model.ResponseMessage;
 import com.example.james.rms.R;
+import com.example.james.rms.Receiving.ReceivingCombine;
 
 import java.util.List;
 
@@ -43,7 +50,26 @@ public class ReceivingItemExpandListAdapter extends MyExpandableListAdapter<Rece
         viewHolder.receivingItem_itemReceivingDate.setText(ObjectUtil.dateToString(receivingItemModel.getItemReceivingDate()));
         viewHolder.receivingItem_itemGrossWeight.setText(ObjectUtil.bigDecimalToString(receivingItemModel.getItemGrossWeight()));
         viewHolder.receivingItem_itemGrossWeightUnit.setText(receivingItemModel.getProductModel().getWeightprofile()==null?"":receivingItemModel.getProductModel().getWeightprofile().getWeightUnit() );
+        viewHolder.receivingItem_linear_edit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.v("asd","linear_edit");
+            }
+        });
 
+        viewHolder.receivingItem_linear_delete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String receivingItem_json = ReceivingCombine.itemModelToJson(getFilteredData().get(groupPosition));
+                ReceivingItemDao receivingItemDao = new ReceivingItemDaoImpl();
+                ResponseMessage responseMessage = receivingItemDao.delete(receivingItem_json);
+                if(responseMessage != null && ResponseStatus.getSuccessful().equalsIgnoreCase(responseMessage.getMessage_status())){
+                    getFilteredData().remove(groupPosition);
+                    notifyDataSetChanged();
+                }
+                Log.d("asd","[ReceivingItem]-responseMessage : " +responseMessage);
+            }
+        });
         return convertView;
     }
 
@@ -108,6 +134,10 @@ public class ReceivingItemExpandListAdapter extends MyExpandableListAdapter<Rece
         TextView receivingItem_itemGrossWeight;
         @BindView(R.id.receivingItem_itemGrossWeightUnit)
         TextView receivingItem_itemGrossWeightUnit;
+        @BindView(R.id.receiving_item_linear_edit)
+        LinearLayout receivingItem_linear_edit;
+        @BindView(R.id.receiving_item_linear_delete)
+        LinearLayout receivingItem_linear_delete;
 
         public GroupHolder(View view){
             ButterKnife.bind(this,view);

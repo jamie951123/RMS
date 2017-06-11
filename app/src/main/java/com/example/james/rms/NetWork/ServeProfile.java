@@ -42,6 +42,7 @@ public class ServeProfile {
     final static String re_item_deleteByOrderId = "rms/receiving/item/deleteByOrderId";
     final static String re_item_updateOrderIdNullByOrderId = "rms/receiving/item/updateOrderIdNullByOrderId";
     final static String re_item_deleteByProductId = "rms/receiving/item/deleteByProductId";
+    final static String re_item_delete= "rms/receiving/item/delete";
 
     //WeightProfile
     final static String weight_findAll = "rms/weight/findAll";
@@ -243,5 +244,9 @@ public class ServeProfile {
 
     public static String getInventorySum_findByPartyIdAndStatusOrderByProductId() {
         return inventorySum_findByPartyIdAndStatusOrderByProductId;
+    }
+
+    public static String getRe_item_delete() {
+        return re_item_delete;
     }
 }

@@ -28,7 +28,7 @@
             android:paddingLeft="@dimen/card_margin"
             android:paddingRight="@dimen/card_margin"
             android:paddingTop="@dimen/card_margin"
-            android:layout_weight="1"
+            android:layout_weight="2"
             android:orientation="horizontal">
 
             <de.hdodenhof.circleimageview.CircleImageView
@@ -151,20 +151,83 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="3"
+                android:layout_weight="4"
                 android:orientation="horizontal">
 
-                <Button
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:minHeight="30dp"
-                    android:id="@+id/receivingOrder_next"
-                    android:layout_weight="3"
-                    android:gravity="right|center_vertical"
-                    android:text="@string/label_detail"
-                    android:drawableRight="@drawable/nextright_black"
-                    android:focusable="false"/>
+                    android:orientation="vertical"
+                    android:layout_weight="1"
+                    android:foreground="?android:attr/selectableItemBackground"
+                    android:id="@+id/receivingOrder_linear_edit">
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        xmlns:app="http://schemas.android.com/apk/res-auto"
+                        android:id="@+id/receivingOrder_image_edit"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/pencil_color"
+                        android:layout_gravity="center"
+                        app:civ_border_width="2dp"
+                        app:civ_fill_color="@color/organeFFC266"/>
 
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:textSize="15sp"
+                        android:text="@string/label_edit"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:layout_weight="1"
+                    android:foreground="?android:attr/selectableItemBackground"
+                    android:id="@+id/receivingOrder_linear_delete">
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        xmlns:app="http://schemas.android.com/apk/res-auto"
+                        android:id="@+id/receivingOrder_image_delete"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/delete_color"
+                        android:layout_gravity="center"
+                        app:civ_border_width="2dp"
+                        app:civ_fill_color="@color/redFF3333"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:textSize="15sp"
+                        android:text="@string/label_delete"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:layout_weight="1"
+                    android:foreground="?android:attr/selectableItemBackground"
+                    android:id="@+id/receivingOrder_linear_detail">
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        xmlns:app="http://schemas.android.com/apk/res-auto"
+                        android:id="@+id/receivingOrder_image_detail"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/nextright_black"
+                        android:layout_gravity="center"
+                        app:civ_border_width="2dp"
+                        app:civ_fill_color="@color/blue0895ef"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:textSize="15sp"
+                        android:text="@string/label_detail"/>
+                </LinearLayout>
 
             </LinearLayout>
 

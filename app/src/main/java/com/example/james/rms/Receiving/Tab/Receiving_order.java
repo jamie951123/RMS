@@ -34,12 +34,12 @@ public class Receiving_order extends MyBaseFragment implements AdapterView.OnIte
     AnimatedExpandableListView listView;
 
     private ReceivingOrderDao receivingOrderDao = new ReceivingOrderDaoImpl();
-    private ReceivingItemDao receivingItemDao = new ReceivingItemDaoImpl();
+//    private ReceivingItemDao receivingItemDao = new ReceivingItemDaoImpl();
     //
     private ReceivingOrderExpandListAdapter receivingOrderExpandListAdapter;
     //Result
     List<ReceivingOrderModel> receivingOrderModels;
-    List<ReceivingItemModel> receivingItemModels;
+//    List<ReceivingItemModel> receivingItemModels;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -53,11 +53,11 @@ public class Receiving_order extends MyBaseFragment implements AdapterView.OnIte
 
         //HttpOK
         receivingOrderModels = receivingOrderDao.findReceivingOrderByPartyId(combine_partyId);
-        receivingItemModels = receivingItemDao.findReceivingItemByPartyId(combine_partyId);
+//        receivingItemModels = receivingItemDao.findReceivingItemByPartyId(combine_partyId);
 
         //listView
         if(receivingOrderModels != null) {
-            receivingOrderExpandListAdapter = new ReceivingOrderExpandListAdapter(getActivity(), receivingOrderModels,receivingItemModels);
+            receivingOrderExpandListAdapter = new ReceivingOrderExpandListAdapter(getActivity(), receivingOrderModels);
             listView.setAdapter(receivingOrderExpandListAdapter);
             listView.setOnItemLongClickListener(this);
             listView.setGroupIndicator(null);
@@ -65,21 +65,6 @@ public class Receiving_order extends MyBaseFragment implements AdapterView.OnIte
         }
         return rootView;
     }
-    @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        Long order_orderId = receivingOrderModels.get(position).getOrderId();
-        if(order_orderId ==null) return;
-
-        List<ReceivingItemModel> itemModels = new ArrayList<>();
-        for(ReceivingItemModel items : receivingItemModels){
-            Long item_orderId = items.getOrderId();
-            if(order_orderId.equals(item_orderId))itemModels.add(items);
-        }
-        NavigationController controller = (NavigationController)getActivity();
-        ViewPagerListener viewPagerListener = (ViewPagerListener)controller;
-        viewPagerListener.transferViewPager(R.id.receiving_item,itemModels);
-    }
-
 
     //SearchView
     @Override
@@ -107,14 +92,16 @@ public class Receiving_order extends MyBaseFragment implements AdapterView.OnIte
         Long order_orderId = receivingOrderModels.get(position).getOrderId();
         if(order_orderId ==null) return true;
 
-        List<ReceivingItemModel> itemModels = new ArrayList<>();
-        for(ReceivingItemModel items : receivingItemModels){
-            Long item_orderId = items.getOrderId();
-            if(order_orderId.equals(item_orderId))itemModels.add(items);
+        if(receivingOrderModels.get(position).getReceivingItem() != null) {
+            NavigationController controller = (NavigationController) getContext();
+            ViewPagerListener viewPagerListener = (ViewPagerListener) controller;
+            viewPagerListener.transferViewPager(R.id.receiving_item, receivingOrderModels.get(position).getReceivingItem());
         }
-        NavigationController controller = (NavigationController)getActivity();
-        ViewPagerListener viewPagerListener = (ViewPagerListener)controller;
-        viewPagerListener.transferViewPager(R.id.receiving_item,itemModels);
         return true;
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
     }
 }

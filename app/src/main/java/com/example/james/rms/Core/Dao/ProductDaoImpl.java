@@ -97,7 +97,7 @@ public class ProductDaoImpl implements ProductDao {
         return products;
     }
 
-    public ProductModel insertProduct(String json){
+    public ProductModel save(String json){
         Log.d("asd:","[ProductModel]-insertProduct-[Request (JSON)]: :"+json);
         String result = "";
         try {

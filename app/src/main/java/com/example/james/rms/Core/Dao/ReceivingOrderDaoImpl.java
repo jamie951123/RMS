@@ -3,7 +3,9 @@ package com.example.james.rms.Core.Dao;
 import android.util.Log;
 
 import com.example.james.rms.CommonProfile.GsonUtil;
+import com.example.james.rms.CommonProfile.ObjectUtil;
 import com.example.james.rms.Core.Model.ReceivingOrderModel;
+import com.example.james.rms.Core.Model.ResponseMessage;
 import com.example.james.rms.Core.ServePath.ReceivingOrderServePath;
 import com.example.james.rms.NetWork.HttpPostAsync;
 import com.google.gson.Gson;
@@ -48,6 +50,33 @@ public class ReceivingOrderDaoImpl implements ReceivingOrderDao {
         return receivingOrderModels;
     }
 
+    @Override
+    public ReceivingOrderModel save(String json) {
+        String result = "";
+        Log.d("asd", "[ReceivingOrderModel]- save(Request--JSON) :" + json);
+        try {
+            result = new HttpPostAsync().execute(ReceivingOrderServePath.save(), json).get();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+        Log.d("asd", "[ReceivingOrderModel]-save(Response-[String]):" + result);
+        ReceivingOrderModel receivingOrderModel = new ReceivingOrderModel();
+        try {
+            Gson gson = GsonUtil.fromJson();
+            receivingOrderModel = gson.fromJson(result, ReceivingOrderModel.class);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        if (receivingOrderModel == null) {
+            Log.d("asd", "[ReceivingOrderModel]-save(Response) [Error] : Serve have not response anything");
+            return null;
+        }
+        Log.d("asd", "[ReceivingOrderModel]-save(Response--GSON):" + result);
+        return receivingOrderModel;
+    }
+
 //    @Override
 //    public List<ReceivingOrderModel> findReceivingOrderByPartyIdAndCreateDate(String json) {
 //        String result = "";
@@ -65,32 +94,6 @@ public class ReceivingOrderDaoImpl implements ReceivingOrderDao {
 //        return receivingOrderModel;
 //    }
 
-    @Override
-    public ReceivingOrderModel insertIntoReceivingOrder(String json) {
-        String result = "";
-        Log.d("asd", "[ReceivingOrderModel]- insertIntoReceivingOrder(Request--JSON) :" + json);
-        try {
-            result = new HttpPostAsync().execute(ReceivingOrderServePath.save(), json).get();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        }
-        Log.d("asd", "[ReceivingOrderModel]-insertIntoReceivingOrder(Response-[String]):" + result);
-        ReceivingOrderModel receivingOrderModel = new ReceivingOrderModel();
-        try {
-            Gson gson = GsonUtil.fromJson();
-            receivingOrderModel = gson.fromJson(result, ReceivingOrderModel.class);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        if (receivingOrderModel == null) {
-            Log.d("asd", "[ReceivingOrderModel]-insertIntoReceivingOrder(Response) [Error] : Serve have not response anything");
-            return null;
-        }
-        Log.d("asd", "[ReceivingOrderModel]-insertIntoReceivingOrder(Response--GSON):" + result);
-        return receivingOrderModel;
-    }
 
     @Override
     public ReceivingOrderModel saveOrderAndItem(String json) {
@@ -118,5 +121,31 @@ public class ReceivingOrderDaoImpl implements ReceivingOrderDao {
         }
         Log.d("asd", "[ReceivingOrderModel]-saveOrderAndItem(Response-[Gson]):" + receivingOrderModel);
         return receivingOrderModel;
+    }
+
+    @Override
+    public ResponseMessage delete(String receivingOrder_json) {
+        Log.d("asd:","[ReceivingOrderModel]-delete-[Request (JSON)]: :"+receivingOrder_json);
+        String result = "";
+        try {
+            result = new HttpPostAsync().execute(ReceivingOrderServePath.delete(),receivingOrder_json).get();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+        Log.d("asd:","[ReceivingOrderModel]-delete-[Response(String)]: :"+result);
+
+        if(ObjectUtil.isNotNullEmpty(result)){
+            ResponseMessage responseMessage = new ResponseMessage();
+            try {
+                Gson gson = GsonUtil.fromJson();
+                responseMessage = gson.fromJson(result,responseMessage.getClass());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return responseMessage;
+        }
+        return null;
     }
 }

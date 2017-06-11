@@ -3,7 +3,9 @@ package com.example.james.rms.Core.Dao;
 import android.util.Log;
 
 import com.example.james.rms.CommonProfile.GsonUtil;
+import com.example.james.rms.CommonProfile.ObjectUtil;
 import com.example.james.rms.Core.Model.ReceivingItemModel;
+import com.example.james.rms.Core.Model.ResponseMessage;
 import com.example.james.rms.Core.ServePath.ReceivingItemServePath;
 import com.example.james.rms.Core.ServePath.ReceivingOrderServePath;
 import com.example.james.rms.NetWork.HttpPostAsync;
@@ -76,5 +78,31 @@ public class ReceivingItemDaoImpl implements ReceivingItemDao {
         }
         Log.d("asd","[ReceivingItemModel]-insertIntoReceivingItem(Response):" + result);
         return receivingItemModels;
+    }
+
+    @Override
+    public ResponseMessage delete(String receivingItem_json) {
+        Log.d("asd:","[ReceivingItemModel]-delete-[Request (JSON)]: :"+receivingItem_json);
+        String result = "";
+        try {
+            result = new HttpPostAsync().execute(ReceivingItemServePath.delete(),receivingItem_json).get();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+        Log.d("asd:","[ReceivingItemModel]-delete-[Response(String)]: :"+result);
+
+        if(ObjectUtil.isNotNullEmpty(result)){
+            ResponseMessage responseMessage = new ResponseMessage();
+            try {
+                Gson gson = GsonUtil.fromJson();
+                responseMessage = gson.fromJson(result,responseMessage.getClass());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return responseMessage;
+        }
+        return null;
     }
 }

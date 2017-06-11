@@ -1,6 +1,7 @@
 package com.example.james.rms.Core.Dao;
 
 import com.example.james.rms.Core.Model.ReceivingOrderModel;
+import com.example.james.rms.Core.Model.ResponseMessage;
 
 import java.util.List;
 
@@ -10,9 +11,14 @@ import java.util.List;
 
 public interface ReceivingOrderDao {
 
+    //Find
     List<ReceivingOrderModel> findReceivingOrderByPartyId(String json);
 
-    ReceivingOrderModel insertIntoReceivingOrder(String json);
+    //Save
+    ReceivingOrderModel save(String json);
 
     ReceivingOrderModel saveOrderAndItem(String json);
+
+    //Delete
+    ResponseMessage delete(String json);
 }
