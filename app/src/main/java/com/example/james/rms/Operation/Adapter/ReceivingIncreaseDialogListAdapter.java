@@ -8,7 +8,7 @@ import android.widget.TextView;
 
 import com.example.james.rms.CommonProfile.MyBaseAdapter;
 import com.example.james.rms.CommonProfile.ObjectUtil;
-import com.example.james.rms.Operation.Model.ReceivingIncreaseModel;
+import com.example.james.rms.Core.Model.ReceivingItemModel;
 import com.example.james.rms.R;
 
 import java.util.HashMap;
@@ -21,15 +21,15 @@ import butterknife.ButterKnife;
  * Created by james on 1/4/2017.
  */
 
-public class ReceivingIncreaseDialogListAdapter extends MyBaseAdapter<ReceivingIncreaseModel> {
+public class ReceivingIncreaseDialogListAdapter extends MyBaseAdapter<ReceivingItemModel> {
 
     // 用來控制CheckBox的選中狀況
     private static HashMap<Integer, Boolean> isSelected;
-    private static List<ReceivingIncreaseModel> dataArrayList;
+//    private static ReceivingOrderModel dataArrayList;
 
-    public ReceivingIncreaseDialogListAdapter(Context context, List<ReceivingIncreaseModel> dataArrayList, HashMap<Integer, Boolean> isSelected) {
+    public ReceivingIncreaseDialogListAdapter(Context context, List<ReceivingItemModel> dataArrayList, HashMap<Integer, Boolean> isSelected) {
         super(context,dataArrayList);
-        this.dataArrayList = dataArrayList;
+//        this.dataArrayList = dataArrayList;
         this.isSelected = isSelected;
     }
 
@@ -43,25 +43,25 @@ public class ReceivingIncreaseDialogListAdapter extends MyBaseAdapter<ReceivingI
             viewHolder = new ReceivingIncreaseDialogListAdapter.ViewHolder(convertView);
             convertView.setTag(viewHolder);
         }
-        viewHolder.receiving_increase_dialog_item_productCode.setText(getItem(position).getProductModel().getProductName());
-        viewHolder.receiving_increase_dialog_item_productName.setText(getItem(position).getProductModel().getProductCode());
+        viewHolder.receiving_increase_dialog_item_productCode.setText(getItem(position).getProduct().getProductName());
+        viewHolder.receiving_increase_dialog_item_productName.setText(getItem(position).getProduct().getProductCode());
         viewHolder.receiving_increase_dialog_item_checkbox.setChecked(getIsSelected().get(position));
         return convertView;
     }
 
     @Override
-    public boolean productCodeMatch(ReceivingIncreaseModel productModel, String string) {
-        boolean result = productModel.getProductModel().getProductCode().toUpperCase().contains(string.toUpperCase());
+    public boolean productCodeMatch(ReceivingItemModel receivingItemModel, String string) {
+        boolean result = receivingItemModel.getProduct().getProductCode().toUpperCase().contains(string.toUpperCase());
         return result;
     }
 
     @Override
-    public boolean productNameMatch(ReceivingIncreaseModel productModel, String value) {
-        return ObjectUtil.isNullEmpty(productModel.getProductModel().getProductName()) ? false : productModel.getProductModel().getProductName().toUpperCase().contains(value.toUpperCase());
+    public boolean productNameMatch(ReceivingItemModel receivingItemModel, String value) {
+        return ObjectUtil.isNullEmpty(receivingItemModel.getProduct().getProductName()) ? false : receivingItemModel.getProduct().getProductName().toUpperCase().contains(value.toUpperCase());
     }
 
     @Override
-    public boolean receivingRemarkMatch(ReceivingIncreaseModel productModel, String string) {
+    public boolean receivingRemarkMatch(ReceivingItemModel receivingOrderModel, String string) {
         return false;
     }
 
@@ -81,10 +81,6 @@ public class ReceivingIncreaseDialogListAdapter extends MyBaseAdapter<ReceivingI
 
     public static HashMap<Integer, Boolean> getIsSelected() {
         return isSelected;
-    }
-
-    public static void setIsSelected(HashMap<Integer, Boolean> isSelected) {
-        ReceivingIncreaseDialogListAdapter.isSelected = isSelected;
     }
 
 }

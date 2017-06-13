@@ -36,14 +36,14 @@ public class ReceivingItemListAdapter extends MyBaseAdapter<ReceivingItemModel> 
             viewHolder = new ViewHolder(convertView);
             convertView.setTag(viewHolder);
         }
-        viewHolder.receivingItem_ProductCode.setText(getItem(position).getProductModel().getProductCode());
-        viewHolder.receivingItem_ProductName.setText(getItem(position).getProductModel().getProductName());
+        viewHolder.receivingItem_ProductCode.setText(getItem(position).getProduct().getProductCode());
+        viewHolder.receivingItem_ProductName.setText(getItem(position).getProduct().getProductName());
         viewHolder.receivingItem_itemStatus.setText(getItem(position).getItemStatus());
         viewHolder.receivingItem_itemCreateDate.setText(ObjectUtil.dateToString(getItem(position).getItemCreateDate()));
         viewHolder.receivingItem_itemReceivingDate.setText(ObjectUtil.dateToString_OnlyDate(getItem(position).getItemReceivingDate()));
         viewHolder.receivingItem_itemRemark.setText(getItem(position).getItemRemark());
         viewHolder.receivingItem_itemGrossWeight.setText(ObjectUtil.bigDecimalToString(getItem(position).getItemGrossWeight()));
-        viewHolder.receivingItem_itemGrossWeightUnit.setText(getItem(position).getProductModel().getWeightprofile()==null?"":getItem(position).getProductModel().getWeightprofile().getWeightUnit() );
+        viewHolder.receivingItem_itemGrossWeightUnit.setText(getItem(position).getProduct().getWeightprofile()==null?"":getItem(position).getProduct().getWeightprofile().getWeightUnit() );
         return convertView;
     }
 

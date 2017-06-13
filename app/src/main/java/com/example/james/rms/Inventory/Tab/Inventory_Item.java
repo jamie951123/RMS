@@ -54,7 +54,9 @@ public class Inventory_Item extends MyBaseFragment implements ViewPagerListener{
         InventorySumDao inventorySumDao = new InventorySumDaoImpl();
         inventorySumModels = inventorySumDao.findByPartyIdAndStatusOrderByProductId(combine_partyIdAndStatus);
         // this is data fro recycler view
-        inventoryItemListAdapter = new InventoryItemListAdapter(getActivity(),inventorySumModels);
+        if(inventorySumModels != null) {
+            inventoryItemListAdapter = new InventoryItemListAdapter(getActivity(), inventorySumModels);
+        }
         listView.setAdapter(inventoryItemListAdapter);
         return rootView;
     }

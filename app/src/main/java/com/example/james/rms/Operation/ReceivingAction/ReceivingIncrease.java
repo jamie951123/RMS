@@ -28,22 +28,15 @@ import com.example.james.rms.CommonProfile.StartActivityForResultKey;
 import com.example.james.rms.Controller.NavigationController;
 import com.example.james.rms.Core.Dao.ProductDao;
 import com.example.james.rms.Core.Dao.ProductDaoImpl;
-import com.example.james.rms.Core.Dao.QuantityProfileDao;
-import com.example.james.rms.Core.Dao.QuantityProfileDaoImpl;
 import com.example.james.rms.Core.Dao.ReceivingOrderDao;
 import com.example.james.rms.Core.Dao.ReceivingOrderDaoImpl;
-import com.example.james.rms.Core.Dao.WeightProfileDao;
-import com.example.james.rms.Core.Dao.WeightProfileDaoImpl;
 import com.example.james.rms.Core.Model.KeyModel;
 import com.example.james.rms.Core.Model.ProductModel;
-import com.example.james.rms.Core.Model.QuantityProfileModel;
 import com.example.james.rms.Core.Model.ReceivingItemModel;
 import com.example.james.rms.Core.Model.ReceivingOrderModel;
 import com.example.james.rms.Core.Model.Status;
-import com.example.james.rms.Core.Model.WeightProfileModel;
 import com.example.james.rms.Core.TransferModel.NumberDialogModel;
 import com.example.james.rms.Operation.Adapter.ReceivingIncreaseListAdapter;
-import com.example.james.rms.Operation.Model.ReceivingIncreaseModel;
 import com.example.james.rms.R;
 import com.example.james.rms.Receiving.ReceivingCombine;
 import com.github.clans.fab.FloatingActionButton;
@@ -82,19 +75,13 @@ public class ReceivingIncrease extends AppCompatActivity implements View.OnClick
     TextView receiving_increase_toolbar_title;
     private ProductDao productDao = new ProductDaoImpl();
     //
-    private WeightProfileDao weightProfileDao = new WeightProfileDaoImpl();
-    //
-    private QuantityProfileDao quantityProfileDao = new QuantityProfileDaoImpl();
-    //
     private ReceivingOrderDao receivingOrderDao = new ReceivingOrderDaoImpl();
     //
     private HashMap<Integer, Boolean> isSelected;
 
-    private List<ReceivingIncreaseModel>  rlAllmodel;
-    private List<ReceivingIncreaseModel>  rlLastestmodel;
-    private List<ReceivingIncreaseModel> listviewLastestModel;
-    private List<WeightProfileModel> weightProfileModelList;
-    private List<QuantityProfileModel> quantityProfileModelList;
+    private List<ReceivingItemModel>  item_original;
+    private List<ReceivingItemModel>  item_latest;
+    private List<ReceivingItemModel> item_listview;
     String common_partyId;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -110,13 +97,12 @@ public class ReceivingIncrease extends AppCompatActivity implements View.OnClick
         //HttpOK
         String combine_partyId = ReceivingCombine.combine_partyId(common_partyId);
         List<ProductModel> allModel = productDao.findByPartyId(combine_partyId);
-        weightProfileModelList = weightProfileDao.findByPartyId(combine_partyId);
-        quantityProfileModelList  = quantityProfileDao.findByPartyId(combine_partyId);
         //
-        rlLastestmodel = modelConvert(allModel);
-        rlAllmodel     = modelConvert(allModel);
-        listviewLastestModel = new ArrayList<>();
-        setCheckbox();
+        item_original  = new ArrayList<>(modelConvert(allModel));
+        item_latest    = new ArrayList<>(modelConvert(allModel));
+        item_listview  = new ArrayList<>();
+        //
+        setOriginalCheckbox();
         fab_btn.setOnClickListener(this);
         datePicker_btn.setOnClickListener(this);
 
@@ -156,9 +142,9 @@ public class ReceivingIncrease extends AppCompatActivity implements View.OnClick
     }
     @Override
     public boolean onOptionsItemSelected(MenuItem menuItem) {
-        Log.d("asd","rlLastestmodel Size :" +listviewLastestModel.size());
-        Log.d("asd","rlLastestmodel :" +listviewLastestModel.toString());
-        int itemSize = listviewLastestModel.size();
+        Log.d("asd","rlLastestmodel Size :" +item_listview.size());
+        Log.d("asd","rlLastestmodel :" +item_listview.toString());
+        int itemSize = item_listview.size();
         Date receivingDate              = ObjectUtil.stringToDate_onlyDate(datePicker_btn.getText().toString());
         Date createDate                 = new Date();
         String orderRemark              = remark_edit.getText().toString();
@@ -214,7 +200,7 @@ public class ReceivingIncrease extends AppCompatActivity implements View.OnClick
         }
         receivingIncreaseDialog.show(fm,"receiving_increase");
         Communicate_Interface communicateInterface = receivingIncreaseDialog;
-        communicateInterface.putOriginalProductModels(rlAllmodel,rlLastestmodel,isSelected);
+        communicateInterface.putOriginalProductModels(item_original,item_latest,isSelected);
         Toast.makeText(this,"ReceivingIncrease",Toast.LENGTH_SHORT).show();
     }
 
@@ -228,16 +214,14 @@ public class ReceivingIncrease extends AppCompatActivity implements View.OnClick
 
     public  List<ReceivingItemModel> getReceivingItem(Date receivingDate,Date createDate){
         List<ReceivingItemModel> receivingItemModels = new ArrayList<>();
-        for(ReceivingIncreaseModel item : listviewLastestModel ){
+        for(ReceivingItemModel item : item_listview ){
             ReceivingItemModel receivingItemModel = new ReceivingItemModel();
-            Long productId              = item.getProductModel().getProductId();
-            Date itemCreateDate         = createDate;
-            Date itemReceivingDate      = receivingDate;
-            BigDecimal itemGrossWeight = item.getGrossWeight();
-//            String itemGrossWeightUnit = item.getGrossWeightUnit();
-            Integer itemQty            = item.getQty();
-//            String itemQtyUnit         = item.getQtyUnit();
-            String itemRemark          = item.getRemark();
+            Long productId             = item.getProduct().getProductId();
+            Date itemCreateDate        = createDate;
+            Date itemReceivingDate     = receivingDate;
+            BigDecimal itemGrossWeight = item.getItemGrossWeight();
+            Integer itemQty            = item.getItemQty();
+            String itemRemark          = item.getItemRemark();
             String partyId             = common_partyId;
             receivingItemModel.setProductId(productId);
             receivingItemModel.setItemCreateDate(itemCreateDate);
@@ -280,7 +264,6 @@ public class ReceivingIncrease extends AppCompatActivity implements View.OnClick
             getSupportActionBar().setHomeButtonEnabled(true);
             toolbar.setNavigationIcon(R.drawable.back_white);
             receiving_increase_toolbar_title.setText(R.string.receiving_increase_title);
-//            getSupportActionBar().setTitle(getString(R.string.receiving_increase_title));
             toolbar.setNavigationOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -290,42 +273,29 @@ public class ReceivingIncrease extends AppCompatActivity implements View.OnClick
             });
         }
     }
-    @Override
-    public void putOriginalProductModels(List<ReceivingIncreaseModel> rlAllModel, List<ReceivingIncreaseModel> allModel, HashMap<Integer, Boolean> isSelected) {
 
-    }
-
-    @Override
-    public void putLastestProductModel(List<ReceivingIncreaseModel> lastestModel, HashMap<Integer, Boolean> isSelected) {
-        this.isSelected           = isSelected;
-        this.listviewLastestModel = lastestModel;
-        ReceivingIncreaseListAdapter receivingIncreaseListAdapter = new ReceivingIncreaseListAdapter(this,listviewLastestModel,weightProfileModelList,quantityProfileModelList);
-        listView.setAdapter(receivingIncreaseListAdapter);
-        Log.v("asd","lastestModel :" +lastestModel.toString());
-    }
-
-
-    public HashMap<Integer, Boolean> setCheckbox(){
+    public HashMap<Integer, Boolean> setOriginalCheckbox(){
         isSelected = new HashMap<>();
-        for (int i=0; i<rlAllmodel.size();i++){
+        for (int i=0; i<item_original.size();i++){
             isSelected.put(i,false);
         }
         return isSelected;
     }
 
-    public List<ReceivingIncreaseModel> modelConvert(List<ProductModel> productModels){
-        List<ReceivingIncreaseModel> receivingIncreaseModels = new ArrayList<>();
+    public List<ReceivingItemModel> modelConvert(List<ProductModel> productModels){
+        List<ReceivingItemModel> receivingItemModels = new ArrayList<>();
         if(productModels != null){
-            for(ProductModel items : productModels){
-                if(items == null){
-                    Log.v("asd","ReceivingIncrease--ConvertModel have null empty");
+            for(ProductModel item : productModels){
+                if(item == null){
+                    Log.v("asd","ReceivingOrderModel--ProductConvertModel have null empty");
                     continue;
                 }
-                ReceivingIncreaseModel receivingIncreaseModel = new ReceivingIncreaseModel(items);
-                receivingIncreaseModels.add(receivingIncreaseModel);
+                ReceivingItemModel receivingItemModel = new ReceivingItemModel();
+                receivingItemModel.setProduct(item);
+                receivingItemModels.add(receivingItemModel);
             }
         }
-        return receivingIncreaseModels;
+        return receivingItemModels;
     }
 
     @Override
@@ -338,15 +308,29 @@ public class ReceivingIncrease extends AppCompatActivity implements View.OnClick
     public void returnData(NumberDialogModel numberDialogModel) {
         switch (numberDialogModel.getKey()){
             case KeyModel.qty:
-                this.listviewLastestModel.get(numberDialogModel.getPosition()).setQty(numberDialogModel.getQty());
-                this.listviewLastestModel.get(numberDialogModel.getPosition()).setQtyUnit(numberDialogModel.getQtyUnit());
+                this.item_listview.get(numberDialogModel.getPosition()).setItemQty(numberDialogModel.getQty());
                 break;
             case KeyModel.gw:
-                this.listviewLastestModel.get(numberDialogModel.getPosition()).setGrossWeight(numberDialogModel.getGrossWeight());
-                this.listviewLastestModel.get(numberDialogModel.getPosition()).setGrossWeightUnit(numberDialogModel.getGrossWeightUnit());
+                this.item_listview.get(numberDialogModel.getPosition()).setItemGrossWeight(numberDialogModel.getGrossWeight());
         }
         if(listView != null){
             listView.invalidateViews();
         }
     }
+
+    @Override
+    public void putOriginalProductModels(List<ReceivingItemModel> item_original, List<ReceivingItemModel> item_latest, HashMap<Integer, Boolean> isSelected) {
+
+    }
+
+    @Override
+    public void putLatestProductModel(List<ReceivingItemModel> item_latest, HashMap<Integer, Boolean> isSelected) {
+        this.isSelected    = isSelected;
+        this.item_listview = new ArrayList<>(item_latest);
+        ReceivingIncreaseListAdapter receivingIncreaseListAdapter = new ReceivingIncreaseListAdapter(this,item_listview);
+        listView.setAdapter(receivingIncreaseListAdapter);
+        Log.v("asd","item_listview :" +item_listview.toString());
+    }
+
+
 }

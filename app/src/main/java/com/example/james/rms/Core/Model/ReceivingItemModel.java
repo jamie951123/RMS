@@ -20,27 +20,6 @@ public class ReceivingItemModel {
     private String partyId;
     private ProductModel product;
 
-    public ReceivingItemModel() {
-        this.product = new ProductModel();
-    }
-
-    @Override
-    public String toString() {
-        return "ReceivingItemModel{" +
-                "receivingID=" + receivingID +
-                ", productId=" + productId +
-                ", orderId=" + orderId +
-                ", itemStatus='" + itemStatus + '\'' +
-                ", itemCreateDate=" + itemCreateDate +
-                ", itemReceivingDate=" + itemReceivingDate +
-                ", itemGrossWeight=" + itemGrossWeight +
-                ", itemQty=" + itemQty +
-                ", itemRemark='" + itemRemark + '\'' +
-                ", partyId='" + partyId + '\'' +
-                ", productModel=" + product +
-                '}';
-    }
-
     public Long getReceivingID() {
         return receivingID;
     }
@@ -121,11 +100,28 @@ public class ReceivingItemModel {
         this.partyId = partyId;
     }
 
-    public ProductModel getProductModel() {
+    public ProductModel getProduct() {
         return product;
     }
 
-    public void setProductModel(ProductModel product) {
+    public void setProduct(ProductModel product) {
         this.product = product;
+    }
+
+    @Override
+    public String toString() {
+        return "ReceivingItemModel{" +
+                "receivingID=" + receivingID +
+                ", productId=" + productId +
+                ", orderId=" + orderId +
+                ", itemStatus='" + itemStatus + '\'' +
+                ", itemCreateDate=" + itemCreateDate +
+                ", itemReceivingDate=" + itemReceivingDate +
+                ", itemGrossWeight=" + itemGrossWeight +
+                ", itemQty=" + itemQty +
+                ", itemRemark='" + itemRemark + '\'' +
+                ", partyId='" + partyId + '\'' +
+                ", product=" + product +
+                '}';
     }
 }

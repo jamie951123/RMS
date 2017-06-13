@@ -11,8 +11,8 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 
+import com.example.james.rms.Core.Model.ReceivingItemModel;
 import com.example.james.rms.Operation.Adapter.ReceivingIncreaseDialogListAdapter;
-import com.example.james.rms.Operation.Model.ReceivingIncreaseModel;
 import com.example.james.rms.R;
 
 import java.util.ArrayList;
@@ -36,10 +36,8 @@ public class ReceivingIncreaseDialog extends DialogFragment implements AdapterVi
     @BindView(R.id.receiving_increase_dialog_submit)
     Button submit;
 
-    List<ReceivingIncreaseModel> rlAllModel = new ArrayList<>();
-    List<ReceivingIncreaseModel> rlLastestModel = new ArrayList<>();
-
-    private HashMap<Integer, Boolean> orginalIsSelected;
+    private List<ReceivingItemModel>  item_original;
+    private List<ReceivingItemModel>  item_latest;
 
     private HashMap<Integer, Boolean> isSelected;
 
@@ -56,7 +54,7 @@ public class ReceivingIncreaseDialog extends DialogFragment implements AdapterVi
 //        getDialog().getWindow().setSoftInputMode(
 //                WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
         getDialog().setCanceledOnTouchOutside(false);
-        receivingDialogListAdapter = new ReceivingIncreaseDialogListAdapter(getActivity(),rlLastestModel,isSelected);
+        receivingDialogListAdapter = new ReceivingIncreaseDialogListAdapter(getActivity(),item_latest,isSelected);
         listView.setAdapter(receivingDialogListAdapter);
         listView.setOnItemClickListener(this);
         cancel.setOnClickListener(this);
@@ -76,13 +74,13 @@ public class ReceivingIncreaseDialog extends DialogFragment implements AdapterVi
     @Override
     public void onClick(View v) {
         HashMap<Integer, Boolean> checkMap = isSelected;
-        List<ReceivingIncreaseModel> lastestModels = getNewProductModel(checkMap);
+        List<ReceivingItemModel> receivingItemModels = getNewProductModel(checkMap);
 
         switch (v.getId()){
             case R.id.receiving_increase_dialog_submit:
                 ReceivingIncrease receivingIncrease = (ReceivingIncrease)getActivity();
                 Communicate_Interface communicateInterface = receivingIncrease;
-                communicateInterface.putLastestProductModel(lastestModels,checkMap);
+                communicateInterface.putLatestProductModel(receivingItemModels,checkMap);
                 if (getDialog().isShowing()){
                     getDialog().dismiss();
                 }
@@ -94,34 +92,29 @@ public class ReceivingIncreaseDialog extends DialogFragment implements AdapterVi
                 break;
         }
     }
-    public List<ReceivingIncreaseModel> getNewProductModel(HashMap<Integer, Boolean> checkBoxList){
-        Map<Integer,ReceivingIncreaseModel> nowListView = new HashMap<>();
-        List<ReceivingIncreaseModel> lastModel = new ArrayList<>();
+    public List<ReceivingItemModel> getNewProductModel(HashMap<Integer, Boolean> checkBoxList){
+        List<ReceivingItemModel> lastModel = new ArrayList<>();
         for(Map.Entry<Integer,Boolean> entry: checkBoxList.entrySet()){
             Integer key    = entry.getKey();
             Boolean value = entry.getValue();
-            if(!value){
-                rlLastestModel.set(key,rlAllModel.get(key));
+            if(value){
+                lastModel.add(item_latest.get(key));
             }else{
-                lastModel.add(rlLastestModel.get(key));
+                item_latest.set(key,item_original.get(key));
             }
-//            if(value){
-//                nowListView.put(key, this.rlLastestModel.get(key));
-//            }
         }
         return lastModel;
     }
 
     @Override
-    public void putOriginalProductModels(List<ReceivingIncreaseModel> rlAllModel,List<ReceivingIncreaseModel> rlLastestModel,HashMap<Integer, Boolean> isSelected) {
-        this.rlAllModel = rlAllModel;
-        this.rlLastestModel = rlLastestModel;
+    public void putOriginalProductModels(List<ReceivingItemModel> item_original, List<ReceivingItemModel> item_latest, HashMap<Integer, Boolean> isSelected) {
+        this.item_original = item_original;
+        this.item_latest = item_latest;
         this.isSelected = isSelected;
-        this.orginalIsSelected = new HashMap<>(isSelected);
     }
 
     @Override
-    public void putLastestProductModel(List<ReceivingIncreaseModel> lastestModel, HashMap<Integer, Boolean> isSelected) {
-    }
+    public void putLatestProductModel(List<ReceivingItemModel> item_latest, HashMap<Integer, Boolean> isSelected) {
 
+    }
 }

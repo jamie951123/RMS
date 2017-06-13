@@ -16,8 +16,6 @@ public class NumberDialogModel {
     String grossWeightUnit;
     Integer qty;
     String qtyUnit;
-    List<WeightProfileModel> weightProfileModelList;
-    List<QuantityProfileModel> quantityProfileModels;
     Integer position;
 
     public String getKey() {
@@ -60,21 +58,6 @@ public class NumberDialogModel {
         this.qtyUnit = qtyUnit;
     }
 
-    public List<WeightProfileModel> getWeightProfileModelList() {
-        return weightProfileModelList;
-    }
-
-    public void setWeightProfileModelList(List<WeightProfileModel> weightProfileModelList) {
-        this.weightProfileModelList = weightProfileModelList;
-    }
-
-    public List<QuantityProfileModel> getQuantityProfileModels() {
-        return quantityProfileModels;
-    }
-
-    public void setQuantityProfileModels(List<QuantityProfileModel> quantityProfileModels) {
-        this.quantityProfileModels = quantityProfileModels;
-    }
 
     public Integer getPosition() {
         return position;
@@ -92,8 +75,6 @@ public class NumberDialogModel {
                 ", grossWeightUnit='" + grossWeightUnit + '\'' +
                 ", qty=" + qty +
                 ", qtyUnit='" + qtyUnit + '\'' +
-                ", weightProfileModelList=" + weightProfileModelList +
-                ", quantityProfileModels=" + quantityProfileModels +
                 ", position=" + position +
                 '}';
     }

@@ -45,11 +45,11 @@ public class ReceivingItemExpandListAdapter extends MyExpandableListAdapter<Rece
         } else {
             viewHolder = (GroupHolder) convertView.getTag();
         }
-        viewHolder.receivingItem_ProductCode.setText(receivingItemModel.getProductModel().getProductCode());
-        viewHolder.receivingItem_ProductName.setText(receivingItemModel.getProductModel().getProductName());
+        viewHolder.receivingItem_ProductCode.setText(receivingItemModel.getProduct().getProductCode());
+        viewHolder.receivingItem_ProductName.setText(receivingItemModel.getProduct().getProductName());
         viewHolder.receivingItem_itemReceivingDate.setText(ObjectUtil.dateToString(receivingItemModel.getItemReceivingDate()));
         viewHolder.receivingItem_itemGrossWeight.setText(ObjectUtil.bigDecimalToString(receivingItemModel.getItemGrossWeight()));
-        viewHolder.receivingItem_itemGrossWeightUnit.setText(receivingItemModel.getProductModel().getWeightprofile()==null?"":receivingItemModel.getProductModel().getWeightprofile().getWeightUnit() );
+        viewHolder.receivingItem_itemGrossWeightUnit.setText(receivingItemModel.getProduct().getWeightprofile()==null?"":receivingItemModel.getProduct().getWeightprofile().getWeightUnit() );
         viewHolder.receivingItem_linear_edit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -98,19 +98,19 @@ public class ReceivingItemExpandListAdapter extends MyExpandableListAdapter<Rece
 
     @Override
     public boolean productCodeMatch(ReceivingItemModel receivingItemModel, String string) {
-        if(ObjectUtil.isNullEmpty(receivingItemModel.getProductModel().getProductCode()) && ObjectUtil.isNullEmpty(string)){
+        if(ObjectUtil.isNullEmpty(receivingItemModel.getProduct().getProductCode()) && ObjectUtil.isNullEmpty(string)){
             return true;
         }
-        boolean result = receivingItemModel.getProductModel().getProductCode().toUpperCase().contains(string.toUpperCase());
+        boolean result = receivingItemModel.getProduct().getProductCode().toUpperCase().contains(string.toUpperCase());
         return result;
     }
 
     @Override
     public boolean productNameMatch(ReceivingItemModel receivingItemModel, String string) {
-        if(ObjectUtil.isNullEmpty(receivingItemModel.getProductModel().getProductName()) && ObjectUtil.isNullEmpty(string)){
+        if(ObjectUtil.isNullEmpty(receivingItemModel.getProduct().getProductName()) && ObjectUtil.isNullEmpty(string)){
             return true;
         }
-        boolean result = receivingItemModel.getProductModel().getProductName().toUpperCase().contains(string.toUpperCase());
+        boolean result = receivingItemModel.getProduct().getProductName().toUpperCase().contains(string.toUpperCase());
         return result;
     }
 
