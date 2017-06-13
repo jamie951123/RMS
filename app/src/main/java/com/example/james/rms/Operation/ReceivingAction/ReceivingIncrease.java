@@ -46,6 +46,7 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 
 import butterknife.BindView;
@@ -77,7 +78,7 @@ public class ReceivingIncrease extends AppCompatActivity implements View.OnClick
     //
     private ReceivingOrderDao receivingOrderDao = new ReceivingOrderDaoImpl();
     //
-    private HashMap<Integer, Boolean> isSelected;
+    private LinkedHashMap<Integer, Boolean> isSelected;
 
     private List<ReceivingItemModel>  item_original;
     private List<ReceivingItemModel>  item_latest;
@@ -275,7 +276,7 @@ public class ReceivingIncrease extends AppCompatActivity implements View.OnClick
     }
 
     public HashMap<Integer, Boolean> setOriginalCheckbox(){
-        isSelected = new HashMap<>();
+        isSelected = new LinkedHashMap<>();
         for (int i=0; i<item_original.size();i++){
             isSelected.put(i,false);
         }
@@ -319,12 +320,12 @@ public class ReceivingIncrease extends AppCompatActivity implements View.OnClick
     }
 
     @Override
-    public void putOriginalProductModels(List<ReceivingItemModel> item_original, List<ReceivingItemModel> item_latest, HashMap<Integer, Boolean> isSelected) {
+    public void putOriginalProductModels(List<ReceivingItemModel> item_original, List<ReceivingItemModel> item_latest, LinkedHashMap<Integer, Boolean> isSelected) {
 
     }
 
     @Override
-    public void putLatestProductModel(List<ReceivingItemModel> item_latest, HashMap<Integer, Boolean> isSelected) {
+    public void putLatestProductModel(List<ReceivingItemModel> item_latest, LinkedHashMap<Integer, Boolean> isSelected) {
         this.isSelected    = isSelected;
         this.item_listview = new ArrayList<>(item_latest);
         ReceivingIncreaseListAdapter receivingIncreaseListAdapter = new ReceivingIncreaseListAdapter(this,item_listview);

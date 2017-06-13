@@ -3,6 +3,7 @@ package com.example.james.rms.Operation.ReceivingAction;
 import com.example.james.rms.Core.Model.ReceivingItemModel;
 import com.example.james.rms.Core.Model.ReceivingOrderModel;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 
 /**
@@ -12,7 +13,7 @@ import java.util.List;
 public interface Communicate_Interface {
 
      //UI
-     void putOriginalProductModels(List<ReceivingItemModel> item_original, List<ReceivingItemModel> item_latest, HashMap<Integer, Boolean> isSelected);
+     void putOriginalProductModels(List<ReceivingItemModel> item_original, List<ReceivingItemModel> item_latest, LinkedHashMap<Integer, Boolean> isSelected);
 
-     void putLatestProductModel(List<ReceivingItemModel> item_latest, HashMap<Integer, Boolean> isSelected);
+     void putLatestProductModel(List<ReceivingItemModel> item_latest, LinkedHashMap<Integer, Boolean> isSelected);
 }

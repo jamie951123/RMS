@@ -10,8 +10,7 @@ import com.example.james.rms.CommonProfile.MyBaseAdapter;
 import com.example.james.rms.CommonProfile.ObjectUtil;
 import com.example.james.rms.Core.Model.ReceivingItemModel;
 import com.example.james.rms.R;
-
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 
 import butterknife.BindView;
@@ -24,10 +23,10 @@ import butterknife.ButterKnife;
 public class ReceivingIncreaseDialogListAdapter extends MyBaseAdapter<ReceivingItemModel> {
 
     // 用來控制CheckBox的選中狀況
-    private static HashMap<Integer, Boolean> isSelected;
+    private static LinkedHashMap<Integer, Boolean> isSelected;
 //    private static ReceivingOrderModel dataArrayList;
 
-    public ReceivingIncreaseDialogListAdapter(Context context, List<ReceivingItemModel> dataArrayList, HashMap<Integer, Boolean> isSelected) {
+    public ReceivingIncreaseDialogListAdapter(Context context, List<ReceivingItemModel> dataArrayList, LinkedHashMap<Integer, Boolean> isSelected) {
         super(context,dataArrayList);
 //        this.dataArrayList = dataArrayList;
         this.isSelected = isSelected;
@@ -79,7 +78,7 @@ public class ReceivingIncreaseDialogListAdapter extends MyBaseAdapter<ReceivingI
         }
     }
 
-    public static HashMap<Integer, Boolean> getIsSelected() {
+    public static LinkedHashMap<Integer, Boolean> getIsSelected() {
         return isSelected;
     }
 

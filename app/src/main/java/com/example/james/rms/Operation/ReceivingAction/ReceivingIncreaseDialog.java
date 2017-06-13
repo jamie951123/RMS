@@ -17,6 +17,7 @@ import com.example.james.rms.R;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -39,7 +40,7 @@ public class ReceivingIncreaseDialog extends DialogFragment implements AdapterVi
     private List<ReceivingItemModel>  item_original;
     private List<ReceivingItemModel>  item_latest;
 
-    private HashMap<Integer, Boolean> isSelected;
+    private LinkedHashMap<Integer, Boolean> isSelected;
 
     ReceivingIncreaseDialogListAdapter receivingDialogListAdapter;
 
@@ -73,7 +74,7 @@ public class ReceivingIncreaseDialog extends DialogFragment implements AdapterVi
 
     @Override
     public void onClick(View v) {
-        HashMap<Integer, Boolean> checkMap = isSelected;
+        LinkedHashMap<Integer, Boolean> checkMap = isSelected;
         List<ReceivingItemModel> receivingItemModels = getNewProductModel(checkMap);
 
         switch (v.getId()){
@@ -92,7 +93,7 @@ public class ReceivingIncreaseDialog extends DialogFragment implements AdapterVi
                 break;
         }
     }
-    public List<ReceivingItemModel> getNewProductModel(HashMap<Integer, Boolean> checkBoxList){
+    public List<ReceivingItemModel> getNewProductModel(LinkedHashMap<Integer, Boolean> checkBoxList){
         List<ReceivingItemModel> lastModel = new ArrayList<>();
         for(Map.Entry<Integer,Boolean> entry: checkBoxList.entrySet()){
             Integer key    = entry.getKey();
@@ -107,14 +108,14 @@ public class ReceivingIncreaseDialog extends DialogFragment implements AdapterVi
     }
 
     @Override
-    public void putOriginalProductModels(List<ReceivingItemModel> item_original, List<ReceivingItemModel> item_latest, HashMap<Integer, Boolean> isSelected) {
+    public void putOriginalProductModels(List<ReceivingItemModel> item_original, List<ReceivingItemModel> item_latest, LinkedHashMap<Integer, Boolean> isSelected) {
         this.item_original = item_original;
         this.item_latest = item_latest;
         this.isSelected = isSelected;
     }
 
     @Override
-    public void putLatestProductModel(List<ReceivingItemModel> item_latest, HashMap<Integer, Boolean> isSelected) {
+    public void putLatestProductModel(List<ReceivingItemModel> item_latest, LinkedHashMap<Integer, Boolean> isSelected) {
 
     }
 }
