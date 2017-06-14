@@ -161,7 +161,7 @@ public class ReceivingOrderExpandListAdapter extends MyExpandableListAdapter<Rec
     }
 
     static class GroupHolder {
-//        @BindView(R.id.receivingOrder_image)
+        //        @BindView(R.id.receivingOrder_image)
 //        TextView receivingOrder_image;
         @BindView(R.id.receivingOrder_orderId)
         TextView receivingOrder_orderId;

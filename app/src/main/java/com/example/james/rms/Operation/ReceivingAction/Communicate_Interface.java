@@ -13,7 +13,7 @@ import java.util.List;
 public interface Communicate_Interface {
 
      //UI
-     void putOriginalProductModels(List<ReceivingItemModel> item_original, List<ReceivingItemModel> item_latest, LinkedHashMap<Integer, Boolean> isSelected);
+     void putOriginalProductModels(List<ReceivingItemModel> item_original, List<ReceivingItemModel> item_latest, LinkedHashMap<Long, Boolean> isSelected);
 
-     void putLatestProductModel(List<ReceivingItemModel> item_latest, LinkedHashMap<Integer, Boolean> isSelected);
+     void putLatestProductModel(List<ReceivingItemModel> item_listview, LinkedHashMap<Long, Boolean> isSelected);
 }

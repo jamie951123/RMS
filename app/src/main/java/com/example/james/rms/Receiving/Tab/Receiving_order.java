@@ -34,12 +34,12 @@ public class Receiving_order extends MyBaseFragment implements AdapterView.OnIte
     AnimatedExpandableListView listView;
 
     private ReceivingOrderDao receivingOrderDao = new ReceivingOrderDaoImpl();
-//    private ReceivingItemDao receivingItemDao = new ReceivingItemDaoImpl();
+    //    private ReceivingItemDao receivingItemDao = new ReceivingItemDaoImpl();
     //
     private ReceivingOrderExpandListAdapter receivingOrderExpandListAdapter;
     //Result
     List<ReceivingOrderModel> receivingOrderModels;
-//    List<ReceivingItemModel> receivingItemModels;
+    //    List<ReceivingItemModel> receivingItemModels;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {

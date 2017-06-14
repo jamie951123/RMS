@@ -27,7 +27,7 @@ public class ReceivingContainer extends MyBaseFragment implements NavToRL {
     ReceivingContainer_Adapter receivingContainer_adapter;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                              Bundle savedInstanceState) {
+                             Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.receiving_container,container , false);
         ButterKnife.bind(this, rootView);
         fragments.add(new Receiving_order());

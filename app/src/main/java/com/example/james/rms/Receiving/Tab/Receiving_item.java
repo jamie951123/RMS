@@ -24,7 +24,7 @@ import butterknife.ButterKnife;
 
 public class Receiving_item extends MyBaseFragment {
 
-//    @BindView(R.id.receiving_item_listView)
+    //    @BindView(R.id.receiving_item_listView)
 //    ListView listView;
     @BindView(R.id.receiving_item_listView)
     AnimatedExpandableListView listView;
@@ -32,7 +32,7 @@ public class Receiving_item extends MyBaseFragment {
     HorizontalBarChart horizontalBarChart;
 
     private List<ReceivingItemModel> receivingItemModels;
-//    private ReceivingItemListAdapter receivingItemListAdapter;
+    //    private ReceivingItemListAdapter receivingItemListAdapter;
     private ReceivingItemExpandListAdapter receivingItemExpandListAdapter;
 
     private float spaceForBar = 1f;

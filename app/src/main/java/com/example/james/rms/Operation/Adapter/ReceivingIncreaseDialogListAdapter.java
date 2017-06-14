@@ -23,12 +23,10 @@ import butterknife.ButterKnife;
 public class ReceivingIncreaseDialogListAdapter extends MyBaseAdapter<ReceivingItemModel> {
 
     // 用來控制CheckBox的選中狀況
-    private static LinkedHashMap<Integer, Boolean> isSelected;
-//    private static ReceivingOrderModel dataArrayList;
+    private static LinkedHashMap<Long, Boolean> isSelected;
 
-    public ReceivingIncreaseDialogListAdapter(Context context, List<ReceivingItemModel> dataArrayList, LinkedHashMap<Integer, Boolean> isSelected) {
+    public ReceivingIncreaseDialogListAdapter(Context context, List<ReceivingItemModel> dataArrayList, LinkedHashMap<Long, Boolean> isSelected) {
         super(context,dataArrayList);
-//        this.dataArrayList = dataArrayList;
         this.isSelected = isSelected;
     }
 
@@ -44,8 +42,9 @@ public class ReceivingIncreaseDialogListAdapter extends MyBaseAdapter<ReceivingI
         }
         viewHolder.receiving_increase_dialog_item_productCode.setText(getItem(position).getProduct().getProductName());
         viewHolder.receiving_increase_dialog_item_productName.setText(getItem(position).getProduct().getProductCode());
-        viewHolder.receiving_increase_dialog_item_checkbox.setChecked(getIsSelected().get(position));
-        return convertView;
+        if(getIsSelected().containsKey(getItem(position).getProductId())){
+            viewHolder.receiving_increase_dialog_item_checkbox.setChecked(getIsSelected().get(getItem(position).getProductId()));
+        }return convertView;
     }
 
     @Override
@@ -78,7 +77,7 @@ public class ReceivingIncreaseDialogListAdapter extends MyBaseAdapter<ReceivingI
         }
     }
 
-    public static LinkedHashMap<Integer, Boolean> getIsSelected() {
+    public static LinkedHashMap<Long, Boolean> getIsSelected() {
         return isSelected;
     }
 

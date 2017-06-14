@@ -40,7 +40,7 @@ public class ReceivingIncreaseDialog extends DialogFragment implements AdapterVi
     private List<ReceivingItemModel>  item_original;
     private List<ReceivingItemModel>  item_latest;
 
-    private LinkedHashMap<Integer, Boolean> isSelected;
+    private LinkedHashMap<Long, Boolean> isSelected;
 
     ReceivingIncreaseDialogListAdapter receivingDialogListAdapter;
 
@@ -68,17 +68,17 @@ public class ReceivingIncreaseDialog extends DialogFragment implements AdapterVi
         Log.v("asd","position : " + position);
         ReceivingIncreaseDialogListAdapter.ViewHolder viewHolder= (ReceivingIncreaseDialogListAdapter.ViewHolder)view.getTag();
         viewHolder.receiving_increase_dialog_item_checkbox.toggle();
-        receivingDialogListAdapter.getIsSelected().put(position,viewHolder.receiving_increase_dialog_item_checkbox.isChecked());
+        receivingDialogListAdapter.getIsSelected().put(item_latest.get(position).getProductId(),viewHolder.receiving_increase_dialog_item_checkbox.isChecked());
     }
 
 
     @Override
     public void onClick(View v) {
-        LinkedHashMap<Integer, Boolean> checkMap = isSelected;
-        List<ReceivingItemModel> receivingItemModels = getNewProductModel(checkMap);
-
         switch (v.getId()){
             case R.id.receiving_increase_dialog_submit:
+                LinkedHashMap<Long, Boolean> checkMap = isSelected;
+                List<ReceivingItemModel> receivingItemModels = getNewProductModel(checkMap);
+
                 ReceivingIncrease receivingIncrease = (ReceivingIncrease)getActivity();
                 Communicate_Interface communicateInterface = receivingIncrease;
                 communicateInterface.putLatestProductModel(receivingItemModels,checkMap);
@@ -93,29 +93,44 @@ public class ReceivingIncreaseDialog extends DialogFragment implements AdapterVi
                 break;
         }
     }
-    public List<ReceivingItemModel> getNewProductModel(LinkedHashMap<Integer, Boolean> checkBoxList){
-        List<ReceivingItemModel> lastModel = new ArrayList<>();
-        for(Map.Entry<Integer,Boolean> entry: checkBoxList.entrySet()){
-            Integer key    = entry.getKey();
+    public List<ReceivingItemModel> getNewProductModel(LinkedHashMap<Long, Boolean> checkBoxList){
+        List<ReceivingItemModel> item_listview = new ArrayList<>();
+
+        //original
+        HashMap<Long,ReceivingItemModel> original_map = new LinkedHashMap<>();
+        for(ReceivingItemModel item : item_original){
+            original_map.put(item.getProductId(),item);
+        }
+        //lastest
+        HashMap<Long,ReceivingItemModel> lastest_map = new LinkedHashMap<>();
+        for(ReceivingItemModel item : item_latest){
+            lastest_map.put(item.getProductId(),item);
+        }
+        //
+        int position = 0;
+        for(Map.Entry<Long,Boolean> entry: checkBoxList.entrySet()){
+            Long key    = entry.getKey();
             Boolean value = entry.getValue();
             if(value){
-                lastModel.add(item_latest.get(key));
+                item_listview.add(lastest_map.get(key));
             }else{
-                item_latest.set(key,item_original.get(key));
+                item_latest.set(position,original_map.get(key));
+                //clear vlaue
             }
+            position++;
         }
-        return lastModel;
+        return item_listview;
     }
 
     @Override
-    public void putOriginalProductModels(List<ReceivingItemModel> item_original, List<ReceivingItemModel> item_latest, LinkedHashMap<Integer, Boolean> isSelected) {
+    public void putOriginalProductModels(List<ReceivingItemModel> item_original, List<ReceivingItemModel> item_latest, LinkedHashMap<Long, Boolean> isSelected) {
         this.item_original = item_original;
         this.item_latest = item_latest;
         this.isSelected = isSelected;
     }
 
     @Override
-    public void putLatestProductModel(List<ReceivingItemModel> item_latest, LinkedHashMap<Integer, Boolean> isSelected) {
+    public void putLatestProductModel(List<ReceivingItemModel> item_latest, LinkedHashMap<Long, Boolean> isSelected) {
 
     }
 }

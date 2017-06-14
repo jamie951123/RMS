@@ -45,7 +45,6 @@ import com.google.gson.Gson;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 
@@ -78,8 +77,9 @@ public class ReceivingIncrease extends AppCompatActivity implements View.OnClick
     //
     private ReceivingOrderDao receivingOrderDao = new ReceivingOrderDaoImpl();
     //
-    private LinkedHashMap<Integer, Boolean> isSelected;
+    private LinkedHashMap<Long, Boolean> isSelected;
 
+    private ReceivingOrderModel orderModel = new ReceivingOrderModel();
     private List<ReceivingItemModel>  item_original;
     private List<ReceivingItemModel>  item_latest;
     private List<ReceivingItemModel> item_listview;
@@ -103,7 +103,7 @@ public class ReceivingIncrease extends AppCompatActivity implements View.OnClick
         item_latest    = new ArrayList<>(modelConvert(allModel));
         item_listview  = new ArrayList<>();
         //
-        setOriginalCheckbox();
+        LinkedHashMap<Long,Boolean> orginalSelected = setOriginalCheckbox(item_original);
         fab_btn.setOnClickListener(this);
         datePicker_btn.setOnClickListener(this);
 
@@ -118,20 +118,33 @@ public class ReceivingIncrease extends AppCompatActivity implements View.OnClick
         }
 
         if(ObjectUtil.isNotNullEmpty(receivingOrder_Json)){
-            ReceivingOrderModel receivingOrderModel = ReceivingCombine.jsonToOrderModel(receivingOrder_Json);
+            orderModel = ReceivingCombine.jsonToOrderModel(receivingOrder_Json);
             receiving_increase_toolbar_title.setText(R.string.title_edit_receiving);
-            setAllField(receivingOrderModel);
+            setAllField(orderModel,orginalSelected);
             return;
         }
     }
 
-    private void setAllField(ReceivingOrderModel receivingOrderModel) {
+    private void setAllField(ReceivingOrderModel receivingOrderModel,LinkedHashMap<Long,Boolean> orginalSelected) {
         remark_edit.setText(receivingOrderModel.getRemark());
         if(receivingOrderModel.getReceivingDate() !=null) {
             Log.v("asd","[Receiving Increase ]-[Edit]-[ReceivingDate]:" +receivingOrderModel.getReceivingDate());
             String editRLDate = ObjectUtil.sdf_onlyDate.format(receivingOrderModel.getReceivingDate());
+            LinkedHashMap<Long,Boolean> latestSekected = setLatestCheckbox(receivingOrderModel.getReceivingItem(),orginalSelected);
             datePicker_btn.setText(editRLDate);
 
+            List<ReceivingItemModel> receivingItemModels = receivingOrderModel.getReceivingItem();
+            LinkedHashMap<Long,ReceivingItemModel> item_map = new LinkedHashMap<>();
+            for(ReceivingItemModel item : receivingItemModels){
+                item_map.put(item.getProductId(),item);
+            }
+            for(int i=0; i<item_latest.size(); i++){
+                ReceivingItemModel r = item_latest.get(i);
+                if(item_map.containsKey(r.getProductId())){
+                    item_latest.set(i,item_map.get(r.getProductId()));
+                }
+            }
+            putLatestProductModel(receivingItemModels,latestSekected);
         }
     }
 
@@ -149,8 +162,10 @@ public class ReceivingIncrease extends AppCompatActivity implements View.OnClick
         Date receivingDate              = ObjectUtil.stringToDate_onlyDate(datePicker_btn.getText().toString());
         Date createDate                 = new Date();
         String orderRemark              = remark_edit.getText().toString();
+        //
         ReceivingOrderModel order       = getReceivingOrder(itemSize,receivingDate,createDate,orderRemark);
         List<ReceivingItemModel> item   = getReceivingItem(receivingDate,createDate);
+        //
         order.setReceivingItem(item);
         if(receivingDate == null){
             List<String> missingField = new ArrayList<>();
@@ -217,13 +232,17 @@ public class ReceivingIncrease extends AppCompatActivity implements View.OnClick
         List<ReceivingItemModel> receivingItemModels = new ArrayList<>();
         for(ReceivingItemModel item : item_listview ){
             ReceivingItemModel receivingItemModel = new ReceivingItemModel();
+            Long receivingId           = item.getReceivingID();
             Long productId             = item.getProduct().getProductId();
+            Long orderId               = item.getOrderId();
             Date itemCreateDate        = createDate;
             Date itemReceivingDate     = receivingDate;
             BigDecimal itemGrossWeight = item.getItemGrossWeight();
             Integer itemQty            = item.getItemQty();
             String itemRemark          = item.getItemRemark();
             String partyId             = common_partyId;
+
+            receivingItemModel.setReceivingID(receivingId);
             receivingItemModel.setProductId(productId);
             receivingItemModel.setItemCreateDate(itemCreateDate);
             receivingItemModel.setItemReceivingDate(itemReceivingDate);
@@ -232,22 +251,23 @@ public class ReceivingIncrease extends AppCompatActivity implements View.OnClick
             receivingItemModel.setItemRemark(itemRemark);
             receivingItemModel.setPartyId(partyId);
             receivingItemModel.setItemStatus(Status.PROGRESS.name());
+            receivingItemModel.setOrderId(orderId);
             receivingItemModels.add(receivingItemModel);
         }
         return receivingItemModels;
     }
+
     public ReceivingOrderModel getReceivingOrder(int itemSize,Date receivingDate,Date createDate,String orderRemark){
         if( createDate != null && receivingDate != null && ObjectUtil.isNotNullEmpty(common_partyId)) {
-            ReceivingOrderModel receivingOrderModel = new ReceivingOrderModel();
-            receivingOrderModel.setPartyId(common_partyId);
-            receivingOrderModel.setReceivingDate(receivingDate);
-            receivingOrderModel.setItemQty(itemSize);
-            receivingOrderModel.setCreateDate(createDate);
-            receivingOrderModel.setStatus(Status.PROGRESS.name());
-            receivingOrderModel.setRemark(orderRemark);
-            return receivingOrderModel;
+            orderModel.setPartyId(common_partyId);
+            orderModel.setReceivingDate(receivingDate);
+            orderModel.setItemQty(itemSize);
+            orderModel.setCreateDate(createDate);
+            orderModel.setStatus(Status.PROGRESS.name());
+            orderModel.setRemark(orderRemark);
+            return orderModel;
         }
-            return null;
+        return null;
     }
     private void showDatePicker(){
 //        int mYear, mMonth, mDay;
@@ -275,10 +295,20 @@ public class ReceivingIncrease extends AppCompatActivity implements View.OnClick
         }
     }
 
-    public HashMap<Integer, Boolean> setOriginalCheckbox(){
+    public LinkedHashMap<Long, Boolean> setLatestCheckbox(List<ReceivingItemModel> latest_receivingItemModels,LinkedHashMap<Long, Boolean> originalSelected ){
+        LinkedHashMap<Long, Boolean> isSelected = new LinkedHashMap<>(originalSelected);
+        for (int i=0; i<latest_receivingItemModels.size();i++){
+            if(originalSelected.containsKey(latest_receivingItemModels.get(i).getProductId())){
+                isSelected.put(latest_receivingItemModels.get(i).getProductId(),true);
+            }
+        }
+        return isSelected;
+    }
+
+    public LinkedHashMap<Long, Boolean> setOriginalCheckbox(List<ReceivingItemModel>  receivingItemModels){
         isSelected = new LinkedHashMap<>();
-        for (int i=0; i<item_original.size();i++){
-            isSelected.put(i,false);
+        for (int i=0; i<receivingItemModels.size();i++){
+            isSelected.put(receivingItemModels.get(i).getProductId(),false);
         }
         return isSelected;
     }
@@ -293,6 +323,7 @@ public class ReceivingIncrease extends AppCompatActivity implements View.OnClick
                 }
                 ReceivingItemModel receivingItemModel = new ReceivingItemModel();
                 receivingItemModel.setProduct(item);
+                receivingItemModel.setProductId(item.getProductId());
                 receivingItemModels.add(receivingItemModel);
             }
         }
@@ -320,17 +351,17 @@ public class ReceivingIncrease extends AppCompatActivity implements View.OnClick
     }
 
     @Override
-    public void putOriginalProductModels(List<ReceivingItemModel> item_original, List<ReceivingItemModel> item_latest, LinkedHashMap<Integer, Boolean> isSelected) {
+    public void putOriginalProductModels(List<ReceivingItemModel> item_original, List<ReceivingItemModel> item_latest, LinkedHashMap<Long, Boolean> isSelected) {
 
     }
 
     @Override
-    public void putLatestProductModel(List<ReceivingItemModel> item_latest, LinkedHashMap<Integer, Boolean> isSelected) {
+    public void putLatestProductModel(List<ReceivingItemModel> item_listview, LinkedHashMap<Long, Boolean> isSelected) {
         this.isSelected    = isSelected;
-        this.item_listview = new ArrayList<>(item_latest);
+        this.item_listview = new ArrayList<>(item_listview);
         ReceivingIncreaseListAdapter receivingIncreaseListAdapter = new ReceivingIncreaseListAdapter(this,item_listview);
         listView.setAdapter(receivingIncreaseListAdapter);
-        Log.v("asd","item_listview :" +item_listview.toString());
+        Log.v("asd","putLatestProductModel_listview :" +item_listview.toString());
     }
 
 
