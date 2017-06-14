@@ -26,6 +26,7 @@ import com.example.james.rms.Core.Dao.ProductDaoImpl;
 import com.example.james.rms.Core.Dao.WeightProfileDao;
 import com.example.james.rms.Core.Dao.WeightProfileDaoImpl;
 import com.example.james.rms.Core.Model.ResponseMessage;
+import com.example.james.rms.Core.Model.Status;
 import com.example.james.rms.Core.Model.WeightProfileModel;
 import com.example.james.rms.R;
 
@@ -112,8 +113,9 @@ public class SettingWeightListAdapter extends MyBaseSwipeAdapter<WeightProfileMo
                 String lastestUnit = viewHolder.behind_edit_unit.getText().toString();
                 WeightProfileModel weightProfileModel = getItem(position);
                 weightProfileModel.setWeightUnit(lastestUnit);
-                weightProfileModel.setModifyBy(partyId);
-                weightProfileModel.setModifyTime(new Date());
+                weightProfileModel.setLastModifiedBy(partyId);
+                weightProfileModel.setLastModifiedDate(new Date());
+                weightProfileModel.setStatus(Status.PROGRESS);
                 String json = SettingCombine.gsonWeightProfile(weightProfileModel);
                 //Service
                 WeightProfileDao weightProfileDao = new WeightProfileDaoImpl();

@@ -7,13 +7,26 @@ import java.util.Date;
  */
 
 public class UserProfile{
-    private Long userProfileId ;
-    private String username ;
-    private String password ;
-    private String partyId ;
-    private String status ;
-    private Date createDate ;
-    private Date closeDate ;
+
+    private Long userProfileId;
+
+    private String username;
+
+    private String password;
+
+    private String partyId;
+
+    private String status;
+
+    private Date createDate;
+
+    private String createBy;
+
+    private Date lastModifiedDate;
+
+    private String lastModifiedBy;
+
+    private Date closeDate;
 
     public Long getUserProfileId() {
         return userProfileId;
@@ -63,12 +76,36 @@ public class UserProfile{
         this.createDate = createDate;
     }
 
+    public String getCreateBy() {
+        return createBy;
+    }
+
+    public void setCreateBy(String createBy) {
+        this.createBy = createBy;
+    }
+
     public Date getCloseDate() {
         return closeDate;
     }
 
     public void setCloseDate(Date closeDate) {
         this.closeDate = closeDate;
+    }
+
+    public Date getLastModifiedDate() {
+        return lastModifiedDate;
+    }
+
+    public void setLastModifiedDate(Date lastModifiedDate) {
+        this.lastModifiedDate = lastModifiedDate;
+    }
+
+    public String getLastModifiedBy() {
+        return lastModifiedBy;
+    }
+
+    public void setLastModifiedBy(String lastModifiedBy) {
+        this.lastModifiedBy = lastModifiedBy;
     }
 
     @Override
@@ -80,6 +117,9 @@ public class UserProfile{
                 ", partyId='" + partyId + '\'' +
                 ", status='" + status + '\'' +
                 ", createDate=" + createDate +
+                ", createBy='" + createBy + '\'' +
+                ", lastModifiedDate=" + lastModifiedDate +
+                ", lastModifiedBy='" + lastModifiedBy + '\'' +
                 ", closeDate=" + closeDate +
                 '}';
     }

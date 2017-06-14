@@ -58,12 +58,17 @@ public class ReceivingContainer extends MyBaseFragment implements NavToRL {
     }
 
     @Override
-    public void transferViewPager(int rid, List models) {
+    public void transfersViewPager(int rid, List models) {
+
+    }
+
+    @Override
+    public void transferViewPager(int rid, Object model) {
         Fragment fragment = fragments.get(pager.getCurrentItem()+1);
         switch (rid){
             case R.id.receiving_item:
                 MyBaseFragment myBaseFragment = (MyBaseFragment) fragment;
-                myBaseFragment.transferViewPager(rid,models);
+                myBaseFragment.transferViewPager(rid,model);
                 pager.setCurrentItem(1);
                 break;
         }

@@ -20,7 +20,13 @@ public class ProductModel {
 
     private Date createDate;
 
+    private String createBy;
+
     private Date closeDate;
+
+    private Date lastModifiedDate;
+
+    private String lastModifiedBy;
 
     private String remark;
 
@@ -32,26 +38,9 @@ public class ProductModel {
 
     private Long quantityId;
 
-    WeightProfileModel weightprofile;
+    private WeightProfileModel weightprofile;
 
-    QuantityProfileModel quantityProfile;
-
-    public ProductModel getProductModel(){
-        ProductModel items = new ProductModel();
-        items.productId = productId;
-        items.productCode = productCode;
-        items.productName = productName;
-        items.partyId = partyId;
-        items.status = status;
-        items.createDate = createDate;
-        items.closeDate = closeDate;
-        items.remark = remark;
-        items.productDescriptionEN = productDescriptionEN;
-        items.productDescriptionCH = productDescriptionCH;
-        items.weightprofile = weightprofile;
-        items.quantityProfile = quantityProfile;
-        return items;
-    }
+    private QuantityProfileModel quantityProfile;
 
     public Long getProductId() {
         return productId;
@@ -101,12 +90,36 @@ public class ProductModel {
         this.createDate = createDate;
     }
 
+    public String getCreateBy() {
+        return createBy;
+    }
+
+    public void setCreateBy(String createBy) {
+        this.createBy = createBy;
+    }
+
     public Date getCloseDate() {
         return closeDate;
     }
 
     public void setCloseDate(Date closeDate) {
         this.closeDate = closeDate;
+    }
+
+    public Date getLastModifiedDate() {
+        return lastModifiedDate;
+    }
+
+    public void setLastModifiedDate(Date lastModifiedDate) {
+        this.lastModifiedDate = lastModifiedDate;
+    }
+
+    public String getLastModifiedBy() {
+        return lastModifiedBy;
+    }
+
+    public void setLastModifiedBy(String lastModifiedBy) {
+        this.lastModifiedBy = lastModifiedBy;
     }
 
     public String getRemark() {
@@ -174,7 +187,10 @@ public class ProductModel {
                 ", partyId='" + partyId + '\'' +
                 ", status=" + status +
                 ", createDate=" + createDate +
+                ", createBy='" + createBy + '\'' +
                 ", closeDate=" + closeDate +
+                ", lastModifiedDate=" + lastModifiedDate +
+                ", lastModifiedBy='" + lastModifiedBy + '\'' +
                 ", remark='" + remark + '\'' +
                 ", productDescriptionEN='" + productDescriptionEN + '\'' +
                 ", productDescriptionCH='" + productDescriptionCH + '\'' +

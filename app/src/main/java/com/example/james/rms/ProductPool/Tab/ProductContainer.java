@@ -54,8 +54,9 @@ public class ProductContainer extends MyBaseFragment{
             return false;
         }
     }
+
     @Override
-    public void transferViewPager(int rid, List models) {
+    public void transfersViewPager(int rid, List models) {
         Fragment fragment = fragments.get(pager.getCurrentItem()+1);
         switch (rid){
             case R.id.product_action:
@@ -64,5 +65,10 @@ public class ProductContainer extends MyBaseFragment{
                 pager.setCurrentItem(1);
                 break;
         }
+    }
+
+    @Override
+    public void transferViewPager(int rid, Object models) {
+
     }
 }

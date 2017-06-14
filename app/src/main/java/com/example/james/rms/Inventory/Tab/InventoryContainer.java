@@ -61,7 +61,7 @@ public class InventoryContainer extends MyBaseFragment implements ViewPagerListe
     }
 
     @Override
-    public void transferViewPager(int rid, List models) {
+    public void transfersViewPager(int rid, List models) {
         switch (rid){
 //            case R.id.inventory_item:
 //                Log.d("asd","[InventoryContainer] --Nav -> InventoryContainer -> Inventory_Item");
@@ -72,5 +72,10 @@ public class InventoryContainer extends MyBaseFragment implements ViewPagerListe
 //                break;
 
         }
+    }
+
+    @Override
+    public void transferViewPager(int rid, Object models) {
+
     }
 }

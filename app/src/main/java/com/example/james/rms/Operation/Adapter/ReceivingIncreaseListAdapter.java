@@ -52,7 +52,10 @@ public class ReceivingIncreaseListAdapter extends MyBaseAdapter<ReceivingItemMod
             viewHolder = new ReceivingIncreaseListAdapter.ViewHolder(convertView);
             convertView.setTag(viewHolder);
         }
-
+        if(getItem(position) == null){
+            Log.d("asd","[ReceivingIncreaseListAdapter]-[ReceivingItemModel]-[Error] : ReceivingItemModel is null");
+            return convertView;
+        }
         String qtyUnit = getItem(position).getProduct().getQuantityProfile() == null?"":getItem(position).getProduct().getQuantityProfile().getQuantityUnit();
         String gwUnit  = getItem(position).getProduct().getWeightprofile() == null?"": getItem(position).getProduct().getWeightprofile().getWeightUnit();
         viewHolder.receiving_increase_list_item_productCode.setText(getItem(position).getProduct().getProductCode());

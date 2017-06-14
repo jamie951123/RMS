@@ -8,16 +8,33 @@ import java.util.Date;
  */
 
 public class ReceivingItemModel {
+
     private Long receivingID;
+
     private Long productId;
-    private Long orderId;
+
     private String itemStatus;
-    private Date itemCreateDate;
-    private Date itemReceivingDate;
-    private BigDecimal itemGrossWeight;
-    private Integer itemQty;
-    private String itemRemark;
+
+    private Long orderId;
+
     private String partyId;
+
+    private Date itemCreateDate;
+
+    private String itemCreateBy;
+
+    private Date itemReceivingDate;
+
+    private Date itemLastModifiedDate;
+
+    private String itemLModifiedBy;
+
+    private BigDecimal itemGrossWeight;
+
+    private Integer itemQty;
+
+    private String itemRemark;
+
     private ProductModel product;
 
     public Long getReceivingID() {
@@ -36,6 +53,14 @@ public class ReceivingItemModel {
         this.productId = productId;
     }
 
+    public String getItemStatus() {
+        return itemStatus;
+    }
+
+    public void setItemStatus(String itemStatus) {
+        this.itemStatus = itemStatus;
+    }
+
     public Long getOrderId() {
         return orderId;
     }
@@ -44,12 +69,12 @@ public class ReceivingItemModel {
         this.orderId = orderId;
     }
 
-    public String getItemStatus() {
-        return itemStatus;
+    public String getPartyId() {
+        return partyId;
     }
 
-    public void setItemStatus(String itemStatus) {
-        this.itemStatus = itemStatus;
+    public void setPartyId(String partyId) {
+        this.partyId = partyId;
     }
 
     public Date getItemCreateDate() {
@@ -60,12 +85,36 @@ public class ReceivingItemModel {
         this.itemCreateDate = itemCreateDate;
     }
 
+    public String getItemCreateBy() {
+        return itemCreateBy;
+    }
+
+    public void setItemCreateBy(String itemCreateBy) {
+        this.itemCreateBy = itemCreateBy;
+    }
+
     public Date getItemReceivingDate() {
         return itemReceivingDate;
     }
 
     public void setItemReceivingDate(Date itemReceivingDate) {
         this.itemReceivingDate = itemReceivingDate;
+    }
+
+    public Date getItemLastModifiedDate() {
+        return itemLastModifiedDate;
+    }
+
+    public void setItemLastModifiedDate(Date itemLastModifiedDate) {
+        this.itemLastModifiedDate = itemLastModifiedDate;
+    }
+
+    public String getItemLModifiedBy() {
+        return itemLModifiedBy;
+    }
+
+    public void setItemLModifiedBy(String itemLModifiedBy) {
+        this.itemLModifiedBy = itemLModifiedBy;
     }
 
     public BigDecimal getItemGrossWeight() {
@@ -92,14 +141,6 @@ public class ReceivingItemModel {
         this.itemRemark = itemRemark;
     }
 
-    public String getPartyId() {
-        return partyId;
-    }
-
-    public void setPartyId(String partyId) {
-        this.partyId = partyId;
-    }
-
     public ProductModel getProduct() {
         return product;
     }
@@ -113,14 +154,17 @@ public class ReceivingItemModel {
         return "ReceivingItemModel{" +
                 "receivingID=" + receivingID +
                 ", productId=" + productId +
-                ", orderId=" + orderId +
                 ", itemStatus='" + itemStatus + '\'' +
+                ", orderId=" + orderId +
+                ", partyId='" + partyId + '\'' +
                 ", itemCreateDate=" + itemCreateDate +
+                ", itemCreateBy='" + itemCreateBy + '\'' +
                 ", itemReceivingDate=" + itemReceivingDate +
+                ", itemLastModifiedDate=" + itemLastModifiedDate +
+                ", itemLModifiedBy='" + itemLModifiedBy + '\'' +
                 ", itemGrossWeight=" + itemGrossWeight +
                 ", itemQty=" + itemQty +
                 ", itemRemark='" + itemRemark + '\'' +
-                ", partyId='" + partyId + '\'' +
                 ", product=" + product +
                 '}';
     }

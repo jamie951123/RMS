@@ -1,6 +1,7 @@
 package com.example.james.rms.Receiving.Adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,15 +9,20 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.example.james.rms.CommonProfile.GsonUtil;
 import com.example.james.rms.CommonProfile.MyExpandableListAdapter;
 import com.example.james.rms.CommonProfile.ObjectUtil;
 import com.example.james.rms.CommonProfile.ResponseStatus;
+import com.example.james.rms.CommonProfile.StartActivityForResultKey;
 import com.example.james.rms.Core.Dao.ReceivingItemDao;
 import com.example.james.rms.Core.Dao.ReceivingItemDaoImpl;
 import com.example.james.rms.Core.Model.ReceivingItemModel;
+import com.example.james.rms.Core.Model.ReceivingOrderModel;
 import com.example.james.rms.Core.Model.ResponseMessage;
+import com.example.james.rms.Operation.ReceivingAction.ReceivingIncrease;
 import com.example.james.rms.R;
 import com.example.james.rms.Receiving.ReceivingCombine;
+import com.google.gson.Gson;
 
 import java.util.List;
 
@@ -29,9 +35,11 @@ import butterknife.ButterKnife;
 
 public class ReceivingItemExpandListAdapter extends MyExpandableListAdapter<ReceivingItemModel> {
 
+    ReceivingOrderModel receivingOrderModel;
 
-    public ReceivingItemExpandListAdapter(Context context, List<ReceivingItemModel> dataArrayList) {
-        super(context, dataArrayList);
+    public ReceivingItemExpandListAdapter(Context context, ReceivingOrderModel receivingOrderModel) {
+        super(context, receivingOrderModel.getReceivingItem());
+        this.receivingOrderModel = receivingOrderModel;
     }
 
     @Override
@@ -45,31 +53,49 @@ public class ReceivingItemExpandListAdapter extends MyExpandableListAdapter<Rece
         } else {
             viewHolder = (GroupHolder) convertView.getTag();
         }
-        viewHolder.receivingItem_ProductCode.setText(receivingItemModel.getProduct().getProductCode());
-        viewHolder.receivingItem_ProductName.setText(receivingItemModel.getProduct().getProductName());
-        viewHolder.receivingItem_itemReceivingDate.setText(ObjectUtil.dateToString(receivingItemModel.getItemReceivingDate()));
-        viewHolder.receivingItem_itemGrossWeight.setText(ObjectUtil.bigDecimalToString(receivingItemModel.getItemGrossWeight()));
-        viewHolder.receivingItem_itemGrossWeightUnit.setText(receivingItemModel.getProduct().getWeightprofile()==null?"":receivingItemModel.getProduct().getWeightprofile().getWeightUnit() );
-        viewHolder.receivingItem_linear_edit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.v("asd","linear_edit");
-            }
-        });
+        if(receivingItemModel != null && receivingItemModel.getProduct() != null) {
+            viewHolder.receivingItem_ProductCode.setText(receivingItemModel.getProduct().getProductCode());
+            viewHolder.receivingItem_ProductName.setText(receivingItemModel.getProduct().getProductName());
+            viewHolder.receivingItem_itemReceivingDate.setText(ObjectUtil.dateToString(receivingItemModel.getItemReceivingDate()));
+            viewHolder.receivingItem_itemGrossWeight.setText(ObjectUtil.bigDecimalToString(receivingItemModel.getItemGrossWeight()));
+            viewHolder.receivingItem_itemGrossWeightUnit.setText(receivingItemModel.getProduct().getWeightprofile() == null ? "" : receivingItemModel.getProduct().getWeightprofile().getWeightUnit());
 
-        viewHolder.receivingItem_linear_delete.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String receivingItem_json = ReceivingCombine.itemModelToJson(getFilteredData().get(groupPosition));
-                ReceivingItemDao receivingItemDao = new ReceivingItemDaoImpl();
-                ResponseMessage responseMessage = receivingItemDao.delete(receivingItem_json);
-                if(responseMessage != null && ResponseStatus.getSuccessful().equalsIgnoreCase(responseMessage.getMessage_status())){
-                    getFilteredData().remove(groupPosition);
-                    notifyDataSetChanged();
+            viewHolder.receivingItem_linear_edit.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    String receivingOrder_json = null;
+                    try{
+                        Gson gson = GsonUtil.toJson();
+                        receivingOrder_json = gson.toJson(receivingOrderModel,ReceivingOrderModel.class);
+                    }catch (Exception e){
+                        e.printStackTrace();
+                    }
+                    if(ObjectUtil.isNotNullEmpty(receivingOrder_json)) {
+                        Intent intent = new Intent();
+                        intent.setClass(getContext(), ReceivingIncrease.class);
+                        intent.putExtra(StartActivityForResultKey.receivingOrderModel,receivingOrder_json);
+                        getContext().startActivity(intent);
+                    }
+                    Log.v("asd", "linear_edit");
                 }
-                Log.d("asd","[ReceivingItem]-responseMessage : " +responseMessage);
-            }
-        });
+            });
+
+            viewHolder.receivingItem_linear_delete.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    String receivingItem_json = ReceivingCombine.itemModelToJson(getFilteredData().get(groupPosition));
+                    ReceivingItemDao receivingItemDao = new ReceivingItemDaoImpl();
+                    ResponseMessage responseMessage = receivingItemDao.delete(receivingItem_json);
+                    if (responseMessage != null && ResponseStatus.getSuccessful().equalsIgnoreCase(responseMessage.getMessage_status())) {
+                        getFilteredData().remove(groupPosition);
+                        notifyDataSetChanged();
+                    }
+                    Log.d("asd", "[ReceivingItemExpandListAdapter]-responseMessage : " + responseMessage);
+                }
+            });
+        }else{
+            Log.d("asd","[ReceivingItemExpandListAdapter]-[ReceivingItemModel]-[Error] : ReceivingItemModel is null");
+        }
         return convertView;
     }
 

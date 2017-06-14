@@ -94,14 +94,19 @@ public class ProductDetail extends MyBaseFragment implements AdapterView.OnItemC
     }
 
     @Override
-    public void transferViewPager(int rid, List models) {
-
-    }
-
-    @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 //        Intent intent = new Intent();
 //        intent = intent.setClass(getActivity(), ProductIncrease.class);
 //        startActivity(intent);
+    }
+
+    @Override
+    public void transfersViewPager(int rid, List models) {
+
+    }
+
+    @Override
+    public void transferViewPager(int rid, Object models) {
+
     }
 }

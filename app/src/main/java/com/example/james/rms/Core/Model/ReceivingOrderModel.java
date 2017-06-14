@@ -14,7 +14,10 @@ public class ReceivingOrderModel {
     private String status;
     private Date receivingDate;
     private Date createDate;
+    private String createBy;
     private Date closeDate;
+    private Date lastModifiedDate;
+    private String lastModifiedBy;
     private Integer actualQty;
     private Integer estimateQty;
     private Integer itemQty;
@@ -108,6 +111,30 @@ public class ReceivingOrderModel {
         this.receivingItem = receivingItem;
     }
 
+    public Date getLastModifiedDate() {
+        return lastModifiedDate;
+    }
+
+    public void setLastModifiedDate(Date lastModifiedDate) {
+        this.lastModifiedDate = lastModifiedDate;
+    }
+
+    public String getLastModifiedBy() {
+        return lastModifiedBy;
+    }
+
+    public void setLastModifiedBy(String lastModifiedBy) {
+        this.lastModifiedBy = lastModifiedBy;
+    }
+
+    public String getCreateBy() {
+        return createBy;
+    }
+
+    public void setCreateBy(String createBy) {
+        this.createBy = createBy;
+    }
+
     @Override
     public String toString() {
         return "ReceivingOrderModel{" +
@@ -117,7 +144,10 @@ public class ReceivingOrderModel {
                 ", status='" + status + '\'' +
                 ", receivingDate=" + receivingDate +
                 ", createDate=" + createDate +
+                ", createBy='" + createBy + '\'' +
                 ", closeDate=" + closeDate +
+                ", lastModifiedDate=" + lastModifiedDate +
+                ", lastModifiedBy='" + lastModifiedBy + '\'' +
                 ", actualQty=" + actualQty +
                 ", estimateQty=" + estimateQty +
                 ", itemQty=" + itemQty +

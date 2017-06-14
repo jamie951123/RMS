@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -17,16 +16,13 @@ import com.example.james.rms.CommonProfile.StartActivityForResultKey;
 import com.example.james.rms.Controller.NavigationController;
 import com.example.james.rms.Core.Dao.ReceivingOrderDao;
 import com.example.james.rms.Core.Dao.ReceivingOrderDaoImpl;
-import com.example.james.rms.Core.Model.ReceivingItemModel;
 import com.example.james.rms.Core.Model.ReceivingOrderModel;
 import com.example.james.rms.Core.Model.ResponseMessage;
 import com.example.james.rms.ITF.ViewPagerListener;
 import com.example.james.rms.Operation.ReceivingAction.ReceivingIncrease;
 import com.example.james.rms.R;
-import com.example.james.rms.Receiving.Tab.Receiving_order;
 import com.google.gson.Gson;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -88,7 +84,7 @@ public class ReceivingOrderExpandListAdapter extends MyExpandableListAdapter<Rec
                     if(getFilteredData().get(groupPosition).getReceivingItem() != null) {
                         NavigationController controller = (NavigationController) getContext();
                         ViewPagerListener viewPagerListener = (ViewPagerListener) controller;
-                        viewPagerListener.transferViewPager(R.id.receiving_item, getFilteredData().get(groupPosition).getReceivingItem());
+                        viewPagerListener.transferViewPager(R.id.receiving_item, getFilteredData().get(groupPosition));
                     }
                 }
 

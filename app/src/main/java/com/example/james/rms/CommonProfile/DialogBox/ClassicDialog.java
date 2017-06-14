@@ -12,6 +12,7 @@ import com.afollestad.materialdialogs.MaterialDialog;
 import com.example.james.rms.CommonProfile.DialogBox.Service.ClassicDialogService;
 import com.example.james.rms.Core.Model.KeyModel;
 import com.example.james.rms.Core.Model.QuantityProfileModel;
+import com.example.james.rms.Core.Model.Status;
 import com.example.james.rms.Core.Model.WeightProfileModel;
 import com.example.james.rms.Operation.OperationContainer;
 import com.example.james.rms.Operation.ProductAction.ProductIncrease;
@@ -156,15 +157,19 @@ public class ClassicDialog {
                                 case KeyModel.gw:
                                     WeightProfileModel weightProfileModel = new WeightProfileModel();
                                     weightProfileModel.setCreateDate(new Date());
+                                    weightProfileModel.setCreateBy(partyId);
                                     weightProfileModel.setPartyId(partyId);
                                     weightProfileModel.setWeightUnit(String.valueOf(input));
+                                    weightProfileModel.setStatus(Status.PROGRESS);
                                     c.settingPagesWeight(weightProfileModel);
                                     break;
                                 case KeyModel.qty:
                                     QuantityProfileModel quantityProfileModel = new QuantityProfileModel();
                                     quantityProfileModel.setCreateDate(new Date());
+                                    quantityProfileModel.setCreateBy(partyId);
                                     quantityProfileModel.setQuantityUnit(String.valueOf(input));
                                     quantityProfileModel.setPartyId(partyId);
+                                    quantityProfileModel.setStatus(Status.PROGRESS);
                                     c.settingPagesQty(quantityProfileModel);
                             }
                         }

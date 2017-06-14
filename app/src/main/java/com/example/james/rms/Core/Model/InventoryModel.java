@@ -8,25 +8,32 @@ import java.util.Date;
  */
 
 public class InventoryModel {
-    private Long inventoryId;
 
-    private String partyId;
+    private Long inventoryId;
 
     private Long productId;
 
+    private String partyId;
+
     private Date createDate;
 
+    private String createBy;
+
     private Date closeDate;
+
+    private Date lastModifiedDate;
+
+    private String lastModifiedBy;
 
     private Date stockOutDate;
 
     private Date stockInDate;
 
-    private Status status;
+    private String status;
 
     private BigDecimal grossWeight;
 
-    private Integer itemQty;
+    private Integer qty;
 
     private ProductModel product;
 
@@ -38,20 +45,20 @@ public class InventoryModel {
         this.inventoryId = inventoryId;
     }
 
-    public String getPartyId() {
-        return partyId;
-    }
-
-    public void setPartyId(String partyId) {
-        this.partyId = partyId;
-    }
-
     public Long getProductId() {
         return productId;
     }
 
     public void setProductId(Long productId) {
         this.productId = productId;
+    }
+
+    public String getPartyId() {
+        return partyId;
+    }
+
+    public void setPartyId(String partyId) {
+        this.partyId = partyId;
     }
 
     public Date getCreateDate() {
@@ -62,12 +69,36 @@ public class InventoryModel {
         this.createDate = createDate;
     }
 
+    public String getCreateBy() {
+        return createBy;
+    }
+
+    public void setCreateBy(String createBy) {
+        this.createBy = createBy;
+    }
+
     public Date getCloseDate() {
         return closeDate;
     }
 
     public void setCloseDate(Date closeDate) {
         this.closeDate = closeDate;
+    }
+
+    public Date getLastModifiedDate() {
+        return lastModifiedDate;
+    }
+
+    public void setLastModifiedDate(Date lastModifiedDate) {
+        this.lastModifiedDate = lastModifiedDate;
+    }
+
+    public String getLastModifiedBy() {
+        return lastModifiedBy;
+    }
+
+    public void setLastModifiedBy(String lastModifiedBy) {
+        this.lastModifiedBy = lastModifiedBy;
     }
 
     public Date getStockOutDate() {
@@ -86,11 +117,11 @@ public class InventoryModel {
         this.stockInDate = stockInDate;
     }
 
-    public Status getStatus() {
+    public String getStatus() {
         return status;
     }
 
-    public void setStatus(Status status) {
+    public void setStatus(String status) {
         this.status = status;
     }
 
@@ -102,12 +133,12 @@ public class InventoryModel {
         this.grossWeight = grossWeight;
     }
 
-    public Integer getItemQty() {
-        return itemQty;
+    public Integer getQty() {
+        return qty;
     }
 
-    public void setItemQty(Integer itemQty) {
-        this.itemQty = itemQty;
+    public void setQty(Integer qty) {
+        this.qty = qty;
     }
 
     public ProductModel getProduct() {
@@ -122,15 +153,18 @@ public class InventoryModel {
     public String toString() {
         return "InventoryModel{" +
                 "inventoryId=" + inventoryId +
-                ", partyId='" + partyId + '\'' +
                 ", productId=" + productId +
+                ", partyId='" + partyId + '\'' +
                 ", createDate=" + createDate +
+                ", createBy='" + createBy + '\'' +
                 ", closeDate=" + closeDate +
+                ", lastModifiedDate=" + lastModifiedDate +
+                ", lastModifiedBy='" + lastModifiedBy + '\'' +
                 ", stockOutDate=" + stockOutDate +
                 ", stockInDate=" + stockInDate +
                 ", status=" + status +
                 ", grossWeight=" + grossWeight +
-                ", itemQty=" + itemQty +
+                ", qty=" + qty +
                 ", product=" + product +
                 '}';
     }

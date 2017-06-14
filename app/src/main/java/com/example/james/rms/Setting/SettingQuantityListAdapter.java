@@ -27,6 +27,7 @@ import com.example.james.rms.Core.Dao.QuantityProfileDao;
 import com.example.james.rms.Core.Dao.QuantityProfileDaoImpl;
 import com.example.james.rms.Core.Model.QuantityProfileModel;
 import com.example.james.rms.Core.Model.ResponseMessage;
+import com.example.james.rms.Core.Model.Status;
 import com.example.james.rms.R;
 
 import java.util.Date;
@@ -111,8 +112,9 @@ public class SettingQuantityListAdapter extends MyBaseSwipeAdapter<QuantityProfi
                 String lastestUnit = viewHolder.behind_edit_unit.getText().toString();
                 QuantityProfileModel quantityProfileModel = getItem(position);
                 quantityProfileModel.setQuantityUnit(lastestUnit);
-                quantityProfileModel.setModifyBy(partyId);
-                quantityProfileModel.setModifyTime(new Date());
+                quantityProfileModel.setLastModifiedBy(partyId);
+                quantityProfileModel.setLastModifiedDate(new Date());
+                quantityProfileModel.setStatus(Status.PROGRESS);
                 String json = SettingCombine.gsonQuantityProfile(quantityProfileModel);
                 //Service
                 QuantityProfileDao quantityProfileDao = new QuantityProfileDaoImpl();

@@ -41,6 +41,7 @@ public class ProductCombine {
         productModel.setRemark(remark);
         productModel.setCreateDate(createDate);
         productModel.setPartyId(partyId);
+        productModel.setCreateBy(partyId);
         productModel.setStatus(Status.PROGRESS.name());
         productModel.setWeightId(weightId);
         productModel.setQuantityId(quantityId);

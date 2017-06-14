@@ -7,6 +7,7 @@ import java.util.Date;
  */
 
 public class QuantityProfileModel {
+
     private Long quantityId;
 
     private String partyId;
@@ -15,9 +16,13 @@ public class QuantityProfileModel {
 
     private Date createDate;
 
-    private Date modifyTime;
+    private String createBy;
 
-    private String modifyBy;
+    private Date lastModifiedDate;
+
+    private String lastModifiedBy;
+
+    private Status status;
 
     public Long getQuantityId() {
         return quantityId;
@@ -51,20 +56,36 @@ public class QuantityProfileModel {
         this.createDate = createDate;
     }
 
-    public Date getModifyTime() {
-        return modifyTime;
+    public String getCreateBy() {
+        return createBy;
     }
 
-    public void setModifyTime(Date modifyTime) {
-        this.modifyTime = modifyTime;
+    public void setCreateBy(String createBy) {
+        this.createBy = createBy;
     }
 
-    public String getModifyBy() {
-        return modifyBy;
+    public Date getLastModifiedDate() {
+        return lastModifiedDate;
     }
 
-    public void setModifyBy(String modifyBy) {
-        this.modifyBy = modifyBy;
+    public void setLastModifiedDate(Date lastModifiedDate) {
+        this.lastModifiedDate = lastModifiedDate;
+    }
+
+    public String getLastModifiedBy() {
+        return lastModifiedBy;
+    }
+
+    public void setLastModifiedBy(String lastModifiedBy) {
+        this.lastModifiedBy = lastModifiedBy;
+    }
+
+    public Status getStatus() {
+        return status;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
     }
 
     @Override
@@ -74,8 +95,10 @@ public class QuantityProfileModel {
                 ", partyId='" + partyId + '\'' +
                 ", quantityUnit='" + quantityUnit + '\'' +
                 ", createDate=" + createDate +
-                ", modifyTime=" + modifyTime +
-                ", modifyBy='" + modifyBy + '\'' +
+                ", createBy='" + createBy + '\'' +
+                ", lastModifiedDate=" + lastModifiedDate +
+                ", lastModifiedBy='" + lastModifiedBy + '\'' +
+                ", status=" + status +
                 '}';
     }
 }

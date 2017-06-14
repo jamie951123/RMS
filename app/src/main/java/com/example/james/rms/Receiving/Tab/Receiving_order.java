@@ -82,10 +82,6 @@ public class Receiving_order extends MyBaseFragment implements AdapterView.OnIte
         return true;
     }
 
-    @Override
-    public void transferViewPager(int rid, List models) {
-    }
-
 
     @Override
     public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
@@ -95,13 +91,23 @@ public class Receiving_order extends MyBaseFragment implements AdapterView.OnIte
         if(receivingOrderModels.get(position).getReceivingItem() != null) {
             NavigationController controller = (NavigationController) getContext();
             ViewPagerListener viewPagerListener = (ViewPagerListener) controller;
-            viewPagerListener.transferViewPager(R.id.receiving_item, receivingOrderModels.get(position).getReceivingItem());
+            viewPagerListener.transferViewPager(R.id.receiving_item, receivingOrderModels.get(position));
         }
         return true;
     }
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+    }
+
+    @Override
+    public void transfersViewPager(int rid, List models) {
+
+    }
+
+    @Override
+    public void transferViewPager(int rid, Object models) {
 
     }
 }

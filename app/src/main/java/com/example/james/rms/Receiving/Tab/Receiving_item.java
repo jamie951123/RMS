@@ -10,6 +10,7 @@ import com.example.james.rms.CommonProfile.Library.AnimatedExpandableListView;
 import com.example.james.rms.CommonProfile.MyBaseFragment;
 import com.example.james.rms.CommonProfile.ObjectUtil;
 import com.example.james.rms.Core.Model.ReceivingItemModel;
+import com.example.james.rms.Core.Model.ReceivingOrderModel;
 import com.example.james.rms.R;
 import com.example.james.rms.Receiving.Adapter.ReceivingItemExpandListAdapter;
 import com.example.james.rms.Receiving.Adapter.ReceivingItemListAdapter;
@@ -31,6 +32,7 @@ public class Receiving_item extends MyBaseFragment {
     @BindView(R.id.receivingItem_HorbarChart)
     HorizontalBarChart horizontalBarChart;
 
+    private ReceivingOrderModel receivingOrderModel;
     private List<ReceivingItemModel> receivingItemModels;
     //    private ReceivingItemListAdapter receivingItemListAdapter;
     private ReceivingItemExpandListAdapter receivingItemExpandListAdapter;
@@ -62,9 +64,16 @@ public class Receiving_item extends MyBaseFragment {
 
 
     @Override
-    public void transferViewPager(int rid, List models) {
-        receivingItemModels = new ArrayList<>(models);
-        receivingItemExpandListAdapter = new ReceivingItemExpandListAdapter(getActivity(), receivingItemModels);
+    public void transfersViewPager(int rid, List models) {
+
+    }
+
+    @Override
+    public void transferViewPager(int rid, Object model) {
+        receivingOrderModel = (ReceivingOrderModel) model;
+        receivingItemModels = receivingOrderModel.getReceivingItem();
+
+        receivingItemExpandListAdapter = new ReceivingItemExpandListAdapter(getActivity(), receivingOrderModel);
         listView.setAdapter(receivingItemExpandListAdapter);
         listView.setGroupIndicator(null);
 

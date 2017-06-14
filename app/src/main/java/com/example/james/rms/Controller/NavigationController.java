@@ -302,24 +302,39 @@ public class NavigationController extends AppCompatActivity implements Navigatio
         getSupportActionBar().setBackgroundDrawable(ContextCompat.getDrawable(this,R.color.blue0895ef));
         return true;
     }
+
     @Override
-    public void transferViewPager(int rid, List models) {
+    public void transfersViewPager(int rid, List models) {
         Fragment fragment = fragments.get(pager.getCurrentItem());
         MyBaseFragment myBaseFragment = (MyBaseFragment)fragment;
         try{
             switch (rid){
                 case R.id.product_action:
-                    myBaseFragment.transferViewPager(R.id.product_action,models);
-                    break;
-                case R.id.receiving_item:
-                    myBaseFragment.transferViewPager(R.id.receiving_item,models);
+                    myBaseFragment.transfersViewPager(R.id.product_action,models);
                     break;
 //                case R.layout.receiving_order_expendablelist_group:
 //                    myBaseFragment.transferViewPager(R.layout.receiving_order_expendablelist_group,models);
 
             }
         }catch (ClassCastException e){
+            e.printStackTrace();
         }
+    }
+
+    @Override
+    public void transferViewPager(int rid, Object models) {
+        Fragment fragment = fragments.get(pager.getCurrentItem());
+        MyBaseFragment myBaseFragment = (MyBaseFragment)fragment;
+        try{
+            switch (rid){
+                case R.id.receiving_item:
+                    myBaseFragment.transferViewPager(R.id.receiving_item,models);
+                    break;
+            }
+        }catch (ClassCastException e){
+            e.printStackTrace();
+        }
+
     }
 
     @Override

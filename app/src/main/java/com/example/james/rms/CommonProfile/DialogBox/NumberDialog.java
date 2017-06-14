@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.view.WindowManager;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -33,9 +34,9 @@ import butterknife.ButterKnife;
  * Created by jamie on 2017/4/22.
  */
 
-public class NumberDialog extends DialogFragment implements View.OnClickListener,ConnectQuantityDialogListener  {
+public class NumberDialog extends DialogFragment implements View.OnClickListener,ConnectQuantityDialogListener,EditText.OnFocusChangeListener  {
 
-//    @BindView(R.id.quantity_dialog_unit)
+    //    @BindView(R.id.quantity_dialog_unit)
 //    android.support.v7.widget.AppCompatSpinner dialog_spinner;
     @BindView(R.id.quantity_dialog_unit)
     Button quantity_dialog_unit;
@@ -79,30 +80,38 @@ public class NumberDialog extends DialogFragment implements View.OnClickListener
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.quantity_dialog_layout, container);
         ButterKnife.bind(this, view);
+//        getDialog().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         getDialog().getWindow().requestFeature(Window.FEATURE_NO_TITLE);
         getDialog().setCanceledOnTouchOutside(false);
         close.setOnClickListener(this);
         choice.setOnClickListener(this);
+        numEdit.setOnFocusChangeListener(this);
         title.setText(dialog_title);
         if(numberDialogModel !=null ){
             switch (numberDialogModel.getKey()){
                 case KeyModel.qty :
                     if (numberDialogModel.getQty() != null)
                         numEdit.setText(numberDialogModel.getQty().toString());
-                        quantity_dialog_unit.setText(numberDialogModel.getQtyUnit());
-                        quantity_dialog_unit.setCompoundDrawablesWithIntrinsicBounds( R.drawable.industrial_scales_color, 0, 0, 0);
+                    quantity_dialog_unit.setText(numberDialogModel.getQtyUnit());
+                    quantity_dialog_unit.setCompoundDrawablesWithIntrinsicBounds( R.drawable.industrial_scales_color, 0, 0, 0);
                     break;
                 case KeyModel.gw :
                     if (numberDialogModel.getGrossWeight() != null)
                         numEdit.setText(numberDialogModel.getGrossWeight().toString());
-                        quantity_dialog_unit.setText(numberDialogModel.getGrossWeightUnit());
-                        quantity_dialog_unit.setCompoundDrawablesWithIntrinsicBounds( R.drawable.box_color, 0, 0, 0);
+                    quantity_dialog_unit.setText(numberDialogModel.getGrossWeightUnit());
+                    quantity_dialog_unit.setCompoundDrawablesWithIntrinsicBounds( R.drawable.box_color, 0, 0, 0);
                     break;
             }
         }
         return view;
     }
 
+    @Override
+    public void onFocusChange(View view, boolean hasFocus) {
+        if (hasFocus) {
+            getDialog().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
+        }
+    }
 
     @Override
     public void onClick(View v) {

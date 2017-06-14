@@ -39,7 +39,12 @@ public class InventoryItem2  extends MyBaseFragment {
     }
 
     @Override
-    public void transferViewPager(int rid, List models) {
+    public void transfersViewPager(int rid, List models) {
+
+    }
+
+    @Override
+    public void transferViewPager(int rid, Object models) {
 
     }
 }

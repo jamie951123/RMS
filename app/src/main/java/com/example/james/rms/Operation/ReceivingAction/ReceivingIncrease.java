@@ -229,30 +229,34 @@ public class ReceivingIncrease extends AppCompatActivity implements View.OnClick
     }
 
     public  List<ReceivingItemModel> getReceivingItem(Date receivingDate,Date createDate){
-        List<ReceivingItemModel> receivingItemModels = new ArrayList<>();
-        for(ReceivingItemModel item : item_listview ){
-            ReceivingItemModel receivingItemModel = new ReceivingItemModel();
-            Long receivingId           = item.getReceivingID();
-            Long productId             = item.getProduct().getProductId();
-            Long orderId               = item.getOrderId();
-            Date itemCreateDate        = createDate;
-            Date itemReceivingDate     = receivingDate;
-            BigDecimal itemGrossWeight = item.getItemGrossWeight();
-            Integer itemQty            = item.getItemQty();
-            String itemRemark          = item.getItemRemark();
-            String partyId             = common_partyId;
+            List<ReceivingItemModel> receivingItemModels = new ArrayList<>();
+        try {
+            for (ReceivingItemModel item : item_listview) {
+                ReceivingItemModel receivingItemModel = new ReceivingItemModel();
+                Long receivingId = item.getReceivingID();
+                Long productId = item.getProduct().getProductId();
+                Long orderId = item.getOrderId();
+                Date itemCreateDate = createDate;
+                Date itemReceivingDate = receivingDate;
+                BigDecimal itemGrossWeight = item.getItemGrossWeight();
+                Integer itemQty = item.getItemQty();
+                String itemRemark = item.getItemRemark();
 
-            receivingItemModel.setReceivingID(receivingId);
-            receivingItemModel.setProductId(productId);
-            receivingItemModel.setItemCreateDate(itemCreateDate);
-            receivingItemModel.setItemReceivingDate(itemReceivingDate);
-            receivingItemModel.setItemGrossWeight(itemGrossWeight);
-            receivingItemModel.setItemQty(itemQty);
-            receivingItemModel.setItemRemark(itemRemark);
-            receivingItemModel.setPartyId(partyId);
-            receivingItemModel.setItemStatus(Status.PROGRESS.name());
-            receivingItemModel.setOrderId(orderId);
-            receivingItemModels.add(receivingItemModel);
+                receivingItemModel.setReceivingID(receivingId);
+                receivingItemModel.setProductId(productId);
+                receivingItemModel.setItemCreateDate(itemCreateDate);
+                receivingItemModel.setItemCreateBy(common_partyId);
+                receivingItemModel.setPartyId(common_partyId);
+                receivingItemModel.setItemStatus(Status.PROGRESS.name());
+                receivingItemModel.setItemReceivingDate(itemReceivingDate);
+                receivingItemModel.setItemGrossWeight(itemGrossWeight);
+                receivingItemModel.setItemQty(itemQty);
+                receivingItemModel.setItemRemark(itemRemark);
+                receivingItemModel.setOrderId(orderId);
+                receivingItemModels.add(receivingItemModel);
+            }
+        }catch (Exception e){
+            Log.d("asd","[ReceivingIncrease]-[Save]-[Error] : ReceivingItemModel  is null ");
         }
         return receivingItemModels;
     }
@@ -260,13 +264,15 @@ public class ReceivingIncrease extends AppCompatActivity implements View.OnClick
     public ReceivingOrderModel getReceivingOrder(int itemSize,Date receivingDate,Date createDate,String orderRemark){
         if( createDate != null && receivingDate != null && ObjectUtil.isNotNullEmpty(common_partyId)) {
             orderModel.setPartyId(common_partyId);
+            orderModel.setCreateBy(common_partyId);
+            orderModel.setStatus(Status.PROGRESS.name());
             orderModel.setReceivingDate(receivingDate);
             orderModel.setItemQty(itemSize);
             orderModel.setCreateDate(createDate);
-            orderModel.setStatus(Status.PROGRESS.name());
             orderModel.setRemark(orderRemark);
             return orderModel;
         }
+        Log.d("asd","[ReceivingIncrease]-[Save]-[Error] : ReceivingOrderModel is null ");
         return null;
     }
     private void showDatePicker(){
