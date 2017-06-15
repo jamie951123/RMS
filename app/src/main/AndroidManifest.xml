@@ -42,7 +42,7 @@
         </activity>
         <!--Product-->
         <activity
-            android:name=".ProductPool.Tab.ProductContainer"
+            android:name=".ProductPool.ProductContainer"
             android:configChanges="orientation"
             android:screenOrientation="portrait" />
         <activity android:name=".ProductPool.Tab.ProductDetail" />
@@ -53,7 +53,7 @@
             android:screenOrientation="portrait" />
         <!--Receiving-->
         <activity
-            android:name=".Receiving.Tab.ReceivingContainer"
+            android:name=".Receiving.ReceivingContainer"
             android:configChanges="orientation"
             android:screenOrientation="portrait" />
         <!--Operation-->

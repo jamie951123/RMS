@@ -29,13 +29,14 @@ import com.example.james.rms.CommonProfile.SharePreferences.LoginPreferences;
 import com.example.james.rms.CommonProfile.SharePreferences.NavPreferences;
 import com.example.james.rms.CommonProfile.StartActivityForResultKey;
 import com.example.james.rms.Controller.CommunicateService.NavToRL;
+import com.example.james.rms.Delivery.DeliveryContainer;
 import com.example.james.rms.ITF.ViewPagerListener;
 import com.example.james.rms.Inventory.Tab.InventoryContainer;
 import com.example.james.rms.Login.LoginActivity;
 import com.example.james.rms.Operation.OperationContainer;
-import com.example.james.rms.ProductPool.Tab.ProductContainer;
+import com.example.james.rms.ProductPool.ProductContainer;
 import com.example.james.rms.R;
-import com.example.james.rms.Receiving.Tab.ReceivingContainer;
+import com.example.james.rms.Receiving.ReceivingContainer;
 import com.example.james.rms.Setting.SettingContainer;
 import com.github.clans.fab.FloatingActionButton;
 import com.github.clans.fab.FloatingActionMenu;
@@ -133,6 +134,7 @@ public class NavigationController extends AppCompatActivity implements Navigatio
         fragments.add(new ProductContainer());
         fragments.add(new ReceivingContainer());
         fragments.add(new InventoryContainer());
+        fragments.add(new DeliveryContainer());
     }
 
     private void FabSetting() {
@@ -187,7 +189,8 @@ public class NavigationController extends AppCompatActivity implements Navigatio
             pager.setCurrentItem(2);
             toolbar.setTitle(R.string.inventory);
         } else if (id == R.id.nav_stockOut) {
-            //            toolbar.setTitle(R.string.stockout);
+            pager.setCurrentItem(3);
+            toolbar.setTitle(R.string.stockout);
         } else if (id == R.id.nav_record) {
             //            toolbar.setTitle(R.string.record);
         } else if (id == R.id.nav_setting) {

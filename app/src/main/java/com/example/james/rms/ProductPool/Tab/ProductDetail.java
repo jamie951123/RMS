@@ -16,7 +16,6 @@ import com.example.james.rms.Core.Dao.ProductDaoImpl;
 import com.example.james.rms.Core.Model.ProductModel;
 import com.example.james.rms.Core.SearchObject.SearchCombine;
 import com.example.james.rms.ProductPool.Adapter.ProductExpandListAdapter;
-import com.example.james.rms.ProductPool.ProductCombine;
 import com.example.james.rms.R;
 
 import java.util.List;
@@ -34,9 +33,7 @@ public class ProductDetail extends MyBaseFragment implements AdapterView.OnItemC
     AnimatedExpandableListView listView;
 
     private ProductDao productDao = new ProductDaoImpl();
-    //
-    private ProductCombine productCombine = new ProductCombine();
-    //
+
     private ProductExpandListAdapter productExpandListAdapter ;
 
     @Override

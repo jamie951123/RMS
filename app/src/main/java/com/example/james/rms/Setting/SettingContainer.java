@@ -12,6 +12,9 @@ import com.example.james.rms.CommonProfile.DialogBox.ClassicDialog;
 import com.example.james.rms.CommonProfile.DialogBox.Service.ClassicDialogService;
 import com.example.james.rms.CommonProfile.Listview.ListViewGrowthUtil;
 import com.example.james.rms.CommonProfile.SharePreferences.PartyIdPreferences;
+import com.example.james.rms.Core.Combine.QuantityProfileCombine;
+import com.example.james.rms.Core.Combine.SettingSearchCombine;
+import com.example.james.rms.Core.Combine.WeightProfileCombine;
 import com.example.james.rms.Core.Dao.QuantityProfileDao;
 import com.example.james.rms.Core.Dao.QuantityProfileDaoImpl;
 import com.example.james.rms.Core.Dao.WeightProfileDao;
@@ -19,10 +22,10 @@ import com.example.james.rms.Core.Dao.WeightProfileDaoImpl;
 import com.example.james.rms.Core.Model.KeyModel;
 import com.example.james.rms.Core.Model.QuantityProfileModel;
 import com.example.james.rms.Core.Model.WeightProfileModel;
+import com.example.james.rms.Core.SearchObject.SettingSearchObject;
 import com.example.james.rms.R;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import butterknife.BindView;
@@ -61,7 +64,7 @@ public class SettingContainer extends AppCompatActivity implements View.OnClickL
         //Preferences
         PartyIdPreferences partyIdPreferences = new PartyIdPreferences(this,"loginInformation",MODE_PRIVATE);
         partyId = partyIdPreferences.getPreferences_PartyId().get("partyId");
-        common_partyId = SettingCombine.combine_partyId(partyId);
+        common_partyId = SettingSearchCombine.combine_partyId(partyId);
 
         //weight
         WeightProfileDao weightProfileDao = new WeightProfileDaoImpl();
@@ -110,7 +113,8 @@ public class SettingContainer extends AppCompatActivity implements View.OnClickL
 
     @Override
     public void settingPagesWeight(WeightProfileModel weightProfileModel) {
-        String json = SettingCombine.gsonWeightProfile(weightProfileModel);
+        WeightProfileCombine weightProfileCombine = new WeightProfileCombine(WeightProfileModel.class);
+        String json = weightProfileCombine.modelToJson(weightProfileModel);
         //service
         WeightProfileDao weightProfileDao = new WeightProfileDaoImpl();
         weightProfileModel = weightProfileDao.save(json);
@@ -125,7 +129,8 @@ public class SettingContainer extends AppCompatActivity implements View.OnClickL
 
     @Override
     public void settingPagesQty(QuantityProfileModel quantityProfileModel) {
-        String json = SettingCombine.gsonQuantityProfile(quantityProfileModel);
+        QuantityProfileCombine quantityProfileCombine = new QuantityProfileCombine(QuantityProfileModel.class);
+        String json = quantityProfileCombine.modelToJson(quantityProfileModel);
         //service
         QuantityProfileDao quantityProfileDao = new QuantityProfileDaoImpl();
         quantityProfileModel = quantityProfileDao.save(json);

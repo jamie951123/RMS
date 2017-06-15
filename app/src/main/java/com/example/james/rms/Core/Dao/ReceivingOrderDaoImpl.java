@@ -23,9 +23,9 @@ import java.util.concurrent.ExecutionException;
 public class ReceivingOrderDaoImpl implements ReceivingOrderDao {
 
     @Override
-    public List<ReceivingOrderModel> findReceivingOrderByPartyId(String json) {
+    public List<ReceivingOrderModel> findByPartyId(String json) {
         String result = "";
-        Log.d("asd","[ReceivingOrderModel]-findReceivingOrderByPartyId(Request--JSON) :" + json);
+        Log.d("asd","[ReceivingOrderModel]-findByPartyId(Request--JSON) :" + json);
         try {
             result = new HttpPostAsync().execute(ReceivingOrderServePath.findReceivingOrderByPartyId(),json).get();
         } catch (InterruptedException e) {
@@ -33,7 +33,7 @@ public class ReceivingOrderDaoImpl implements ReceivingOrderDao {
         } catch (ExecutionException e) {
             e.printStackTrace();
         }
-        Log.d("asd:","[ReceivingOrderModel]-findReceivingOrderByPartyId-[Response(String)] : "+result);
+        Log.d("asd:","[ReceivingOrderModel]-findByPartyId-[Response(String)] : "+result);
         List<ReceivingOrderModel> receivingOrderModels = new ArrayList<>();
         try{
             Gson gson = GsonUtil.fromJson();

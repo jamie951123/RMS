@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/product_pool"
+    android:id="@+id/delivery_container_outerlayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/backgroundE8E8E8"
-    tools:context="com.example.james.rms.Receiving.ReceivingContainer">
+    tools:context="com.example.james.rms.Delivery.DeliveryContainer">
 
     <com.example.james.rms.Controller.MyViewPager
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1"
-        android:id="@+id/receiving_container_pages">
+        android:id="@+id/delivery_container_pages">
     </com.example.james.rms.Controller.MyViewPager>
+
 </LinearLayout>

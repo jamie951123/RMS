@@ -3,7 +3,6 @@ package com.example.james.rms.Operation.ProductAction;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.AppCompatSpinner;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -28,9 +27,8 @@ import com.example.james.rms.Core.Model.ProductModel;
 import com.example.james.rms.Core.Model.QuantityProfileModel;
 import com.example.james.rms.Core.Model.WeightProfileModel;
 import com.example.james.rms.Core.SearchObject.SearchCombine;
-import com.example.james.rms.ProductPool.ProductCombine;
+import com.example.james.rms.Core.Combine.ProductCombine;
 import com.example.james.rms.R;
-import com.example.james.rms.Setting.SettingContainer;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -113,7 +111,8 @@ public class ProductIncrease extends AppCompatActivity implements View.OnClickLi
         }
 
         if(ObjectUtil.isNotNullEmpty(editJson)){
-            ProductModel editModel = ProductCombine.jsonToModel(editJson);
+            ProductCombine productCombine = new ProductCombine(ProductModel.class);
+            ProductModel editModel = productCombine.jsonToModel(editJson);
             setAllField(editModel);
             return;
         }

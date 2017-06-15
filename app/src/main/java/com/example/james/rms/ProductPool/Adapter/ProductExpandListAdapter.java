@@ -7,7 +7,6 @@ import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.GridView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -15,21 +14,14 @@ import com.example.james.rms.CommonProfile.MyExpandableListAdapter;
 import com.example.james.rms.CommonProfile.ObjectUtil;
 import com.example.james.rms.CommonProfile.ResponseStatus;
 import com.example.james.rms.CommonProfile.StartActivityForResultKey;
-import com.example.james.rms.Core.Adapter.CnGridAdapter;
-import com.example.james.rms.Core.Dao.InventoryDao;
-import com.example.james.rms.Core.Dao.InventoryDaoImpl;
+import com.example.james.rms.Core.Combine.ProductCombine;
 import com.example.james.rms.Core.Dao.ProductDao;
 import com.example.james.rms.Core.Dao.ProductDaoImpl;
 import com.example.james.rms.Core.Model.ProductModel;
 import com.example.james.rms.Core.Model.ResponseMessage;
-import com.example.james.rms.Core.SearchObject.ProductSearchObject;
-import com.example.james.rms.Core.SearchObject.SearchCombine;
 import com.example.james.rms.Operation.ProductAction.ProductIncrease;
-import com.example.james.rms.ProductPool.ProductCombine;
 import com.example.james.rms.R;
 
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import butterknife.BindView;
@@ -64,7 +56,8 @@ public class ProductExpandListAdapter extends MyExpandableListAdapter<ProductMod
         holder.linear_edit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String editModel = ProductCombine.modelToJson(getFilteredData().get(groupPosition));
+                ProductCombine productCombine = new ProductCombine(ProductModel.class);
+                String editModel = productCombine.modelToJson(getFilteredData().get(groupPosition));
                 Intent intent = new Intent();
                 intent.setClass(getContext(), ProductIncrease.class);
                 intent.putExtra(StartActivityForResultKey.productModel,editModel);
@@ -76,7 +69,8 @@ public class ProductExpandListAdapter extends MyExpandableListAdapter<ProductMod
         holder.linear_delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String productModel = ProductCombine.modelToJson(getFilteredData().get(groupPosition));
+                ProductCombine productCombine = new ProductCombine(ProductModel.class);
+                String productModel = productCombine.modelToJson(getFilteredData().get(groupPosition));
                 ProductDao productDao = new ProductDaoImpl();
                 ResponseMessage responseMessage = productDao.delete(productModel);
                 if(responseMessage != null && ResponseStatus.getSuccessful().equalsIgnoreCase(responseMessage.getMessage_status())){

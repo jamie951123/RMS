@@ -1,4 +1,4 @@
-package com.example.james.rms.ProductPool;
+package com.example.james.rms.Core.Combine;
 
 import com.example.james.rms.CommonProfile.GsonUtil;
 import com.example.james.rms.Core.Model.ProductModel;
@@ -15,13 +15,19 @@ import java.util.Date;
  * Created by james on 5/2/2017.
  */
 
-public class ProductCombine {
+public class ProductCombine extends HomeCombine<ProductModel>{
 
-    public static String productSearchObject(ProductSearchObject productSearchObject) {
+    public ProductCombine(Class<ProductModel> classType) {
+        super(classType);
+    }
+
+    public static String combine_partyId(String partyId) {
+        ProductModel productModel = new ProductModel();
+        productModel.setPartyId(partyId);
         String result="";
         try{
             Gson gson = GsonUtil.toJson();
-            result = gson.toJson(productSearchObject);
+            result = gson.toJson(productModel);
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -48,27 +54,5 @@ public class ProductCombine {
         Gson gson = GsonUtil.toJson();
         result = gson.toJson(productModel);
         return result;
-    }
-
-    public static String modelToJson(ProductModel productModel){
-        String result = null;
-        try{
-            Gson gson = GsonUtil.toJson();
-            result = gson.toJson(productModel);
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-        return result;
-    }
-
-    public static ProductModel jsonToModel(String json){
-        ProductModel productModel = new ProductModel();
-        try{
-            Gson gson = GsonUtil.fromStringJson();
-            productModel = gson.fromJson(json,ProductModel.class);
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-        return productModel;
     }
 }

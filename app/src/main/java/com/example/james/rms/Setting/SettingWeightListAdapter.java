@@ -21,6 +21,8 @@ import com.example.james.rms.CommonProfile.ActivityUtil;
 import com.example.james.rms.CommonProfile.Listview.ListViewGrowthUtil;
 import com.example.james.rms.CommonProfile.MyBaseSwipeAdapter;
 import com.example.james.rms.CommonProfile.ResponseStatus;
+import com.example.james.rms.Core.Combine.SettingSearchCombine;
+import com.example.james.rms.Core.Combine.WeightProfileCombine;
 import com.example.james.rms.Core.Dao.ProductDao;
 import com.example.james.rms.Core.Dao.ProductDaoImpl;
 import com.example.james.rms.Core.Dao.WeightProfileDao;
@@ -76,7 +78,8 @@ public class SettingWeightListAdapter extends MyBaseSwipeAdapter<WeightProfileMo
             @Override
             public void onClick(View view) {
                 WeightProfileModel w = getItem(position);
-                String gson = SettingCombine.gsonWeightProfile(w);
+                WeightProfileCombine weightProfileCombine = new WeightProfileCombine(WeightProfileModel.class);
+                String gson = weightProfileCombine.modelToJson(w);
 
                 ProductDao productDao = new ProductDaoImpl();
                 Integer deleteCount = productDao.updateWeightIdNullByWeightIdAndPartyId(gson);
@@ -116,7 +119,8 @@ public class SettingWeightListAdapter extends MyBaseSwipeAdapter<WeightProfileMo
                 weightProfileModel.setLastModifiedBy(partyId);
                 weightProfileModel.setLastModifiedDate(new Date());
                 weightProfileModel.setStatus(Status.PROGRESS);
-                String json = SettingCombine.gsonWeightProfile(weightProfileModel);
+                WeightProfileCombine weightProfileCombine = new WeightProfileCombine(WeightProfileModel.class);
+                String json = weightProfileCombine.modelToJson(weightProfileModel);
                 //Service
                 WeightProfileDao weightProfileDao = new WeightProfileDaoImpl();
                 weightProfileModel = weightProfileDao.save(json);

@@ -38,7 +38,7 @@ import com.example.james.rms.Core.Model.Status;
 import com.example.james.rms.Core.TransferModel.NumberDialogModel;
 import com.example.james.rms.Operation.Adapter.ReceivingIncreaseListAdapter;
 import com.example.james.rms.R;
-import com.example.james.rms.Receiving.ReceivingCombine;
+import com.example.james.rms.Core.Combine.ReceivingOrderCombine;
 import com.github.clans.fab.FloatingActionButton;
 import com.google.gson.Gson;
 
@@ -96,7 +96,7 @@ public class ReceivingIncrease extends AppCompatActivity implements View.OnClick
         PartyIdPreferences partyIdPreferences = new PartyIdPreferences(this,"loginInformation",MODE_PRIVATE);
         common_partyId =  partyIdPreferences.getPreferences_PartyId().get("partyId");
         //HttpOK
-        String combine_partyId = ReceivingCombine.combine_partyId(common_partyId);
+        String combine_partyId = ReceivingOrderCombine.combine_partyId(common_partyId);
         List<ProductModel> allModel = productDao.findByPartyId(combine_partyId);
         //
         item_original  = new ArrayList<>(modelConvert(allModel));
@@ -118,7 +118,8 @@ public class ReceivingIncrease extends AppCompatActivity implements View.OnClick
         }
 
         if(ObjectUtil.isNotNullEmpty(receivingOrder_Json)){
-            orderModel = ReceivingCombine.jsonToOrderModel(receivingOrder_Json);
+            ReceivingOrderCombine receivingOrderCombine = new ReceivingOrderCombine(ReceivingOrderModel.class);
+            orderModel = receivingOrderCombine.jsonToModel(receivingOrder_Json);
             receiving_increase_toolbar_title.setText(R.string.title_edit_receiving);
             setAllField(orderModel,orginalSelected);
             return;

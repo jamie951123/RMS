@@ -14,7 +14,7 @@
 //import com.example.james.rms.CommonProfile.ObjectUtil;
 //import com.example.james.rms.CommonProfile.SharePreferences.PartyIdPreferences;
 //import com.example.james.rms.Core.Product.Model.ProductInsertModel;
-//import com.example.james.rms.ProductPool.ProductCombine;
+//import com.example.james.rms.Core.Combine.ProductCombine;
 //import com.example.james.rms.ProductPool.Service.ProductService;
 //import com.example.james.rms.ProductPool.Service.ProductServiceImpl;
 //import com.example.james.rms.R;

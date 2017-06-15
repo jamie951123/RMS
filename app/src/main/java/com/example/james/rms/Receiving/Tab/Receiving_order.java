@@ -11,18 +11,14 @@ import com.example.james.rms.CommonProfile.MyBaseFragment;
 import com.example.james.rms.CommonProfile.ObjectUtil;
 import com.example.james.rms.CommonProfile.SharePreferences.PartyIdPreferences;
 import com.example.james.rms.Controller.NavigationController;
-import com.example.james.rms.Core.Dao.ReceivingItemDao;
-import com.example.james.rms.Core.Dao.ReceivingItemDaoImpl;
 import com.example.james.rms.Core.Dao.ReceivingOrderDao;
 import com.example.james.rms.Core.Dao.ReceivingOrderDaoImpl;
-import com.example.james.rms.Core.Model.ReceivingItemModel;
 import com.example.james.rms.Core.Model.ReceivingOrderModel;
 import com.example.james.rms.ITF.ViewPagerListener;
 import com.example.james.rms.R;
 import com.example.james.rms.Receiving.Adapter.ReceivingOrderExpandListAdapter;
-import com.example.james.rms.Receiving.ReceivingCombine;
+import com.example.james.rms.Core.Combine.ReceivingOrderCombine;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -33,11 +29,13 @@ public class Receiving_order extends MyBaseFragment implements AdapterView.OnIte
     @BindView(R.id.receiving_order_listView)
     AnimatedExpandableListView listView;
 
+    //Interface
     private ReceivingOrderDao receivingOrderDao = new ReceivingOrderDaoImpl();
-    //    private ReceivingItemDao receivingItemDao = new ReceivingItemDaoImpl();
-    //
+
+    //Adapter
     private ReceivingOrderExpandListAdapter receivingOrderExpandListAdapter;
-    //Result
+
+    //Model
     List<ReceivingOrderModel> receivingOrderModels;
     //    List<ReceivingItemModel> receivingItemModels;
     @Override
@@ -49,10 +47,10 @@ public class Receiving_order extends MyBaseFragment implements AdapterView.OnIte
         PartyIdPreferences partyIdPreferences = new PartyIdPreferences(getActivity(),"loginInformation",getActivity().MODE_PRIVATE);
         String partyId =  partyIdPreferences.getPreferences_PartyId().get("partyId");
         //partyId
-        String combine_partyId = ReceivingCombine.combine_partyId(partyId);
+        String combine_partyId = ReceivingOrderCombine.combine_partyId(partyId);
 
         //HttpOK
-        receivingOrderModels = receivingOrderDao.findReceivingOrderByPartyId(combine_partyId);
+        receivingOrderModels = receivingOrderDao.findByPartyId(combine_partyId);
 //        receivingItemModels = receivingItemDao.findReceivingItemByPartyId(combine_partyId);
 
         //listView

@@ -29,8 +29,8 @@ public abstract class MyExpandableListAdapter<T> extends AnimatedExpandableListV
 
     public MyExpandableListAdapter(Context context, List<T> dataArrayList) {
         this.context = context;
-        this.originalData = new ArrayList<>(dataArrayList);
-        this.filteredData = new ArrayList<>(dataArrayList);
+        this.originalData = dataArrayList;
+        this.filteredData = dataArrayList;
         this.layoutInflater = layoutInflater.from(context);
         productNameFilter = new MyExpandableListAdapter.ProductNameFilter();
         remarkFilter = new MyExpandableListAdapter.RemarkFilter();

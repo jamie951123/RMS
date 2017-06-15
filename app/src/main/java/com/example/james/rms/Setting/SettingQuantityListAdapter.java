@@ -21,6 +21,8 @@ import com.example.james.rms.CommonProfile.ActivityUtil;
 import com.example.james.rms.CommonProfile.Listview.ListViewGrowthUtil;
 import com.example.james.rms.CommonProfile.MyBaseSwipeAdapter;
 import com.example.james.rms.CommonProfile.ResponseStatus;
+import com.example.james.rms.Core.Combine.QuantityProfileCombine;
+import com.example.james.rms.Core.Combine.SettingSearchCombine;
 import com.example.james.rms.Core.Dao.ProductDao;
 import com.example.james.rms.Core.Dao.ProductDaoImpl;
 import com.example.james.rms.Core.Dao.QuantityProfileDao;
@@ -76,7 +78,8 @@ public class SettingQuantityListAdapter extends MyBaseSwipeAdapter<QuantityProfi
             @Override
             public void onClick(View view) {
                 QuantityProfileModel qtymodel = getItem(position);
-                String gson = SettingCombine.gsonQuantityProfile(qtymodel);
+                QuantityProfileCombine quantityProfileCombine = new QuantityProfileCombine(QuantityProfileModel.class);
+                String gson = quantityProfileCombine.modelToJson(qtymodel);
 
                 ProductDao productDao = new ProductDaoImpl();
                 Integer deleteCount = productDao.updateQuantityIdNullByQuantityIdAndPartyId(gson);
@@ -115,7 +118,8 @@ public class SettingQuantityListAdapter extends MyBaseSwipeAdapter<QuantityProfi
                 quantityProfileModel.setLastModifiedBy(partyId);
                 quantityProfileModel.setLastModifiedDate(new Date());
                 quantityProfileModel.setStatus(Status.PROGRESS);
-                String json = SettingCombine.gsonQuantityProfile(quantityProfileModel);
+                QuantityProfileCombine quantityProfileCombine = new QuantityProfileCombine(QuantityProfileModel.class);
+                String json = quantityProfileCombine.modelToJson(quantityProfileModel);
                 //Service
                 QuantityProfileDao quantityProfileDao = new QuantityProfileDaoImpl();
                 QuantityProfileModel result = quantityProfileDao.save(json);

@@ -71,6 +71,14 @@ public class ServeProfile {
     final static String inventorySum_findByPartyIdAndStatus = "rms/inventorysum/findByPartyIdAndStatus";
     final static String inventorySum_findByPartyIdAndStatusOrderByProductId = "rms/inventorysum/findByPartyIdAndStatusOrderProductId";
 
+    //Delivery_Order
+    final static String de_order_findAll = "rms/delivery/order/findAll";
+    final static String de_order_findByOrderIdAndStatus = "rms/delivery/order/findByOrderIdAndStatus";
+
+    //Delivery_Item
+    final static String de_item_findAll = "rms/delivery/item/findAll";
+    final static String de_item_findByOrderIdAndStatus = "rms/delivery/item/findByOrderIdAndStatus";
+
 
     public static String getServe() {
         return serve;
@@ -250,5 +258,21 @@ public class ServeProfile {
 
     public static String getRe_item_delete() {
         return re_item_delete;
+    }
+
+    public static String getDe_order_findAll() {
+        return de_order_findAll;
+    }
+
+    public static String getDe_order_findByOrderIdAndStatus() {
+        return de_order_findByOrderIdAndStatus;
+    }
+
+    public static String getDe_item_findAll() {
+        return de_item_findAll;
+    }
+
+    public static String getDe_item_findByOrderIdAndStatus() {
+        return de_item_findByOrderIdAndStatus;
     }
 }

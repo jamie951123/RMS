@@ -12,7 +12,7 @@ import java.util.List;
 public interface ReceivingOrderDao {
 
     //Find
-    List<ReceivingOrderModel> findReceivingOrderByPartyId(String json);
+    List<ReceivingOrderModel> findByPartyId(String json);
 
     //Save
     ReceivingOrderModel save(String json);

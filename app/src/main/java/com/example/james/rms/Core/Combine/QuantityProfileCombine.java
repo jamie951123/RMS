@@ -1,17 +1,16 @@
-package com.example.james.rms.Core.SearchObject;
+package com.example.james.rms.Core.Combine;
 
 import com.example.james.rms.CommonProfile.GsonUtil;
-import com.example.james.rms.Core.Combine.HomeCombine;
 import com.example.james.rms.Core.Model.QuantityProfileModel;
 import com.google.gson.Gson;
 
 /**
- * Created by jamie on 2017/5/7.
+ * Created by Jamie on 15/6/2017.
  */
 
-public class QuantitySearchObject extends HomeCombine<QuantityProfileModel>{
+public class QuantityProfileCombine extends HomeCombine<QuantityProfileModel> {
 
-    public QuantitySearchObject(Class<QuantityProfileModel> classType) {
+    public QuantityProfileCombine(Class<QuantityProfileModel> classType) {
         super(classType);
     }
 

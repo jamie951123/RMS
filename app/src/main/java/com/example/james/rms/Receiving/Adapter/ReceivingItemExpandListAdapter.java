@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -14,6 +13,7 @@ import com.example.james.rms.CommonProfile.MyExpandableListAdapter;
 import com.example.james.rms.CommonProfile.ObjectUtil;
 import com.example.james.rms.CommonProfile.ResponseStatus;
 import com.example.james.rms.CommonProfile.StartActivityForResultKey;
+import com.example.james.rms.Core.Combine.ReceivingItemCombine;
 import com.example.james.rms.Core.Dao.ReceivingItemDao;
 import com.example.james.rms.Core.Dao.ReceivingItemDaoImpl;
 import com.example.james.rms.Core.Model.ReceivingItemModel;
@@ -21,10 +21,7 @@ import com.example.james.rms.Core.Model.ReceivingOrderModel;
 import com.example.james.rms.Core.Model.ResponseMessage;
 import com.example.james.rms.Operation.ReceivingAction.ReceivingIncrease;
 import com.example.james.rms.R;
-import com.example.james.rms.Receiving.ReceivingCombine;
 import com.google.gson.Gson;
-
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -83,7 +80,8 @@ public class ReceivingItemExpandListAdapter extends MyExpandableListAdapter<Rece
             viewHolder.receivingItem_linear_delete.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    String receivingItem_json = ReceivingCombine.itemModelToJson(getFilteredData().get(groupPosition));
+                    ReceivingItemCombine receivingItemCombine = new ReceivingItemCombine(ReceivingItemModel.class);
+                    String receivingItem_json = receivingItemCombine.modelToJson(getFilteredData().get(groupPosition));
                     ReceivingItemDao receivingItemDao = new ReceivingItemDaoImpl();
                     ResponseMessage responseMessage = receivingItemDao.delete(receivingItem_json);
                     if (responseMessage != null && ResponseStatus.getSuccessful().equalsIgnoreCase(responseMessage.getMessage_status())) {
