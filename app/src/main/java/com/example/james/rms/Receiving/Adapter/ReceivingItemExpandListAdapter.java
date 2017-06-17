@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.example.james.rms.CommonProfile.GlideApp;
 import com.example.james.rms.CommonProfile.GsonUtil;
 import com.example.james.rms.CommonProfile.MyExpandableListAdapter;
 import com.example.james.rms.CommonProfile.ObjectUtil;
@@ -56,6 +57,12 @@ public class ReceivingItemExpandListAdapter extends MyExpandableListAdapter<Rece
             viewHolder.receivingItem_itemReceivingDate.setText(ObjectUtil.dateToString(receivingItemModel.getItemReceivingDate()));
             viewHolder.receivingItem_itemGrossWeight.setText(ObjectUtil.bigDecimalToString(receivingItemModel.getItemGrossWeight()));
             viewHolder.receivingItem_itemGrossWeightUnit.setText(receivingItemModel.getProduct().getWeightprofile() == null ? "" : receivingItemModel.getProduct().getWeightprofile().getWeightUnit());
+            GlideApp.with(getContext())
+                    .load(R.drawable.mailbox_black)
+                    .error(R.drawable.question_purple)
+                    .placeholder(R.drawable.question_purple)
+                    .fitCenter()
+                    .into(viewHolder.receivingItem_image);
 
             viewHolder.receivingItem_linear_edit.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -162,6 +169,8 @@ public class ReceivingItemExpandListAdapter extends MyExpandableListAdapter<Rece
         LinearLayout receivingItem_linear_edit;
         @BindView(R.id.receiving_item_linear_delete)
         LinearLayout receivingItem_linear_delete;
+        @BindView(R.id.receivingItem_image)
+        com.github.siyamed.shapeimageview.RoundedImageView receivingItem_image;
 
         public GroupHolder(View view){
             ButterKnife.bind(this,view);

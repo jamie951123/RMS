@@ -3,13 +3,13 @@ package com.example.james.rms.ProductPool.Adapter;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
-import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.example.james.rms.CommonProfile.GlideApp;
 import com.example.james.rms.CommonProfile.MyExpandableListAdapter;
 import com.example.james.rms.CommonProfile.ObjectUtil;
 import com.example.james.rms.CommonProfile.ResponseStatus;
@@ -52,7 +52,13 @@ public class ProductExpandListAdapter extends MyExpandableListAdapter<ProductMod
         holder.productCode.setText(productModel.getProductCode());
         holder.productName.setText(productModel.getProductName());
         holder.createDate.setText(ObjectUtil.dateToString(productModel.getCreateDate()));
-        holder.productImage.setImageDrawable(ContextCompat.getDrawable(getContext(),R.drawable.mailbox_black));
+        GlideApp.with(getContext())
+                .load(R.drawable.mailbox_black)
+                .error(R.drawable.question_purple)
+                .placeholder(R.drawable.question_purple)
+                .fitCenter()
+                .into(holder.productImage);
+
         holder.linear_edit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -167,7 +173,7 @@ public class ProductExpandListAdapter extends MyExpandableListAdapter<ProductMod
         @BindView(R.id.product_createDate)
         TextView createDate;
         @BindView(R.id.product_product_image)
-        de.hdodenhof.circleimageview.CircleImageView productImage;
+        com.github.siyamed.shapeimageview.RoundedImageView productImage;
         @BindView(R.id.product_linear_edit)
         LinearLayout linear_edit;
         @BindView(R.id.product_linear_delete)

@@ -7,12 +7,14 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import com.example.james.rms.CommonProfile.Library.AnimatedExpandableListView;
 import com.example.james.rms.CommonProfile.MyBaseFragment;
 import com.example.james.rms.CommonProfile.SharePreferences.PartyIdPreferences;
 import com.example.james.rms.Core.Combine.DeliveryOrderCombine;
 import com.example.james.rms.Core.Dao.DeliveryOrderDao;
 import com.example.james.rms.Core.Dao.DeliveryOrderDaoImpl;
 import com.example.james.rms.Core.Model.DeliveryOrderModel;
+import com.example.james.rms.Delivery.Adapter.DeliveryOrderExpandListAdapter;
 import com.example.james.rms.R;
 
 import java.util.ArrayList;
@@ -28,7 +30,7 @@ import butterknife.ButterKnife;
 public class Delivery_Order extends MyBaseFragment {
 
     @BindView(R.id.de_order_listview)
-    ListView listView;
+    AnimatedExpandableListView listView;
 
     //Interface
     private DeliveryOrderDao deliveryOrderDao = new DeliveryOrderDaoImpl();
@@ -53,8 +55,9 @@ public class Delivery_Order extends MyBaseFragment {
         for(DeliveryOrderModel model : deliveryOrderModels){
             test.add(model.getPartyId());
         }
-        ArrayAdapter<String> arrayAdapter = new ArrayAdapter(getActivity(),android.R.layout.simple_list_item_1,test);
-        listView.setAdapter(arrayAdapter);
+
+        DeliveryOrderExpandListAdapter deliveryOrderExpandListAdapter = new DeliveryOrderExpandListAdapter(getActivity(),deliveryOrderModels);
+//        listView.setAdapter(deliveryOrderExpandListAdapter);
 //        pager.setPagingEnabled(false);
         return rootView;
     }

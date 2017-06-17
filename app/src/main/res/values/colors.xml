@@ -4,6 +4,22 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
 
+    <!--Product-->
+    <color name="product_value_color">#FFFFFF</color>
+
+    <!--ReceivingOrder-->
+    <color name="receiving_order_value_color">#FFFFFF</color>
+
+    <!--ReceivingItem-->
+    <color name="receiving_item_value_color">#FFFFFF</color>
+
+    <!--Delivery Order-->
+    <color name="delivery_order_value_color">#FFFFFF</color>
+
+    <!--Delivery Item-->
+    <color name="delivery_item_value_color">#FFFFFF</color>
+
+
     <!--background-->
     <color name="backgroundE8E8E8">#E8E8E8</color>
     <!--white-->

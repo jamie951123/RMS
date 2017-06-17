@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
     <!-- Single ListItem -->
@@ -10,227 +12,274 @@
         android:id="@+id/receivingOrder_card_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:minHeight="40dp"
-        android:background="@color/whiteFFFFFF"
         android:layout_margin="4dp"
-        card_view:cardCornerRadius="10dp"
-        android:foreground="?android:attr/selectableItemBackground">
+        android:background="@color/whiteFFFFFF"
+        android:foreground="?android:attr/selectableItemBackground"
+        android:minHeight="30dp"
+        card_view:cardCornerRadius="10dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:paddingBottom="@dimen/card_margin"
-            android:paddingLeft="@dimen/card_margin"
-            android:paddingRight="@dimen/card_margin"
-            android:paddingTop="@dimen/card_margin"
             android:layout_weight="2"
-            android:orientation="horizontal">
+            android:orientation="vertical">
 
-            <de.hdodenhof.circleimageview.CircleImageView
-                xmlns:app="http://schemas.android.com/apk/res-auto"
-                android:id="@+id/receivingOrder_image"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:src="@drawable/input"
-                android:layout_gravity="center"
-                app:civ_border_width="2dp"
-                app:civ_fill_color="@color/blue0895ef"/>
+            <!--BlueColor-->
+             <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:paddingBottom="@dimen/card_margin"
+            android:background="@color/blue0895ef">
 
-            <!-- Receiving Order Id -->
+                <!--Header-->
+                <!-- Receiving Order Id -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="4">
+
+                        <TextView
+                            android:id="@+id/receivingOrder_orderId"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="center"
+                            android:padding="10dip"
+                            android:text="id"
+                            android:textSize="20dip"
+                            android:textStyle="bold"
+                            android:textColor="@color/receiving_order_value_color"/>
+                    </LinearLayout>
+
+                <!--<View-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="1dp"-->
+                <!--android:background="@color/whiteFFFFFF"/>-->
+
+                <!--Main-->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:paddingBottom="@dimen/card_margin"
-            android:paddingLeft="@dimen/card_margin"
-            android:paddingRight="@dimen/card_margin"
-            android:paddingTop="@dimen/card_margin"
-            android:orientation="vertical">
-            <!-- Receiving Order Id -->
+            android:layout_weight="1"
+            android:orientation="horizontal">
+            <!--Left-->
+            <!--ImageView-->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="2">
-                <TextView
-                    android:id="@+id/receivingOrder_orderId"
+                android:paddingLeft="@dimen/card_margin"
+                android:paddingRight="@dimen/card_margin"
+                android:gravity="center"
+                android:layout_weight="4">
+
+                <com.github.siyamed.shapeimageview.RoundedImageView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:gravity="center"
-                    android:padding="10dip"
-                    android:textSize="20dip"
-                    android:text="id"
-                    android:textStyle="bold"/>
-            </LinearLayout>
+                    android:layout_gravity="center"
+                    app:siRadius="6dp"
+                    app:siBorderWidth="6dp"
+                    app:siBorderColor="@color/whiteFFFFFF"
+                    app:siSquare="true"
+                    android:id="@+id/receivingOrder_image"/>
+
+                </LinearLayout>
+
+            <!--Right-->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="3">
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="2"
-                    android:text="@string/receivingOrder_date"/>
+                android:layout_weight="1"
+                android:paddingLeft="@dimen/card_margin"
+                android:orientation="vertical">
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:id="@+id/receivingOrder_date"/>
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="3">
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="2"
-                    android:text="@string/receivingOrder_itemQty"/>
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:id="@+id/receivingOrder_itemQty"/>
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal"
-                android:layout_weight="3">
+                <!-- ReceivingDate -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:orientation="horizontal">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/receivingOrder_actualQty"/>
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="/"/>
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/receivingOrder_estimateQty"/>
-                </LinearLayout>
 
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="2"
+                            android:text="@string/receivingOrder_date" />
+
+                        <TextView
+                            android:id="@+id/receivingOrder_date"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:textColor="@color/receiving_order_value_color"/>
+                    </LinearLayout>
+
+                <!-- Goods QTY -->
                 <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1">
-                <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/receivingOrder_actualQty"/>
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="horizontal">
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="2"
+                            android:text="@string/receivingOrder_itemQty" />
 
-                <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="/"/>
-                <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/receivingOrder_estimateQty"/>
+                        <TextView
+                            android:id="@+id/receivingOrder_itemQty"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:textColor="@color/receiving_order_value_color"/>
+                    </LinearLayout>
+
+                <!--Actually-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="horizontal">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/receivingOrder_actualQty" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="/" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/receivingOrder_estimateQty" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1">
+
+                            <TextView
+                                android:id="@+id/receivingOrder_actualQty"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textColor="@color/whiteFFFFFF"/>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="/" />
+
+                            <TextView
+                                android:id="@+id/receivingOrder_estimateQty"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textColor="@color/receiving_order_value_color"/>
+                        </LinearLayout>
+
+                    </LinearLayout>
+
                 </LinearLayout>
 
+            <!--Finsh-->
             </LinearLayout>
 
-        </LinearLayout>
+                 </LinearLayout>
 
-        </LinearLayout>
 
+            <!--Fooder-->
+            <!--Action LinearLayout-->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="4"
+                android:paddingTop="@dimen/card_margin"
                 android:orientation="horizontal">
 
                 <LinearLayout
+                    android:id="@+id/receivingOrder_linear_edit"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:orientation="vertical"
                     android:layout_weight="1"
                     android:foreground="?android:attr/selectableItemBackground"
-                    android:id="@+id/receivingOrder_linear_edit">
-                    <de.hdodenhof.circleimageview.CircleImageView
-                        xmlns:app="http://schemas.android.com/apk/res-auto"
+                    android:orientation="vertical">
+
+                    <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
                         android:id="@+id/receivingOrder_image_edit"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@drawable/pencil_color"
                         android:layout_gravity="center"
+                        android:src="@drawable/pencil_color"
                         app:civ_border_width="2dp"
-                        app:civ_fill_color="@color/organeFFC266"/>
+                        app:civ_fill_color="@color/organeFFC266" />
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:gravity="center"
-                        android:textSize="15sp"
-                        android:text="@string/label_edit"/>
+                        android:text="@string/label_edit"
+                        android:textSize="15sp" />
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/receivingOrder_linear_delete"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:orientation="vertical"
                     android:layout_weight="1"
                     android:foreground="?android:attr/selectableItemBackground"
-                    android:id="@+id/receivingOrder_linear_delete">
-                    <de.hdodenhof.circleimageview.CircleImageView
-                        xmlns:app="http://schemas.android.com/apk/res-auto"
+                    android:orientation="vertical">
+
+                    <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
                         android:id="@+id/receivingOrder_image_delete"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@drawable/delete_color"
                         android:layout_gravity="center"
+                        android:src="@drawable/delete_color"
                         app:civ_border_width="2dp"
-                        app:civ_fill_color="@color/redFF3333"/>
+                        app:civ_fill_color="@color/redFF3333" />
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:gravity="center"
-                        android:textSize="15sp"
-                        android:text="@string/label_delete"/>
+                        android:text="@string/label_delete"
+                        android:textSize="15sp" />
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/receivingOrder_linear_detail"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:orientation="vertical"
                     android:layout_weight="1"
                     android:foreground="?android:attr/selectableItemBackground"
-                    android:id="@+id/receivingOrder_linear_detail">
-                    <de.hdodenhof.circleimageview.CircleImageView
-                        xmlns:app="http://schemas.android.com/apk/res-auto"
+                    android:orientation="vertical">
+
+                    <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
                         android:id="@+id/receivingOrder_image_detail"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@drawable/nextright_black"
                         android:layout_gravity="center"
+                        android:src="@drawable/nextright_black"
                         app:civ_border_width="2dp"
-                        app:civ_fill_color="@color/blue0895ef"/>
+                        app:civ_fill_color="@color/blue0895ef" />
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:gravity="center"
-                        android:textSize="15sp"
-                        android:text="@string/label_detail"/>
+                        android:text="@string/label_detail"
+                        android:textSize="15sp" />
                 </LinearLayout>
 
             </LinearLayout>
-
 
         </LinearLayout>
     </android.support.v7.widget.CardView>

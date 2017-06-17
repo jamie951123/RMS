@@ -82,6 +82,10 @@
         <activity android:name=".Setting.SettingContainer"
             android:configChanges="orientation"
             android:screenOrientation="portrait"></activity>
+
+        <meta-data android:name="com.example.james.rms.CommonProfile.MyAppGlideModule"
+            android:value="AppGlideModule"/>
+
     </application>
     <provider android:authorities="com.facebook.app.FacebookContentProvider1234"
         android:name="com.facebook.FacebookContentProvider"

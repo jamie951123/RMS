@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.example.james.rms.CommonProfile.GlideApp;
 import com.example.james.rms.CommonProfile.GsonUtil;
 import com.example.james.rms.CommonProfile.MyExpandableListAdapter;
 import com.example.james.rms.CommonProfile.ObjectUtil;
@@ -54,6 +55,12 @@ public class ReceivingOrderExpandListAdapter extends MyExpandableListAdapter<Rec
         holder.receivingOrder_actualQty.setText(ObjectUtil.intToString(receivingOrderModel.getActualQty()));
         holder.receivingOrder_estimateQty.setText(ObjectUtil.intToString(receivingOrderModel.getEstimateQty()));
         holder.receivingOrder_itemQty.setText(ObjectUtil.intToString(receivingOrderModel.getItemQty()));
+        GlideApp.with(getContext())
+                .load(R.drawable.input)
+                .error(R.drawable.question_purple)
+                .placeholder(R.drawable.question_purple)
+                .fitCenter()
+                .into(holder.receivingOrder_image);
 
         holder.receivingOrder_linear_edit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -175,6 +182,8 @@ public class ReceivingOrderExpandListAdapter extends MyExpandableListAdapter<Rec
         LinearLayout receivingOrder_linear_delete;
         @BindView(R.id.receivingOrder_linear_edit)
         LinearLayout receivingOrder_linear_edit;
+        @BindView(R.id.receivingOrder_image)
+        com.github.siyamed.shapeimageview.RoundedImageView receivingOrder_image;
 
         public GroupHolder(View view){
             ButterKnife.bind(this,view);
