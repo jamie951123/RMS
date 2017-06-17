@@ -24,10 +24,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="2"
-                android:text="@string/receivingOrder_status" />
+                android:text="@string/deliveryOrder_status" />
 
             <TextView
-                android:id="@+id/receivingOrder_status"
+                android:id="@+id/deliveryOrder_status"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1" />
@@ -43,10 +43,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="2"
-                android:text="@string/receivingOrder_createDate" />
+                android:text="@string/deliveryOrder_createDate" />
 
             <TextView
-                android:id="@+id/receivingOrder_createDate"
+                android:id="@+id/deliveryOrder_createDate"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1" />
@@ -62,10 +62,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="2"
-                android:text="@string/receivingOrder_closeDate" />
+                android:text="@string/deliveryOrder_closeDate" />
 
             <TextView
-                android:id="@+id/receivingOrder_closeDate"
+                android:id="@+id/deliveryOrder_closeDate"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1" />
@@ -81,10 +81,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="2"
-                android:text="@string/receivingOrder_remark" />
+                android:text="@string/deliveryOrder_remark" />
 
             <TextView
-                android:id="@+id/receivingOrder_remark"
+                android:id="@+id/deliveryOrder_remark"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1" />

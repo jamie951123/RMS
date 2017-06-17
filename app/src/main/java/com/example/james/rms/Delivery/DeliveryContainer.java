@@ -60,6 +60,13 @@ public class DeliveryContainer extends MyBaseFragment {
 
     @Override
     public void transferViewPager(int rid, Object model) {
-
+        Fragment fragment = fragments.get(pager.getCurrentItem()+1);
+        switch (rid){
+            case R.id.delivery_item:
+                MyBaseFragment myBaseFragment = (MyBaseFragment) fragment;
+                myBaseFragment.transferViewPager(rid,model);
+                pager.setCurrentItem(1);
+                break;
+        }
     }
 }

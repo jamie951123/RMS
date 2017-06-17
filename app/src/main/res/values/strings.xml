@@ -118,6 +118,18 @@
     <string name="receivingItem_ProductName">ProductName:</string>
     <!--ReceivingIcerease-->
     <string name="receiving_increase_title">Create ReceivingOrder</string>
+
+    <!--Delivery Order-->
+    <string name="deliveryOrder_deliveryId">DeliveryID:</string>
+    <string name="deliveryOrder_date">StockOutDate</string>
+    <string name="deliveryOrder_remark">Remark:</string>
+    <string name="deliveryOrder_status">Status:</string>
+    <string name="deliveryOrder_createDate">CreateDate:</string>
+    <string name="deliveryOrder_closeDate">CloseDate:</string>
+    <string name="deliveryOrder_actualQty">ActualQty</string>
+    <string name="deliveryOrder_estimateQty">EstimateQty:</string>
+    <string name="deliveryOrder_itemQty">Goods Qty:</string>
+
     <!--Action-->
     <string name="add_product">Add Product</string>
     <string name="add_receiving_order">Add Receiving Order</string>

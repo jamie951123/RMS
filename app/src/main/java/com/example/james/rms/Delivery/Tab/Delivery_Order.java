@@ -11,9 +11,12 @@ import com.example.james.rms.CommonProfile.Library.AnimatedExpandableListView;
 import com.example.james.rms.CommonProfile.MyBaseFragment;
 import com.example.james.rms.CommonProfile.SharePreferences.PartyIdPreferences;
 import com.example.james.rms.Core.Combine.DeliveryOrderCombine;
+import com.example.james.rms.Core.Combine.DeliveryOrderSearchCombine;
 import com.example.james.rms.Core.Dao.DeliveryOrderDao;
 import com.example.james.rms.Core.Dao.DeliveryOrderDaoImpl;
 import com.example.james.rms.Core.Model.DeliveryOrderModel;
+import com.example.james.rms.Core.Model.Status;
+import com.example.james.rms.Core.SearchObject.DeliveryOrderSearchObject;
 import com.example.james.rms.Delivery.Adapter.DeliveryOrderExpandListAdapter;
 import com.example.james.rms.R;
 
@@ -47,17 +50,12 @@ public class Delivery_Order extends MyBaseFragment {
         PartyIdPreferences partyIdPreferences = new PartyIdPreferences(getActivity(),"loginInformation",getActivity().MODE_PRIVATE);
         String partyId =  partyIdPreferences.getPreferences_PartyId().get("partyId");
         //partyId
-        String combine_partyId = DeliveryOrderCombine.combine_partyId(partyId);
+        String combine_partyIdAndStatus = DeliveryOrderSearchCombine.combine_partyIdAndStatus(partyId, Status.PROGRESS);
 
-        deliveryOrderModels = deliveryOrderDao.findAll();
-
-        List<String> test = new ArrayList<>();
-        for(DeliveryOrderModel model : deliveryOrderModels){
-            test.add(model.getPartyId());
-        }
+        deliveryOrderModels = deliveryOrderDao.findByPartyIdAndStatus(combine_partyIdAndStatus);
 
         DeliveryOrderExpandListAdapter deliveryOrderExpandListAdapter = new DeliveryOrderExpandListAdapter(getActivity(),deliveryOrderModels);
-//        listView.setAdapter(deliveryOrderExpandListAdapter);
+        listView.setAdapter(deliveryOrderExpandListAdapter);
 //        pager.setPagingEnabled(false);
         return rootView;
     }

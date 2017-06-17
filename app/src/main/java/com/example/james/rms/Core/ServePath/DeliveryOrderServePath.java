@@ -8,9 +8,17 @@ import com.example.james.rms.NetWork.ServeProfile;
 
 public class DeliveryOrderServePath {
 
+    //Find
     public static String serve_findAll(){
         String serve = ServeProfile.getServe();
         String path = ServeProfile.getDe_order_findAll();
+        String serve_path = serve+path;
+        return serve_path;
+    }
+
+    public static String serve_findByPartyIdAndStatus(){
+        String serve = ServeProfile.getServe();
+        String path = ServeProfile.getDe_order_findByPartyIdAndStatus();
         String serve_path = serve+path;
         return serve_path;
     }
@@ -22,4 +30,14 @@ public class DeliveryOrderServePath {
         return serve_path;
     }
 
+    //Update
+
+
+    //Delete
+    public static String serve_delete(){
+        String serve = ServeProfile.getServe();
+        String path = ServeProfile.getDe_order_delete();
+        String serve_path = serve+path;
+        return serve_path;
+    }
 }

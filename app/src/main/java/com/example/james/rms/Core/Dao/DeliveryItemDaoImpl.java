@@ -32,12 +32,12 @@ public class DeliveryItemDaoImpl implements DeliveryItemDao {
         } catch (ExecutionException e) {
             e.printStackTrace();
         }
-        Log.d("asd:","[DeliveryOrderModel]-findAll(Response--String): :"+result);
+        Log.d("asd:","[DeliveryItemModel]-findAll(Response--String): :"+result);
         try{
             Gson gson = new Gson();
             Type listType = new TypeToken<List<DeliveryItemModel>>() {}.getType();
             deliveryItemModels = gson.fromJson(result,listType);
-            Log.d("asd","[DeliveryOrderModel]-findAll(Gson): "+deliveryItemModels);
+            Log.d("asd","[DeliveryItemModel]-findAll(Gson): "+deliveryItemModels);
         }catch(JsonSyntaxException e){
             e.printStackTrace();
         }
