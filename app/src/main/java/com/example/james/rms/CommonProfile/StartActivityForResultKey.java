@@ -14,7 +14,28 @@ public class StartActivityForResultKey {
 //    Product
     final public static String productModel = "ProductModel";
     final public static int editProduct = 1000;
-//    Receiving
+
+//    ReceivingOrder
     final public static String receivingOrderModel = "ReceivingOrderModel";
+
+//    ReceivingItem
+    final public static String receivingItemModel = "ReceivingItemModel";
+
+
+    //    Inventory
+    final public static String inventoryModel = "InventoryModel";
+
+
+    //    DeliveryOrder
+    final public static String deliveryOrderModel = "DeliveryOrderModel";
+
+    //  DeliveryItem
+    final public static String deliveryItemModel = "DeliveryItemModel";
+
+    //    Operation
+    final public static String productIncrease = "ProductIncrease";
+    final public static String receivingIncrease = "ReceivingIncrease";
+    final public static String deliveryIncrease = "DeliveryIncrease";
+
 
 }

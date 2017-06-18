@@ -118,7 +118,8 @@
     <string name="receivingItem_ProductName">ProductName:</string>
     <!--ReceivingIcerease-->
     <string name="receiving_increase_title">Create ReceivingOrder</string>
-
+    <!--DeliveryIncrease-->
+    <string name="delivery_increase_title">Create DeliveryOrder</string>
     <!--Delivery Order-->
     <string name="deliveryOrder_deliveryId">DeliveryID:</string>
     <string name="deliveryOrder_date">StockOutDate</string>
@@ -139,6 +140,7 @@
     <string name="label_grossweight">GW:</string>
     <string name="label_quantity">Qty:</string>
     <string name="label_receivingDate">Receiving Date</string>
+    <string name="label_stockoutDate">StockOut Date</string>
     <string name="label_status">Status:</string>
     <string name="label_input">Please Input</string>
     <string name="label_number">Number</string>

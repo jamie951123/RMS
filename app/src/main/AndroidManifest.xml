@@ -70,6 +70,11 @@
             <!--</intent-filter>-->
 
         </activity>
+        <!--DeliveryOrder-->
+        <activity android:name=".Operation.DeliveryAction.DeliveryIncrease"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait">
+            </activity>
         <activity android:name=".Operation.ReceivingAction.ReceivingIncrease"
             android:configChanges="orientation"
             android:screenOrientation="portrait">

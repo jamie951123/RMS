@@ -11,6 +11,7 @@ import android.widget.GridView;
 
 import com.example.james.rms.Controller.NavigationController;
 import com.example.james.rms.Operation.Adapter.OperationGridAdapter;
+import com.example.james.rms.Operation.DeliveryAction.DeliveryIncrease;
 import com.example.james.rms.Operation.ProductAction.ProductIncrease;
 import com.example.james.rms.Operation.ReceivingAction.ReceivingIncrease;
 import com.example.james.rms.R;
@@ -62,7 +63,7 @@ public class OperationContainer extends AppCompatActivity implements AdapterView
                 intent = intent.setClass(this, ReceivingIncrease.class);
                 break;
             case 2:
-                intent = intent.setClass(this, ProductIncrease.class);
+                intent = intent.setClass(this, DeliveryIncrease.class);
                 break;
         }
         startActivity(intent);

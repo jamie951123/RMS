@@ -7,6 +7,8 @@ import android.support.v4.app.DialogFragment;
 import android.widget.DatePicker;
 
 import com.example.james.rms.CommonProfile.ObjectUtil;
+import com.example.james.rms.CommonProfile.StartActivityForResultKey;
+import com.example.james.rms.Operation.DeliveryAction.DeliveryIncrease;
 import com.example.james.rms.Operation.ReceivingAction.ReceivingIncrease;
 
 import java.util.Calendar;
@@ -21,7 +23,7 @@ public class MyDatePicker extends DialogFragment  implements DatePickerDialog.On
     private int yy;
     private int mm;
     private int dd;
-
+//    private String tag = null;
     public interface MyDatePickerService{
          void passDateToReceivingIncrease(String date_str ,Date date);
     }
@@ -33,6 +35,10 @@ public class MyDatePicker extends DialogFragment  implements DatePickerDialog.On
         dd = calendar.get(Calendar.DAY_OF_MONTH);
         DatePickerDialog datePickerDialog = new DatePickerDialog(getActivity(), this, yy, mm, dd);
         datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
+//        tag = null;
+//        if(datePickerDialog.getDatePicker().getTag() != null) {
+//            tag = String.valueOf(datePickerDialog.getDatePicker().getTag());
+//        }
         return datePickerDialog;
     }
 
@@ -40,8 +46,19 @@ public class MyDatePicker extends DialogFragment  implements DatePickerDialog.On
     public void onDateSet(DatePicker view, int year, int month, int day) {
         String lastDateTime = setDateFormat(year,month+1,day);
         Date date = ObjectUtil.stringToDate_onlyDate(lastDateTime);
-        MyDatePickerService myDatePickerService = (ReceivingIncrease)getActivity();
-        myDatePickerService.passDateToReceivingIncrease(lastDateTime,date);
+        MyDatePickerService myDatePickerService;
+        String className = getActivity().getClass().getSimpleName();
+        switch (className){
+            case StartActivityForResultKey.receivingIncrease:
+                myDatePickerService = (ReceivingIncrease) getActivity();
+                myDatePickerService.passDateToReceivingIncrease(lastDateTime, date);
+                break;
+            case StartActivityForResultKey.deliveryIncrease:
+                myDatePickerService = (DeliveryIncrease) getActivity();
+                myDatePickerService.passDateToReceivingIncrease(lastDateTime, date);
+                break;
+
+        }
     }
 
 

@@ -8,11 +8,11 @@
     android:background="@color/grayE8E8E8"
     android:fitsSystemWindows="true"
     android:orientation="vertical"
-    tools:context="com.example.james.rms.Operation.ReceivingAction.ReceivingIncrease">
+    tools:context="com.example.james.rms.Operation.DeliveryAction.DeliveryIncrease">
 
     <!--Toolbar-->
     <android.support.v7.widget.Toolbar
-        android:id="@+id/receiving_increase_toolbar"
+        android:id="@+id/delivery_increase_toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="@color/blue0895ef"
@@ -20,7 +20,7 @@
         app:popupTheme="@style/AppTheme.PopupOverlay">
 
         <TextView
-            android:id="@+id/receiving_increase_toolbar_title"
+            android:id="@+id/delivery_increase_toolbar_title"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
@@ -29,9 +29,9 @@
             android:textColor="@color/whiteFFFFFF"
             android:textSize="@dimen/toolbarsize" />
 
-
     </android.support.v7.widget.Toolbar>
 
+    <!--Header Card-->
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -56,10 +56,9 @@
                 android:layout_weight="1">
 
                 <EditText
-                    android:id="@+id/receiving_increase_remark"
+                    android:id="@+id/delivery_increase_remark"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_weight="1"
                     android:background="@android:color/transparent"
                     android:cursorVisible="false"
                     android:gravity="top|left"
@@ -77,23 +76,21 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:foreground="?android:attr/selectableItemBackground"
-                android:orientation="vertical">
+                android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/receiving_increase_datePicker"
+                    android:id="@+id/delivery_increase_datePicker"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:drawableRight="@drawable/alarm_color"
                     android:gravity="center_vertical"
-                    android:hint="@string/label_receivingDate"
+                    android:hint="@string/label_stockoutDate"
                     android:textColor="@color/black1F1F1F"
                     android:textSize="20sp" />
-
             </LinearLayout>
 
         </LinearLayout>
-
     </android.support.v7.widget.CardView>
 
     <View
@@ -108,12 +105,12 @@
         android:layout_weight="1">
 
         <ListView
-            android:id="@+id/receiving_increase_listview"
+            android:id="@+id/delivery_increase_listview"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 
         <com.github.clans.fab.FloatingActionButton
-            android:id="@+id/receiving_increase_fab"
+            android:id="@+id/delivery_increase_fab"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|right"

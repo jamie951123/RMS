@@ -1,6 +1,7 @@
 package com.example.james.rms.Delivery.Adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +19,7 @@ import com.example.james.rms.Core.Dao.DeliveryOrderDaoImpl;
 import com.example.james.rms.Core.Model.DeliveryOrderModel;
 import com.example.james.rms.Core.Model.ResponseMessage;
 import com.example.james.rms.ITF.ViewPagerListener;
+import com.example.james.rms.Operation.DeliveryAction.DeliveryIncrease;
 import com.example.james.rms.R;
 
 import java.util.List;
@@ -59,6 +61,9 @@ public class DeliveryOrderExpandListAdapter extends MyExpandableListAdapter<Deli
         holder.deliveryOrder_linear_edit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Intent intent = new Intent();
+                intent.setClass(getContext(), DeliveryIncrease.class);
+                getContext().startActivity(intent);
                 Log.d("asd","deliveryOrder_linear_edit");
             }
         });

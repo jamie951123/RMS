@@ -13,8 +13,8 @@
     </style>
 
     <!--toolbar Menu-->
-    <style name="receiving_increase_menu_theme" parent="Theme.AppCompat.Light.NoActionBar">
-        //...
+    <style name="increase_toolbar_menu_theme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!--//...-->
         <item name="actionMenuTextColor">@android:color/white</item>
         <item name="actionMenuTextAppearance">@style/toolbar_menu_edit</item>
     </style>
