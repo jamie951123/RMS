@@ -37,11 +37,12 @@ public class ReceivingIncreaseDialog extends DialogFragment implements AdapterVi
     @BindView(R.id.receiving_increase_dialog_submit)
     Button submit;
 
+    //
     private List<ReceivingItemModel>  item_original;
     private List<ReceivingItemModel>  item_latest;
-
+    //
     private LinkedHashMap<Long, Boolean> isSelected;
-
+    //
     ReceivingIncreaseDialogListAdapter receivingDialogListAdapter;
 
     public ReceivingIncreaseDialog() {}
@@ -122,15 +123,16 @@ public class ReceivingIncreaseDialog extends DialogFragment implements AdapterVi
         return item_listview;
     }
 
+
     @Override
-    public void putOriginalProductModels(List<ReceivingItemModel> item_original, List<ReceivingItemModel> item_latest, LinkedHashMap<Long, Boolean> isSelected) {
+    public void putOriginalProductModels(List item_original, List item_latest, LinkedHashMap isSelected) {
         this.item_original = item_original;
         this.item_latest = item_latest;
         this.isSelected = isSelected;
     }
 
     @Override
-    public void putLatestProductModel(List<ReceivingItemModel> item_latest, LinkedHashMap<Long, Boolean> isSelected) {
+    public void putLatestProductModel(List item_listview, LinkedHashMap isSelected) {
 
     }
 }

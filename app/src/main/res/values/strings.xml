@@ -36,6 +36,7 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="action_settings">Settings</string>
     <!--navigation Bar Item-->
+    <string name="allreceivingorder">All Receiving Order</string>
     <string name="allproduct">All Product</string>
     <string name="receiving">Receiving</string>
     <string name="inventory">Inventory</string>

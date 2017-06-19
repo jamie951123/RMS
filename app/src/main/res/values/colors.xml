@@ -19,6 +19,8 @@
     <!--Delivery Item-->
     <color name="delivery_item_value_color">#FFFFFF</color>
 
+    <!--Delivery Increase dialog-->
+    <color name="delivery_increase_value_color">#FFFFFF</color>
 
     <!--background-->
     <color name="backgroundE8E8E8">#E8E8E8</color>

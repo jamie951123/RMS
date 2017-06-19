@@ -27,7 +27,7 @@ public class ReceivingOrderDaoImpl implements ReceivingOrderDao {
         String result = "";
         Log.d("asd","[ReceivingOrderModel]-findByPartyId(Request--JSON) :" + json);
         try {
-            result = new HttpPostAsync().execute(ReceivingOrderServePath.findReceivingOrderByPartyId(),json).get();
+            result = new HttpPostAsync().execute(ReceivingOrderServePath.findByPartyId(),json).get();
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {
@@ -43,10 +43,38 @@ public class ReceivingOrderDaoImpl implements ReceivingOrderDao {
             e.printStackTrace();
         }
         if(receivingOrderModels == null){
-            Log.d("asd","[ReceivingOrderModel]-findReceivingOrderByPartyId(Response) [Error] : Serve have not response anything");
+            Log.d("asd","[ReceivingOrderModel]-findByPartyId(Response) [Error] : Serve have not response anything");
             return null;
         }
-        Log.d("asd","[ReceivingOrderModel]-findReceivingOrderByPartyId(Response)  :" + receivingOrderModels.toString());
+        Log.d("asd","[ReceivingOrderModel]-findByPartyId(Response)  :" + receivingOrderModels.toString());
+        return receivingOrderModels;
+    }
+
+    @Override
+    public List<ReceivingOrderModel> findByOrderIdAndStatus(String json) {
+        String result = "";
+        Log.d("asd","[ReceivingOrderModel]-findByOrderIdAndStatus(Request--JSON) :" + json);
+        try {
+            result = new HttpPostAsync().execute(ReceivingOrderServePath.findByOrderIdAndStatus(),json).get();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+        Log.d("asd:","[ReceivingOrderModel]-findByOrderIdAndStatus-[Response(String)] : "+result);
+        List<ReceivingOrderModel> receivingOrderModels = new ArrayList<>();
+        try{
+            Gson gson = GsonUtil.fromJson();
+            Type listType = new TypeToken<List<ReceivingOrderModel>>() {}.getType();
+            receivingOrderModels = gson.fromJson(result,listType);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        if(receivingOrderModels == null){
+            Log.d("asd","[ReceivingOrderModel]-findByOrderIdAndStatus(Response) [Error] : Serve have not response anything");
+            return null;
+        }
+        Log.d("asd","[ReceivingOrderModel]-findByOrderIdAndStatus(Response)  :" + receivingOrderModels.toString());
         return receivingOrderModels;
     }
 

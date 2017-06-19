@@ -7,9 +7,16 @@ import com.example.james.rms.NetWork.ServeProfile;
  */
 public class ReceivingOrderServePath {
 
-    public static String findReceivingOrderByPartyId(){
+    public static String findByPartyId(){
         String serve = ServeProfile.getServe();
         String path = ServeProfile.getRe_order_findByPartyId();
+        String serve_path = serve+path;
+        return serve_path;
+    }
+
+    public static String findByOrderIdAndStatus(){
+        String serve = ServeProfile.getServe();
+        String path = ServeProfile.getRe_order_findByOrderIdAndStatus();
         String serve_path = serve+path;
         return serve_path;
     }

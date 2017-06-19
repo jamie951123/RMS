@@ -59,7 +59,7 @@ import static com.example.james.rms.R.id.receiving_increase_fab;
  */
 
 public class ReceivingIncrease extends AppCompatActivity implements View.OnClickListener,
-        Communicate_Interface,MyDatePicker.MyDatePickerService,
+        Communicate_Interface<ReceivingItemModel>,MyDatePicker.MyDatePickerService,
         NumberDialog.QDtoReceivingIncrease{
     @BindView(R.id.receiving_increase_fab)
     FloatingActionButton fab_btn;
@@ -83,14 +83,15 @@ public class ReceivingIncrease extends AppCompatActivity implements View.OnClick
     private List<ReceivingItemModel>  item_original;
     private List<ReceivingItemModel>  item_latest;
     private List<ReceivingItemModel> item_listview;
-    String common_partyId;
+    private String common_partyId;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.receiving_increase);
         ButterKnife.bind(this);
         this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
-
+        fab_btn.setOnClickListener(this);
+        datePicker_btn.setOnClickListener(this);
         setUpToolbar();
         //Preferences
         PartyIdPreferences partyIdPreferences = new PartyIdPreferences(this,"loginInformation",MODE_PRIVATE);
@@ -103,9 +104,7 @@ public class ReceivingIncrease extends AppCompatActivity implements View.OnClick
         item_latest    = new ArrayList<>(modelConvert(allModel));
         item_listview  = new ArrayList<>();
         //
-        LinkedHashMap<Long,Boolean> orginalSelected = setOriginalCheckbox(item_original);
-        fab_btn.setOnClickListener(this);
-        datePicker_btn.setOnClickListener(this);
+        isSelected = setOriginalCheckbox(item_original);
 
         String receivingOrder_Json = null;
         if (savedInstanceState == null) {
@@ -121,17 +120,17 @@ public class ReceivingIncrease extends AppCompatActivity implements View.OnClick
             ReceivingOrderCombine receivingOrderCombine = new ReceivingOrderCombine(ReceivingOrderModel.class);
             orderModel = receivingOrderCombine.jsonToModel(receivingOrder_Json);
             receiving_increase_toolbar_title.setText(R.string.title_edit_receiving);
-            setAllField(orderModel,orginalSelected);
+            setAllField(orderModel);
             return;
         }
     }
 
-    private void setAllField(ReceivingOrderModel receivingOrderModel,LinkedHashMap<Long,Boolean> orginalSelected) {
+    private void setAllField(ReceivingOrderModel receivingOrderModel) {
         remark_edit.setText(receivingOrderModel.getRemark());
         if(receivingOrderModel.getReceivingDate() !=null) {
             Log.v("asd","[Receiving Increase ]-[Edit]-[ReceivingDate]:" +receivingOrderModel.getReceivingDate());
             String editRLDate = ObjectUtil.sdf_onlyDate.format(receivingOrderModel.getReceivingDate());
-            LinkedHashMap<Long,Boolean> latestSekected = setLatestCheckbox(receivingOrderModel.getReceivingItem(),orginalSelected);
+            LinkedHashMap<Long,Boolean> latestSekected = setLatestCheckbox(receivingOrderModel.getReceivingItem(),isSelected);
             datePicker_btn.setText(editRLDate);
 
             List<ReceivingItemModel> receivingItemModels = receivingOrderModel.getReceivingItem();
@@ -370,6 +369,4 @@ public class ReceivingIncrease extends AppCompatActivity implements View.OnClick
         listView.setAdapter(receivingIncreaseListAdapter);
         Log.v("asd","putLatestProductModel_listview :" +item_listview.toString());
     }
-
-
 }
