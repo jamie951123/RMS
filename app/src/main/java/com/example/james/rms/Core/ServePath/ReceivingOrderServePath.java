@@ -14,6 +14,13 @@ public class ReceivingOrderServePath {
         return serve_path;
     }
 
+    public static String findByPartyIdAndStatus(){
+        String serve = ServeProfile.getServe();
+        String path = ServeProfile.getRe_order_findByPartyIdAndStatus();
+        String serve_path = serve+path;
+        return serve_path;
+    }
+
     public static String findByOrderIdAndStatus(){
         String serve = ServeProfile.getServe();
         String path = ServeProfile.getRe_order_findByOrderIdAndStatus();

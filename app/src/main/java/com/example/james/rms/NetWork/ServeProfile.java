@@ -30,6 +30,7 @@ public class ServeProfile {
     //ReceivingOrder
     final static String re_order_findAll = "rms/receiving/order/findAll";
     final static String re_order_findByPartyId = "rms/receiving/order/findByPartyId";
+    final static String re_order_findByPartyIdAndStatus = "rms/receiving/order/findByPartyIdAndStatus";
     final static String re_order_findByOrderIdAndStatus = "rms/receiving/order/findByOrderIdAndStatus";
     final static String re_order_findByOrderId = "rms/receiving/order/findByOrderId";
     final static String re_order_delete = "rms/receiving/order/delete";
@@ -299,5 +300,9 @@ public class ServeProfile {
 
     public static String getRe_order_findByOrderIdAndStatus() {
         return re_order_findByOrderIdAndStatus;
+    }
+
+    public static String getRe_order_findByPartyIdAndStatus() {
+        return re_order_findByPartyIdAndStatus;
     }
 }

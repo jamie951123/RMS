@@ -13,6 +13,8 @@ public interface ReceivingOrderDao {
 
     //Find
     List<ReceivingOrderModel> findByPartyId(String json);
+    List<ReceivingOrderModel> findByPartyIdAndStatus(String json);
+
     List<ReceivingOrderModel> findByOrderIdAndStatus(String json);
     //Save
     ReceivingOrderModel save(String json);

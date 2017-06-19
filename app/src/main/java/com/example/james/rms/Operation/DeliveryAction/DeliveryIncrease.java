@@ -23,10 +23,13 @@ import com.example.james.rms.CommonProfile.StartActivityForResultKey;
 import com.example.james.rms.Core.Combine.DeliveryOrderSearchCombine;
 import com.example.james.rms.Core.Dao.DeliveryOrderDao;
 import com.example.james.rms.Core.Dao.DeliveryOrderDaoImpl;
+import com.example.james.rms.Core.Dao.ReceivingItemDao;
+import com.example.james.rms.Core.Dao.ReceivingItemDaoImpl;
 import com.example.james.rms.Core.Dao.ReceivingOrderDao;
 import com.example.james.rms.Core.Dao.ReceivingOrderDaoImpl;
 import com.example.james.rms.Core.Model.DeliveryItemModel;
 import com.example.james.rms.Core.Model.DeliveryOrderModel;
+import com.example.james.rms.Core.Model.ReceivingItemModel;
 import com.example.james.rms.Core.Model.ReceivingOrderModel;
 import com.example.james.rms.Core.Model.Status;
 import com.example.james.rms.Operation.ReceivingAction.Communicate_Interface;
@@ -68,11 +71,11 @@ Communicate_Interface<DeliveryOrderModel>{
     //
     private String common_partyId;
     //
-    private LinkedHashMap<Long, Boolean> isSelected;
+    private SelectedModel selectedModel = new SelectedModel();
     //
-    private List<DeliveryOrderModel>  order_original;
-    private List<DeliveryOrderModel>  order_latest;
-    private List<DeliveryOrderModel>  order_listview;
+    private List<ReceivingOrderModel>  order_original;
+    private List<ReceivingOrderModel>  order_latest;
+    private List<ReceivingOrderModel>  order_listview;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -85,14 +88,22 @@ Communicate_Interface<DeliveryOrderModel>{
         //Preferences
         PartyIdPreferences partyIdPreferences = new PartyIdPreferences(this,"loginInformation",MODE_PRIVATE);
         common_partyId =  partyIdPreferences.getPreferences_PartyId().get("partyId");
+        //Combine
+        String combine_partyIdAndstatus = DeliveryOrderSearchCombine.combine_partyIdAndStatus(common_partyId,Status.PROGRESS);
         //HttpOK
-        String combine_partyIdAndStatus = DeliveryOrderSearchCombine.combine_partyIdAndStatus(common_partyId, Status.PROGRESS);
-        List<ReceivingOrderModel> deliveryModels = receivingOrderDao.findByOrderIdAndStatus(combine_partyIdAndStatus);
-       // order_original = new ArrayList<>(deliveryModels);
-       // order_latest = new ArrayList<>(deliveryModels);
+//        String combine_partyIdAndStatus = DeliveryOrderSearchCombine.combine_partyIdAndStatus(common_partyId, Status.PROGRESS);
+//        List<ReceivingOrderModel> deliveryModels = receivingOrderDao.findByOrderIdAndStatus(combine_partyIdAndStatus);
+
+        //
+        ReceivingOrderDao receivingOrderDao = new ReceivingOrderDaoImpl();
+        List<ReceivingOrderModel> receivingOrderModels = receivingOrderDao.findByPartyIdAndStatus(combine_partyIdAndstatus);
+        Log.d("asd","receivingOrderModels :" + receivingOrderModels);
+        //
+        order_original = new ArrayList<>(receivingOrderModels);
+        order_latest = new ArrayList<>(receivingOrderModels);
         order_listview = new ArrayList<>();
         //
-        isSelected = setOriginalCheckbox(order_original);
+        selectedModel = setOriginalCheckbox(order_original);
 
         Log.v("asd","DeliveryIncrease-[order_original] :" + order_original);
     }
@@ -117,7 +128,7 @@ Communicate_Interface<DeliveryOrderModel>{
         }
         deliveryIncreaseDialog.show(fm,"delivery_increase");
         Communicate_Interface communicateInterface = deliveryIncreaseDialog;
-        communicateInterface.putOriginalProductModels(order_original,order_latest,isSelected);
+        communicateInterface.putOriginalProductModels(order_original,order_latest,selectedModel.getIsItemSelected());
         Toast.makeText(this,"DeliveryIncrease",Toast.LENGTH_SHORT).show();
     }
 
@@ -131,15 +142,23 @@ Communicate_Interface<DeliveryOrderModel>{
         newFragment.show(getSupportFragmentManager(), StartActivityForResultKey.deliveryIncrease);
     }
 
-    public LinkedHashMap<Long, Boolean> setOriginalCheckbox(List<DeliveryOrderModel>  deliveryOrderModel){
-        isSelected = new LinkedHashMap<>();
-        for (int i=0; i<deliveryOrderModel.size();i++){
-            List<DeliveryItemModel> deliveryItemModels = deliveryOrderModel.get(i).getDeliveryItem();
-            for(int j=0;j<deliveryItemModels.size(); j++){
-                isSelected.put(deliveryItemModels.get(j).getDeliveryItemId(),false);
+    public SelectedModel setOriginalCheckbox(List<ReceivingOrderModel>  receivingOrderModel){
+        SelectedModel selectedModel = new SelectedModel();
+        LinkedHashMap<Long,Boolean> isOrderSelected = new LinkedHashMap<>();
+        LinkedHashMap<Long,Boolean> isItemSelected = new LinkedHashMap<>();
+
+        for (int i=0; i<receivingOrderModel.size();i++){
+                isOrderSelected.put(receivingOrderModel.get(i).getOrderId(),false);
+
+            List<ReceivingItemModel> receivingItemModels = receivingOrderModel.get(i).getReceivingItem();
+            for(int j=0; j< receivingItemModels.size();j++){
+                isItemSelected.put(receivingItemModels.get(j).getReceivingId(),false);
             }
+            selectedModel.setIsOrderSelected(isOrderSelected);
+            selectedModel.setIsItemSelected(isItemSelected);
+
         }
-        return isSelected;
+        return selectedModel;
     }
 
     private void setUpToolbar() {
@@ -192,5 +211,34 @@ Communicate_Interface<DeliveryOrderModel>{
     @Override
     public void putLatestProductModel(List<DeliveryOrderModel> item_listview, LinkedHashMap<Long, Boolean> isSelected) {
 
+    }
+
+    private class SelectedModel{
+        private LinkedHashMap<Long, Boolean> isOrderSelected;
+        private LinkedHashMap<Long, Boolean> isItemSelected;
+
+        public LinkedHashMap<Long, Boolean> getIsOrderSelected() {
+            return isOrderSelected;
+        }
+
+        public void setIsOrderSelected(LinkedHashMap<Long, Boolean> isOrderSelected) {
+            this.isOrderSelected = isOrderSelected;
+        }
+
+        public LinkedHashMap<Long, Boolean> getIsItemSelected() {
+            return isItemSelected;
+        }
+
+        public void setIsItemSelected(LinkedHashMap<Long, Boolean> isItemSelected) {
+            this.isItemSelected = isItemSelected;
+        }
+
+        @Override
+        public String toString() {
+            return "SelectedModel{" +
+                    "isOrderSelected=" + isOrderSelected +
+                    ", isItemSelected=" + isItemSelected +
+                    '}';
+        }
     }
 }

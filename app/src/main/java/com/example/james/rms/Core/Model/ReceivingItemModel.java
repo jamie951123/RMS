@@ -9,7 +9,7 @@ import java.util.Date;
 
 public class ReceivingItemModel {
 
-    private Long receivingID;
+    private Long receivingId;
 
     private Long productId;
 
@@ -37,12 +37,13 @@ public class ReceivingItemModel {
 
     private ProductModel product;
 
-    public Long getReceivingID() {
-        return receivingID;
+
+    public Long getReceivingId() {
+        return receivingId;
     }
 
-    public void setReceivingID(Long receivingID) {
-        this.receivingID = receivingID;
+    public void setReceivingId(Long receivingId) {
+        this.receivingId = receivingId;
     }
 
     public Long getProductId() {
@@ -152,7 +153,7 @@ public class ReceivingItemModel {
     @Override
     public String toString() {
         return "ReceivingItemModel{" +
-                "receivingID=" + receivingID +
+                "receivingId=" + receivingId +
                 ", productId=" + productId +
                 ", itemStatus='" + itemStatus + '\'' +
                 ", orderId=" + orderId +

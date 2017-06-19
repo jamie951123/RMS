@@ -2,6 +2,7 @@ package com.example.james.rms.Core.Dao;
 
 import android.util.Log;
 
+import com.example.james.rms.CommonProfile.GsonUtil;
 import com.example.james.rms.Core.Model.DeliveryOrderModel;
 import com.example.james.rms.Core.Model.ResponseMessage;
 import com.example.james.rms.Core.ServePath.DeliveryOrderServePath;
@@ -37,7 +38,7 @@ public class DeliveryOrderDaoImpl implements DeliveryOrderDao {
         }
         Log.d("asd:","[DeliveryOrderModel]-findAll(Response--String): :"+result);
         try{
-            Gson gson = new Gson();
+            Gson gson = GsonUtil.fromJson();
             Type listType = new TypeToken<List<DeliveryOrderModel>>() {}.getType();
             deliveryOrderModels = gson.fromJson(result,listType);
             Log.d("asd","[DeliveryOrderModel]-findAll(Gson): "+deliveryOrderModels);
@@ -61,7 +62,7 @@ public class DeliveryOrderDaoImpl implements DeliveryOrderDao {
         }
         Log.d("asd:","[DeliveryOrderModel]-findByPartyIdAndStatus(Response--String): :"+result);
         try{
-            Gson gson = new Gson();
+            Gson gson = GsonUtil.fromJson();
             Type listType = new TypeToken<List<DeliveryOrderModel>>() {}.getType();
             deliveryOrderModels = gson.fromJson(result,listType);
             Log.d("asd","[DeliveryOrderModel]-findByPartyIdAndStatus(Gson): "+deliveryOrderModels);
@@ -85,7 +86,7 @@ public class DeliveryOrderDaoImpl implements DeliveryOrderDao {
         }
         Log.d("asd:","[DeliveryOrderModel]-findByOrderIdAndStatus(Response--String): :"+result);
         try{
-            Gson gson = new Gson();
+            Gson gson = GsonUtil.fromJson();
             Type listType = new TypeToken<List<DeliveryOrderModel>>() {}.getType();
             deliveryOrderModels = gson.fromJson(result,listType);
             Log.d("asd","[DeliveryOrderModel]-findByOrderIdAndStatus(Gson): "+deliveryOrderModels);
@@ -109,7 +110,7 @@ public class DeliveryOrderDaoImpl implements DeliveryOrderDao {
         }
         Log.d("asd:","[DeliveryOrderModel]-delete(Response--String): :"+result);
         try{
-            Gson gson = new Gson();
+            Gson gson = GsonUtil.fromJson();
             responseMessage = gson.fromJson(result,ResponseMessage.class);
             Log.d("asd","[DeliveryOrderModel]-delete(Gson): "+responseMessage);
         }catch(JsonSyntaxException e){

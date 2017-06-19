@@ -2,6 +2,7 @@ package com.example.james.rms.Core.Dao;
 
 import android.util.Log;
 
+import com.example.james.rms.CommonProfile.GsonUtil;
 import com.example.james.rms.Core.Model.LoginModel;
 import com.example.james.rms.Core.Model.UserProfile;
 import com.example.james.rms.Core.ServePath.LoginServePath;
@@ -35,7 +36,7 @@ public class UserProfileDaoImpl implements UserProfileDao {
         }
         Log.d("asd","[UserProfile]-findAll(Response): "+result);
         try{
-            Gson gson = new Gson();
+            Gson gson = GsonUtil.fromJson();
             Type listType = new TypeToken<List<UserProfile>>() {}.getType();
             userProfile = gson.fromJson(result,listType);
             Log.d("asd","[UserProfile]-findAll(Gson): "+userProfile);
@@ -65,7 +66,7 @@ public class UserProfileDaoImpl implements UserProfileDao {
 
         LoginModel loginModel = new LoginModel();
         try {
-            Gson gson = new Gson();
+            Gson gson = GsonUtil.fromJson();
             loginModel = gson.fromJson(result,LoginModel.class);
             Log.d("asd","[UserProfile]-checkLogin(Split) : "+loginModel);
         } catch (Exception e) {

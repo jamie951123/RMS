@@ -233,7 +233,7 @@ public class ReceivingIncrease extends AppCompatActivity implements View.OnClick
         try {
             for (ReceivingItemModel item : item_listview) {
                 ReceivingItemModel receivingItemModel = new ReceivingItemModel();
-                Long receivingId = item.getReceivingID();
+                Long receivingId = item.getReceivingId();
                 Long productId = item.getProduct().getProductId();
                 Long orderId = item.getOrderId();
                 Date itemCreateDate = createDate;
@@ -242,7 +242,7 @@ public class ReceivingIncrease extends AppCompatActivity implements View.OnClick
                 Integer itemQty = item.getItemQty();
                 String itemRemark = item.getItemRemark();
 
-                receivingItemModel.setReceivingID(receivingId);
+                receivingItemModel.setReceivingId(receivingId);
                 receivingItemModel.setProductId(productId);
                 receivingItemModel.setItemCreateDate(itemCreateDate);
                 receivingItemModel.setItemCreateBy(common_partyId);

@@ -2,6 +2,7 @@ package com.example.james.rms.Core.Dao;
 
 import android.util.Log;
 
+import com.example.james.rms.CommonProfile.GsonUtil;
 import com.example.james.rms.Core.Model.DeliveryItemModel;
 import com.example.james.rms.Core.ServePath.DeliveryItemServePath;
 import com.example.james.rms.NetWork.HttpGetAsync;
@@ -34,7 +35,7 @@ public class DeliveryItemDaoImpl implements DeliveryItemDao {
         }
         Log.d("asd:","[DeliveryItemModel]-findAll(Response--String): :"+result);
         try{
-            Gson gson = new Gson();
+            Gson gson = GsonUtil.fromJson();
             Type listType = new TypeToken<List<DeliveryItemModel>>() {}.getType();
             deliveryItemModels = gson.fromJson(result,listType);
             Log.d("asd","[DeliveryItemModel]-findAll(Gson): "+deliveryItemModels);

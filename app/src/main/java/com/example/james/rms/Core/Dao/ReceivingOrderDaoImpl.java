@@ -51,6 +51,34 @@ public class ReceivingOrderDaoImpl implements ReceivingOrderDao {
     }
 
     @Override
+    public List<ReceivingOrderModel> findByPartyIdAndStatus(String json) {
+        String result = "";
+        Log.d("asd","[ReceivingOrderModel]-findByPartyIdAndStatus(Request--JSON) :" + json);
+        try {
+            result = new HttpPostAsync().execute(ReceivingOrderServePath.findByPartyIdAndStatus(),json).get();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+        Log.d("asd:","[ReceivingOrderModel]-findByPartyIdAndStatus-[Response(String)] : "+result);
+        List<ReceivingOrderModel> receivingOrderModels = new ArrayList<>();
+        try{
+            Gson gson = GsonUtil.fromJson();
+            Type listType = new TypeToken<List<ReceivingOrderModel>>() {}.getType();
+            receivingOrderModels = gson.fromJson(result,listType);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        if(receivingOrderModels == null){
+            Log.d("asd","[ReceivingOrderModel]-findByPartyIdAndStatus(Response) [Error] : Serve have not response anything");
+            return null;
+        }
+        Log.d("asd","[ReceivingOrderModel]-findByPartyIdAndStatus(Response)  :" + receivingOrderModels.toString());
+        return receivingOrderModels;
+    }
+
+    @Override
     public List<ReceivingOrderModel> findByOrderIdAndStatus(String json) {
         String result = "";
         Log.d("asd","[ReceivingOrderModel]-findByOrderIdAndStatus(Request--JSON) :" + json);
