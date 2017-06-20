@@ -112,6 +112,7 @@
     <string name="receivingItem_itemGrossWeight">GrossWeight:</string>
     <string name="receivingItem_itemGrossWeight_Unit">GrossWeight/Unit:</string>
     <string name="receivingItem_itemGrossWeightUnit">Unit:</string>
+    <string name="receivingItem_itemQuantity_Unit">Quantity/Unit:</string>
     <string name="receivingItem_itemRemark">Remark:</string>
     <string name="receivingItem_partyId">PartyId:</string>
     <string name="receivingItem_orderId">OrderId:</string>
@@ -136,7 +137,7 @@
     <string name="add_product">Add Product</string>
     <string name="add_receiving_order">Add Receiving Order</string>
     <string name="add_stock_out_order">Add Stockout Order</string>
-    
+
     <!--label-->
     <string name="label_grossweight">GW:</string>
     <string name="label_quantity">Qty:</string>

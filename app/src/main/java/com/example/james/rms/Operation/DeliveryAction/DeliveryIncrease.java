@@ -51,7 +51,7 @@ import static com.example.james.rms.R.id.delivery_increase_fab;
  */
 
 public class DeliveryIncrease extends AppCompatActivity implements View.OnClickListener,MyDatePicker.MyDatePickerService,
-Communicate_Interface<ReceivingOrderModel>{
+        Communicate_Interface<ReceivingOrderModel>{
 
     @BindView(R.id.delivery_increase_toolbar)
     Toolbar toolbar;
@@ -148,7 +148,7 @@ Communicate_Interface<ReceivingOrderModel>{
         LinkedHashMap<Long,Boolean> isItemSelected = new LinkedHashMap<>();
 
         for (int i=0; i<receivingOrderModel.size();i++){
-                isOrderSelected.put(receivingOrderModel.get(i).getOrderId(),false);
+            isOrderSelected.put(receivingOrderModel.get(i).getOrderId(),false);
 
             List<ReceivingItemModel> receivingItemModels = receivingOrderModel.get(i).getReceivingItem();
             for(int j=0; j< receivingItemModels.size();j++){

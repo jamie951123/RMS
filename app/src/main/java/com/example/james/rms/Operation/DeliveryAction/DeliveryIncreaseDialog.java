@@ -1,17 +1,17 @@
 package com.example.james.rms.Operation.DeliveryAction;
 
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
+import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.Button;
-import android.widget.ListView;
-
 import com.example.james.rms.CommonProfile.Library.AnimatedExpandableListView;
-import com.example.james.rms.Core.Model.DeliveryOrderModel;
+import com.example.james.rms.Core.Model.ReceivingOrderModel;
 import com.example.james.rms.Operation.Adapter.DeliveryDialogExpandableAdapter;
 import com.example.james.rms.Operation.ReceivingAction.Communicate_Interface;
 import com.example.james.rms.R;
@@ -27,7 +27,7 @@ import butterknife.ButterKnife;
  * Created by Jamie on 18/6/2017.
  */
 
-public class DeliveryIncreaseDialog extends DialogFragment implements Communicate_Interface<DeliveryOrderModel>,AdapterView.OnItemClickListener,
+public class DeliveryIncreaseDialog extends DialogFragment implements Communicate_Interface<ReceivingOrderModel>,AdapterView.OnItemClickListener,
         View.OnClickListener{
 
     @BindView(R.id.delivery_increase_dialog_listview)
@@ -38,8 +38,8 @@ public class DeliveryIncreaseDialog extends DialogFragment implements Communicat
     Button submit;
 
     //
-    private List<DeliveryOrderModel>  item_original;
-    private List<DeliveryOrderModel>  item_latest;
+    private List<ReceivingOrderModel>  item_original;
+    private List<ReceivingOrderModel>  item_latest;
     //
     private LinkedHashMap<Long, Boolean> isItemSelected;
 
@@ -57,21 +57,12 @@ public class DeliveryIncreaseDialog extends DialogFragment implements Communicat
 
         DeliveryDialogExpandableAdapter deliveryDialogExpandableAdapter = new DeliveryDialogExpandableAdapter(getActivity(),item_original,isItemSelected);
         listView.setAdapter(deliveryDialogExpandableAdapter);
+        listView.setGroupIndicator(null);
+        listView.setChildIndicator(null);
+//        listView.expandGroup()
         return view;
     }
 
-
-    @Override
-    public void putOriginalProductModels(List<DeliveryOrderModel> item_original, List<DeliveryOrderModel> item_latest, LinkedHashMap<Long, Boolean> isSelected) {
-        this.item_original = item_original;
-        this.item_latest = item_latest;
-        this.isItemSelected = isSelected;
-    }
-
-    @Override
-    public void putLatestProductModel(List<DeliveryOrderModel> item_listview, LinkedHashMap<Long, Boolean> isSelected) {
-
-    }
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -84,7 +75,7 @@ public class DeliveryIncreaseDialog extends DialogFragment implements Communicat
             case R.id.delivery_increase_dialog_submit:
                 LinkedHashMap<Long, Boolean> checkMap = isItemSelected;
 //                List<DeliveryOrderModel> deliveryOrderModels = getNewProductModel(checkMap);
-                List<DeliveryOrderModel> deliveryOrderModels = new ArrayList<>();
+                List<ReceivingOrderModel> deliveryOrderModels = new ArrayList<>();
 
                 DeliveryIncrease deliveryIncrease = (DeliveryIncrease)getActivity();
                 Communicate_Interface communicateInterface = deliveryIncrease;
@@ -99,5 +90,17 @@ public class DeliveryIncreaseDialog extends DialogFragment implements Communicat
                 }
                 break;
         }
+    }
+
+    @Override
+    public void putOriginalProductModels(List<ReceivingOrderModel> item_original, List<ReceivingOrderModel> item_latest, LinkedHashMap<Long, Boolean> isSelected) {
+        this.item_original = item_original;
+        this.item_latest = item_latest;
+        this.isItemSelected = isSelected;
+    }
+
+    @Override
+    public void putLatestProductModel(List<ReceivingOrderModel> item_listview, LinkedHashMap<Long, Boolean> isSelected) {
+
     }
 }

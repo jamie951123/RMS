@@ -32,8 +32,6 @@
         <com.example.james.rms.CommonProfile.Library.AnimatedExpandableListView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:divider="@color/gray3C3D40"
-            android:dividerHeight="2dp"
             android:id="@+id/delivery_increase_dialog_listview"></com.example.james.rms.CommonProfile.Library.AnimatedExpandableListView>
     </LinearLayout>
 
