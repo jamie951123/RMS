@@ -1,9 +1,7 @@
 package com.example.james.rms.Operation.DeliveryAction;
 
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
-import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,9 +9,10 @@ import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.Button;
 import com.example.james.rms.CommonProfile.Library.AnimatedExpandableListView;
+import com.example.james.rms.Core.Model.ExpandableSelectedModel;
 import com.example.james.rms.Core.Model.ReceivingOrderModel;
 import com.example.james.rms.Operation.Adapter.DeliveryDialogExpandableAdapter;
-import com.example.james.rms.Operation.ReceivingAction.Communicate_Interface;
+import com.example.james.rms.ITF.Communicate_Interface;
 import com.example.james.rms.R;
 
 import java.util.ArrayList;
@@ -41,7 +40,7 @@ public class DeliveryIncreaseDialog extends DialogFragment implements Communicat
     private List<ReceivingOrderModel>  item_original;
     private List<ReceivingOrderModel>  item_latest;
     //
-    private LinkedHashMap<Long, Boolean> isItemSelected;
+    private ExpandableSelectedModel expandableSelectedModel;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -55,10 +54,14 @@ public class DeliveryIncreaseDialog extends DialogFragment implements Communicat
         cancel.setOnClickListener(this);
         submit.setOnClickListener(this);
 
-        DeliveryDialogExpandableAdapter deliveryDialogExpandableAdapter = new DeliveryDialogExpandableAdapter(getActivity(),item_original,isItemSelected);
+        DeliveryDialogExpandableAdapter deliveryDialogExpandableAdapter = new DeliveryDialogExpandableAdapter(getActivity(),item_original,expandableSelectedModel.getIsItemSelected());
         listView.setAdapter(deliveryDialogExpandableAdapter);
         listView.setGroupIndicator(null);
         listView.setChildIndicator(null);
+        for(int i=0; i<item_original.size();i++){
+            listView.expandGroup(i);
+
+        }
 //        listView.expandGroup()
         return view;
     }
@@ -73,13 +76,12 @@ public class DeliveryIncreaseDialog extends DialogFragment implements Communicat
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.delivery_increase_dialog_submit:
-                LinkedHashMap<Long, Boolean> checkMap = isItemSelected;
-//                List<DeliveryOrderModel> deliveryOrderModels = getNewProductModel(checkMap);
+
                 List<ReceivingOrderModel> deliveryOrderModels = new ArrayList<>();
 
                 DeliveryIncrease deliveryIncrease = (DeliveryIncrease)getActivity();
                 Communicate_Interface communicateInterface = deliveryIncrease;
-                communicateInterface.putLatestProductModel(deliveryOrderModels,checkMap);
+                communicateInterface.putLatestProductModel(deliveryOrderModels,expandableSelectedModel);
                 if (getDialog().isShowing()){
                     getDialog().dismiss();
                 }
@@ -92,15 +94,16 @@ public class DeliveryIncreaseDialog extends DialogFragment implements Communicat
         }
     }
 
+
     @Override
-    public void putOriginalProductModels(List<ReceivingOrderModel> item_original, List<ReceivingOrderModel> item_latest, LinkedHashMap<Long, Boolean> isSelected) {
+    public void putOriginalProductModels(List<ReceivingOrderModel> item_original, List<ReceivingOrderModel> item_latest, ExpandableSelectedModel expandableSelectModel) {
         this.item_original = item_original;
         this.item_latest = item_latest;
-        this.isItemSelected = isSelected;
+        this.expandableSelectedModel = expandableSelectModel;
     }
 
     @Override
-    public void putLatestProductModel(List<ReceivingOrderModel> item_listview, LinkedHashMap<Long, Boolean> isSelected) {
+    public void putLatestProductModel(List<ReceivingOrderModel> item_listview, ExpandableSelectedModel expandableSelectModel) {
 
     }
 }

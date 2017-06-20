@@ -11,7 +11,9 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 
+import com.example.james.rms.Core.Model.ExpandableSelectedModel;
 import com.example.james.rms.Core.Model.ReceivingItemModel;
+import com.example.james.rms.ITF.Communicate_Interface;
 import com.example.james.rms.Operation.Adapter.ReceivingIncreaseDialogListAdapter;
 import com.example.james.rms.R;
 
@@ -28,7 +30,7 @@ import butterknife.ButterKnife;
  * Created by james on 27/3/2017.
  */
 
-public class ReceivingIncreaseDialog extends DialogFragment implements AdapterView.OnItemClickListener,Communicate_Interface,
+public class ReceivingIncreaseDialog extends DialogFragment implements AdapterView.OnItemClickListener,Communicate_Interface<ReceivingItemModel>,
         View.OnClickListener{
     @BindView(R.id.receiving_increase_dialog_listview)
     ListView listView;
@@ -41,7 +43,7 @@ public class ReceivingIncreaseDialog extends DialogFragment implements AdapterVi
     private List<ReceivingItemModel>  item_original;
     private List<ReceivingItemModel>  item_latest;
     //
-    private LinkedHashMap<Long, Boolean> isSelected;
+    private ExpandableSelectedModel expandableSelectModel;
     //
     ReceivingIncreaseDialogListAdapter receivingDialogListAdapter;
 
@@ -56,7 +58,7 @@ public class ReceivingIncreaseDialog extends DialogFragment implements AdapterVi
 //        getDialog().getWindow().setSoftInputMode(
 //                WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
         getDialog().setCanceledOnTouchOutside(false);
-        receivingDialogListAdapter = new ReceivingIncreaseDialogListAdapter(getActivity(),item_latest,isSelected);
+        receivingDialogListAdapter = new ReceivingIncreaseDialogListAdapter(getActivity(),item_latest,expandableSelectModel.getIsItemSelected());
         listView.setAdapter(receivingDialogListAdapter);
         listView.setOnItemClickListener(this);
         cancel.setOnClickListener(this);
@@ -66,7 +68,6 @@ public class ReceivingIncreaseDialog extends DialogFragment implements AdapterVi
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        Log.v("asd","position : " + position);
         ReceivingIncreaseDialogListAdapter.ViewHolder viewHolder= (ReceivingIncreaseDialogListAdapter.ViewHolder)view.getTag();
         viewHolder.receiving_increase_dialog_item_checkbox.toggle();
         receivingDialogListAdapter.getIsSelected().put(item_latest.get(position).getProductId(),viewHolder.receiving_increase_dialog_item_checkbox.isChecked());
@@ -77,17 +78,18 @@ public class ReceivingIncreaseDialog extends DialogFragment implements AdapterVi
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.receiving_increase_dialog_submit:
-                LinkedHashMap<Long, Boolean> checkMap = isSelected;
-                List<ReceivingItemModel> receivingItemModels = getNewProductModel(checkMap);
-
+                Log.d("asd","[ReceivingIncreaseDialog]--[click]-[Submit]");
+                List<ReceivingItemModel> receivingItemModels = getNewProductModel(expandableSelectModel.getIsItemSelected());
+                Log.d("asd","[ReceivingIncreaseDialog]--[Submit]-[receivingItemModels] :" + receivingItemModels);
                 ReceivingIncrease receivingIncrease = (ReceivingIncrease)getActivity();
                 Communicate_Interface communicateInterface = receivingIncrease;
-                communicateInterface.putLatestProductModel(receivingItemModels,checkMap);
+                communicateInterface.putLatestProductModel(receivingItemModels,expandableSelectModel);
                 if (getDialog().isShowing()){
                     getDialog().dismiss();
                 }
                 break;
             case R.id.receiving_increase_dialog_cancel:
+                Log.d("asd","[ReceivingIncreaseDialog]--[click]-[Cancel]");
                 if (getDialog().isShowing()){
                     getDialog().dismiss();
                 }
@@ -102,11 +104,14 @@ public class ReceivingIncreaseDialog extends DialogFragment implements AdapterVi
         for(ReceivingItemModel item : item_original){
             original_map.put(item.getProductId(),item);
         }
+        Log.d("asd","[ReceivingIncreaseDialog]--[Submit]-[getNewProductModel] -[original_map]:" +original_map);
         //lastest
         HashMap<Long,ReceivingItemModel> lastest_map = new LinkedHashMap<>();
         for(ReceivingItemModel item : item_latest){
             lastest_map.put(item.getProductId(),item);
         }
+        Log.d("asd","[ReceivingIncreaseDialog]--[Submit]-[getNewProductModel]-[lastest_map] :" +lastest_map);
+
         //
         int position = 0;
         for(Map.Entry<Long,Boolean> entry: checkBoxList.entrySet()){
@@ -115,7 +120,7 @@ public class ReceivingIncreaseDialog extends DialogFragment implements AdapterVi
             if(value){
                 item_listview.add(lastest_map.get(key));
             }else{
-                item_latest.set(position,original_map.get(key));
+                item_latest.set(position,original_map.get(key).newReceivingItemModel());
                 //clear vlaue
             }
             position++;
@@ -125,14 +130,24 @@ public class ReceivingIncreaseDialog extends DialogFragment implements AdapterVi
 
 
     @Override
-    public void putOriginalProductModels(List item_original, List item_latest, LinkedHashMap isSelected) {
+    public void putOriginalProductModels(List<ReceivingItemModel> item_original, List<ReceivingItemModel> item_latest, ExpandableSelectedModel expandableSelectModel) {
         this.item_original = item_original;
         this.item_latest = item_latest;
-        this.isSelected = isSelected;
+        this.expandableSelectModel = expandableSelectModel;
+
+        if(this.item_original.get(0) == item_original.get(0)){
+            Log.d("asd","Same");
+        }else{
+            Log.d("asd","Different");
+
+        }
+        Log.d("asd","[ReceivingIncreaseDialog]--[item_original] :" + item_original);
+        Log.d("asd","[ReceivingIncreaseDialog]--[item_latest] :" + item_latest);
+        Log.d("asd","[ReceivingIncreaseDialog]--[expandableSelectModel] :" + expandableSelectModel);
     }
 
     @Override
-    public void putLatestProductModel(List item_listview, LinkedHashMap isSelected) {
+    public void putLatestProductModel(List<ReceivingItemModel> item_listview, ExpandableSelectedModel expandableSelectModel) {
 
     }
 }

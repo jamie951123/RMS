@@ -37,6 +37,23 @@ public class ReceivingItemModel {
 
     private ProductModel product;
 
+    public ReceivingItemModel newReceivingItemModel(){
+        ReceivingItemModel receivingItemModel = new ReceivingItemModel();
+        receivingItemModel.receivingId = this.receivingId;
+        receivingItemModel.productId = this.productId;
+        receivingItemModel.itemStatus = this.itemStatus;
+        receivingItemModel.orderId = this.orderId;
+        receivingItemModel.partyId = this.partyId;
+        receivingItemModel.itemCreateBy = this.itemCreateBy;
+        receivingItemModel.itemReceivingDate = this.itemReceivingDate;
+        receivingItemModel.itemLastModifiedDate = this.itemLastModifiedDate;
+        receivingItemModel.itemLModifiedBy = this.itemLModifiedBy;
+        receivingItemModel.itemGrossWeight = this.itemGrossWeight;
+        receivingItemModel.itemQty = this.itemQty;
+        receivingItemModel.itemRemark = this.itemRemark;
+        receivingItemModel.product = this.product;
+        return receivingItemModel;
+    }
 
     public Long getReceivingId() {
         return receivingId;

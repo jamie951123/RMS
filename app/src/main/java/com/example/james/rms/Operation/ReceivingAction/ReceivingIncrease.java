@@ -30,12 +30,14 @@ import com.example.james.rms.Core.Dao.ProductDao;
 import com.example.james.rms.Core.Dao.ProductDaoImpl;
 import com.example.james.rms.Core.Dao.ReceivingOrderDao;
 import com.example.james.rms.Core.Dao.ReceivingOrderDaoImpl;
+import com.example.james.rms.Core.Model.ExpandableSelectedModel;
 import com.example.james.rms.Core.Model.KeyModel;
 import com.example.james.rms.Core.Model.ProductModel;
 import com.example.james.rms.Core.Model.ReceivingItemModel;
 import com.example.james.rms.Core.Model.ReceivingOrderModel;
 import com.example.james.rms.Core.Model.Status;
 import com.example.james.rms.Core.TransferModel.NumberDialogModel;
+import com.example.james.rms.ITF.Communicate_Interface;
 import com.example.james.rms.Operation.Adapter.ReceivingIncreaseListAdapter;
 import com.example.james.rms.R;
 import com.example.james.rms.Core.Combine.ReceivingOrderCombine;
@@ -77,7 +79,7 @@ public class ReceivingIncrease extends AppCompatActivity implements View.OnClick
     //
     private ReceivingOrderDao receivingOrderDao = new ReceivingOrderDaoImpl();
     //
-    private LinkedHashMap<Long, Boolean> isSelected;
+    private ExpandableSelectedModel expandableSelectModel;
 
     private ReceivingOrderModel orderModel = new ReceivingOrderModel();
     private List<ReceivingItemModel>  item_original;
@@ -104,7 +106,7 @@ public class ReceivingIncrease extends AppCompatActivity implements View.OnClick
         item_latest    = new ArrayList<>(modelConvert(allModel));
         item_listview  = new ArrayList<>();
         //
-        isSelected = setOriginalCheckbox(item_original);
+        setOriginalCheckbox(item_original);
 
         String receivingOrder_Json = null;
         if (savedInstanceState == null) {
@@ -130,7 +132,7 @@ public class ReceivingIncrease extends AppCompatActivity implements View.OnClick
         if(receivingOrderModel.getReceivingDate() !=null) {
             Log.v("asd","[Receiving Increase ]-[Edit]-[ReceivingDate]:" +receivingOrderModel.getReceivingDate());
             String editRLDate = ObjectUtil.sdf_onlyDate.format(receivingOrderModel.getReceivingDate());
-            LinkedHashMap<Long,Boolean> latestSekected = setLatestCheckbox(receivingOrderModel.getReceivingItem(),isSelected);
+            setLatestCheckbox(receivingOrderModel.getReceivingItem(),expandableSelectModel.getIsItemSelected());
             datePicker_btn.setText(editRLDate);
 
             List<ReceivingItemModel> receivingItemModels = receivingOrderModel.getReceivingItem();
@@ -144,7 +146,7 @@ public class ReceivingIncrease extends AppCompatActivity implements View.OnClick
                     item_latest.set(i,item_map.get(r.getProductId()));
                 }
             }
-            putLatestProductModel(receivingItemModels,latestSekected);
+            putLatestProductModel(receivingItemModels,expandableSelectModel);
         }
     }
 
@@ -162,11 +164,7 @@ public class ReceivingIncrease extends AppCompatActivity implements View.OnClick
         Date receivingDate              = ObjectUtil.stringToDate_onlyDate(datePicker_btn.getText().toString());
         Date createDate                 = new Date();
         String orderRemark              = remark_edit.getText().toString();
-        //
-        ReceivingOrderModel order       = getReceivingOrder(itemSize,receivingDate,createDate,orderRemark);
-        List<ReceivingItemModel> item   = getReceivingItem(receivingDate,createDate);
-        //
-        order.setReceivingItem(item);
+
         if(receivingDate == null){
             List<String> missingField = new ArrayList<>();
             missingField.add(getString(R.string.label_receivingDate));
@@ -174,7 +172,13 @@ public class ReceivingIncrease extends AppCompatActivity implements View.OnClick
             classicDialog.showMissingField(missingField);
             return super.onOptionsItemSelected(menuItem);
         }
+
+        //
+        ReceivingOrderModel order       = getReceivingOrder(itemSize,receivingDate,createDate,orderRemark);
+        List<ReceivingItemModel> item   = getReceivingItem(receivingDate,createDate);
+        //
         if(order != null){
+         order.setReceivingItem(item);
             String result_json = null;
             try {
                 Gson gson = GsonUtil.toJson();
@@ -216,7 +220,10 @@ public class ReceivingIncrease extends AppCompatActivity implements View.OnClick
         }
         receivingIncreaseDialog.show(fm,"receiving_increase");
         Communicate_Interface communicateInterface = receivingIncreaseDialog;
-        communicateInterface.putOriginalProductModels(item_original,item_latest,isSelected);
+        Log.d("asd","[ReceivingIncrease]--[item_original] :" + item_original);
+        Log.d("asd","[ReceivingIncrease]--[item_latest] :" + item_latest);
+
+        communicateInterface.putOriginalProductModels(item_original,item_latest,expandableSelectModel);
         Toast.makeText(this,"ReceivingIncrease",Toast.LENGTH_SHORT).show();
     }
 
@@ -301,22 +308,23 @@ public class ReceivingIncrease extends AppCompatActivity implements View.OnClick
         }
     }
 
-    public LinkedHashMap<Long, Boolean> setLatestCheckbox(List<ReceivingItemModel> latest_receivingItemModels,LinkedHashMap<Long, Boolean> originalSelected ){
+    public void setLatestCheckbox(List<ReceivingItemModel> latest_receivingItemModels,LinkedHashMap<Long, Boolean> originalSelected ){
         LinkedHashMap<Long, Boolean> isSelected = new LinkedHashMap<>(originalSelected);
         for (int i=0; i<latest_receivingItemModels.size();i++){
             if(originalSelected.containsKey(latest_receivingItemModels.get(i).getProductId())){
                 isSelected.put(latest_receivingItemModels.get(i).getProductId(),true);
             }
         }
-        return isSelected;
+        expandableSelectModel.setIsItemSelected(isSelected);
     }
 
-    public LinkedHashMap<Long, Boolean> setOriginalCheckbox(List<ReceivingItemModel>  receivingItemModels){
-        isSelected = new LinkedHashMap<>();
+    public void setOriginalCheckbox(List<ReceivingItemModel>  receivingItemModels){
+        LinkedHashMap<Long, Boolean> isSelected = new LinkedHashMap<>();
         for (int i=0; i<receivingItemModels.size();i++){
             isSelected.put(receivingItemModels.get(i).getProductId(),false);
         }
-        return isSelected;
+        expandableSelectModel = new ExpandableSelectedModel();
+        expandableSelectModel.setIsItemSelected(isSelected);
     }
 
     public List<ReceivingItemModel> modelConvert(List<ProductModel> productModels){
@@ -350,23 +358,28 @@ public class ReceivingIncrease extends AppCompatActivity implements View.OnClick
                 break;
             case KeyModel.gw:
                 this.item_listview.get(numberDialogModel.getPosition()).setItemGrossWeight(numberDialogModel.getGrossWeight());
+                break;
         }
+
+        Log.d("asd","[ReceivingIncrease]-[returnData]-[item_original] :" + item_original);
+        Log.d("asd","[ReceivingIncrease]-[returnData]-[item_latest] :" + item_latest);
+        Log.d("asd","[ReceivingIncrease]-[returnData]-[item_listview] :" + item_listview);
         if(listView != null){
             listView.invalidateViews();
         }
     }
-
     @Override
-    public void putOriginalProductModels(List<ReceivingItemModel> item_original, List<ReceivingItemModel> item_latest, LinkedHashMap<Long, Boolean> isSelected) {
+    public void putOriginalProductModels(List<ReceivingItemModel> item_original, List<ReceivingItemModel> item_latest, ExpandableSelectedModel expandableSelectModel) {
 
     }
 
     @Override
-    public void putLatestProductModel(List<ReceivingItemModel> item_listview, LinkedHashMap<Long, Boolean> isSelected) {
-        this.isSelected    = isSelected;
-        this.item_listview = new ArrayList<>(item_listview);
+    public void putLatestProductModel(List<ReceivingItemModel> item_latest, ExpandableSelectedModel expandableSelectModel) {
+        this.expandableSelectModel    = expandableSelectModel;
+        this.item_listview = new ArrayList<>(item_latest);
         ReceivingIncreaseListAdapter receivingIncreaseListAdapter = new ReceivingIncreaseListAdapter(this,item_listview);
         listView.setAdapter(receivingIncreaseListAdapter);
         Log.v("asd","putLatestProductModel_listview :" +item_listview.toString());
     }
+
 }

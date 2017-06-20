@@ -21,18 +21,13 @@ import com.example.james.rms.CommonProfile.DialogBox.MyDatePicker;
 import com.example.james.rms.CommonProfile.SharePreferences.PartyIdPreferences;
 import com.example.james.rms.CommonProfile.StartActivityForResultKey;
 import com.example.james.rms.Core.Combine.DeliveryOrderSearchCombine;
-import com.example.james.rms.Core.Dao.DeliveryOrderDao;
-import com.example.james.rms.Core.Dao.DeliveryOrderDaoImpl;
-import com.example.james.rms.Core.Dao.ReceivingItemDao;
-import com.example.james.rms.Core.Dao.ReceivingItemDaoImpl;
 import com.example.james.rms.Core.Dao.ReceivingOrderDao;
 import com.example.james.rms.Core.Dao.ReceivingOrderDaoImpl;
-import com.example.james.rms.Core.Model.DeliveryItemModel;
-import com.example.james.rms.Core.Model.DeliveryOrderModel;
+import com.example.james.rms.Core.Model.ExpandableSelectedModel;
 import com.example.james.rms.Core.Model.ReceivingItemModel;
 import com.example.james.rms.Core.Model.ReceivingOrderModel;
 import com.example.james.rms.Core.Model.Status;
-import com.example.james.rms.Operation.ReceivingAction.Communicate_Interface;
+import com.example.james.rms.ITF.Communicate_Interface;
 import com.example.james.rms.R;
 import com.github.clans.fab.FloatingActionButton;
 
@@ -71,7 +66,7 @@ public class DeliveryIncrease extends AppCompatActivity implements View.OnClickL
     //
     private String common_partyId;
     //
-    private SelectedModel selectedModel = new SelectedModel();
+    private ExpandableSelectedModel expandableSelectedModel = new ExpandableSelectedModel();
     //
     private List<ReceivingOrderModel>  order_original;
     private List<ReceivingOrderModel>  order_latest;
@@ -103,7 +98,7 @@ public class DeliveryIncrease extends AppCompatActivity implements View.OnClickL
         order_latest = new ArrayList<>(receivingOrderModels);
         order_listview = new ArrayList<>();
         //
-        selectedModel = setOriginalCheckbox(order_original);
+        expandableSelectedModel = setOriginalCheckbox(order_original);
 
         Log.v("asd","DeliveryIncrease-[order_original] :" + order_original);
     }
@@ -128,7 +123,7 @@ public class DeliveryIncrease extends AppCompatActivity implements View.OnClickL
         }
         deliveryIncreaseDialog.show(fm,"delivery_increase");
         Communicate_Interface communicateInterface = deliveryIncreaseDialog;
-        communicateInterface.putOriginalProductModels(order_original,order_latest,selectedModel.getIsItemSelected());
+        communicateInterface.putOriginalProductModels(order_original,order_latest, expandableSelectedModel);
         Toast.makeText(this,"DeliveryIncrease",Toast.LENGTH_SHORT).show();
     }
 
@@ -142,8 +137,8 @@ public class DeliveryIncrease extends AppCompatActivity implements View.OnClickL
         newFragment.show(getSupportFragmentManager(), StartActivityForResultKey.deliveryIncrease);
     }
 
-    public SelectedModel setOriginalCheckbox(List<ReceivingOrderModel>  receivingOrderModel){
-        SelectedModel selectedModel = new SelectedModel();
+    public ExpandableSelectedModel setOriginalCheckbox(List<ReceivingOrderModel>  receivingOrderModel){
+        ExpandableSelectedModel expandableSelectedModel = new ExpandableSelectedModel();
         LinkedHashMap<Long,Boolean> isOrderSelected = new LinkedHashMap<>();
         LinkedHashMap<Long,Boolean> isItemSelected = new LinkedHashMap<>();
 
@@ -154,11 +149,11 @@ public class DeliveryIncrease extends AppCompatActivity implements View.OnClickL
             for(int j=0; j< receivingItemModels.size();j++){
                 isItemSelected.put(receivingItemModels.get(j).getReceivingId(),false);
             }
-            selectedModel.setIsOrderSelected(isOrderSelected);
-            selectedModel.setIsItemSelected(isItemSelected);
+            expandableSelectedModel.setIsOrderSelected(isOrderSelected);
+            expandableSelectedModel.setIsItemSelected(isItemSelected);
 
         }
-        return selectedModel;
+        return expandableSelectedModel;
     }
 
     private void setUpToolbar() {
@@ -204,41 +199,13 @@ public class DeliveryIncrease extends AppCompatActivity implements View.OnClickL
     }
 
     @Override
-    public void putOriginalProductModels(List<ReceivingOrderModel> item_original, List<ReceivingOrderModel> item_latest, LinkedHashMap<Long, Boolean> isSelected) {
+    public void putOriginalProductModels(List<ReceivingOrderModel> item_original, List<ReceivingOrderModel> item_latest, ExpandableSelectedModel expandableSelectModel) {
 
     }
 
     @Override
-    public void putLatestProductModel(List<ReceivingOrderModel> item_listview, LinkedHashMap<Long, Boolean> isSelected) {
+    public void putLatestProductModel(List<ReceivingOrderModel> item_listview, ExpandableSelectedModel expandableSelectModel) {
 
     }
 
-    private class SelectedModel{
-        private LinkedHashMap<Long, Boolean> isOrderSelected;
-        private LinkedHashMap<Long, Boolean> isItemSelected;
-
-        public LinkedHashMap<Long, Boolean> getIsOrderSelected() {
-            return isOrderSelected;
-        }
-
-        public void setIsOrderSelected(LinkedHashMap<Long, Boolean> isOrderSelected) {
-            this.isOrderSelected = isOrderSelected;
-        }
-
-        public LinkedHashMap<Long, Boolean> getIsItemSelected() {
-            return isItemSelected;
-        }
-
-        public void setIsItemSelected(LinkedHashMap<Long, Boolean> isItemSelected) {
-            this.isItemSelected = isItemSelected;
-        }
-
-        @Override
-        public String toString() {
-            return "SelectedModel{" +
-                    "isOrderSelected=" + isOrderSelected +
-                    ", isItemSelected=" + isItemSelected +
-                    '}';
-        }
-    }
 }

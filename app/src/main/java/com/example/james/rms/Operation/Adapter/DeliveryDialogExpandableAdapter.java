@@ -92,7 +92,8 @@ public class DeliveryDialogExpandableAdapter extends MyExpandableListAdapter<Rec
         holder.delivery_item_increase_receivingItem_itemReceivingDate.setText(ObjectUtil.dateToString_OnlyDate(receivingItemModel.getItemReceivingDate()));
         holder.delivery_item_increase_receivingItem_itemGrossWeight.setText(ObjectUtil.bigDecimalToString(receivingItemModel.getItemGrossWeight()));
         holder.delivery_item_increase_receivingItem_itemGrossWeight_unit.setText(receivingItemModel.getProduct().getWeightprofile()==null?"":receivingItemModel.getProduct().getWeightprofile().getWeightUnit());
-        holder.delivery_item_increase_receivingItem_itemQuantity.setText(receivingItemModel.getProduct().getQuantityProfile()==null?"":receivingItemModel.getProduct().getQuantityProfile().getQuantityUnit());
+        holder.delivery_item_increase_receivingItem_itemQuantity.setText(ObjectUtil.intToString(receivingItemModel.getItemQty()));
+        holder.delivery_item_increase_receivingItem_itemQuantity_unit.setText(receivingItemModel.getProduct().getQuantityProfile()==null?"":receivingItemModel.getProduct().getQuantityProfile().getQuantityUnit());
         return convertView;
     }
 

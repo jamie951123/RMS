@@ -36,15 +36,14 @@ import butterknife.ButterKnife;
 
 public class ReceivingIncreaseListAdapter extends MyBaseAdapter<ReceivingItemModel> implements View.OnClickListener{
 
-    ReceivingIncreaseListAdapter.ViewHolder viewHolder = null;
     // 用來控制CheckBox的選中狀況
-    public ReceivingIncreaseListAdapter(Context context, List<ReceivingItemModel> lastestModel) {
-        super(context,lastestModel);
+    public ReceivingIncreaseListAdapter(Context context, List<ReceivingItemModel> item_listview) {
+        super(context,item_listview);
     }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        viewHolder = null;
+        ViewHolder viewHolder;
         if(convertView != null){
             viewHolder = (ReceivingIncreaseListAdapter.ViewHolder) convertView.getTag();
         }else{
