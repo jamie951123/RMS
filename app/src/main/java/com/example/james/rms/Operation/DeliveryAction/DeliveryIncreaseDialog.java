@@ -41,7 +41,7 @@ public class DeliveryIncreaseDialog extends DialogFragment implements Communicat
     private List<DeliveryOrderModel>  item_original;
     private List<DeliveryOrderModel>  item_latest;
     //
-    private LinkedHashMap<Long, Boolean> isSelected;
+    private LinkedHashMap<Long, Boolean> isItemSelected;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -55,7 +55,7 @@ public class DeliveryIncreaseDialog extends DialogFragment implements Communicat
         cancel.setOnClickListener(this);
         submit.setOnClickListener(this);
 
-        DeliveryDialogExpandableAdapter deliveryDialogExpandableAdapter = new DeliveryDialogExpandableAdapter(getActivity(),item_original,isSelected);
+        DeliveryDialogExpandableAdapter deliveryDialogExpandableAdapter = new DeliveryDialogExpandableAdapter(getActivity(),item_original,isItemSelected);
         listView.setAdapter(deliveryDialogExpandableAdapter);
         return view;
     }
@@ -65,7 +65,7 @@ public class DeliveryIncreaseDialog extends DialogFragment implements Communicat
     public void putOriginalProductModels(List<DeliveryOrderModel> item_original, List<DeliveryOrderModel> item_latest, LinkedHashMap<Long, Boolean> isSelected) {
         this.item_original = item_original;
         this.item_latest = item_latest;
-        this.isSelected = isSelected;
+        this.isItemSelected = isSelected;
     }
 
     @Override
@@ -82,7 +82,7 @@ public class DeliveryIncreaseDialog extends DialogFragment implements Communicat
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.delivery_increase_dialog_submit:
-                LinkedHashMap<Long, Boolean> checkMap = isSelected;
+                LinkedHashMap<Long, Boolean> checkMap = isItemSelected;
 //                List<DeliveryOrderModel> deliveryOrderModels = getNewProductModel(checkMap);
                 List<DeliveryOrderModel> deliveryOrderModels = new ArrayList<>();
 
