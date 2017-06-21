@@ -22,6 +22,7 @@
             android:paddingLeft="@dimen/card_margin"
             android:paddingRight="@dimen/card_margin"
             android:gravity="center"
+            android:id="@+id/delivery_order_increase_dialog_receivingOrder_image_linear"
             android:layout_weight="76">
 
             <com.github.siyamed.shapeimageview.RoundedImageView

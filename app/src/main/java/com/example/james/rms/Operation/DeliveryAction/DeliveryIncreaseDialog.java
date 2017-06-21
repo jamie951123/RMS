@@ -2,12 +2,15 @@ package com.example.james.rms.Operation.DeliveryAction;
 
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
+import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.ExpandableListView;
+
 import com.example.james.rms.CommonProfile.Library.AnimatedExpandableListView;
 import com.example.james.rms.Core.Model.ExpandableSelectedModel;
 import com.example.james.rms.Core.Model.ReceivingOrderModel;
@@ -54,14 +57,23 @@ public class DeliveryIncreaseDialog extends DialogFragment implements Communicat
         cancel.setOnClickListener(this);
         submit.setOnClickListener(this);
 
-        DeliveryDialogExpandableAdapter deliveryDialogExpandableAdapter = new DeliveryDialogExpandableAdapter(getActivity(),item_original,expandableSelectedModel.getIsItemSelected());
+        DeliveryDialogExpandableAdapter deliveryDialogExpandableAdapter = new DeliveryDialogExpandableAdapter(getActivity(),item_original,expandableSelectedModel,listView);
         listView.setAdapter(deliveryDialogExpandableAdapter);
         listView.setGroupIndicator(null);
         listView.setChildIndicator(null);
+        listView.setDivider(ContextCompat.getDrawable(getActivity(),R.color.black1F1F1F));
+        listView.setChildDivider(ContextCompat.getDrawable(getActivity(),R.color.transperent_color));
+        listView.setDividerHeight(5);
         for(int i=0; i<item_original.size();i++){
             listView.expandGroup(i);
 
         }
+        listView.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
+            @Override
+            public boolean onGroupClick(ExpandableListView expandableListView, View view, int i, long l) {
+                return true;
+            }
+        });
 //        listView.expandGroup()
         return view;
     }

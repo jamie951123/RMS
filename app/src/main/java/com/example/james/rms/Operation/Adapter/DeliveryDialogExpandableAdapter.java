@@ -1,15 +1,21 @@
 package com.example.james.rms.Operation.Adapter;
 
 import android.content.Context;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.AppCompatCheckBox;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ExpandableListView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.james.rms.CommonProfile.GlideApp;
+import com.example.james.rms.CommonProfile.Library.AnimatedExpandableListView;
 import com.example.james.rms.CommonProfile.MyExpandableListAdapter;
 import com.example.james.rms.CommonProfile.ObjectUtil;
 import com.example.james.rms.Core.Model.DeliveryOrderModel;
+import com.example.james.rms.Core.Model.ExpandableSelectedModel;
 import com.example.james.rms.Core.Model.ReceivingItemModel;
 import com.example.james.rms.Core.Model.ReceivingOrderModel;
 import com.example.james.rms.R;
@@ -27,14 +33,15 @@ import butterknife.ButterKnife;
 public class DeliveryDialogExpandableAdapter extends MyExpandableListAdapter<ReceivingOrderModel> {
 
     // 用來控制CheckBox的選中狀況
-    private static LinkedHashMap<Long, Boolean> isSelected;
-
-    public DeliveryDialogExpandableAdapter(Context context, List<ReceivingOrderModel> dataArrayList, LinkedHashMap<Long, Boolean> isSelected) {
+    private static ExpandableSelectedModel expandableSelectedModel;
+    private AnimatedExpandableListView listView;
+    public DeliveryDialogExpandableAdapter(Context context, List<ReceivingOrderModel> dataArrayList, ExpandableSelectedModel expandableSelectedModel,AnimatedExpandableListView listView) {
         super(context, dataArrayList);
+        this.listView = listView;
     }
 
     @Override
-    public View getGroupView(int groupPosition, boolean isExpanded, View convertView, ViewGroup parent) {
+    public View getGroupView(final int groupPosition, final boolean isExpanded, View convertView, ViewGroup parent) {
         GroupHolder holder;
         final ReceivingOrderModel receivingOrderModel = getGroup(groupPosition);
         if (convertView == null) {
@@ -45,21 +52,40 @@ public class DeliveryDialogExpandableAdapter extends MyExpandableListAdapter<Rec
             holder = (GroupHolder) convertView.getTag();
         }
 
-        if (isExpanded)
+        if (isExpanded) {
+            holder.receivingOrder_image.setImageDrawable(ContextCompat.getDrawable(getContext(),R.drawable.input));
             convertView.setPadding(0, 0, 0, 0);
-        else{
+            if (receivingOrderModel.getReceivingItem() == null || receivingOrderModel.getReceivingItem().isEmpty()) {
+                convertView.setPadding(0, 0, 0, 20);
+            }
+        }else{
+            holder.receivingOrder_image.setImageDrawable(ContextCompat.getDrawable(getContext(),R.drawable.drop_down_black));
+
             convertView.setPadding(0, 0, 0, 20);
         }
         holder.receivingOrder_orderId.setText(ObjectUtil.longToString(receivingOrderModel.getOrderId()));
         holder.receivingOrder_date.setText(ObjectUtil.dateToString_OnlyDate(receivingOrderModel.getReceivingDate()));
         holder.receivingOrder_itemQty.setText(ObjectUtil.intToString(receivingOrderModel.getItemQty()));
-        GlideApp.with(getContext())
-                .load(R.drawable.input)
-                .error(R.drawable.question_purple)
-                .placeholder(R.drawable.question_purple)
-                .fitCenter()
-                .into(holder.receivingOrder_image);
+
+//        GlideApp.with(getContext())
+//                .load(R.drawable.input)
+//                .error(R.drawable.question_purple)
+//                .placeholder(R.drawable.question_purple)
+//                .fitCenter()
+//                .into(holder.receivingOrder_image);
         holder.group_checkbox.setChecked(true);
+        holder.delivery_order_increase_dialog_receivingOrder_image_linear.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.d("asd","isExpanded :" + isExpanded);
+                if (isExpanded) {
+                    listView.collapseGroup(groupPosition);
+                }else{
+                    listView.expandGroup(groupPosition);
+
+                }
+            }
+        });
         return convertView;
     }
 
@@ -81,12 +107,14 @@ public class DeliveryDialogExpandableAdapter extends MyExpandableListAdapter<Rec
             convertView.setPadding(0, 0, 0, 0);
         }
 
-        GlideApp.with(getContext())
-                .load(R.drawable.mailbox_black)
-                .error(R.drawable.question_purple)
-                .placeholder(R.drawable.question_purple)
-                .fitCenter()
-                .into(holder.delivery_item_increase_receivingItem_image);
+//        GlideApp.with(getContext())
+//                .load("")
+//                .error(R.drawable.question_purple)
+////                .placeholder(R.drawable.question_purple)
+//                .placeholder(R.drawable.mailbox_black)
+//                .fitCenter()
+//                .into(holder.delivery_item_increase_receivingItem_image);
+        holder.delivery_item_increase_receivingItem_image.setImageDrawable(ContextCompat.getDrawable(getContext(),R.drawable.mailbox_black));
         holder.delivery_item_increase_receivingItem_ProductCode.setText(receivingItemModel.getProduct().getProductCode());
         holder.delivery_item_increase_receivingItem_ProductName.setText(receivingItemModel.getProduct().getProductName());
         holder.delivery_item_increase_receivingItem_itemReceivingDate.setText(ObjectUtil.dateToString_OnlyDate(receivingItemModel.getItemReceivingDate()));
@@ -117,13 +145,15 @@ public class DeliveryDialogExpandableAdapter extends MyExpandableListAdapter<Rec
         return false;
     }
 
-    static class GroupHolder {
+    public static class GroupHolder {
         @BindView(R.id.delivery_order_increase_dialog_receivingOrder_orderId)
         TextView receivingOrder_orderId;
         @BindView(R.id.delivery_order_increase_dialog_receivingOrder_date)
         TextView receivingOrder_date;
         @BindView(R.id.delivery_order_increase_dialog_receivingOrder_itemQty)
         TextView receivingOrder_itemQty;
+        @BindView(R.id.delivery_order_increase_dialog_receivingOrder_image_linear)
+        LinearLayout delivery_order_increase_dialog_receivingOrder_image_linear;
         @BindView(R.id.delivery_order_increase_dialog_receivingOrder_image)
         com.github.siyamed.shapeimageview.RoundedImageView receivingOrder_image;
         @BindView(R.id.delivery_order_increase_dialog_checkbox)
