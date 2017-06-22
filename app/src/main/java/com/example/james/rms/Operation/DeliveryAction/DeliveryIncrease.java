@@ -35,6 +35,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -205,6 +206,17 @@ public class DeliveryIncrease extends AppCompatActivity implements View.OnClickL
     public void putLatestProductModel(List<ReceivingOrderModel> item_listview, ExpandableSelectedModel expandableSelectModel) {
         Log.v("asd","[DeliveryIncrease]-[ListView_Status]-[List<ReceivingOrderModel>] :" + item_listview);
         Log.v("asd","[DeliveryIncrease]-[ListView_Status]-[ExpandableSelectedModel] :" + expandableSelectModel);
+//        LinkedHashMap<>
+        for(ReceivingOrderModel order : item_listview){
+
+        }
+        for(Map.Entry<Long,Boolean> entry : expandableSelectModel.getIsOrderSelected().entrySet()){
+            Long key = entry.getKey();
+            Boolean value = entry.getValue();
+            if (value) {
+
+            }
+        }
     }
 
 }

@@ -92,8 +92,7 @@ public class DeliveryIncreaseDialog extends DialogFragment implements Communicat
         switch (v.getId()){
             case R.id.delivery_increase_dialog_submit:
 
-                List<ReceivingOrderModel> deliveryOrderModels = new ArrayList<>();
-
+                List<ReceivingOrderModel> deliveryOrderModels = this.item_latest;
                 DeliveryIncrease deliveryIncrease = (DeliveryIncrease)getActivity();
                 Communicate_Interface communicateInterface = deliveryIncrease;
                 communicateInterface.putLatestProductModel(deliveryOrderModels,expandableSelectedModel);
@@ -128,7 +127,7 @@ public class DeliveryIncreaseDialog extends DialogFragment implements Communicat
         childHolder.child_checkbox.toggle();
         ReceivingItemModel receivingItemModel = item_latest.get(i).getReceivingItem().get(i1);
         deliveryDialogExpandableAdapter.getExpandableSelectedModel().getIsItemSelected().put(receivingItemModel.getReceivingId(),childHolder.child_checkbox.isChecked());
-        Log.d("asd","onChildClick --i :" + i + "---i1 :" + i1 + "----isChecked :" + childHolder.child_checkbox.isChecked());
+//        Log.d("asd","onChildClick --i :" + i + "---i1 :" + i1 + "----isChecked :" + childHolder.child_checkbox.isChecked());
         return true;
     }
 
@@ -137,7 +136,7 @@ public class DeliveryIncreaseDialog extends DialogFragment implements Communicat
         DeliveryDialogExpandableAdapter.GroupHolder groupHolder= (DeliveryDialogExpandableAdapter.GroupHolder)view.getTag();
         groupHolder.group_checkbox.toggle();
         deliveryDialogExpandableAdapter.getExpandableSelectedModel().getIsOrderSelected().put(item_latest.get(i).getOrderId(),groupHolder.group_checkbox.isChecked());
-        Log.d("asd","onGroupClick --i :" + i + "----isChecked :" + groupHolder.group_checkbox.isChecked());
+//        Log.d("asd","onGroupClick --i :" + i + "----isChecked :" + groupHolder.group_checkbox.isChecked());
         return true;
     }
 }
