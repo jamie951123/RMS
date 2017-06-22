@@ -203,7 +203,8 @@ public class DeliveryIncrease extends AppCompatActivity implements View.OnClickL
 
     @Override
     public void putLatestProductModel(List<ReceivingOrderModel> item_listview, ExpandableSelectedModel expandableSelectModel) {
-
+        Log.v("asd","[DeliveryIncrease]-[ListView_Status]-[List<ReceivingOrderModel>] :" + item_listview);
+        Log.v("asd","[DeliveryIncrease]-[ListView_Status]-[ExpandableSelectedModel] :" + expandableSelectModel);
     }
 
 }
