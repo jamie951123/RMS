@@ -226,7 +226,8 @@
                     android:layout_height="match_parent"
                     android:id="@+id/delivery_item_increase_dialog_checkbox"
                     android:focusable="false"
-                    android:clickable="false"/>
+                    android:clickable="false"
+                    android:buttonTint="@color/blueb3b3ff"/>
             </LinearLayout>
 
             <!--Finsh-->

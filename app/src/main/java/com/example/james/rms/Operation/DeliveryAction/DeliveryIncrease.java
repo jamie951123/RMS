@@ -97,8 +97,8 @@ public class DeliveryIncrease extends AppCompatActivity implements View.OnClickL
         order_original = new ArrayList<>(receivingOrderModels);
         order_latest = new ArrayList<>(receivingOrderModels);
         order_listview = new ArrayList<>();
-        //
-        expandableSelectedModel = setOriginalCheckbox(order_original);
+        //order and child checkbox setup
+        setOriginalCheckbox(order_original);
 
         Log.v("asd","DeliveryIncrease-[order_original] :" + order_original);
     }
@@ -137,8 +137,7 @@ public class DeliveryIncrease extends AppCompatActivity implements View.OnClickL
         newFragment.show(getSupportFragmentManager(), StartActivityForResultKey.deliveryIncrease);
     }
 
-    public ExpandableSelectedModel setOriginalCheckbox(List<ReceivingOrderModel>  receivingOrderModel){
-        ExpandableSelectedModel expandableSelectedModel = new ExpandableSelectedModel();
+    public void setOriginalCheckbox(List<ReceivingOrderModel>  receivingOrderModel){
         LinkedHashMap<Long,Boolean> isOrderSelected = new LinkedHashMap<>();
         LinkedHashMap<Long,Boolean> isItemSelected = new LinkedHashMap<>();
 
@@ -153,7 +152,6 @@ public class DeliveryIncrease extends AppCompatActivity implements View.OnClickL
             expandableSelectedModel.setIsItemSelected(isItemSelected);
 
         }
-        return expandableSelectedModel;
     }
 
     private void setUpToolbar() {

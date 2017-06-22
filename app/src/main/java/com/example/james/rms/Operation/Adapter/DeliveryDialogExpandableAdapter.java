@@ -1,6 +1,7 @@
 package com.example.james.rms.Operation.Adapter;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.AppCompatCheckBox;
 import android.util.Log;
@@ -38,6 +39,7 @@ public class DeliveryDialogExpandableAdapter extends MyExpandableListAdapter<Rec
     public DeliveryDialogExpandableAdapter(Context context, List<ReceivingOrderModel> dataArrayList, ExpandableSelectedModel expandableSelectedModel,AnimatedExpandableListView listView) {
         super(context, dataArrayList);
         this.listView = listView;
+        this.expandableSelectedModel =expandableSelectedModel;
     }
 
     @Override
@@ -66,14 +68,15 @@ public class DeliveryDialogExpandableAdapter extends MyExpandableListAdapter<Rec
         holder.receivingOrder_orderId.setText(ObjectUtil.longToString(receivingOrderModel.getOrderId()));
         holder.receivingOrder_date.setText(ObjectUtil.dateToString_OnlyDate(receivingOrderModel.getReceivingDate()));
         holder.receivingOrder_itemQty.setText(ObjectUtil.intToString(receivingOrderModel.getItemQty()));
-
+        if(expandableSelectedModel.getIsOrderSelected().containsKey(receivingOrderModel.getOrderId())){
+            holder.group_checkbox.setChecked(expandableSelectedModel.getIsOrderSelected().get(receivingOrderModel.getOrderId()));
+        }
 //        GlideApp.with(getContext())
 //                .load(R.drawable.input)
 //                .error(R.drawable.question_purple)
 //                .placeholder(R.drawable.question_purple)
 //                .fitCenter()
 //                .into(holder.receivingOrder_image);
-        holder.group_checkbox.setChecked(true);
         holder.delivery_order_increase_dialog_receivingOrder_image_linear.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -122,6 +125,10 @@ public class DeliveryDialogExpandableAdapter extends MyExpandableListAdapter<Rec
         holder.delivery_item_increase_receivingItem_itemGrossWeight_unit.setText(receivingItemModel.getProduct().getWeightprofile()==null?"":receivingItemModel.getProduct().getWeightprofile().getWeightUnit());
         holder.delivery_item_increase_receivingItem_itemQuantity.setText(ObjectUtil.intToString(receivingItemModel.getItemQty()));
         holder.delivery_item_increase_receivingItem_itemQuantity_unit.setText(receivingItemModel.getProduct().getQuantityProfile()==null?"":receivingItemModel.getProduct().getQuantityProfile().getQuantityUnit());
+//        holder.child_checkbox.setBackgroundColor(ContextCompat.getColor(getContext(),R.color.blueb3ffff));
+        if(expandableSelectedModel.getIsItemSelected().containsKey(receivingItemModel.getReceivingId())){
+            holder.child_checkbox.setChecked(expandableSelectedModel.getIsItemSelected().get(receivingItemModel.getReceivingId()));
+        }
         return convertView;
     }
 
@@ -147,17 +154,17 @@ public class DeliveryDialogExpandableAdapter extends MyExpandableListAdapter<Rec
 
     public static class GroupHolder {
         @BindView(R.id.delivery_order_increase_dialog_receivingOrder_orderId)
-        TextView receivingOrder_orderId;
+        public TextView receivingOrder_orderId;
         @BindView(R.id.delivery_order_increase_dialog_receivingOrder_date)
-        TextView receivingOrder_date;
+        public TextView receivingOrder_date;
         @BindView(R.id.delivery_order_increase_dialog_receivingOrder_itemQty)
-        TextView receivingOrder_itemQty;
+        public TextView receivingOrder_itemQty;
         @BindView(R.id.delivery_order_increase_dialog_receivingOrder_image_linear)
-        LinearLayout delivery_order_increase_dialog_receivingOrder_image_linear;
+        public LinearLayout delivery_order_increase_dialog_receivingOrder_image_linear;
         @BindView(R.id.delivery_order_increase_dialog_receivingOrder_image)
-        com.github.siyamed.shapeimageview.RoundedImageView receivingOrder_image;
+        public com.github.siyamed.shapeimageview.RoundedImageView receivingOrder_image;
         @BindView(R.id.delivery_order_increase_dialog_checkbox)
-        android.support.v7.widget.AppCompatCheckBox group_checkbox;
+        public android.support.v7.widget.AppCompatCheckBox group_checkbox;
 
 
         public GroupHolder(View view){
@@ -165,27 +172,36 @@ public class DeliveryDialogExpandableAdapter extends MyExpandableListAdapter<Rec
         }
     }
 
-    static class ChildHolder {
+    public static class ChildHolder {
+        @BindView(R.id.delivery_item_increase_dialog_checkbox)
+        public android.support.v7.widget.AppCompatCheckBox child_checkbox;
         @BindView(R.id.delivery_item_increase_receivingItem_image)
-        com.github.siyamed.shapeimageview.RoundedImageView delivery_item_increase_receivingItem_image;
+        public com.github.siyamed.shapeimageview.RoundedImageView delivery_item_increase_receivingItem_image;
         @BindView(R.id.delivery_item_increase_receivingItem_ProductCode)
-        TextView delivery_item_increase_receivingItem_ProductCode;
+        public TextView delivery_item_increase_receivingItem_ProductCode;
         @BindView(R.id.delivery_item_increase_receivingItem_ProductName)
-        TextView delivery_item_increase_receivingItem_ProductName;
+        public TextView delivery_item_increase_receivingItem_ProductName;
         @BindView(R.id.delivery_item_increase_receivingItem_itemReceivingDate)
-        TextView delivery_item_increase_receivingItem_itemReceivingDate;
+        public TextView delivery_item_increase_receivingItem_itemReceivingDate;
         @BindView(R.id.delivery_item_increase_receivingItem_itemGrossWeight)
-        TextView delivery_item_increase_receivingItem_itemGrossWeight;
+        public TextView delivery_item_increase_receivingItem_itemGrossWeight;
         @BindView(R.id.delivery_item_increase_receivingItem_itemGrossWeight_unit)
-        TextView delivery_item_increase_receivingItem_itemGrossWeight_unit;
+        public TextView delivery_item_increase_receivingItem_itemGrossWeight_unit;
         @BindView(R.id.delivery_item_increase_receivingItem_itemQuantity)
-        TextView delivery_item_increase_receivingItem_itemQuantity;
+        public TextView delivery_item_increase_receivingItem_itemQuantity;
         @BindView(R.id.delivery_item_increase_receivingItem_itemQuantity_unit)
-        TextView delivery_item_increase_receivingItem_itemQuantity_unit;
+        public TextView delivery_item_increase_receivingItem_itemQuantity_unit;
 
         public ChildHolder(View view){
             ButterKnife.bind(this,view);
         }
     }
 
+    public static ExpandableSelectedModel getExpandableSelectedModel() {
+        return expandableSelectedModel;
+    }
+
+    public static void setExpandableSelectedModel(ExpandableSelectedModel expandableSelectedModel) {
+        DeliveryDialogExpandableAdapter.expandableSelectedModel = expandableSelectedModel;
+    }
 }
