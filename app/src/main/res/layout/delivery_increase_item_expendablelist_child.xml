@@ -1,0 +1,299 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:card_view="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <!-- Single ListItem -->
+    <android.support.v7.widget.CardView
+        android:id="@+id/receivingOrder_card_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="4dp"
+        android:background="@color/whiteFFFFFF"
+        android:foreground="?android:attr/selectableItemBackground"
+        android:minHeight="30dp"
+        card_view:cardCornerRadius="10dp">
+
+        <!--Container-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <!--Top-->
+            <!--Main-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+                <!--Left-->
+                <!--ImageView-->
+                <LinearLayout
+                    android:id="@+id/delivery_increase_item_child_image_linear"
+                    android:layout_width="60dp"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:minWidth="60dp"
+                    android:orientation="vertical">
+
+                    <com.github.siyamed.shapeimageview.RoundedImageView
+                        android:id="@+id/delivery_increase_item_child_image"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:padding="@dimen/card_margin"
+                        app:siBorderColor="@color/whiteFFFFFF"
+                        app:siBorderWidth="6dp"
+                        app:siRadius="6dp"
+                        app:siSquare="true" />
+
+                </LinearLayout>
+
+                <!--center-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:paddingLeft="@dimen/card_margin">
+
+                    <!-- Product Code -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1">
+
+                        <TextView
+                            android:id="@+id/delivery_increase_item_child_ProductCode"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="bottom"
+                            android:text="@string/productCode"
+                            android:textColor="@color/delivery_increase_item_child_value_color"
+                            android:textSize="20sp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="2dp"
+                        android:background="@color/blue0895ef" />
+
+                    <!-- Product Name -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/delivery_increase_item_child_ProductName"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="top"
+                            android:text="@string/productName"
+                            android:textColor="@color/delivery_increase_item_child_value_color"
+                            android:textSize="20sp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <!--Right-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <!-- ItemQTY-Container-->
+                    <LinearLayout
+                        android:id="@+id/delivery_increase_item_child_qtylinear"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="@drawable/blueborder"
+                        android:orientation="horizontal">
+
+                        <!--Lable-->
+                        <LinearLayout
+                            android:layout_width="80dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:orientation="horizontal"
+                            android:paddingLeft="@dimen/rl_increase_list_item_edittext">
+
+                            <!--QTY Label-->
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:gravity="center"
+                                android:textColor="@color/colorAccent"
+                                android:textStyle="bold"
+                                android:text="@string/label_quantity"/>
+
+                        </LinearLayout>
+
+                        <!--Value-->
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="horizontal"
+                            android:layout_weight="1">
+
+                            <!--qty Value-->
+                            <TextView
+                                android:id="@+id/delivery_increase_item_child_qty"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_marginBottom="@dimen/rl_increase_list_item_edittext"
+                                android:layout_marginTop="@dimen/rl_increase_list_item_edittext"
+                                android:gravity="center"
+                                android:layout_weight="1"
+                                android:textColor="@color/delivery_increase_item_child_value_color" />
+
+                            <!--/-->
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_marginBottom="@dimen/rl_increase_list_item_edittext"
+                                android:layout_marginTop="@dimen/rl_increase_list_item_edittext"
+                                android:gravity="center"
+                                android:text="/" />
+
+                            <!--Total qty Value-->
+                            <TextView
+                                android:id="@+id/delivery_item_increase_totalQty"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_marginBottom="@dimen/rl_increase_list_item_edittext"
+                                android:layout_marginTop="@dimen/rl_increase_list_item_edittext"
+                                android:gravity="center"
+                                android:layout_weight="1"
+                                android:textColor="@color/delivery_increase_item_child_value_color" />
+
+                            <!--qty Value-Uint-->
+                            <TextView
+                                android:id="@+id/delivery_item_increase_qty_unit"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_marginBottom="@dimen/rl_increase_list_item_edittext"
+                                android:layout_marginTop="@dimen/rl_increase_list_item_edittext"
+                                android:gravity="center"
+                                android:layout_weight="1"
+                                android:textColor="@color/delivery_increase_item_child_value_color" />
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                    <!-- ItemGW-Container-->
+                    <LinearLayout
+                        android:id="@+id/delivery_increase_item_child_gwlinear"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="@drawable/blueborder"
+                        android:orientation="horizontal">
+
+                        <!--Lable-->
+                        <LinearLayout
+                            android:layout_width="80dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:orientation="horizontal"
+                            android:paddingLeft="@dimen/rl_increase_list_item_edittext">
+
+                            <!--Label-GW-->
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:gravity="center"
+                                android:textColor="@color/colorAccent"
+                                android:text="@string/label_grossweight"
+                                android:textStyle="bold" />
+
+                        </LinearLayout>
+
+                        <!--Value-GW Container-->
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="horizontal"
+                            android:layout_weight="1">
+
+                            <!--GW Value-->
+                            <TextView
+                                android:id="@+id/delivery_increase_item_child_gw"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_marginBottom="@dimen/rl_increase_list_item_edittext"
+                                android:layout_marginTop="@dimen/rl_increase_list_item_edittext"
+                                android:gravity="center"
+                                android:layout_weight="1"
+                                android:textColor="@color/delivery_increase_item_child_value_color" />
+
+                            <!--/-->
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_marginBottom="@dimen/rl_increase_list_item_edittext"
+                                android:layout_marginTop="@dimen/rl_increase_list_item_edittext"
+                                android:gravity="center"
+                                android:text="/" />
+
+                            <!--Total-GW Value-->
+                            <TextView
+                                android:id="@+id/delivery_increase_item_child_totalGW"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_marginBottom="@dimen/rl_increase_list_item_edittext"
+                                android:layout_marginTop="@dimen/rl_increase_list_item_edittext"
+                                android:gravity="center"
+                                android:layout_weight="1"
+                                android:text="@string/productName"
+                                android:textColor="@color/delivery_increase_item_child_value_color" />
+
+                            <!--gw ValueUnit-->
+                            <TextView
+                                android:id="@+id/delivery_increase_item_child_gw_unit"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_marginBottom="@dimen/rl_increase_list_item_edittext"
+                                android:layout_marginTop="@dimen/rl_increase_list_item_edittext"
+                                android:gravity="center"
+                                android:layout_weight="1"
+                                android:textColor="@color/delivery_increase_item_child_value_color" />
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <!--Bottom-->
+            <!--Remark-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="3">
+
+                <EditText
+                    android:id="@+id/delivery_increase_item_child_increase_itemremark"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@android:color/transparent"
+                    android:gravity="center"
+                    android:hint="@string/remark"
+                    android:inputType="textMultiLine" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </android.support.v7.widget.CardView>
+</LinearLayout>

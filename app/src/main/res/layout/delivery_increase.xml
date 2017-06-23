@@ -104,7 +104,7 @@
         android:layout_height="match_parent"
         android:layout_weight="1">
 
-        <ListView
+        <com.example.james.rms.CommonProfile.Library.AnimatedExpandableListView
             android:id="@+id/delivery_increase_listview"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />

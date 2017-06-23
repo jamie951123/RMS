@@ -3,12 +3,10 @@ package com.example.james.rms.Operation.DeliveryAction;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.content.ContextCompat;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ExpandableListView;
 
@@ -16,12 +14,11 @@ import com.example.james.rms.CommonProfile.Library.AnimatedExpandableListView;
 import com.example.james.rms.Core.Model.ExpandableSelectedModel;
 import com.example.james.rms.Core.Model.ReceivingItemModel;
 import com.example.james.rms.Core.Model.ReceivingOrderModel;
-import com.example.james.rms.Operation.Adapter.DeliveryDialogExpandableAdapter;
+import com.example.james.rms.Operation.Adapter.DeliveryIncreaseDialogExpandableAdapter;
 import com.example.james.rms.ITF.Communicate_Interface;
 import com.example.james.rms.R;
 
 import java.util.ArrayList;
-import java.util.LinkedHashMap;
 import java.util.List;
 
 import butterknife.BindView;
@@ -48,7 +45,7 @@ public class DeliveryIncreaseDialog extends DialogFragment implements Communicat
     private ExpandableSelectedModel expandableSelectedModel;
 
     //
-    private DeliveryDialogExpandableAdapter deliveryDialogExpandableAdapter;
+    private DeliveryIncreaseDialogExpandableAdapter deliveryIncreaseDialogExpandableAdapter;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -61,8 +58,8 @@ public class DeliveryIncreaseDialog extends DialogFragment implements Communicat
         cancel.setOnClickListener(this);
         submit.setOnClickListener(this);
 
-        deliveryDialogExpandableAdapter = new DeliveryDialogExpandableAdapter(getActivity(),item_latest,expandableSelectedModel,listView);
-        listView.setAdapter(deliveryDialogExpandableAdapter);
+        deliveryIncreaseDialogExpandableAdapter = new DeliveryIncreaseDialogExpandableAdapter(getActivity(),item_latest,expandableSelectedModel,listView);
+        listView.setAdapter(deliveryIncreaseDialogExpandableAdapter);
         listView.setGroupIndicator(null);
         listView.setChildIndicator(null);
         listView.setDivider(ContextCompat.getDrawable(getActivity(),R.color.black1F1F1F));
@@ -92,10 +89,10 @@ public class DeliveryIncreaseDialog extends DialogFragment implements Communicat
         switch (v.getId()){
             case R.id.delivery_increase_dialog_submit:
 
-                List<ReceivingOrderModel> deliveryOrderModels = this.item_latest;
+                List<ReceivingOrderModel> listview_model = getSelectedReceiving(expandableSelectedModel);
                 DeliveryIncrease deliveryIncrease = (DeliveryIncrease)getActivity();
                 Communicate_Interface communicateInterface = deliveryIncrease;
-                communicateInterface.putLatestProductModel(deliveryOrderModels,expandableSelectedModel);
+                communicateInterface.putLatestProductModel(listview_model,expandableSelectedModel);
                 if (getDialog().isShowing()){
                     getDialog().dismiss();
                 }
@@ -123,20 +120,59 @@ public class DeliveryIncreaseDialog extends DialogFragment implements Communicat
 
     @Override
     public boolean onChildClick(ExpandableListView expandableListView, View view, int i, int i1, long l) {
-        DeliveryDialogExpandableAdapter.ChildHolder childHolder= (DeliveryDialogExpandableAdapter.ChildHolder)view.getTag();
+        DeliveryIncreaseDialogExpandableAdapter.ChildHolder childHolder= (DeliveryIncreaseDialogExpandableAdapter.ChildHolder)view.getTag();
         childHolder.child_checkbox.toggle();
         ReceivingItemModel receivingItemModel = item_latest.get(i).getReceivingItem().get(i1);
-        deliveryDialogExpandableAdapter.getExpandableSelectedModel().getIsItemSelected().put(receivingItemModel.getReceivingId(),childHolder.child_checkbox.isChecked());
+        deliveryIncreaseDialogExpandableAdapter.getExpandableSelectedModel().getIsItemSelected().put(receivingItemModel.getReceivingId(),childHolder.child_checkbox.isChecked());
 //        Log.d("asd","onChildClick --i :" + i + "---i1 :" + i1 + "----isChecked :" + childHolder.child_checkbox.isChecked());
         return true;
     }
 
     @Override
     public boolean onGroupClick(ExpandableListView expandableListView, View view, int i, long l) {
-        DeliveryDialogExpandableAdapter.GroupHolder groupHolder= (DeliveryDialogExpandableAdapter.GroupHolder)view.getTag();
+        DeliveryIncreaseDialogExpandableAdapter.GroupHolder groupHolder= (DeliveryIncreaseDialogExpandableAdapter.GroupHolder)view.getTag();
         groupHolder.group_checkbox.toggle();
-        deliveryDialogExpandableAdapter.getExpandableSelectedModel().getIsOrderSelected().put(item_latest.get(i).getOrderId(),groupHolder.group_checkbox.isChecked());
+        deliveryIncreaseDialogExpandableAdapter.getExpandableSelectedModel().getIsOrderSelected().put(item_latest.get(i).getOrderId(),groupHolder.group_checkbox.isChecked());
 //        Log.d("asd","onGroupClick --i :" + i + "----isChecked :" + groupHolder.group_checkbox.isChecked());
         return true;
+    }
+
+    public List<ReceivingOrderModel> getSelectedReceiving(ExpandableSelectedModel expandableSelectedModel) {
+
+//        LinkedHashMap<Long, ReceivingOrderModel> orderMap = new LinkedHashMap<>();
+//        LinkedHashMap<Long, ReceivingItemModel> itemMap = new LinkedHashMap<>();
+//        //Allocation To Mapping
+//        for(ReceivingOrderModel order : this.item_latest){
+//
+//            if(expandableSelectedModel.getIsOrderSelected().containsKey(order.getOrderId()) && expandableSelectedModel.getIsOrderSelected().get(order.getOrderId())){
+//                orderMap.put(order.getOrderId(),order);
+//            }
+//
+//            if(order != null) {
+//                for (ReceivingItemModel item : order.getReceivingItem()) {
+//                    if(expandableSelectedModel.getIsItemSelected().containsKey(item.getReceivingId()) && expandableSelectedModel.getIsItemSelected().get(item.getReceivingId())){
+//                        itemMap.put(item.getReceivingId(),item);
+//                    }
+//                }
+//            }
+//        }
+    List<ReceivingOrderModel> newModel = new ArrayList<>();
+        boolean isSelected;
+        for(ReceivingOrderModel order : this.item_latest){
+            isSelected = false;
+            List<ReceivingItemModel> itemModel = new ArrayList<>();
+            for (ReceivingItemModel item : order.getReceivingItem()) {
+                if(expandableSelectedModel.getIsItemSelected().containsKey(item.getReceivingId()) && expandableSelectedModel.getIsItemSelected().get(item.getReceivingId())){
+                    itemModel.add(item.newReceivingItemModel());
+                    isSelected = true;
+                }
+            }
+            if(isSelected) {
+                order.setReceivingItem(itemModel);
+                newModel.add(order);
+            }
+        }
+
+        return newModel;
     }
 }

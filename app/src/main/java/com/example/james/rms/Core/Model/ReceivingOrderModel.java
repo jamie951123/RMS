@@ -23,6 +23,24 @@ public class ReceivingOrderModel {
     private Integer itemQty;
     private List<ReceivingItemModel> receivingItem;
 
+    public ReceivingOrderModel newReceivingOrderModel(){
+        ReceivingOrderModel r = new ReceivingOrderModel();
+        r.setOrderId(this.orderId);
+        r.setPartyId(this.partyId);
+        r.setRemark(this.remark);
+        r.setStatus(this.status);
+        r.setReceivingDate(this.receivingDate);
+        r.setCreateDate(this.createDate);
+        r.setCreateBy(this.createBy);
+        r.setCloseDate(this.closeDate);
+        r.setLastModifiedDate(this.lastModifiedDate);
+        r.setLastModifiedBy(this.lastModifiedBy);
+        r.setActualQty(this.actualQty);
+        r.setEstimateQty(this.estimateQty);
+        r.setItemQty(this.itemQty);
+        r.setReceivingItem(this.receivingItem);
+        return r;
+    }
     public Long getOrderId() {
         return orderId;
     }

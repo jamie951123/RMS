@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -13,11 +14,13 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.EditText;
+import android.widget.ExpandableListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.james.rms.CommonProfile.DialogBox.ClassicDialog;
 import com.example.james.rms.CommonProfile.DialogBox.MyDatePicker;
+import com.example.james.rms.CommonProfile.Library.AnimatedExpandableListView;
 import com.example.james.rms.CommonProfile.SharePreferences.PartyIdPreferences;
 import com.example.james.rms.CommonProfile.StartActivityForResultKey;
 import com.example.james.rms.Core.Combine.DeliveryOrderSearchCombine;
@@ -28,6 +31,7 @@ import com.example.james.rms.Core.Model.ReceivingItemModel;
 import com.example.james.rms.Core.Model.ReceivingOrderModel;
 import com.example.james.rms.Core.Model.Status;
 import com.example.james.rms.ITF.Communicate_Interface;
+import com.example.james.rms.Operation.Adapter.DeliveryIncreaseItemExpandableAdapter;
 import com.example.james.rms.R;
 import com.github.clans.fab.FloatingActionButton;
 
@@ -59,7 +63,8 @@ public class DeliveryIncrease extends AppCompatActivity implements View.OnClickL
     TextView toolbar_title;
     @BindView(R.id.delivery_increase_datePicker)
     TextView datePicker;
-
+    @BindView(R.id.delivery_increase_listview)
+    AnimatedExpandableListView listView;
     //
 //    private DeliveryOrderDao deliveryOrderDao = new DeliveryOrderDaoImpl();
     private ReceivingOrderDao receivingOrderDao = new ReceivingOrderDaoImpl();
@@ -72,6 +77,9 @@ public class DeliveryIncrease extends AppCompatActivity implements View.OnClickL
     private List<ReceivingOrderModel>  order_original;
     private List<ReceivingOrderModel>  order_latest;
     private List<ReceivingOrderModel>  order_listview;
+    //
+    private DeliveryIncreaseItemExpandableAdapter deliveryIncreaseItemExpandableAdapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -100,7 +108,7 @@ public class DeliveryIncrease extends AppCompatActivity implements View.OnClickL
         order_listview = new ArrayList<>();
         //order and child checkbox setup
         setOriginalCheckbox(order_original);
-
+        setUpListView(order_listview);
         Log.v("asd","DeliveryIncrease-[order_original] :" + order_original);
     }
     @Override
@@ -204,19 +212,29 @@ public class DeliveryIncrease extends AppCompatActivity implements View.OnClickL
 
     @Override
     public void putLatestProductModel(List<ReceivingOrderModel> item_listview, ExpandableSelectedModel expandableSelectModel) {
-        Log.v("asd","[DeliveryIncrease]-[ListView_Status]-[List<ReceivingOrderModel>] :" + item_listview);
+        Log.v("asd","[DeliveryIncrease]-[ListView_Status]-[List<ReceivingOrderModel>]-[item_listview] :" + item_listview);
         Log.v("asd","[DeliveryIncrease]-[ListView_Status]-[ExpandableSelectedModel] :" + expandableSelectModel);
-//        LinkedHashMap<>
-        for(ReceivingOrderModel order : item_listview){
+        deliveryIncreaseItemExpandableAdapter = new DeliveryIncreaseItemExpandableAdapter(this,item_listview,listView);
+        listView.setAdapter(deliveryIncreaseItemExpandableAdapter);
+        setUpListView(item_listview);
+    }
+
+    private void setUpListView(List<ReceivingOrderModel> item_listview){
+        listView.setGroupIndicator(null);
+        listView.setChildIndicator(null);
+        listView.setDivider(ContextCompat.getDrawable(this,R.color.black1F1F1F));
+        listView.setChildDivider(ContextCompat.getDrawable(this,R.color.transperent_color));
+        listView.setDividerHeight(5);
+        for(int i=0; i<item_listview.size();i++){
+            listView.expandGroup(i);
 
         }
-        for(Map.Entry<Long,Boolean> entry : expandableSelectModel.getIsOrderSelected().entrySet()){
-            Long key = entry.getKey();
-            Boolean value = entry.getValue();
-            if (value) {
-
+        listView.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
+            @Override
+            public boolean onGroupClick(ExpandableListView expandableListView, View view, int i, long l) {
+                return true;
             }
-        }
+        });
     }
 
 }

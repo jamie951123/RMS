@@ -1,27 +1,20 @@
 package com.example.james.rms.Operation.Adapter;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.widget.AppCompatCheckBox;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ExpandableListView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.example.james.rms.CommonProfile.GlideApp;
 import com.example.james.rms.CommonProfile.Library.AnimatedExpandableListView;
 import com.example.james.rms.CommonProfile.MyExpandableListAdapter;
 import com.example.james.rms.CommonProfile.ObjectUtil;
-import com.example.james.rms.Core.Model.DeliveryOrderModel;
 import com.example.james.rms.Core.Model.ExpandableSelectedModel;
 import com.example.james.rms.Core.Model.ReceivingItemModel;
 import com.example.james.rms.Core.Model.ReceivingOrderModel;
 import com.example.james.rms.R;
 
-import java.util.LinkedHashMap;
 import java.util.List;
 
 import butterknife.BindView;
@@ -31,12 +24,12 @@ import butterknife.ButterKnife;
  * Created by Jamie on 18/6/2017.
  */
 
-public class DeliveryDialogExpandableAdapter extends MyExpandableListAdapter<ReceivingOrderModel> {
+public class DeliveryIncreaseDialogExpandableAdapter extends MyExpandableListAdapter<ReceivingOrderModel> {
 
     // 用來控制CheckBox的選中狀況
     private static ExpandableSelectedModel expandableSelectedModel;
     private AnimatedExpandableListView listView;
-    public DeliveryDialogExpandableAdapter(Context context, List<ReceivingOrderModel> dataArrayList, ExpandableSelectedModel expandableSelectedModel,AnimatedExpandableListView listView) {
+    public DeliveryIncreaseDialogExpandableAdapter(Context context, List<ReceivingOrderModel> dataArrayList, ExpandableSelectedModel expandableSelectedModel, AnimatedExpandableListView listView) {
         super(context, dataArrayList);
         this.listView = listView;
         this.expandableSelectedModel =expandableSelectedModel;
@@ -80,7 +73,7 @@ public class DeliveryDialogExpandableAdapter extends MyExpandableListAdapter<Rec
         holder.delivery_order_increase_dialog_receivingOrder_image_linear.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.d("asd","isExpanded :" + isExpanded);
+//                Log.d("asd","isExpanded :" + isExpanded);
                 if (isExpanded) {
                     listView.collapseGroup(groupPosition);
                 }else{
@@ -97,7 +90,7 @@ public class DeliveryDialogExpandableAdapter extends MyExpandableListAdapter<Rec
         ChildHolder holder;
         ReceivingItemModel receivingItemModel = getGroup(groupPosition).getReceivingItem().get(childPosition);
         if (convertView == null) {
-            convertView = getLayoutInflater().inflate(R.layout.delivery_increase_dialog_expendablelist_item, parent, false);
+            convertView = getLayoutInflater().inflate(R.layout.delivery_increase_dialog_expendablelist_child, parent, false);
             holder = new ChildHolder(convertView);
             convertView.setTag(holder);
         } else {
@@ -202,6 +195,6 @@ public class DeliveryDialogExpandableAdapter extends MyExpandableListAdapter<Rec
     }
 
     public static void setExpandableSelectedModel(ExpandableSelectedModel expandableSelectedModel) {
-        DeliveryDialogExpandableAdapter.expandableSelectedModel = expandableSelectedModel;
+        DeliveryIncreaseDialogExpandableAdapter.expandableSelectedModel = expandableSelectedModel;
     }
 }

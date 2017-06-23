@@ -25,8 +25,14 @@
     <!--delivery_increase_dialoag_group-->
     <color name="delivery_increase_dialoag_group_value_color">#FFFFFF</color>
 
-    <!--delivery_increase_dialoag_item-->
-    <color name="delivery_increase_dialoag_item_value_color">#FFFFFF</color>
+    <!--delivery_increase_dialoag_child-->
+    <color name="delivery_increase_dialoag_child_value_color">#FFFFFF</color>
+
+    <!--delivery_increase_item_group-->
+    <color name="delivery_increase_item_group_value_color">#FFFFFF</color>
+
+    <!--delivery_increase_item_child-->
+    <color name="delivery_increase_item_child_value_color">#000</color>
 
     <!--background-->
     <color name="backgroundE8E8E8">#E8E8E8</color>

@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!--Main-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:orientation="horizontal"
+        android:foreground="?android:attr/selectableItemBackground"
+        android:background="@color/grayA3C2C2">
+        <!--Left-->
+        <!--ImageView-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingLeft="@dimen/card_margin"
+            android:paddingRight="@dimen/card_margin"
+            android:gravity="center"
+            android:id="@+id/delivery_increase_item_group_image_linear"
+            android:layout_weight="80">
+
+            <com.github.siyamed.shapeimageview.RoundedImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_gravity="center"
+                app:siRadius="6dp"
+                app:siBorderWidth="6dp"
+                app:siBorderColor="@color/whiteFFFFFF"
+                app:siSquare="true"
+                android:paddingTop="@dimen/card_margin"
+                android:paddingBottom="@dimen/card_margin"
+                android:paddingLeft="@dimen/card_margin"
+                android:paddingRight="@dimen/card_margin"
+                android:id="@+id/delivery_increase_item_group_image"/>
+
+        </LinearLayout>
+
+        <!--center-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="10"
+            android:paddingLeft="@dimen/card_margin"
+            android:orientation="vertical">
+
+            <!-- Receiving Order Id -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:layout_weight="1">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="3"
+                    android:text="@string/receivingOrder_orderId" />
+
+                <TextView
+                    android:id="@+id/delivery_increase_item_group_orderId"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="2"
+                    android:textStyle="bold"
+                    android:textColor="@color/delivery_increase_item_group_value_color"/>
+            </LinearLayout>
+
+            <!-- ReceivingDate -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="3"
+                    android:text="@string/receivingOrder_date" />
+
+                <TextView
+                    android:id="@+id/delivery_increase_item_group_date"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="2"
+                    android:textColor="@color/delivery_increase_item_group_value_color"/>
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <!--&lt;!&ndash;Right&ndash;&gt;-->
+        <!--&lt;!&ndash;CheckBox&ndash;&gt;-->
+        <!--<LinearLayout-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:layout_weight="90">-->
+            <!--<android.support.v7.widget.AppCompatCheckBox-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="match_parent"-->
+                <!--android:id="@+id/delivery_order_increase_dialog_checkbox"-->
+                <!--android:focusable="false"/>-->
+        <!--</LinearLayout>-->
+        <!--Finsh-->
+    </LinearLayout>
+
+</LinearLayout>
