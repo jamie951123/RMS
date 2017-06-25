@@ -14,7 +14,7 @@
         android:layout_margin="4dp"
         android:background="@color/whiteFFFFFF"
         android:foreground="?android:attr/selectableItemBackground"
-        android:minHeight="30dp"
+        android:minHeight="50dp"
         card_view:cardCornerRadius="10dp">
 
         <!--Container-->
@@ -108,11 +108,12 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
+                    android:minHeight="100dp"
                     android:orientation="vertical">
 
                     <!-- ItemQTY-Container-->
                     <LinearLayout
-                        android:id="@+id/delivery_increase_item_child_qtylinear"
+                        android:id="@+id/delivery_increase_item_child_qty_linear"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
@@ -143,22 +144,23 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:orientation="horizontal"
+                            android:gravity="right"
+                            android:paddingRight="@dimen/card_margin"
                             android:layout_weight="1">
 
                             <!--qty Value-->
                             <TextView
                                 android:id="@+id/delivery_increase_item_child_qty"
-                                android:layout_width="match_parent"
+                                android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
                                 android:layout_marginBottom="@dimen/rl_increase_list_item_edittext"
                                 android:layout_marginTop="@dimen/rl_increase_list_item_edittext"
                                 android:gravity="center"
-                                android:layout_weight="1"
                                 android:textColor="@color/delivery_increase_item_child_value_color" />
 
                             <!--/-->
                             <TextView
-                                android:layout_width="match_parent"
+                                android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
                                 android:layout_marginBottom="@dimen/rl_increase_list_item_edittext"
                                 android:layout_marginTop="@dimen/rl_increase_list_item_edittext"
@@ -168,23 +170,21 @@
                             <!--Total qty Value-->
                             <TextView
                                 android:id="@+id/delivery_item_increase_totalQty"
-                                android:layout_width="match_parent"
+                                android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
                                 android:layout_marginBottom="@dimen/rl_increase_list_item_edittext"
                                 android:layout_marginTop="@dimen/rl_increase_list_item_edittext"
                                 android:gravity="center"
-                                android:layout_weight="1"
                                 android:textColor="@color/delivery_increase_item_child_value_color" />
 
                             <!--qty Value-Uint-->
                             <TextView
                                 android:id="@+id/delivery_item_increase_qty_unit"
-                                android:layout_width="match_parent"
+                                android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
                                 android:layout_marginBottom="@dimen/rl_increase_list_item_edittext"
                                 android:layout_marginTop="@dimen/rl_increase_list_item_edittext"
                                 android:gravity="center"
-                                android:layout_weight="1"
                                 android:textColor="@color/delivery_increase_item_child_value_color" />
                         </LinearLayout>
 
@@ -192,7 +192,7 @@
 
                     <!-- ItemGW-Container-->
                     <LinearLayout
-                        android:id="@+id/delivery_increase_item_child_gwlinear"
+                        android:id="@+id/delivery_increase_item_child_gw_linear"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
@@ -223,22 +223,23 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:orientation="horizontal"
+                            android:gravity="right"
+                            android:paddingRight="@dimen/card_margin"
                             android:layout_weight="1">
 
                             <!--GW Value-->
                             <TextView
                                 android:id="@+id/delivery_increase_item_child_gw"
-                                android:layout_width="match_parent"
+                                android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
                                 android:layout_marginBottom="@dimen/rl_increase_list_item_edittext"
                                 android:layout_marginTop="@dimen/rl_increase_list_item_edittext"
                                 android:gravity="center"
-                                android:layout_weight="1"
                                 android:textColor="@color/delivery_increase_item_child_value_color" />
 
                             <!--/-->
                             <TextView
-                                android:layout_width="match_parent"
+                                android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
                                 android:layout_marginBottom="@dimen/rl_increase_list_item_edittext"
                                 android:layout_marginTop="@dimen/rl_increase_list_item_edittext"
@@ -248,24 +249,21 @@
                             <!--Total-GW Value-->
                             <TextView
                                 android:id="@+id/delivery_increase_item_child_totalGW"
-                                android:layout_width="match_parent"
+                                android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
                                 android:layout_marginBottom="@dimen/rl_increase_list_item_edittext"
                                 android:layout_marginTop="@dimen/rl_increase_list_item_edittext"
                                 android:gravity="center"
-                                android:layout_weight="1"
-                                android:text="@string/productName"
                                 android:textColor="@color/delivery_increase_item_child_value_color" />
 
                             <!--gw ValueUnit-->
                             <TextView
                                 android:id="@+id/delivery_increase_item_child_gw_unit"
-                                android:layout_width="match_parent"
+                                android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
                                 android:layout_marginBottom="@dimen/rl_increase_list_item_edittext"
                                 android:layout_marginTop="@dimen/rl_increase_list_item_edittext"
                                 android:gravity="center"
-                                android:layout_weight="1"
                                 android:textColor="@color/delivery_increase_item_child_value_color" />
 
                         </LinearLayout>

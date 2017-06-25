@@ -117,6 +117,54 @@
                         android:textColor="@color/receiving_item_value_color" />
                 </LinearLayout>
 
+                <!-- ItemQuantity Unit-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="3"
+                    android:orientation="horizontal">
+
+                    <!--Lable-->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/receivingItem_itemQuantity_Unit"
+                            android:textStyle="bold" />
+
+                    </LinearLayout>
+
+                    <!--Value-->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="2">
+
+                        <TextView
+                            android:id="@+id/delivery_item_increase_receivingItem_itemQuantity"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/receiving_item_value_color" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="/" />
+
+                        <TextView
+                            android:id="@+id/delivery_item_increase_receivingItem_itemQuantity_unit"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/receiving_item_value_color" />
+                    </LinearLayout>
+
+                </LinearLayout>
+
                 <!-- ItemGrossWeight Unit-->
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -165,53 +213,6 @@
 
                 </LinearLayout>
 
-                <!-- ItemQuantity Unit-->
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="3"
-                    android:orientation="horizontal">
-
-                    <!--Lable-->
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/receivingItem_itemQuantity_Unit"
-                            android:textStyle="bold" />
-
-                    </LinearLayout>
-
-                    <!--Value-->
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_weight="2">
-
-                        <TextView
-                            android:id="@+id/delivery_item_increase_receivingItem_itemQuantity"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textColor="@color/receiving_item_value_color" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="/" />
-
-                        <TextView
-                            android:id="@+id/delivery_item_increase_receivingItem_itemQuantity_unit"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textColor="@color/receiving_item_value_color" />
-                    </LinearLayout>
-
-                </LinearLayout>
 
             </LinearLayout>
 

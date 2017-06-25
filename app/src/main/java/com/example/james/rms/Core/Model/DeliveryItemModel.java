@@ -39,7 +39,9 @@ public class DeliveryItemModel {
 
     private Integer itemQty;
 
-    private Integer receivingId;
+    private Long receivingId;
+
+    private ReceivingItemModel receivingItem;
 
     public Long getDeliveryItemId() {
         return deliveryItemId;
@@ -153,12 +155,20 @@ public class DeliveryItemModel {
         this.itemQty = itemQty;
     }
 
-    public Integer getReceivingId() {
+    public Long getReceivingId() {
         return receivingId;
     }
 
-    public void setReceivingId(Integer receivingId) {
+    public void setReceivingId(Long receivingId) {
         this.receivingId = receivingId;
+    }
+
+    public ReceivingItemModel getReceivingItem() {
+        return receivingItem;
+    }
+
+    public void setReceivingItem(ReceivingItemModel receivingItem) {
+        this.receivingItem = receivingItem;
     }
 
     @Override
@@ -179,6 +189,7 @@ public class DeliveryItemModel {
                 ", itemGrossWeight=" + itemGrossWeight +
                 ", itemQty=" + itemQty +
                 ", receivingId=" + receivingId +
+                ", receivingItem=" + receivingItem +
                 '}';
     }
 }

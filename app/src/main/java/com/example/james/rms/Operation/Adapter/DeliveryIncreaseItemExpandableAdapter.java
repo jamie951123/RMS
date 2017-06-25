@@ -1,19 +1,30 @@
 package com.example.james.rms.Operation.Adapter;
 
 import android.content.Context;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.example.james.rms.CommonProfile.DialogBox.NumberDialog;
 import com.example.james.rms.CommonProfile.Library.AnimatedExpandableListView;
 import com.example.james.rms.CommonProfile.MyExpandableListAdapter;
 import com.example.james.rms.CommonProfile.ObjectUtil;
+import com.example.james.rms.Core.Model.DeliveryItemModel;
+import com.example.james.rms.Core.Model.KeyModel;
 import com.example.james.rms.Core.Model.ReceivingItemModel;
 import com.example.james.rms.Core.Model.ReceivingOrderModel;
+import com.example.james.rms.Core.TransferModel.NumberDialogModel;
+import com.example.james.rms.ITF.ConnectQuantityDialogListener;
 import com.example.james.rms.R;
 
+import java.math.BigDecimal;
+import java.util.LinkedHashMap;
 import java.util.List;
 
 import butterknife.BindView;
@@ -26,13 +37,19 @@ import butterknife.ButterKnife;
 public class DeliveryIncreaseItemExpandableAdapter extends MyExpandableListAdapter<ReceivingOrderModel> {
 
     private AnimatedExpandableListView listView;
+    private LinkedHashMap<Long,DeliveryItemModel> mapByReceivingItemId;
 
-
-    public DeliveryIncreaseItemExpandableAdapter(Context context, List<ReceivingOrderModel> dataArrayList,AnimatedExpandableListView listView) {
+    public DeliveryIncreaseItemExpandableAdapter(Context context, List<ReceivingOrderModel> dataArrayList,LinkedHashMap<Long,DeliveryItemModel> mapByReceivingItemId, AnimatedExpandableListView listView) {
         super(context, dataArrayList);
         this.listView = listView;
+        this.mapByReceivingItemId = mapByReceivingItemId;
     }
 
+//    public LinkedHashMap<Long,DeliveryItemModel> getMap(){
+//        LinkedHashMap<Long,DeliveryItemModel> mapByReceivingItemId = new LinkedHashMap<>();
+//        for (ReceivingOrderModel )
+//        getGroup(groupPosition).getReceivingItem().get(childPosition)
+//    }
     @Override
     public View getGroupView(final int groupPosition,final boolean isExpanded, View convertView, ViewGroup parent) {
         GroupHolder holder;
@@ -77,7 +94,8 @@ public class DeliveryIncreaseItemExpandableAdapter extends MyExpandableListAdapt
     @Override
     public View getRealChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
         ChildHolder holder;
-        ReceivingItemModel receivingItemModel = getGroup(groupPosition).getReceivingItem().get(childPosition);
+//        ReceivingItemModel receivingItemModel = getGroup(groupPosition).getDeliveryOrder().get(groupPosition).getDeliveryItem().get(childPosition).getReceivingItem();
+        final ReceivingItemModel receivingItemModel = getGroup(groupPosition).getReceivingItem().get(childPosition);
         if (convertView == null) {
             convertView = getLayoutInflater().inflate(R.layout.delivery_increase_item_expendablelist_child, parent, false);
             holder = new ChildHolder(convertView);
@@ -88,10 +106,21 @@ public class DeliveryIncreaseItemExpandableAdapter extends MyExpandableListAdapt
         holder.image.setImageDrawable(ContextCompat.getDrawable(getContext(),R.drawable.mailbox_black));
         holder.productCode.setText(receivingItemModel.getProduct().getProductCode());
         holder.productName.setText(receivingItemModel.getProduct().getProductName());
-//        holder.qtylinear
+        holder.qtylinear.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                createDialogBox(KeyModel.qty,receivingItemModel);
+            }
+        });
 //        holder.qty.setText(receivingItemModel.getIte);
         holder.totalQty.setText(ObjectUtil.intToString(receivingItemModel.getItemQty()));
-//        holder.gwlinear
+        holder.gwlinear.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                createDialogBox(KeyModel.gw,receivingItemModel);
+
+            }
+        });
 //        holder.gw.setText();
         holder.totalGW.setText(ObjectUtil.bigDecimalToString(receivingItemModel.getItemGrossWeight()));
 
@@ -105,6 +134,35 @@ public class DeliveryIncreaseItemExpandableAdapter extends MyExpandableListAdapt
 
 
         return convertView;
+    }
+
+    public void createDialogBox(String key,final ReceivingItemModel receivingItemModel){
+        final Long rItemId = receivingItemModel.getReceivingId();
+
+        NumberDialog numberDialog = new NumberDialog();
+        FragmentManager fm =  ((AppCompatActivity) getContext()).getSupportFragmentManager();
+        Fragment fragment = fm.findFragmentByTag(key);
+        if (fragment != null) {
+            fm.beginTransaction().remove(fragment).commit();
+        }
+        ConnectQuantityDialogListener listener = numberDialog;
+        NumberDialogModel numberDialogModel = new NumberDialogModel();
+        numberDialogModel.setKey(key);
+        if(key.equalsIgnoreCase(KeyModel.qty)) {
+            if (receivingItemModel.getProduct().getQuantityProfile() != null && ObjectUtil.isNotNullEmpty(receivingItemModel.getProduct().getQuantityProfile().getQuantityUnit())) {
+                numberDialogModel.setQtyUnit(receivingItemModel.getProduct().getQuantityProfile().getQuantityUnit());
+            }
+            numberDialogModel.setQty(mapByReceivingItemId.get(rItemId).getItemQty() == null ? 0 : mapByReceivingItemId.get(rItemId).getItemQty());
+            numberDialogModel.setQtyMax(receivingItemModel.getItemQty());
+        } else if(key.equalsIgnoreCase(KeyModel.gw)){
+            if (receivingItemModel.getProduct().getWeightprofile() != null && ObjectUtil.isNotNullEmpty(receivingItemModel.getProduct().getWeightprofile().getWeightUnit())) {
+                numberDialogModel.setGrossWeightUnit(receivingItemModel.getProduct().getWeightprofile().getWeightUnit());
+            }
+            numberDialogModel.setGrossWeight(mapByReceivingItemId.get(rItemId).getItemGrossWeight()==null?new BigDecimal(0):mapByReceivingItemId.get(rItemId).getItemGrossWeight() );
+            numberDialogModel.setGwMax(receivingItemModel.getItemGrossWeight());
+        }
+        listener.from(numberDialogModel);
+        numberDialog.show(fm,key);
     }
 
     @Override
@@ -151,7 +209,7 @@ public class DeliveryIncreaseItemExpandableAdapter extends MyExpandableListAdapt
         public TextView productCode;
         @BindView(R.id.delivery_increase_item_child_ProductName)
         public TextView productName;
-        @BindView(R.id.delivery_increase_item_child_qtylinear)
+        @BindView(R.id.delivery_increase_item_child_qty_linear)
         public LinearLayout qtylinear;
         @BindView(R.id.delivery_increase_item_child_qty)
         public TextView qty;
@@ -159,7 +217,7 @@ public class DeliveryIncreaseItemExpandableAdapter extends MyExpandableListAdapt
         public TextView totalQty;
         @BindView(R.id.delivery_item_increase_qty_unit)
         public TextView qty_unit;
-        @BindView(R.id.delivery_increase_item_child_gwlinear)
+        @BindView(R.id.delivery_increase_item_child_gw_linear)
         public LinearLayout gwlinear;
         @BindView(R.id.delivery_increase_item_child_gw)
         public TextView gw;

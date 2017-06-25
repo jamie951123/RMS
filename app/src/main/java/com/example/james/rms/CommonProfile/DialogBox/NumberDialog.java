@@ -3,6 +3,8 @@ package com.example.james.rms.CommonProfile.DialogBox;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.content.ContextCompat;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -29,6 +31,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnTextChanged;
 
 /**
  * Created by jamie on 2017/4/22.
@@ -48,7 +51,8 @@ public class NumberDialog extends DialogFragment implements View.OnClickListener
     Button choice;
     @BindView(R.id.quantity_dialog_number)
     EditText numEdit;
-
+    @BindView(R.id.quantity_dialog_max)
+    TextView max;
     private String dialog_title;
     private NumberDialogModel numberDialogModel;
 
@@ -56,7 +60,7 @@ public class NumberDialog extends DialogFragment implements View.OnClickListener
         void returnData(NumberDialogModel numberDialogModel);
     }
     @Override
-    public void fromReceivingIncreaseListAdapter(NumberDialogModel numberDialogModel) {
+    public void from(NumberDialogModel numberDialogModel) {
         this.numberDialogModel = numberDialogModel;
         Log.d("asd", "To-[NumberDialog ]-- (NumberDialogModel)--From[ReceivingIncreaseListAdapter]" + this.numberDialogModel.toString());
         if (numberDialogModel != null) {
@@ -90,22 +94,78 @@ public class NumberDialog extends DialogFragment implements View.OnClickListener
         if(numberDialogModel !=null ){
             switch (numberDialogModel.getKey()){
                 case KeyModel.qty :
-                    if (numberDialogModel.getQty() != null)
-                        numEdit.setText(numberDialogModel.getQty().toString());
+                    //Left
+                    numEdit.setText(ObjectUtil.intToString(numberDialogModel.getQty()));
+                    max.setText(ObjectUtil.intToString(numberDialogModel.getQtyMax()));
+                    //Right
                     quantity_dialog_unit.setText(numberDialogModel.getQtyUnit());
                     quantity_dialog_unit.setCompoundDrawablesWithIntrinsicBounds( R.drawable.industrial_scales_color, 0, 0, 0);
+                    numEdit.addTextChangedListener(textWatch(0, KeyModel.qty));
                     break;
                 case KeyModel.gw :
-                    if (numberDialogModel.getGrossWeight() != null)
-                        numEdit.setText(numberDialogModel.getGrossWeight().toString());
+                    //Left
+                    numEdit.setText(ObjectUtil.bigDecimalToString(numberDialogModel.getGrossWeight()));
+                    max.setText(ObjectUtil.bigDecimalToString(numberDialogModel.getGwMax()));
+                    //Right
                     quantity_dialog_unit.setText(numberDialogModel.getGrossWeightUnit());
                     quantity_dialog_unit.setCompoundDrawablesWithIntrinsicBounds( R.drawable.box_color, 0, 0, 0);
+                    numEdit.addTextChangedListener(textWatch(0, KeyModel.gw));
                     break;
             }
         }
         return view;
     }
 
+    public TextWatcher textWatch(final int position, final String fieldId){
+        TextWatcher watcher = new android.text.TextWatcher(){
+
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                // TODO Auto-generated method stub
+
+            }
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count,
+                                          int after) {
+                // TODO Auto-generated method stub
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before,
+                                      int count) {
+                if(s != null && s.length()>0 && ObjectUtil.isNumeric(s.toString())) {
+                    switch (fieldId){
+                        case KeyModel.qty:
+                            Integer qty = Integer.parseInt(s.toString());
+                             if(numberDialogModel.getQtyMax() != null && numberDialogModel.getQtyMax() < qty){
+                                 numberDialogModel.setQty(numberDialogModel.getQtyMax());
+                                 numEdit.setText(ObjectUtil.intToString(numberDialogModel.getQty()));
+                            }else{
+                                 numberDialogModel.setQty(qty);
+                            }
+                            break;
+                        case KeyModel.gw:
+                            BigDecimal bigDecimal = new BigDecimal(s.toString());
+                            if(numberDialogModel.getGwMax() != null && numberDialogModel.getGwMax().compareTo(bigDecimal) ==-1 ){
+                                numberDialogModel.setGrossWeight(numberDialogModel.getGrossWeight());
+                                numEdit.setText(ObjectUtil.bigDecimalToString(numberDialogModel.getGrossWeight()));
+                            }else{
+                                numberDialogModel.setGrossWeight(bigDecimal);
+                            }
+                            break;
+                    }
+                    int pos = numEdit.getText().length();
+                    numEdit.setSelection(pos);
+                }
+
+            }
+
+        };
+        return watcher;
+    }
     @Override
     public void onFocusChange(View view, boolean hasFocus) {
         if (hasFocus) {

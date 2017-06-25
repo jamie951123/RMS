@@ -26,6 +26,8 @@ import com.example.james.rms.CommonProfile.StartActivityForResultKey;
 import com.example.james.rms.Core.Combine.DeliveryOrderSearchCombine;
 import com.example.james.rms.Core.Dao.ReceivingOrderDao;
 import com.example.james.rms.Core.Dao.ReceivingOrderDaoImpl;
+import com.example.james.rms.Core.Model.DeliveryItemModel;
+import com.example.james.rms.Core.Model.DeliveryOrderModel;
 import com.example.james.rms.Core.Model.ExpandableSelectedModel;
 import com.example.james.rms.Core.Model.ReceivingItemModel;
 import com.example.james.rms.Core.Model.ReceivingOrderModel;
@@ -77,6 +79,7 @@ public class DeliveryIncrease extends AppCompatActivity implements View.OnClickL
     private List<ReceivingOrderModel>  order_original;
     private List<ReceivingOrderModel>  order_latest;
     private List<ReceivingOrderModel>  order_listview;
+    private DeliveryOrderModel deliveryOrderModel;
     //
     private DeliveryIncreaseItemExpandableAdapter deliveryIncreaseItemExpandableAdapter;
 
@@ -214,9 +217,23 @@ public class DeliveryIncrease extends AppCompatActivity implements View.OnClickL
     public void putLatestProductModel(List<ReceivingOrderModel> item_listview, ExpandableSelectedModel expandableSelectModel) {
         Log.v("asd","[DeliveryIncrease]-[ListView_Status]-[List<ReceivingOrderModel>]-[item_listview] :" + item_listview);
         Log.v("asd","[DeliveryIncrease]-[ListView_Status]-[ExpandableSelectedModel] :" + expandableSelectModel);
-        deliveryIncreaseItemExpandableAdapter = new DeliveryIncreaseItemExpandableAdapter(this,item_listview,listView);
+        LinkedHashMap<Long,DeliveryItemModel> mapByReceivingItemId = getDeliveryModelMap(item_listview);
+        deliveryIncreaseItemExpandableAdapter = new DeliveryIncreaseItemExpandableAdapter(this,item_listview,mapByReceivingItemId,listView);
+//        deliveryIncreaseItemExpandableAdapter = new DeliveryIncreaseItemExpandableAdapter(this,item_listview,listView);
+
         listView.setAdapter(deliveryIncreaseItemExpandableAdapter);
         setUpListView(item_listview);
+    }
+
+    private  LinkedHashMap<Long,DeliveryItemModel> getDeliveryModelMap(List<ReceivingOrderModel> item_listview){
+        LinkedHashMap<Long,DeliveryItemModel> deliveryItemModelLinkedHashMap = new LinkedHashMap<>();
+        for(ReceivingOrderModel order : item_listview){
+            List<ReceivingItemModel> items  = order.getReceivingItem();
+            for(ReceivingItemModel item : items){
+                deliveryItemModelLinkedHashMap.put(item.getReceivingId(),item.newDeliveryItemModel());
+            }
+        }
+        return deliveryItemModelLinkedHashMap;
     }
 
     private void setUpListView(List<ReceivingOrderModel> item_listview){

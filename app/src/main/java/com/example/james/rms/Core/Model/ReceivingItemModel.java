@@ -37,6 +37,14 @@ public class ReceivingItemModel {
 
     private ProductModel product;
 
+    public DeliveryItemModel newDeliveryItemModel(){
+        DeliveryItemModel deliveryItemModel = new DeliveryItemModel();
+        deliveryItemModel.setReceivingId(this.receivingId);
+        deliveryItemModel.setPartyId(this.partyId);
+        deliveryItemModel.setItemCreateBy(this.itemCreateBy);
+
+        return deliveryItemModel;
+    }
     public ReceivingItemModel newReceivingItemModel(){
         ReceivingItemModel receivingItemModel = new ReceivingItemModel();
         receivingItemModel.receivingId = this.receivingId;

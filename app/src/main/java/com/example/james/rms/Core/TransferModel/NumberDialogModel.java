@@ -14,8 +14,11 @@ public class NumberDialogModel {
     String key;
     BigDecimal grossWeight;
     String grossWeightUnit;
+    BigDecimal gwMax;
     Integer qty;
     String qtyUnit;
+    Integer qtyMax;
+
     Integer position;
 
     public String getKey() {
@@ -42,6 +45,14 @@ public class NumberDialogModel {
         this.grossWeightUnit = grossWeightUnit;
     }
 
+    public BigDecimal getGwMax() {
+        return gwMax;
+    }
+
+    public void setGwMax(BigDecimal gwMax) {
+        this.gwMax = gwMax;
+    }
+
     public Integer getQty() {
         return qty;
     }
@@ -58,6 +69,13 @@ public class NumberDialogModel {
         this.qtyUnit = qtyUnit;
     }
 
+    public Integer getQtyMax() {
+        return qtyMax;
+    }
+
+    public void setQtyMax(Integer qtyMax) {
+        this.qtyMax = qtyMax;
+    }
 
     public Integer getPosition() {
         return position;
@@ -73,8 +91,10 @@ public class NumberDialogModel {
                 "key='" + key + '\'' +
                 ", grossWeight=" + grossWeight +
                 ", grossWeightUnit='" + grossWeightUnit + '\'' +
+                ", gwMax=" + gwMax +
                 ", qty=" + qty +
                 ", qtyUnit='" + qtyUnit + '\'' +
+                ", qtyMax=" + qtyMax +
                 ", position=" + position +
                 '}';
     }

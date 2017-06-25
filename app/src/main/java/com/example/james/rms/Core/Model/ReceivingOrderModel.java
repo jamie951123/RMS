@@ -41,6 +41,7 @@ public class ReceivingOrderModel {
         r.setReceivingItem(this.receivingItem);
         return r;
     }
+
     public Long getOrderId() {
         return orderId;
     }
@@ -55,14 +56,6 @@ public class ReceivingOrderModel {
 
     public void setPartyId(String partyId) {
         this.partyId = partyId;
-    }
-
-    public Date getReceivingDate() {
-        return receivingDate;
-    }
-
-    public void setReceivingDate(Date receivingDate) {
-        this.receivingDate = receivingDate;
     }
 
     public String getRemark() {
@@ -81,6 +74,14 @@ public class ReceivingOrderModel {
         this.status = status;
     }
 
+    public Date getReceivingDate() {
+        return receivingDate;
+    }
+
+    public void setReceivingDate(Date receivingDate) {
+        this.receivingDate = receivingDate;
+    }
+
     public Date getCreateDate() {
         return createDate;
     }
@@ -89,12 +90,36 @@ public class ReceivingOrderModel {
         this.createDate = createDate;
     }
 
+    public String getCreateBy() {
+        return createBy;
+    }
+
+    public void setCreateBy(String createBy) {
+        this.createBy = createBy;
+    }
+
     public Date getCloseDate() {
         return closeDate;
     }
 
     public void setCloseDate(Date closeDate) {
         this.closeDate = closeDate;
+    }
+
+    public Date getLastModifiedDate() {
+        return lastModifiedDate;
+    }
+
+    public void setLastModifiedDate(Date lastModifiedDate) {
+        this.lastModifiedDate = lastModifiedDate;
+    }
+
+    public String getLastModifiedBy() {
+        return lastModifiedBy;
+    }
+
+    public void setLastModifiedBy(String lastModifiedBy) {
+        this.lastModifiedBy = lastModifiedBy;
     }
 
     public Integer getActualQty() {
@@ -127,30 +152,6 @@ public class ReceivingOrderModel {
 
     public void setReceivingItem(List<ReceivingItemModel> receivingItem) {
         this.receivingItem = receivingItem;
-    }
-
-    public Date getLastModifiedDate() {
-        return lastModifiedDate;
-    }
-
-    public void setLastModifiedDate(Date lastModifiedDate) {
-        this.lastModifiedDate = lastModifiedDate;
-    }
-
-    public String getLastModifiedBy() {
-        return lastModifiedBy;
-    }
-
-    public void setLastModifiedBy(String lastModifiedBy) {
-        this.lastModifiedBy = lastModifiedBy;
-    }
-
-    public String getCreateBy() {
-        return createBy;
-    }
-
-    public void setCreateBy(String createBy) {
-        this.createBy = createBy;
     }
 
     @Override

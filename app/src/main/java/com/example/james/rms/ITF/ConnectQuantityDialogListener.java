@@ -6,6 +6,6 @@ import com.example.james.rms.Core.TransferModel.NumberDialogModel;
  * Created by jamie on 2017/4/24.
  */
 
-public interface ConnectQuantityDialogListener {
-        void fromReceivingIncreaseListAdapter(NumberDialogModel numberDialogModel);
+public interface ConnectQuantityDialogListener<T> {
+        void from(NumberDialogModel numberDialogModel);
 }

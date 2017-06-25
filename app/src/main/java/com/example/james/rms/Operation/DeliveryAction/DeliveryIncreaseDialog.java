@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.ExpandableListView;
 
 import com.example.james.rms.CommonProfile.Library.AnimatedExpandableListView;
+import com.example.james.rms.Core.Model.DeliveryItemModel;
 import com.example.james.rms.Core.Model.ExpandableSelectedModel;
 import com.example.james.rms.Core.Model.ReceivingItemModel;
 import com.example.james.rms.Core.Model.ReceivingOrderModel;
@@ -19,6 +20,7 @@ import com.example.james.rms.ITF.Communicate_Interface;
 import com.example.james.rms.R;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
 
 import butterknife.BindView;
@@ -139,23 +141,10 @@ public class DeliveryIncreaseDialog extends DialogFragment implements Communicat
 
     public List<ReceivingOrderModel> getSelectedReceiving(ExpandableSelectedModel expandableSelectedModel) {
 
+//        InnerClassModel innerClassModel = new InnerClassModel();
 //        LinkedHashMap<Long, ReceivingOrderModel> orderMap = new LinkedHashMap<>();
-//        LinkedHashMap<Long, ReceivingItemModel> itemMap = new LinkedHashMap<>();
-//        //Allocation To Mapping
-//        for(ReceivingOrderModel order : this.item_latest){
-//
-//            if(expandableSelectedModel.getIsOrderSelected().containsKey(order.getOrderId()) && expandableSelectedModel.getIsOrderSelected().get(order.getOrderId())){
-//                orderMap.put(order.getOrderId(),order);
-//            }
-//
-//            if(order != null) {
-//                for (ReceivingItemModel item : order.getReceivingItem()) {
-//                    if(expandableSelectedModel.getIsItemSelected().containsKey(item.getReceivingId()) && expandableSelectedModel.getIsItemSelected().get(item.getReceivingId())){
-//                        itemMap.put(item.getReceivingId(),item);
-//                    }
-//                }
-//            }
-//        }
+        LinkedHashMap<Long, DeliveryItemModel> deliveryItemMapByReceivingItemId = new LinkedHashMap<>();
+
     List<ReceivingOrderModel> newModel = new ArrayList<>();
         boolean isSelected;
         for(ReceivingOrderModel order : this.item_latest){
@@ -165,6 +154,7 @@ public class DeliveryIncreaseDialog extends DialogFragment implements Communicat
                 if(expandableSelectedModel.getIsItemSelected().containsKey(item.getReceivingId()) && expandableSelectedModel.getIsItemSelected().get(item.getReceivingId())){
                     itemModel.add(item.newReceivingItemModel());
                     isSelected = true;
+                    deliveryItemMapByReceivingItemId.put(item.getOrderId(),item.newDeliveryItemModel());
                 }
             }
             if(isSelected) {
@@ -173,6 +163,29 @@ public class DeliveryIncreaseDialog extends DialogFragment implements Communicat
             }
         }
 
+//        innerClassModel.setReceivingOrderModels(newModel);
+//        innerClassModel.setDeliveryMapByReceivingItemId(deliveryItemMapByReceivingItemId);
         return newModel;
     }
+
+//    private static class InnerClassModel{
+//        List<ReceivingOrderModel> ReceivingOrderModels;
+//        LinkedHashMap<Long, DeliveryItemModel> deliveryMapByReceivingItemId;
+//
+//        public List<ReceivingOrderModel> getReceivingOrderModels() {
+//            return ReceivingOrderModels;
+//        }
+//
+//        public void setReceivingOrderModels(List<ReceivingOrderModel> receivingOrderModels) {
+//            ReceivingOrderModels = receivingOrderModels;
+//        }
+//
+//        public LinkedHashMap<Long, DeliveryItemModel> getDeliveryMapByReceivingItemId() {
+//            return deliveryMapByReceivingItemId;
+//        }
+//
+//        public void setDeliveryMapByReceivingItemId(LinkedHashMap<Long, DeliveryItemModel> deliveryMapByReceivingItemId) {
+//            this.deliveryMapByReceivingItemId = deliveryMapByReceivingItemId;
+//        }
+//    }
 }

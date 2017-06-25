@@ -113,22 +113,24 @@ public class ReceivingIncreaseListAdapter extends MyBaseAdapter<ReceivingItemMod
         }
         ConnectQuantityDialogListener listener = numberDialog;
         NumberDialogModel numberDialogModel = new NumberDialogModel();
-        numberDialogModel.setKey(key);
         Integer position = (Integer)v.getTag();
         Log.d("asd","ReceivingIcreaseListAdapter---getItemPosition : " + position);
         numberDialogModel.setPosition(position);
+        numberDialogModel.setKey(key);
         if(key.equalsIgnoreCase(KeyModel.qty)){
             Integer qty = getItem(position).getItemQty();
             String qtyUnit = getItem(position).getProduct().getQuantityProfile() == null?"":getItem(position).getProduct().getQuantityProfile().getQuantityUnit();
             numberDialogModel.setQty(qty);
             numberDialogModel.setQtyUnit(qtyUnit);
+            numberDialogModel.setQtyMax(null);
         }else if(key.equalsIgnoreCase(KeyModel.gw)){
             BigDecimal gw = getItem(position).getItemGrossWeight();
             String gwUnit  = getItem(position).getProduct().getWeightprofile() == null?"": getItem(position).getProduct().getWeightprofile().getWeightUnit();
             numberDialogModel.setGrossWeight(gw);
             numberDialogModel.setGrossWeightUnit(gwUnit);
+            numberDialogModel.setGwMax(null);
         }
-        listener.fromReceivingIncreaseListAdapter(numberDialogModel);
+        listener.from(numberDialogModel);
         numberDialog.show(fm,key);
     }
 
