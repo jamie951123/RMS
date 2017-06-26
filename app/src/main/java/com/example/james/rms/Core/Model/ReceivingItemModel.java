@@ -64,6 +64,23 @@ public class ReceivingItemModel {
         return receivingItemModel;
     }
 
+    public ReceivingItemModel clearReceivingItemModel(ReceivingItemModel r){
+        ReceivingItemModel receivingItemModel = new ReceivingItemModel();
+        receivingItemModel.receivingId = r.receivingId;
+        receivingItemModel.productId = r.productId;
+        receivingItemModel.itemStatus = r.itemStatus;
+        receivingItemModel.orderId = r.orderId;
+        receivingItemModel.partyId = r.partyId;
+        receivingItemModel.itemCreateBy = r.itemCreateBy;
+        receivingItemModel.itemReceivingDate = r.itemReceivingDate;
+        receivingItemModel.itemLastModifiedDate = r.itemLastModifiedDate;
+        receivingItemModel.itemLModifiedBy = r.itemLModifiedBy;
+        receivingItemModel.itemGrossWeight = r.itemGrossWeight;
+        receivingItemModel.itemQty = r.itemQty;
+        receivingItemModel.itemRemark = r.itemRemark;
+        receivingItemModel.product = r.product;
+        return receivingItemModel;
+    }
     public Long getReceivingId() {
         return receivingId;
     }

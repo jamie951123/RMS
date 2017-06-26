@@ -22,6 +22,7 @@ import com.example.james.rms.R;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -43,6 +44,7 @@ public class DeliveryIncreaseDialog extends DialogFragment implements Communicat
     //
     private List<ReceivingOrderModel> item_original;
     private List<ReceivingOrderModel> item_latest;
+    private List<ReceivingOrderModel> item_lsitview;
     //
     private ExpandableSelectedModel expandableSelectedModel;
 
@@ -91,10 +93,12 @@ public class DeliveryIncreaseDialog extends DialogFragment implements Communicat
         switch (v.getId()) {
             case R.id.delivery_increase_dialog_submit:
 
-                List<ReceivingOrderModel> listview_model = getSelectedReceiving(expandableSelectedModel);
+                //lastest Value
+                getSelectedReceiving(expandableSelectedModel);
+
                 DeliveryIncrease deliveryIncrease = (DeliveryIncrease) getActivity();
                 Communicate_Interface communicateInterface = deliveryIncrease;
-                communicateInterface.putLatestProductModel(listview_model, expandableSelectedModel);
+                communicateInterface.putLatestProductModel(this.item_lsitview, expandableSelectedModel);
                 if (getDialog().isShowing()) {
                     getDialog().dismiss();
                 }
@@ -139,53 +143,37 @@ public class DeliveryIncreaseDialog extends DialogFragment implements Communicat
         return true;
     }
 
-    public List<ReceivingOrderModel> getSelectedReceiving(ExpandableSelectedModel expandableSelectedModel) {
-
-//        InnerClassModel innerClassModel = new InnerClassModel();
-//        LinkedHashMap<Long, ReceivingOrderModel> orderMap = new LinkedHashMap<>();
-//        LinkedHashMap<Long, DeliveryItemModel> deliveryItemMapByReceivingItemId = new LinkedHashMap<>();
-
-        List<ReceivingOrderModel> newModel = new ArrayList<>();
+    public void getSelectedReceiving(ExpandableSelectedModel expandableSelectedModel) {
+        item_lsitview = new ArrayList<>();
         boolean isSelected;
-        for (ReceivingOrderModel order : this.item_latest) {
-            isSelected = false;
-            List<ReceivingItemModel> itemModel = new ArrayList<>();
-            for (ReceivingItemModel item : order.getReceivingItem()) {
-                if (expandableSelectedModel.getIsItemSelected().containsKey(item.getReceivingId()) && expandableSelectedModel.getIsItemSelected().get(item.getReceivingId())) {
-                    itemModel.add(item.newReceivingItemModel());
-                    isSelected = true;
-//                    deliveryItemMapByReceivingItemId.put(item.getOrderId(), item.newDeliveryItemModel());
-                }
-            }
-            if (isSelected) {
-                order.setReceivingItem(itemModel);
-                newModel.add(order);
+
+        LinkedHashMap<Long,ReceivingItemModel> orginal_ritem_map = new LinkedHashMap<>();
+        for(ReceivingOrderModel r : item_original){
+            for(ReceivingItemModel itemModel : r.getReceivingItem()){
+                orginal_ritem_map.put(itemModel.getReceivingId(),itemModel);
             }
         }
+        for (int i=0; i<item_latest.size(); i++) {
+            ReceivingOrderModel order = item_latest.get(i);
+            ReceivingOrderModel newOrder = order.newReceivingOrderModelWithOutReceivingItem();
+            isSelected = false;
+            List<ReceivingItemModel> itemModel = new ArrayList<>();
+            for (int j=0; j<order.getReceivingItem().size(); j++) {
+                ReceivingItemModel item = order.getReceivingItem().get(j);
+                if (expandableSelectedModel.getIsItemSelected().containsKey(item.getReceivingId()) && expandableSelectedModel.getIsItemSelected().get(item.getReceivingId())) {
+//                    itemModel.add(item.newReceivingItemModel()); //
+                    itemModel.add(item); //item list and item_latest  of the Object in same memory,but the list is  different
+                    isSelected = true;
+                }else{
+                    order.getReceivingItem().set(j,orginal_ritem_map.get(item.getReceivingId()).newReceivingItemModel()); //clear data if the item have not selected
+                }
+            }
 
-//        innerClassModel.setReceivingOrderModels(newModel);
-//        innerClassModel.setDeliveryMapByReceivingItemId(deliveryItemMapByReceivingItemId);
-        return newModel;
+            if (isSelected) {
+                newOrder.setReceivingItem(itemModel);
+                item_lsitview.add(newOrder);
+            }
+        }
     }
 
-//    private static class InnerClassModel{
-//        List<ReceivingOrderModel> ReceivingOrderModels;
-//        LinkedHashMap<Long, DeliveryItemModel> deliveryMapByReceivingItemId;
-//
-//        public List<ReceivingOrderModel> getReceivingOrderModels() {
-//            return ReceivingOrderModels;
-//        }
-//
-//        public void setReceivingOrderModels(List<ReceivingOrderModel> receivingOrderModels) {
-//            ReceivingOrderModels = receivingOrderModels;
-//        }
-//
-//        public LinkedHashMap<Long, DeliveryItemModel> getDeliveryMapByReceivingItemId() {
-//            return deliveryMapByReceivingItemId;
-//        }
-//
-//        public void setDeliveryMapByReceivingItemId(LinkedHashMap<Long, DeliveryItemModel> deliveryMapByReceivingItemId) {
-//            this.deliveryMapByReceivingItemId = deliveryMapByReceivingItemId;
-//        }
-//    }
 }

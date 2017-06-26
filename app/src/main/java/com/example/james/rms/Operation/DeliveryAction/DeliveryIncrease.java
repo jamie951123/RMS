@@ -24,6 +24,7 @@ import com.example.james.rms.CommonProfile.Library.AnimatedExpandableListView;
 import com.example.james.rms.CommonProfile.ObjectUtil;
 import com.example.james.rms.CommonProfile.SharePreferences.PartyIdPreferences;
 import com.example.james.rms.CommonProfile.StartActivityForResultKey;
+import com.example.james.rms.Core.Combine.DeliveryOrderCombine;
 import com.example.james.rms.Core.Combine.DeliveryOrderSearchCombine;
 import com.example.james.rms.Core.Dao.ReceivingOrderDao;
 import com.example.james.rms.Core.Dao.ReceivingOrderDaoImpl;
@@ -57,7 +58,7 @@ import static com.example.james.rms.R.id.delivery_increase_fab;
  */
 
 public class DeliveryIncrease extends AppCompatActivity implements View.OnClickListener,MyDatePicker.MyDatePickerService,
-        Communicate_Interface<ReceivingOrderModel>,NumberDialogListener{
+        Communicate_Interface<ReceivingOrderModel>,NumberDialogListener,Cloneable {
 
     @BindView(R.id.delivery_increase_toolbar)
     Toolbar toolbar;
@@ -71,9 +72,6 @@ public class DeliveryIncrease extends AppCompatActivity implements View.OnClickL
     TextView datePicker;
     @BindView(R.id.delivery_increase_listview)
     AnimatedExpandableListView listView;
-    //
-//    private DeliveryOrderDao deliveryOrderDao = new DeliveryOrderDaoImpl();
-    private ReceivingOrderDao receivingOrderDao = new ReceivingOrderDaoImpl();
 
     //
     private String common_partyId;
@@ -87,7 +85,8 @@ public class DeliveryIncrease extends AppCompatActivity implements View.OnClickL
     //
     private DeliveryIncreaseItemExpandableAdapter deliveryIncreaseItemExpandableAdapter;
     //
-    private LinkedHashMap<Long,DeliveryItemModel> mapByReceivingItemId;
+    private LinkedHashMap<Long,DeliveryItemModel> orginalMapByReceivingItemId = new LinkedHashMap<>();
+    private LinkedHashMap<Long,DeliveryItemModel> latestMapByReceivingItemId = new LinkedHashMap<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -111,7 +110,16 @@ public class DeliveryIncrease extends AppCompatActivity implements View.OnClickL
         List<ReceivingOrderModel> receivingOrderModels = receivingOrderDao.findByPartyIdAndStatus(combine_partyIdAndstatus);
         Log.d("asd","receivingOrderModels :" + receivingOrderModels);
         //
-        order_original = new ArrayList<>(receivingOrderModels);
+        order_original = new ArrayList<>();
+        for(ReceivingOrderModel r : receivingOrderModels){
+            ReceivingOrderModel rOrder = new ReceivingOrderModel();
+            List<ReceivingItemModel> rItem = new ArrayList<>();
+            for(ReceivingItemModel i : r.newReceivingOrderModel().getReceivingItem()){
+                rItem.add(i.newReceivingItemModel());
+            }
+            rOrder.setReceivingItem(rItem);
+            order_original.add(rOrder);
+        }
         order_latest = new ArrayList<>(receivingOrderModels);
         order_listview = new ArrayList<>();
         //order and child checkbox setup
@@ -140,7 +148,7 @@ public class DeliveryIncrease extends AppCompatActivity implements View.OnClickL
         }
         deliveryIncreaseDialog.show(fm,"delivery_increase");
         Communicate_Interface communicateInterface = deliveryIncreaseDialog;
-        communicateInterface.putOriginalProductModels(order_original,order_latest, expandableSelectedModel);
+        communicateInterface.putOriginalProductModels(order_original,order_latest,expandableSelectedModel);
         Toast.makeText(this,"DeliveryIncrease",Toast.LENGTH_SHORT).show();
     }
 
@@ -194,7 +202,7 @@ public class DeliveryIncrease extends AppCompatActivity implements View.OnClickL
         List<DeliveryItemModel> deliveryItemModels = new ArrayList<>();
         int itemCount = 0;
         Date createDate = new Date();
-        for(Map.Entry<Long,DeliveryItemModel> entry : mapByReceivingItemId.entrySet()){
+        for(Map.Entry<Long,DeliveryItemModel> entry : latestMapByReceivingItemId.entrySet()){
             DeliveryItemModel item = entry.getValue();
             item.setItemCreateDate(createDate);
             item.setItemStockOutDate(ObjectUtil.stringToDate_onlyDate(datePicker.getText().toString()));
@@ -209,7 +217,10 @@ public class DeliveryIncrease extends AppCompatActivity implements View.OnClickL
         deliveryOrderModel.setPartyId(common_partyId);
         deliveryOrderModel.setCreateBy(common_partyId);
         deliveryOrderModel.setDeliveryItem(deliveryItemModels);
-        Log.d("asd","[DeliveryIncrease][Click-Create] :" + deliveryOrderModel);
+
+        DeliveryOrderCombine deliveryOrderCombine = new DeliveryOrderCombine(DeliveryOrderModel.class);
+        String json = deliveryOrderCombine.modelToJson(deliveryOrderModel);
+        Log.d("asd","[DeliveryIncrease][Click-Create] -[json]:" + json);
         return super.onOptionsItemSelected(menuItem);
     }
     @Override
@@ -239,24 +250,30 @@ public class DeliveryIncrease extends AppCompatActivity implements View.OnClickL
 
     @Override
     public void putLatestProductModel(List<ReceivingOrderModel> item_listview, ExpandableSelectedModel expandableSelectModel) {
+        //item_listview from  Dialog
         Log.v("asd","[DeliveryIncrease]-[ListView_Status]-[List<ReceivingOrderModel>]-[item_listview] :" + item_listview);
         Log.v("asd","[DeliveryIncrease]-[ListView_Status]-[ExpandableSelectedModel] :" + expandableSelectModel);
         getDeliveryModelMap(item_listview);
-        deliveryIncreaseItemExpandableAdapter = new DeliveryIncreaseItemExpandableAdapter(this,item_listview,mapByReceivingItemId,listView);
-//        deliveryIncreaseItemExpandableAdapter = new DeliveryIncreaseItemExpandableAdapter(this,item_listview,listView);
-
+        deliveryIncreaseItemExpandableAdapter = new DeliveryIncreaseItemExpandableAdapter(this,item_listview,latestMapByReceivingItemId,listView);
         listView.setAdapter(deliveryIncreaseItemExpandableAdapter);
         setUpListView(item_listview);
     }
 
+    //Item Click
     private  void getDeliveryModelMap(List<ReceivingOrderModel> item_listview){
-        mapByReceivingItemId = new LinkedHashMap<>();
+        //clear deliveryitem Qty and Gw value when added in the part.
+        latestMapByReceivingItemId = new LinkedHashMap<>();
         for(ReceivingOrderModel order : item_listview){
             List<ReceivingItemModel> items  = order.getReceivingItem();
             for(ReceivingItemModel item : items){
-                mapByReceivingItemId.put(item.getReceivingId(),item.newDeliveryItemModel());
+                if(orginalMapByReceivingItemId.containsKey(item.getReceivingId())) {
+                    latestMapByReceivingItemId.put(item.getReceivingId(), orginalMapByReceivingItemId.get(item.getReceivingId()));
+                }else{
+                    latestMapByReceivingItemId.put(item.getReceivingId(), item.newDeliveryItemModel());
+                }
             }
         }
+        orginalMapByReceivingItemId = latestMapByReceivingItemId;
     }
 
     private void setUpListView(List<ReceivingOrderModel> item_listview){
@@ -287,13 +304,13 @@ public class DeliveryIncrease extends AppCompatActivity implements View.OnClickL
     public void returnData(NumberDialogModel numberDialogModel) {
         switch (numberDialogModel.getKey()){
             case KeyModel.qty:
-                mapByReceivingItemId.get(numberDialogModel.getId()).setItemQty(numberDialogModel.getQty());
+                latestMapByReceivingItemId.get(numberDialogModel.getId()).setItemQty(numberDialogModel.getQty());
                 break;
             case KeyModel.gw:
-                mapByReceivingItemId.get(numberDialogModel.getId()).setItemGrossWeight(numberDialogModel.getGrossWeight());
+                latestMapByReceivingItemId.get(numberDialogModel.getId()).setItemGrossWeight(numberDialogModel.getGrossWeight());
                 break;
         }
-        Log.d("asd","[NumberDialog]-->[DeliveryIncrease]-[order_latest] :" + mapByReceivingItemId);
+        Log.d("asd","[NumberDialog]-->[DeliveryIncrease]-[order_latest] :" + orginalMapByReceivingItemId);
         deliveryIncreaseItemExpandableAdapter.notifyDataSetChanged();
     }
 }

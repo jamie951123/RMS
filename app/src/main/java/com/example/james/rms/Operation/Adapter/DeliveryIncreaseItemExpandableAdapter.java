@@ -6,6 +6,9 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
@@ -80,7 +83,6 @@ public class DeliveryIncreaseItemExpandableAdapter extends MyExpandableListAdapt
         holder.image_linear.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                Log.d("asd","isExpanded :" + isExpanded);
                 if (isExpanded) {
                     listView.collapseGroup(groupPosition);
                 }else{
@@ -113,6 +115,7 @@ public class DeliveryIncreaseItemExpandableAdapter extends MyExpandableListAdapt
         holder.image.setImageDrawable(ContextCompat.getDrawable(getContext(),R.drawable.mailbox_black));
         holder.productCode.setText(receivingItemModel.getProduct().getProductCode());
         holder.productName.setText(receivingItemModel.getProduct().getProductName());
+        holder.remark.setText(receivingItemModel.getItemRemark());
         holder.qtylinear.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -138,6 +141,7 @@ public class DeliveryIncreaseItemExpandableAdapter extends MyExpandableListAdapt
             holder.gw_unit.setText(receivingItemModel.getProduct().getWeightprofile().getWeightUnit());
         }
 
+        holder.remark.addTextChangedListener(textWatch(groupPosition,childPosition,KeyModel.remark));
 
         return convertView;
     }
@@ -234,10 +238,47 @@ public class DeliveryIncreaseItemExpandableAdapter extends MyExpandableListAdapt
         public TextView totalGW;
         @BindView(R.id.delivery_increase_item_child_gw_unit)
         public TextView gw_unit;
-
+        @BindView(R.id.delivery_increase_item_child_increase_itemremark)
+        public TextView remark;
         public ChildHolder(View view){
             ButterKnife.bind(this,view);
         }
     }
+
+    public TextWatcher textWatch(final int groupPosition,final int childPosition, final String fieldId){
+        TextWatcher watcher = new android.text.TextWatcher(){
+
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                // TODO Auto-generated method stub
+
+            }
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count,
+                                          int after) {
+                // TODO Auto-generated method stub
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before,
+                                      int count) {
+                if(s != null && s.length()>0) {
+                    switch (fieldId){
+                        case KeyModel.remark:
+                            getGroup(groupPosition).getReceivingItem().get(childPosition).setItemRemark(String.valueOf(s));
+                            break;
+                    }
+                }
+
+            }
+
+        };
+        return watcher;
+    }
+
+
 
 }

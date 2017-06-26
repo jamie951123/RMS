@@ -134,13 +134,13 @@ public class ReceivingIncreaseDialog extends DialogFragment implements AdapterVi
         this.item_original = item_original;
         this.item_latest = item_latest;
         this.expandableSelectModel = expandableSelectModel;
-
-        if(this.item_original.get(0) == item_original.get(0)){
-            Log.d("asd","Same");
-        }else{
-            Log.d("asd","Different");
-
-        }
+//
+//        if(this.item_original.get(0) == item_original.get(0)){
+//            Log.d("asd","Same");
+//        }else{
+//            Log.d("asd","Different");
+//
+//        }
         Log.d("asd","[ReceivingIncreaseDialog]--[item_original] :" + item_original);
         Log.d("asd","[ReceivingIncreaseDialog]--[item_latest] :" + item_latest);
         Log.d("asd","[ReceivingIncreaseDialog]--[expandableSelectModel] :" + expandableSelectModel);
