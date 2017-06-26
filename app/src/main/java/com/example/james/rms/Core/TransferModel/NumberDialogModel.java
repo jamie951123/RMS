@@ -11,6 +11,7 @@ import java.util.List;
  */
 
 public class NumberDialogModel {
+    Long id;
     String key;
     BigDecimal grossWeight;
     String grossWeightUnit;
@@ -20,6 +21,16 @@ public class NumberDialogModel {
     Integer qtyMax;
 
     Integer position;
+    Integer groupPosition;
+    Integer childPosition;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String getKey() {
         return key;
@@ -77,6 +88,22 @@ public class NumberDialogModel {
         this.qtyMax = qtyMax;
     }
 
+    public Integer getGroupPosition() {
+        return groupPosition;
+    }
+
+    public void setGroupPosition(Integer groupPosition) {
+        this.groupPosition = groupPosition;
+    }
+
+    public Integer getChildPosition() {
+        return childPosition;
+    }
+
+    public void setChildPosition(Integer childPosition) {
+        this.childPosition = childPosition;
+    }
+
     public Integer getPosition() {
         return position;
     }
@@ -88,7 +115,8 @@ public class NumberDialogModel {
     @Override
     public String toString() {
         return "NumberDialogModel{" +
-                "key='" + key + '\'' +
+                "id=" + id +
+                ", key='" + key + '\'' +
                 ", grossWeight=" + grossWeight +
                 ", grossWeightUnit='" + grossWeightUnit + '\'' +
                 ", gwMax=" + gwMax +
@@ -96,6 +124,8 @@ public class NumberDialogModel {
                 ", qtyUnit='" + qtyUnit + '\'' +
                 ", qtyMax=" + qtyMax +
                 ", position=" + position +
+                ", groupPosition=" + groupPosition +
+                ", childPosition=" + childPosition +
                 '}';
     }
 }

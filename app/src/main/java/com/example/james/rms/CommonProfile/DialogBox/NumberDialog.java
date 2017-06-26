@@ -2,7 +2,6 @@ package com.example.james.rms.CommonProfile.DialogBox;
 
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
-import android.support.v4.content.ContextCompat;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -11,33 +10,29 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.example.james.rms.Activity;
 import com.example.james.rms.CommonProfile.ObjectUtil;
 import com.example.james.rms.Core.Model.KeyModel;
-import com.example.james.rms.Core.Model.QuantityProfileModel;
-import com.example.james.rms.Core.Model.WeightProfileModel;
 import com.example.james.rms.Core.TransferModel.NumberDialogModel;
-import com.example.james.rms.ITF.ConnectQuantityDialogListener;
+import com.example.james.rms.ITF.NumberDialogListener;
+import com.example.james.rms.Operation.DeliveryAction.DeliveryIncrease;
 import com.example.james.rms.Operation.ReceivingAction.ReceivingIncrease;
 import com.example.james.rms.R;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnTextChanged;
 
 /**
  * Created by jamie on 2017/4/22.
  */
 
-public class NumberDialog extends DialogFragment implements View.OnClickListener,ConnectQuantityDialogListener,EditText.OnFocusChangeListener  {
+public class NumberDialog extends DialogFragment implements View.OnClickListener,NumberDialogListener,EditText.OnFocusChangeListener  {
 
     //    @BindView(R.id.quantity_dialog_unit)
 //    android.support.v7.widget.AppCompatSpinner dialog_spinner;
@@ -56,11 +51,11 @@ public class NumberDialog extends DialogFragment implements View.OnClickListener
     private String dialog_title;
     private NumberDialogModel numberDialogModel;
 
-    public interface QDtoReceivingIncrease{
-        void returnData(NumberDialogModel numberDialogModel);
-    }
+    //
+    private Object o;
+
     @Override
-    public void from(NumberDialogModel numberDialogModel) {
+    public void from(NumberDialogModel numberDialogModel,Object o) {
         this.numberDialogModel = numberDialogModel;
         Log.d("asd", "To-[NumberDialog ]-- (NumberDialogModel)--From[ReceivingIncreaseListAdapter]" + this.numberDialogModel.toString());
         if (numberDialogModel != null) {
@@ -70,7 +65,16 @@ public class NumberDialog extends DialogFragment implements View.OnClickListener
                 handlerGw();
             }
         }
+        this.o = o;
     }
+
+    @Override
+    public void returnData(NumberDialogModel numberDialogModel) {
+        //Nothing to do
+
+        return;
+    }
+
 
     private void handlerQty(){
         dialog_title = "Quantity";
@@ -150,7 +154,7 @@ public class NumberDialog extends DialogFragment implements View.OnClickListener
                         case KeyModel.gw:
                             BigDecimal bigDecimal = new BigDecimal(s.toString());
                             if(numberDialogModel.getGwMax() != null && numberDialogModel.getGwMax().compareTo(bigDecimal) ==-1 ){
-                                numberDialogModel.setGrossWeight(numberDialogModel.getGrossWeight());
+                                numberDialogModel.setGrossWeight(numberDialogModel.getGwMax());
                                 numEdit.setText(ObjectUtil.bigDecimalToString(numberDialogModel.getGrossWeight()));
                             }else{
                                 numberDialogModel.setGrossWeight(bigDecimal);
@@ -184,26 +188,20 @@ public class NumberDialog extends DialogFragment implements View.OnClickListener
                 }
                 break;
             case R.id.quantity_dialog_choose:
-                Integer num = ObjectUtil.stringToInteger(numEdit.getText().toString());
-                Log.d("asd","[NumberDialog]-{Click Choose}-num :" +num);
-                if(num != null) {
-                    switch (this.numberDialogModel.getKey()) {
-                        case KeyModel.qty:
-                            this.numberDialogModel.setQty(num);
-                            break;
-                        case KeyModel.gw:
-                            this.numberDialogModel.setGrossWeight(new BigDecimal(num));
-                            break;
-
-                    }
-                }
                 if (getDialog().isShowing()){
                     getDialog().dismiss();
                 }
-                ReceivingIncrease receivingIncrease = (ReceivingIncrease)getActivity();
-                QDtoReceivingIncrease qDtoReceivingIncrease = receivingIncrease;
-                qDtoReceivingIncrease.returnData(this.numberDialogModel);
-                break;
+                if(o instanceof DeliveryIncrease){
+                    DeliveryIncrease deliveryIncrease = (DeliveryIncrease)getActivity();
+                    NumberDialogListener numberDialogListener = deliveryIncrease;
+                    numberDialogListener.returnData(this.numberDialogModel);
+                    break;
+                }else if(o instanceof ReceivingIncrease){
+                    ReceivingIncrease receivingIncrease = (ReceivingIncrease) getActivity();
+                    NumberDialogListener numberDialogListener = receivingIncrease;
+                    numberDialogListener.returnData(this.numberDialogModel);
+                    break;
+                }
         }
     }
 

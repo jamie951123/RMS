@@ -42,7 +42,8 @@ public class ReceivingItemModel {
         deliveryItemModel.setReceivingId(this.receivingId);
         deliveryItemModel.setPartyId(this.partyId);
         deliveryItemModel.setItemCreateBy(this.itemCreateBy);
-
+        deliveryItemModel.setItemCreateDate(new Date());
+        deliveryItemModel.setItemStatus(Status.PROGRESS.name());
         return deliveryItemModel;
     }
     public ReceivingItemModel newReceivingItemModel(){

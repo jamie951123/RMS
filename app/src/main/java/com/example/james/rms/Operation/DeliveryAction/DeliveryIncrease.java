@@ -21,6 +21,7 @@ import android.widget.Toast;
 import com.example.james.rms.CommonProfile.DialogBox.ClassicDialog;
 import com.example.james.rms.CommonProfile.DialogBox.MyDatePicker;
 import com.example.james.rms.CommonProfile.Library.AnimatedExpandableListView;
+import com.example.james.rms.CommonProfile.ObjectUtil;
 import com.example.james.rms.CommonProfile.SharePreferences.PartyIdPreferences;
 import com.example.james.rms.CommonProfile.StartActivityForResultKey;
 import com.example.james.rms.Core.Combine.DeliveryOrderSearchCombine;
@@ -29,10 +30,13 @@ import com.example.james.rms.Core.Dao.ReceivingOrderDaoImpl;
 import com.example.james.rms.Core.Model.DeliveryItemModel;
 import com.example.james.rms.Core.Model.DeliveryOrderModel;
 import com.example.james.rms.Core.Model.ExpandableSelectedModel;
+import com.example.james.rms.Core.Model.KeyModel;
 import com.example.james.rms.Core.Model.ReceivingItemModel;
 import com.example.james.rms.Core.Model.ReceivingOrderModel;
 import com.example.james.rms.Core.Model.Status;
+import com.example.james.rms.Core.TransferModel.NumberDialogModel;
 import com.example.james.rms.ITF.Communicate_Interface;
+import com.example.james.rms.ITF.NumberDialogListener;
 import com.example.james.rms.Operation.Adapter.DeliveryIncreaseItemExpandableAdapter;
 import com.example.james.rms.R;
 import com.github.clans.fab.FloatingActionButton;
@@ -53,7 +57,7 @@ import static com.example.james.rms.R.id.delivery_increase_fab;
  */
 
 public class DeliveryIncrease extends AppCompatActivity implements View.OnClickListener,MyDatePicker.MyDatePickerService,
-        Communicate_Interface<ReceivingOrderModel>{
+        Communicate_Interface<ReceivingOrderModel>,NumberDialogListener{
 
     @BindView(R.id.delivery_increase_toolbar)
     Toolbar toolbar;
@@ -82,7 +86,8 @@ public class DeliveryIncrease extends AppCompatActivity implements View.OnClickL
     private DeliveryOrderModel deliveryOrderModel;
     //
     private DeliveryIncreaseItemExpandableAdapter deliveryIncreaseItemExpandableAdapter;
-
+    //
+    private LinkedHashMap<Long,DeliveryItemModel> mapByReceivingItemId;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -185,7 +190,26 @@ public class DeliveryIncrease extends AppCompatActivity implements View.OnClickL
 
     @Override
     public boolean onOptionsItemSelected(MenuItem menuItem) {
-
+        DeliveryOrderModel deliveryOrderModel = new DeliveryOrderModel();
+        List<DeliveryItemModel> deliveryItemModels = new ArrayList<>();
+        int itemCount = 0;
+        Date createDate = new Date();
+        for(Map.Entry<Long,DeliveryItemModel> entry : mapByReceivingItemId.entrySet()){
+            DeliveryItemModel item = entry.getValue();
+            item.setItemCreateDate(createDate);
+            item.setItemStockOutDate(ObjectUtil.stringToDate_onlyDate(datePicker.getText().toString()));
+            deliveryItemModels.add(item);
+            itemCount++;
+        }
+        deliveryOrderModel.setItemQty(itemCount);
+        deliveryOrderModel.setRemark(remark_edit.getText().toString());
+        deliveryOrderModel.setStockOutDate(ObjectUtil.stringToDate_onlyDate(datePicker.getText().toString()));
+        deliveryOrderModel.setCreateDate(createDate);
+        deliveryOrderModel.setStatus(Status.PROGRESS.name());
+        deliveryOrderModel.setPartyId(common_partyId);
+        deliveryOrderModel.setCreateBy(common_partyId);
+        deliveryOrderModel.setDeliveryItem(deliveryItemModels);
+        Log.d("asd","[DeliveryIncrease][Click-Create] :" + deliveryOrderModel);
         return super.onOptionsItemSelected(menuItem);
     }
     @Override
@@ -217,7 +241,7 @@ public class DeliveryIncrease extends AppCompatActivity implements View.OnClickL
     public void putLatestProductModel(List<ReceivingOrderModel> item_listview, ExpandableSelectedModel expandableSelectModel) {
         Log.v("asd","[DeliveryIncrease]-[ListView_Status]-[List<ReceivingOrderModel>]-[item_listview] :" + item_listview);
         Log.v("asd","[DeliveryIncrease]-[ListView_Status]-[ExpandableSelectedModel] :" + expandableSelectModel);
-        LinkedHashMap<Long,DeliveryItemModel> mapByReceivingItemId = getDeliveryModelMap(item_listview);
+        getDeliveryModelMap(item_listview);
         deliveryIncreaseItemExpandableAdapter = new DeliveryIncreaseItemExpandableAdapter(this,item_listview,mapByReceivingItemId,listView);
 //        deliveryIncreaseItemExpandableAdapter = new DeliveryIncreaseItemExpandableAdapter(this,item_listview,listView);
 
@@ -225,15 +249,14 @@ public class DeliveryIncrease extends AppCompatActivity implements View.OnClickL
         setUpListView(item_listview);
     }
 
-    private  LinkedHashMap<Long,DeliveryItemModel> getDeliveryModelMap(List<ReceivingOrderModel> item_listview){
-        LinkedHashMap<Long,DeliveryItemModel> deliveryItemModelLinkedHashMap = new LinkedHashMap<>();
+    private  void getDeliveryModelMap(List<ReceivingOrderModel> item_listview){
+        mapByReceivingItemId = new LinkedHashMap<>();
         for(ReceivingOrderModel order : item_listview){
             List<ReceivingItemModel> items  = order.getReceivingItem();
             for(ReceivingItemModel item : items){
-                deliveryItemModelLinkedHashMap.put(item.getReceivingId(),item.newDeliveryItemModel());
+                mapByReceivingItemId.put(item.getReceivingId(),item.newDeliveryItemModel());
             }
         }
-        return deliveryItemModelLinkedHashMap;
     }
 
     private void setUpListView(List<ReceivingOrderModel> item_listview){
@@ -254,4 +277,23 @@ public class DeliveryIncrease extends AppCompatActivity implements View.OnClickL
         });
     }
 
+    @Override
+    public void from(NumberDialogModel numberDialogModel, Object o) {
+        //Nothins to do
+        return;
+    }
+
+    @Override
+    public void returnData(NumberDialogModel numberDialogModel) {
+        switch (numberDialogModel.getKey()){
+            case KeyModel.qty:
+                mapByReceivingItemId.get(numberDialogModel.getId()).setItemQty(numberDialogModel.getQty());
+                break;
+            case KeyModel.gw:
+                mapByReceivingItemId.get(numberDialogModel.getId()).setItemGrossWeight(numberDialogModel.getGrossWeight());
+                break;
+        }
+        Log.d("asd","[NumberDialog]-->[DeliveryIncrease]-[order_latest] :" + mapByReceivingItemId);
+        deliveryIncreaseItemExpandableAdapter.notifyDataSetChanged();
+    }
 }

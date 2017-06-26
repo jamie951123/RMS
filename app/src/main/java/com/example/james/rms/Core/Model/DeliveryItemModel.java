@@ -13,8 +13,6 @@ public class DeliveryItemModel {
 
     private Long deliveryItemId;
 
-    private Long productId;
-
     private String itemStatus;
 
     private Long orderId;
@@ -51,12 +49,25 @@ public class DeliveryItemModel {
         this.deliveryItemId = deliveryItemId;
     }
 
-    public Long getProductId() {
-        return productId;
-    }
-
-    public void setProductId(Long productId) {
-        this.productId = productId;
+    @Override
+    public String toString() {
+        return "DeliveryItemModel{" +
+                "deliveryItemId=" + deliveryItemId +
+                ", itemStatus='" + itemStatus + '\'' +
+                ", orderId=" + orderId +
+                ", partyId='" + partyId + '\'' +
+                ", itemStockOutDate=" + itemStockOutDate +
+                ", itemCreateDate=" + itemCreateDate +
+                ", itemCreateBy='" + itemCreateBy + '\'' +
+                ", itemLastModifiedDate=" + itemLastModifiedDate +
+                ", itemLastModifiedBy='" + itemLastModifiedBy + '\'' +
+                ", itemCloseDate=" + itemCloseDate +
+                ", itemRemark='" + itemRemark + '\'' +
+                ", itemGrossWeight=" + itemGrossWeight +
+                ", itemQty=" + itemQty +
+                ", receivingId=" + receivingId +
+                ", receivingItem=" + receivingItem +
+                '}';
     }
 
     public String getItemStatus() {
@@ -171,25 +182,4 @@ public class DeliveryItemModel {
         this.receivingItem = receivingItem;
     }
 
-    @Override
-    public String toString() {
-        return "DeliveryItemModel{" +
-                "deliveryItemId=" + deliveryItemId +
-                ", productId=" + productId +
-                ", itemStatus='" + itemStatus + '\'' +
-                ", orderId=" + orderId +
-                ", partyId='" + partyId + '\'' +
-                ", itemStockOutDate=" + itemStockOutDate +
-                ", itemCreateDate=" + itemCreateDate +
-                ", itemCreateBy='" + itemCreateBy + '\'' +
-                ", itemLastModifiedDate=" + itemLastModifiedDate +
-                ", itemLastModifiedBy='" + itemLastModifiedBy + '\'' +
-                ", itemCloseDate=" + itemCloseDate +
-                ", itemRemark='" + itemRemark + '\'' +
-                ", itemGrossWeight=" + itemGrossWeight +
-                ", itemQty=" + itemQty +
-                ", receivingId=" + receivingId +
-                ", receivingItem=" + receivingItem +
-                '}';
-    }
 }

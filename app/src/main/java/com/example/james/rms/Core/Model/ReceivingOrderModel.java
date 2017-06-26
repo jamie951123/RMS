@@ -23,6 +23,14 @@ public class ReceivingOrderModel {
     private Integer itemQty;
     private List<ReceivingItemModel> receivingItem;
 
+    public DeliveryOrderModel newDeliveryOrderModel(){
+        DeliveryOrderModel d = new DeliveryOrderModel();
+        d.setPartyId(this.partyId);
+        d.setStatus(Status.PROGRESS.name());
+        d.setCreateDate(new Date());
+        d.setCreateBy(this.partyId);
+        return d;
+    }
     public ReceivingOrderModel newReceivingOrderModel(){
         ReceivingOrderModel r = new ReceivingOrderModel();
         r.setOrderId(this.orderId);

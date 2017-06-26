@@ -20,7 +20,7 @@ import com.example.james.rms.CommonProfile.ObjectUtil;
 import com.example.james.rms.Core.Model.KeyModel;
 import com.example.james.rms.Core.Model.ReceivingItemModel;
 import com.example.james.rms.Core.TransferModel.NumberDialogModel;
-import com.example.james.rms.ITF.ConnectQuantityDialogListener;
+import com.example.james.rms.ITF.NumberDialogListener;
 import com.example.james.rms.R;
 
 import java.math.BigDecimal;
@@ -111,7 +111,7 @@ public class ReceivingIncreaseListAdapter extends MyBaseAdapter<ReceivingItemMod
         if (fragment != null) {
             fm.beginTransaction().remove(fragment).commit();
         }
-        ConnectQuantityDialogListener listener = numberDialog;
+        NumberDialogListener listener = numberDialog;
         NumberDialogModel numberDialogModel = new NumberDialogModel();
         Integer position = (Integer)v.getTag();
         Log.d("asd","ReceivingIcreaseListAdapter---getItemPosition : " + position);
@@ -130,7 +130,7 @@ public class ReceivingIncreaseListAdapter extends MyBaseAdapter<ReceivingItemMod
             numberDialogModel.setGrossWeightUnit(gwUnit);
             numberDialogModel.setGwMax(null);
         }
-        listener.from(numberDialogModel);
+        listener.from(numberDialogModel,getContext());
         numberDialog.show(fm,key);
     }
 

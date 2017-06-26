@@ -31,7 +31,7 @@ import butterknife.ButterKnife;
  */
 
 public class DeliveryIncreaseDialog extends DialogFragment implements Communicate_Interface<ReceivingOrderModel>,
-        View.OnClickListener,ExpandableListView.OnGroupClickListener,ExpandableListView.OnChildClickListener{
+        View.OnClickListener, ExpandableListView.OnGroupClickListener, ExpandableListView.OnChildClickListener {
 
     @BindView(R.id.delivery_increase_dialog_listview)
     AnimatedExpandableListView listView;
@@ -41,18 +41,19 @@ public class DeliveryIncreaseDialog extends DialogFragment implements Communicat
     Button submit;
 
     //
-    private List<ReceivingOrderModel>  item_original;
-    private List<ReceivingOrderModel>  item_latest;
+    private List<ReceivingOrderModel> item_original;
+    private List<ReceivingOrderModel> item_latest;
     //
     private ExpandableSelectedModel expandableSelectedModel;
 
     //
     private DeliveryIncreaseDialogExpandableAdapter deliveryIncreaseDialogExpandableAdapter;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.delivery_increase_dialog, container);
-        ButterKnife.bind(this,view);
+        ButterKnife.bind(this, view);
         getDialog().getWindow().requestFeature(Window.FEATURE_NO_TITLE);
 //        getDialog().getWindow().setSoftInputMode(
 //                WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
@@ -60,14 +61,14 @@ public class DeliveryIncreaseDialog extends DialogFragment implements Communicat
         cancel.setOnClickListener(this);
         submit.setOnClickListener(this);
 
-        deliveryIncreaseDialogExpandableAdapter = new DeliveryIncreaseDialogExpandableAdapter(getActivity(),item_latest,expandableSelectedModel,listView);
+        deliveryIncreaseDialogExpandableAdapter = new DeliveryIncreaseDialogExpandableAdapter(getActivity(), item_latest, expandableSelectedModel, listView);
         listView.setAdapter(deliveryIncreaseDialogExpandableAdapter);
         listView.setGroupIndicator(null);
         listView.setChildIndicator(null);
-        listView.setDivider(ContextCompat.getDrawable(getActivity(),R.color.black1F1F1F));
-        listView.setChildDivider(ContextCompat.getDrawable(getActivity(),R.color.transperent_color));
+        listView.setDivider(ContextCompat.getDrawable(getActivity(), R.color.black1F1F1F));
+        listView.setChildDivider(ContextCompat.getDrawable(getActivity(), R.color.transperent_color));
         listView.setDividerHeight(5);
-        for(int i=0; i<item_latest.size();i++){
+        for (int i = 0; i < item_latest.size(); i++) {
             listView.expandGroup(i);
 
         }
@@ -85,22 +86,21 @@ public class DeliveryIncreaseDialog extends DialogFragment implements Communicat
     }
 
 
-
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.delivery_increase_dialog_submit:
 
                 List<ReceivingOrderModel> listview_model = getSelectedReceiving(expandableSelectedModel);
-                DeliveryIncrease deliveryIncrease = (DeliveryIncrease)getActivity();
+                DeliveryIncrease deliveryIncrease = (DeliveryIncrease) getActivity();
                 Communicate_Interface communicateInterface = deliveryIncrease;
-                communicateInterface.putLatestProductModel(listview_model,expandableSelectedModel);
-                if (getDialog().isShowing()){
+                communicateInterface.putLatestProductModel(listview_model, expandableSelectedModel);
+                if (getDialog().isShowing()) {
                     getDialog().dismiss();
                 }
                 break;
             case R.id.delivery_increase_dialog_cancel:
-                if (getDialog().isShowing()){
+                if (getDialog().isShowing()) {
                     getDialog().dismiss();
                 }
                 break;
@@ -122,19 +122,19 @@ public class DeliveryIncreaseDialog extends DialogFragment implements Communicat
 
     @Override
     public boolean onChildClick(ExpandableListView expandableListView, View view, int i, int i1, long l) {
-        DeliveryIncreaseDialogExpandableAdapter.ChildHolder childHolder= (DeliveryIncreaseDialogExpandableAdapter.ChildHolder)view.getTag();
+        DeliveryIncreaseDialogExpandableAdapter.ChildHolder childHolder = (DeliveryIncreaseDialogExpandableAdapter.ChildHolder) view.getTag();
         childHolder.child_checkbox.toggle();
         ReceivingItemModel receivingItemModel = item_latest.get(i).getReceivingItem().get(i1);
-        deliveryIncreaseDialogExpandableAdapter.getExpandableSelectedModel().getIsItemSelected().put(receivingItemModel.getReceivingId(),childHolder.child_checkbox.isChecked());
+        deliveryIncreaseDialogExpandableAdapter.getExpandableSelectedModel().getIsItemSelected().put(receivingItemModel.getReceivingId(), childHolder.child_checkbox.isChecked());
 //        Log.d("asd","onChildClick --i :" + i + "---i1 :" + i1 + "----isChecked :" + childHolder.child_checkbox.isChecked());
         return true;
     }
 
     @Override
     public boolean onGroupClick(ExpandableListView expandableListView, View view, int i, long l) {
-        DeliveryIncreaseDialogExpandableAdapter.GroupHolder groupHolder= (DeliveryIncreaseDialogExpandableAdapter.GroupHolder)view.getTag();
+        DeliveryIncreaseDialogExpandableAdapter.GroupHolder groupHolder = (DeliveryIncreaseDialogExpandableAdapter.GroupHolder) view.getTag();
         groupHolder.group_checkbox.toggle();
-        deliveryIncreaseDialogExpandableAdapter.getExpandableSelectedModel().getIsOrderSelected().put(item_latest.get(i).getOrderId(),groupHolder.group_checkbox.isChecked());
+        deliveryIncreaseDialogExpandableAdapter.getExpandableSelectedModel().getIsOrderSelected().put(item_latest.get(i).getOrderId(), groupHolder.group_checkbox.isChecked());
 //        Log.d("asd","onGroupClick --i :" + i + "----isChecked :" + groupHolder.group_checkbox.isChecked());
         return true;
     }
@@ -143,21 +143,21 @@ public class DeliveryIncreaseDialog extends DialogFragment implements Communicat
 
 //        InnerClassModel innerClassModel = new InnerClassModel();
 //        LinkedHashMap<Long, ReceivingOrderModel> orderMap = new LinkedHashMap<>();
-        LinkedHashMap<Long, DeliveryItemModel> deliveryItemMapByReceivingItemId = new LinkedHashMap<>();
+//        LinkedHashMap<Long, DeliveryItemModel> deliveryItemMapByReceivingItemId = new LinkedHashMap<>();
 
-    List<ReceivingOrderModel> newModel = new ArrayList<>();
+        List<ReceivingOrderModel> newModel = new ArrayList<>();
         boolean isSelected;
-        for(ReceivingOrderModel order : this.item_latest){
+        for (ReceivingOrderModel order : this.item_latest) {
             isSelected = false;
             List<ReceivingItemModel> itemModel = new ArrayList<>();
             for (ReceivingItemModel item : order.getReceivingItem()) {
-                if(expandableSelectedModel.getIsItemSelected().containsKey(item.getReceivingId()) && expandableSelectedModel.getIsItemSelected().get(item.getReceivingId())){
+                if (expandableSelectedModel.getIsItemSelected().containsKey(item.getReceivingId()) && expandableSelectedModel.getIsItemSelected().get(item.getReceivingId())) {
                     itemModel.add(item.newReceivingItemModel());
                     isSelected = true;
-                    deliveryItemMapByReceivingItemId.put(item.getOrderId(),item.newDeliveryItemModel());
+//                    deliveryItemMapByReceivingItemId.put(item.getOrderId(), item.newDeliveryItemModel());
                 }
             }
-            if(isSelected) {
+            if (isSelected) {
                 order.setReceivingItem(itemModel);
                 newModel.add(order);
             }
