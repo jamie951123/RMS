@@ -81,9 +81,9 @@ public class SettingWeightListAdapter extends MyBaseSwipeAdapter<WeightProfileMo
                 WeightProfileCombine weightProfileCombine = new WeightProfileCombine(WeightProfileModel.class);
                 String gson = weightProfileCombine.modelToJson(w);
 
-                ProductDao productDao = new ProductDaoImpl();
-                Integer deleteCount = productDao.updateWeightIdNullByWeightIdAndPartyId(gson);
-                if(deleteCount != null){
+//                ProductDao productDao = new ProductDaoImpl();
+//                Integer deleteCount = productDao.updateWeightIdNullByWeightIdAndPartyId(gson);
+//                if(deleteCount != null){
                     WeightProfileDao weightProfileDao = new WeightProfileDaoImpl();
                     ResponseMessage responseMessage = weightProfileDao.delete(gson);
                     if(responseMessage != null && responseMessage.getMessage_status().equalsIgnoreCase(ResponseStatus.getSuccessful())){
@@ -94,8 +94,8 @@ public class SettingWeightListAdapter extends MyBaseSwipeAdapter<WeightProfileMo
                         Toast.makeText(getmContext(), responseMessage.getMessage_content(), Toast.LENGTH_SHORT).show();
                         return;
                     }
-                    Toast.makeText(getmContext(), "Delete fail", Toast.LENGTH_SHORT).show();
-                }
+//                    Toast.makeText(getmContext(), "Delete fail", Toast.LENGTH_SHORT).show();
+//                }
                 Toast.makeText(getmContext(), "deleteCount is null", Toast.LENGTH_SHORT).show();
             }
         });

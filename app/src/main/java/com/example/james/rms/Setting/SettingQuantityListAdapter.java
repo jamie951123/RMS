@@ -81,9 +81,9 @@ public class SettingQuantityListAdapter extends MyBaseSwipeAdapter<QuantityProfi
                 QuantityProfileCombine quantityProfileCombine = new QuantityProfileCombine(QuantityProfileModel.class);
                 String gson = quantityProfileCombine.modelToJson(qtymodel);
 
-                ProductDao productDao = new ProductDaoImpl();
-                Integer deleteCount = productDao.updateQuantityIdNullByQuantityIdAndPartyId(gson);
-                if(deleteCount != null){
+//                ProductDao productDao = new ProductDaoImpl();
+//                Integer deleteCount = productDao.updateQuantityIdNullByQuantityIdAndPartyId(gson);
+//                if(deleteCount != null){
                     QuantityProfileDao quantityProfileDao = new QuantityProfileDaoImpl();
                     ResponseMessage responseMessage = quantityProfileDao.delete(gson);
                     if(responseMessage != null && responseMessage.getMessage_status().equalsIgnoreCase(ResponseStatus.getSuccessful())){
@@ -93,8 +93,8 @@ public class SettingQuantityListAdapter extends MyBaseSwipeAdapter<QuantityProfi
                         Toast.makeText(getmContext(), responseMessage.getMessage_content(), Toast.LENGTH_SHORT).show();
                         return;
                     }
-                    Toast.makeText(getmContext(), "Delete fail", Toast.LENGTH_SHORT).show();
-                }
+//                    Toast.makeText(getmContext(), "Delete fail", Toast.LENGTH_SHORT).show();
+//                }
                 Toast.makeText(getmContext(), "deleteCount is null", Toast.LENGTH_SHORT).show();
             }
         });
