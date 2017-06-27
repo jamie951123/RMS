@@ -30,6 +30,21 @@ public class DeliveryOrderServePath {
         return serve_path;
     }
 
+    //Save
+    public static String serve_save(){
+        String serve = ServeProfile.getServe();
+        String path = ServeProfile.getDe_order_save();
+        String serve_path = serve+path;
+        return serve_path;
+    }
+
+    public static String serve_saveOrderAndItem(){
+        String serve = ServeProfile.getServe();
+        String path = ServeProfile.getDe_saveOrderAndItem();
+        String serve_path = serve+path;
+        return serve_path;
+    }
+
     //Update
 
 

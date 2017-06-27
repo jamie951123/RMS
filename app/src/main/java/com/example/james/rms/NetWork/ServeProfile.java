@@ -78,13 +78,17 @@ public class ServeProfile {
     final static String de_order_findByPartyIdAndStatus = "rms/delivery/order/findByPartyIdAndStauts";
     final static String de_order_findByOrderIdAndStatus = "rms/delivery/order/findByOrderIdAndStatus";
     final static String de_order_delete = "rms/delivery/order/delete";
+    final static String de_order_save = "rms/delivery/order/save";
+    final static String de_saveOrderAndItem = "rms/delivery/order/saveOrderAndItem";
+
 
     //Delivery_Item
     final static String de_item_findAll = "rms/delivery/item/findAll";
     final static String de_item_findByPartyIdAndStatus   = "rms/delivery/item/findByPartyIdAndStauts";
     final static String de_item_findByOrderIdAndStatus = "rms/delivery/item/findByOrderIdAndStatus";
     final static String de_item_delete = "rms/delivery/item/delete";
-
+    final static String de_item_save = "rms/delivery/item/save";
+    final static String de_item_saves = "rms/delivery/item/save";
 
     public static String getServe() {
         return serve;
@@ -304,5 +308,21 @@ public class ServeProfile {
 
     public static String getRe_order_findByPartyIdAndStatus() {
         return re_order_findByPartyIdAndStatus;
+    }
+
+    public static String getDe_order_save() {
+        return de_order_save;
+    }
+
+    public static String getDe_item_save() {
+        return de_item_save;
+    }
+
+    public static String getDe_item_saves() {
+        return de_item_saves;
+    }
+
+    public static String getDe_saveOrderAndItem() {
+        return de_saveOrderAndItem;
     }
 }

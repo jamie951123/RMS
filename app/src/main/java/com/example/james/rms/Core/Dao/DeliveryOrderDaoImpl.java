@@ -97,6 +97,52 @@ public class DeliveryOrderDaoImpl implements DeliveryOrderDao {
     }
 
     @Override
+    public DeliveryOrderModel save(String deliveryOrderModel_json) {
+        Log.d("asd:","[DeliveryOrderModel]-save(Request--JSON)  :" + deliveryOrderModel_json);
+        String result = "";
+        DeliveryOrderModel deliveryOrderModel = new DeliveryOrderModel();
+        try {
+            result = new HttpPostAsync().execute(DeliveryOrderServePath.serve_save(),deliveryOrderModel_json).get();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+        Log.d("asd:","[DeliveryOrderModel]-save(Response--String): :"+result);
+        try{
+            Gson gson = GsonUtil.fromJson();
+            deliveryOrderModel = gson.fromJson(result,DeliveryOrderModel.class);
+            Log.d("asd","[DeliveryOrderModel]-save(Gson): "+deliveryOrderModel);
+        }catch(JsonSyntaxException e){
+            e.printStackTrace();
+        }
+        return deliveryOrderModel;
+    }
+
+    @Override
+    public DeliveryOrderModel saveOrderAndItem(String deliveryOrderModel_json) {
+        Log.d("asd:","[DeliveryOrderModel]-saveOrderAndItem(Request--JSON)  :" + deliveryOrderModel_json);
+        String result = "";
+        DeliveryOrderModel deliveryOrderModel = new DeliveryOrderModel();
+        try {
+            result = new HttpPostAsync().execute(DeliveryOrderServePath.serve_saveOrderAndItem(),deliveryOrderModel_json).get();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+        Log.d("asd:","[DeliveryOrderModel]-saveOrderAndItem(Response--String): :"+result);
+        try{
+            Gson gson = GsonUtil.fromJson();
+            deliveryOrderModel = gson.fromJson(result,DeliveryOrderModel.class);
+            Log.d("asd","[DeliveryOrderModel]-saveOrderAndItem(Gson): "+deliveryOrderModel);
+        }catch(JsonSyntaxException e){
+            e.printStackTrace();
+        }
+        return deliveryOrderModel;
+    }
+
+    @Override
     public ResponseMessage delete(String DeliveryOrderModel) {
         Log.d("asd:","[DeliveryOrderModel]-delete(Request--JSON)  :" + DeliveryOrderModel);
         String result = "";

@@ -26,6 +26,8 @@ import com.example.james.rms.CommonProfile.SharePreferences.PartyIdPreferences;
 import com.example.james.rms.CommonProfile.StartActivityForResultKey;
 import com.example.james.rms.Core.Combine.DeliveryOrderCombine;
 import com.example.james.rms.Core.Combine.DeliveryOrderSearchCombine;
+import com.example.james.rms.Core.Dao.DeliveryOrderDao;
+import com.example.james.rms.Core.Dao.DeliveryOrderDaoImpl;
 import com.example.james.rms.Core.Dao.ReceivingOrderDao;
 import com.example.james.rms.Core.Dao.ReceivingOrderDaoImpl;
 import com.example.james.rms.Core.Model.DeliveryItemModel;
@@ -219,8 +221,11 @@ public class DeliveryIncrease extends AppCompatActivity implements View.OnClickL
         deliveryOrderModel.setDeliveryItem(deliveryItemModels);
 
         DeliveryOrderCombine deliveryOrderCombine = new DeliveryOrderCombine(DeliveryOrderModel.class);
-        String json = deliveryOrderCombine.modelToJson(deliveryOrderModel);
-        Log.d("asd","[DeliveryIncrease][Click-Create] -[json]:" + json);
+        String deliveryOrder_json = deliveryOrderCombine.modelToJson(deliveryOrderModel);
+
+        DeliveryOrderDao deliveryOrderDao = new DeliveryOrderDaoImpl();
+        deliveryOrderDao.saveOrderAndItem(deliveryOrder_json);
+
         return super.onOptionsItemSelected(menuItem);
     }
     @Override

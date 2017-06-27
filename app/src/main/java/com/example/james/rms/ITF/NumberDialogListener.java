@@ -1,8 +1,5 @@
 package com.example.james.rms.ITF;
 
-import android.content.Context;
-
-import com.example.james.rms.Activity;
 import com.example.james.rms.Core.TransferModel.NumberDialogModel;
 
 /**

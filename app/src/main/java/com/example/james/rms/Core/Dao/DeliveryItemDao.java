@@ -9,6 +9,13 @@ import java.util.List;
  */
 
 public interface DeliveryItemDao {
+//    Find
     List<DeliveryItemModel> findAll();
     List<DeliveryItemModel> findByDeliveryItemIdAndStatus();
+
+//    Save
+    DeliveryItemModel save (String deliveryItemModel);
+    List<DeliveryItemModel> saves (String deliveryItemModels);
+
+//    Delete
 }

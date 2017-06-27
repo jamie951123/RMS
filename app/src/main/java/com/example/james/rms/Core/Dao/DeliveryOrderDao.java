@@ -10,8 +10,14 @@ import java.util.List;
  */
 
 public interface DeliveryOrderDao {
+//    Find
     List<DeliveryOrderModel> findAll();
     List<DeliveryOrderModel> findByPartyIdAndStatus(String deliverySearchObject);
     List<DeliveryOrderModel> findByOrderIdAndStatus(String deliverySearchObject);
+
+//    Save
+    DeliveryOrderModel save (String deliveryOrderModel);
+    DeliveryOrderModel saveOrderAndItem (String deliveryOrderModel);
+//    Delete
     ResponseMessage delete(String DeliveryOrderModel);
 }

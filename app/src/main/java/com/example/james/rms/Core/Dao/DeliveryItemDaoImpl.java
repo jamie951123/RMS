@@ -49,4 +49,14 @@ public class DeliveryItemDaoImpl implements DeliveryItemDao {
     public List<DeliveryItemModel> findByDeliveryItemIdAndStatus() {
         return null;
     }
+
+    @Override
+    public DeliveryItemModel save(String deliveryItemModel) {
+        return null;
+    }
+
+    @Override
+    public List<DeliveryItemModel> saves(String deliveryItemModels) {
+        return null;
+    }
 }
