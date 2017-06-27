@@ -111,11 +111,12 @@ public class DeliveryIncreaseItemExpandableAdapter extends MyExpandableListAdapt
 //        mapByReceivingItemId
         holder.qty.setText(ObjectUtil.intToString(mapByReceivingItemId.get(receivingId).getItemQty()));
         holder.gw.setText(ObjectUtil.bigDecimalToString(mapByReceivingItemId.get(receivingId).getItemGrossWeight()));
+        holder.remark.setText(mapByReceivingItemId.get(receivingId).getItemRemark());
+
 //        receivingItemModel
         holder.image.setImageDrawable(ContextCompat.getDrawable(getContext(),R.drawable.mailbox_black));
         holder.productCode.setText(receivingItemModel.getProduct().getProductCode());
         holder.productName.setText(receivingItemModel.getProduct().getProductName());
-        holder.remark.setText(receivingItemModel.getItemRemark());
         holder.qtylinear.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -141,7 +142,7 @@ public class DeliveryIncreaseItemExpandableAdapter extends MyExpandableListAdapt
             holder.gw_unit.setText(receivingItemModel.getProduct().getWeightprofile().getWeightUnit());
         }
 
-        holder.remark.addTextChangedListener(textWatch(groupPosition,childPosition,KeyModel.remark));
+        holder.remark.addTextChangedListener(textWatch(groupPosition,childPosition,KeyModel.remark,receivingId));
 
         return convertView;
     }
@@ -245,7 +246,7 @@ public class DeliveryIncreaseItemExpandableAdapter extends MyExpandableListAdapt
         }
     }
 
-    public TextWatcher textWatch(final int groupPosition,final int childPosition, final String fieldId){
+    public TextWatcher textWatch(final int groupPosition, final int childPosition, final String fieldId, final long receivingItemId){
         TextWatcher watcher = new android.text.TextWatcher(){
 
 
@@ -268,7 +269,7 @@ public class DeliveryIncreaseItemExpandableAdapter extends MyExpandableListAdapt
                 if(s != null && s.length()>0) {
                     switch (fieldId){
                         case KeyModel.remark:
-                            getGroup(groupPosition).getReceivingItem().get(childPosition).setItemRemark(String.valueOf(s));
+                            mapByReceivingItemId.get(receivingItemId).setItemRemark(s.toString());
                             break;
                     }
                 }

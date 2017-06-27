@@ -198,6 +198,7 @@ public class DeliveryIncrease extends AppCompatActivity implements View.OnClickL
         }
     }
 
+//    Save
     @Override
     public boolean onOptionsItemSelected(MenuItem menuItem) {
         DeliveryOrderModel deliveryOrderModel = new DeliveryOrderModel();
@@ -211,6 +212,7 @@ public class DeliveryIncrease extends AppCompatActivity implements View.OnClickL
             deliveryItemModels.add(item);
             itemCount++;
         }
+//        deliveryOrderModel.setOrderId(new Long(6));
         deliveryOrderModel.setItemQty(itemCount);
         deliveryOrderModel.setRemark(remark_edit.getText().toString());
         deliveryOrderModel.setStockOutDate(ObjectUtil.stringToDate_onlyDate(datePicker.getText().toString()));
