@@ -86,7 +86,7 @@ public class SettingQuantityListAdapter extends MyBaseSwipeAdapter<QuantityProfi
 //                if(deleteCount != null){
                     QuantityProfileDao quantityProfileDao = new QuantityProfileDaoImpl();
                     ResponseMessage responseMessage = quantityProfileDao.delete(gson);
-                    if(responseMessage != null && responseMessage.getMessage_status().equalsIgnoreCase(ResponseStatus.getSuccessful())){
+                    if(responseMessage != null && ResponseStatus.getSuccessful().equalsIgnoreCase(responseMessage.getMessage_status())){
                         getList().remove(position);
                         notifyDataSetChanged();
                         ListViewGrowthUtil.setListViewHeightBasedOnChildren(listView);
