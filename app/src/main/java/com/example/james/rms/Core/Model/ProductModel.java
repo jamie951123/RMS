@@ -185,7 +185,7 @@ public class ProductModel {
                 ", productCode='" + productCode + '\'' +
                 ", productName='" + productName + '\'' +
                 ", partyId='" + partyId + '\'' +
-                ", status=" + status +
+                ", status='" + status + '\'' +
                 ", createDate=" + createDate +
                 ", createBy='" + createBy + '\'' +
                 ", closeDate=" + closeDate +

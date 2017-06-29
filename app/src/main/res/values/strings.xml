@@ -178,5 +178,6 @@
     <string name="title_select_weight_unit">Select Weight Unit</string>
     <string name="title_select_quantity_unit">Select Quantity Unit</string>
     <string name="title_edit_receiving">Edit Receiving</string>
+    <string name="title_edit_delivery">Edit Delivery</string>
 
 </resources>

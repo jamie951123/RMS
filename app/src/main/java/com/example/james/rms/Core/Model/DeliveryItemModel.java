@@ -39,6 +39,8 @@ public class DeliveryItemModel {
 
     private Long receivingId;
 
+    private DeliveryOrderModel deliveryOrder;
+
     private ReceivingItemModel receivingItem;
 
     public Long getDeliveryItemId() {
@@ -47,27 +49,6 @@ public class DeliveryItemModel {
 
     public void setDeliveryItemId(Long deliveryItemId) {
         this.deliveryItemId = deliveryItemId;
-    }
-
-    @Override
-    public String toString() {
-        return "DeliveryItemModel{" +
-                "deliveryItemId=" + deliveryItemId +
-                ", itemStatus='" + itemStatus + '\'' +
-                ", orderId=" + orderId +
-                ", partyId='" + partyId + '\'' +
-                ", itemStockOutDate=" + itemStockOutDate +
-                ", itemCreateDate=" + itemCreateDate +
-                ", itemCreateBy='" + itemCreateBy + '\'' +
-                ", itemLastModifiedDate=" + itemLastModifiedDate +
-                ", itemLastModifiedBy='" + itemLastModifiedBy + '\'' +
-                ", itemCloseDate=" + itemCloseDate +
-                ", itemRemark='" + itemRemark + '\'' +
-                ", itemGrossWeight=" + itemGrossWeight +
-                ", itemQty=" + itemQty +
-                ", receivingId=" + receivingId +
-                ", receivingItem=" + receivingItem +
-                '}';
     }
 
     public String getItemStatus() {
@@ -174,6 +155,14 @@ public class DeliveryItemModel {
         this.receivingId = receivingId;
     }
 
+    public DeliveryOrderModel getDeliveryOrder() {
+        return deliveryOrder;
+    }
+
+    public void setDeliveryOrder(DeliveryOrderModel deliveryOrder) {
+        this.deliveryOrder = deliveryOrder;
+    }
+
     public ReceivingItemModel getReceivingItem() {
         return receivingItem;
     }
@@ -182,4 +171,25 @@ public class DeliveryItemModel {
         this.receivingItem = receivingItem;
     }
 
+    @Override
+    public String toString() {
+        return "DeliveryItemModel{" +
+                "deliveryItemId=" + deliveryItemId +
+                ", itemStatus='" + itemStatus + '\'' +
+                ", orderId=" + orderId +
+                ", partyId='" + partyId + '\'' +
+                ", itemStockOutDate=" + itemStockOutDate +
+                ", itemCreateDate=" + itemCreateDate +
+                ", itemCreateBy='" + itemCreateBy + '\'' +
+                ", itemLastModifiedDate=" + itemLastModifiedDate +
+                ", itemLastModifiedBy='" + itemLastModifiedBy + '\'' +
+                ", itemCloseDate=" + itemCloseDate +
+                ", itemRemark='" + itemRemark + '\'' +
+                ", itemGrossWeight=" + itemGrossWeight +
+                ", itemQty=" + itemQty +
+                ", receivingId=" + receivingId +
+                ", deliveryOrder=" + deliveryOrder +
+                ", receivingItem=" + receivingItem +
+                '}';
+    }
 }

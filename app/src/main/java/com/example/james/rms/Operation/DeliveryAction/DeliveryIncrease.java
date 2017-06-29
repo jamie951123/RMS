@@ -1,5 +1,6 @@
 package com.example.james.rms.Operation.DeliveryAction;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
@@ -24,8 +25,10 @@ import com.example.james.rms.CommonProfile.Library.AnimatedExpandableListView;
 import com.example.james.rms.CommonProfile.ObjectUtil;
 import com.example.james.rms.CommonProfile.SharePreferences.PartyIdPreferences;
 import com.example.james.rms.CommonProfile.StartActivityForResultKey;
+import com.example.james.rms.Controller.NavigationController;
 import com.example.james.rms.Core.Combine.DeliveryOrderCombine;
 import com.example.james.rms.Core.Combine.DeliveryOrderSearchCombine;
+import com.example.james.rms.Core.Combine.ReceivingOrderCombine;
 import com.example.james.rms.Core.Dao.DeliveryOrderDao;
 import com.example.james.rms.Core.Dao.DeliveryOrderDaoImpl;
 import com.example.james.rms.Core.Dao.ReceivingOrderDao;
@@ -126,9 +129,55 @@ public class DeliveryIncrease extends AppCompatActivity implements View.OnClickL
         order_listview = new ArrayList<>();
         //order and child checkbox setup
         setOriginalCheckbox(order_original);
+
+//        Intent
+        String deliveryOrder_json = null;
+        if (savedInstanceState == null) {
+            Bundle extras = getIntent().getExtras();
+            if (extras == null) {
+                deliveryOrder_json = null;
+            } else {
+                deliveryOrder_json = extras.getString(StartActivityForResultKey.deliveryOrderModel);
+            }
+        }
+
+        if (ObjectUtil.isNotNullEmpty(deliveryOrder_json)) {
+            DeliveryOrderCombine deliveryOrderCombine = new DeliveryOrderCombine(DeliveryOrderModel.class);
+            deliveryOrderModel = new DeliveryOrderModel();
+            deliveryOrderModel = deliveryOrderCombine.jsonToModel(deliveryOrder_json);
+            toolbar_title.setText(R.string.title_edit_delivery);
+            getDeliveryModelMapWhenEdit(deliveryOrderModel.getDeliveryItem());
+            Log.d("asd","deliveryOrder_json : " + deliveryOrder_json);
+            Log.d("asd","orginalMapByReceivingItemId : " + orginalMapByReceivingItemId);
+            for(Map.Entry<Long,DeliveryItemModel> entry : orginalMapByReceivingItemId.entrySet()){
+                Long receivingOrderId = entry.getValue().getOrderId();
+                ReceivingItemModel rItem = entry.getValue().getReceivingItem();
+//                for(ReceivingOrderModel order :order_latest){
+//                    if(order.getOrderId() == receivingOrderId){
+//                        order.setReceivingItem(rItem);
+//                        order_listview.add();
+//                    }
+//                }
+            }
+//            setAllField(orderModel);
+            return;
+        }
         setUpListView(order_listview);
         Log.v("asd","DeliveryIncrease-[order_original] :" + order_original);
     }
+
+    //    WHen Edit
+    private void getDeliveryModelMapWhenEdit(List<DeliveryItemModel> itemModels){
+        orginalMapByReceivingItemId = new LinkedHashMap<>();
+        latestMapByReceivingItemId = new LinkedHashMap<>();
+        for(DeliveryItemModel item : itemModels){
+            Long receivingItemId = item.getReceivingId();
+            orginalMapByReceivingItemId.put(receivingItemId,item);
+        }
+        latestMapByReceivingItemId = orginalMapByReceivingItemId;
+    }
+
+
     @Override
     public void onClick(View v) {
         switch (v.getId()){
@@ -226,7 +275,14 @@ public class DeliveryIncrease extends AppCompatActivity implements View.OnClickL
         String deliveryOrder_json = deliveryOrderCombine.modelToJson(deliveryOrderModel);
 
         DeliveryOrderDao deliveryOrderDao = new DeliveryOrderDaoImpl();
-        deliveryOrderDao.saveOrderAndItem(deliveryOrder_json);
+        DeliveryOrderModel saveResult = deliveryOrderDao.saveOrderAndItem(deliveryOrder_json);
+
+        if (saveResult != null) {
+            Intent intent = new Intent();
+            intent.putExtra("NavigationController", StartActivityForResultKey.navDelivery);
+            intent.setClass(this, NavigationController.class);
+            startActivity(intent);
+        }
 
         return super.onOptionsItemSelected(menuItem);
     }
@@ -266,9 +322,9 @@ public class DeliveryIncrease extends AppCompatActivity implements View.OnClickL
         setUpListView(item_listview);
     }
 
-    //Item Click
+    //When From Dialogs submit
     private  void getDeliveryModelMap(List<ReceivingOrderModel> item_listview){
-        //clear deliveryitem Qty and Gw value when added in the part.
+        //clear deliveryitem Qty and Gw value when added in the past.
         latestMapByReceivingItemId = new LinkedHashMap<>();
         for(ReceivingOrderModel order : item_listview){
             List<ReceivingItemModel> items  = order.getReceivingItem();
@@ -282,7 +338,6 @@ public class DeliveryIncrease extends AppCompatActivity implements View.OnClickL
         }
         orginalMapByReceivingItemId = latestMapByReceivingItemId;
     }
-
     private void setUpListView(List<ReceivingOrderModel> item_listview){
         listView.setGroupIndicator(null);
         listView.setChildIndicator(null);

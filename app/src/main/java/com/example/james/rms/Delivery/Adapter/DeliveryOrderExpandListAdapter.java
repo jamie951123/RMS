@@ -2,6 +2,7 @@ package com.example.james.rms.Delivery.Adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +13,7 @@ import com.example.james.rms.CommonProfile.GlideApp;
 import com.example.james.rms.CommonProfile.MyExpandableListAdapter;
 import com.example.james.rms.CommonProfile.ObjectUtil;
 import com.example.james.rms.CommonProfile.ResponseStatus;
+import com.example.james.rms.CommonProfile.StartActivityForResultKey;
 import com.example.james.rms.Controller.NavigationController;
 import com.example.james.rms.Core.Combine.DeliveryOrderCombine;
 import com.example.james.rms.Core.Dao.DeliveryOrderDao;
@@ -51,18 +53,22 @@ public class DeliveryOrderExpandListAdapter extends MyExpandableListAdapter<Deli
         holder.deliveryOrder_orderId.setText(ObjectUtil.longToString(deliveryOrderModel.getOrderId()));
         holder.deliveryOrder_date.setText(ObjectUtil.dateToString_OnlyDate(deliveryOrderModel.getStockOutDate()));
         holder.deliveryOrder_itemQty.setText(ObjectUtil.intToString(deliveryOrderModel.getItemQty()));
-        GlideApp.with(getContext())
-                .load(R.drawable.output)
-                .error(R.drawable.question_purple)
-                .placeholder(R.drawable.question_purple)
-                .fitCenter()
-                .into(holder.deliveryOrder_image);
+        holder.deliveryOrder_image.setImageDrawable(ContextCompat.getDrawable(getContext(),R.drawable.output));
+//        GlideApp.with(getContext())
+//                .load(R.drawable.output)
+//                .error(R.drawable.question_purple)
+//                .placeholder(R.drawable.question_purple)
+//                .fitCenter()
+//                .into(holder.deliveryOrder_image);
 
         holder.deliveryOrder_linear_edit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent();
                 intent.setClass(getContext(), DeliveryIncrease.class);
+                DeliveryOrderCombine deliveryOrderCombine = new DeliveryOrderCombine(DeliveryOrderModel.class);
+                String deliveryOrder_json = deliveryOrderCombine.modelToJson(deliveryOrderModel);
+                intent.putExtra(StartActivityForResultKey.deliveryOrderModel,deliveryOrder_json);
                 getContext().startActivity(intent);
                 Log.d("asd","deliveryOrder_linear_edit");
             }

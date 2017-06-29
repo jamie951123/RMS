@@ -2,6 +2,7 @@ package com.example.james.rms.Core.Model;
 
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by Jamie on 9/4/2017.
@@ -36,6 +37,10 @@ public class ReceivingItemModel {
     private String itemRemark;
 
     private ProductModel product;
+
+    private List<DeliveryItemModel> deliveryItem;
+
+    private ReceivingOrderModel receivingOrder;
 
     public DeliveryItemModel newDeliveryItemModel(){
         DeliveryItemModel deliveryItemModel = new DeliveryItemModel();
@@ -193,6 +198,22 @@ public class ReceivingItemModel {
         this.product = product;
     }
 
+    public List<DeliveryItemModel> getDeliveryItem() {
+        return deliveryItem;
+    }
+
+    public void setDeliveryItem(List<DeliveryItemModel> deliveryItem) {
+        this.deliveryItem = deliveryItem;
+    }
+
+    public ReceivingOrderModel getReceivingOrder() {
+        return receivingOrder;
+    }
+
+    public void setReceivingOrder(ReceivingOrderModel receivingOrder) {
+        this.receivingOrder = receivingOrder;
+    }
+
     @Override
     public String toString() {
         return "ReceivingItemModel{" +
@@ -210,6 +231,8 @@ public class ReceivingItemModel {
                 ", itemQty=" + itemQty +
                 ", itemRemark='" + itemRemark + '\'' +
                 ", product=" + product +
+                ", deliveryItem=" + deliveryItem +
+                ", receivingOrder=" + receivingOrder +
                 '}';
     }
 }

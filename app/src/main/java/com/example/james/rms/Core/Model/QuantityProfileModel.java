@@ -1,6 +1,7 @@
 package com.example.james.rms.Core.Model;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by jamie on 2017/4/23.
@@ -23,6 +24,8 @@ public class QuantityProfileModel {
     private String lastModifiedBy;
 
     private Status status;
+
+    private List<ProductModel> product;
 
     public Long getQuantityId() {
         return quantityId;
@@ -88,6 +91,14 @@ public class QuantityProfileModel {
         this.status = status;
     }
 
+    public List<ProductModel> getProduct() {
+        return product;
+    }
+
+    public void setProduct(List<ProductModel> product) {
+        this.product = product;
+    }
+
     @Override
     public String toString() {
         return "QuantityProfileModel{" +
@@ -99,6 +110,7 @@ public class QuantityProfileModel {
                 ", lastModifiedDate=" + lastModifiedDate +
                 ", lastModifiedBy='" + lastModifiedBy + '\'' +
                 ", status=" + status +
+                ", product=" + product +
                 '}';
     }
 }

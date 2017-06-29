@@ -107,6 +107,9 @@ public class NavigationController extends AppCompatActivity implements Navigatio
                 case StartActivityForResultKey.navInventory:
                     changeFragmentAndTitle(R.id.nav_inventory);
                     break;
+                case StartActivityForResultKey.navDelivery:
+                    changeFragmentAndTitle(R.id.nav_stockOut);
+                    break;
                 default:
                     break;
             }

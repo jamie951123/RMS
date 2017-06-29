@@ -2,6 +2,7 @@ package com.example.james.rms.Receiving.Adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +16,7 @@ import com.example.james.rms.CommonProfile.ObjectUtil;
 import com.example.james.rms.CommonProfile.ResponseStatus;
 import com.example.james.rms.CommonProfile.StartActivityForResultKey;
 import com.example.james.rms.Controller.NavigationController;
+import com.example.james.rms.Core.Combine.ReceivingOrderCombine;
 import com.example.james.rms.Core.Dao.ReceivingOrderDao;
 import com.example.james.rms.Core.Dao.ReceivingOrderDaoImpl;
 import com.example.james.rms.Core.Model.ReceivingOrderModel;
@@ -55,24 +57,20 @@ public class ReceivingOrderExpandListAdapter extends MyExpandableListAdapter<Rec
         holder.receivingOrder_actualQty.setText(ObjectUtil.intToString(receivingOrderModel.getActualQty()));
         holder.receivingOrder_estimateQty.setText(ObjectUtil.intToString(receivingOrderModel.getEstimateQty()));
         holder.receivingOrder_itemQty.setText(ObjectUtil.intToString(receivingOrderModel.getItemQty()));
-        GlideApp.with(getContext())
-                .load(R.drawable.input)
-                .error(R.drawable.question_purple)
-                .placeholder(R.drawable.question_purple)
-                .fitCenter()
-                .into(holder.receivingOrder_image);
+        holder.receivingOrder_image.setImageDrawable(ContextCompat.getDrawable(getContext(),R.drawable.input));
+
+//        GlideApp.with(getContext())
+//                .load(R.drawable.input)
+//                .error(R.drawable.question_purple)
+//                .placeholder(R.drawable.question_purple)
+//                .fitCenter()
+//                .into(holder.receivingOrder_image);
 
         holder.receivingOrder_linear_edit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ReceivingOrderModel receivingOrderModel = getGroup(groupPosition);
-                String receivingOrder_json = null;
-                try{
-                    Gson gson = GsonUtil.toJson();
-                    receivingOrder_json = gson.toJson(receivingOrderModel,ReceivingOrderModel.class);
-                }catch (Exception e){
-                    e.printStackTrace();
-                }
+                ReceivingOrderCombine receivingOrderCombine = new ReceivingOrderCombine(ReceivingOrderModel.class);
+                String receivingOrder_json = receivingOrderCombine.modelToJson(receivingOrderModel);
                 if(ObjectUtil.isNotNullEmpty(receivingOrder_json)) {
                     Intent intent = new Intent();
                     intent.setClass(getContext(), ReceivingIncrease.class);
@@ -85,7 +83,7 @@ public class ReceivingOrderExpandListAdapter extends MyExpandableListAdapter<Rec
             @Override
             public void onClick(View v) {
                 if(getContext() instanceof NavigationController){
-                    Long order_orderId = getGroup(groupPosition).getOrderId();
+                    Long order_orderId = receivingOrderModel.getOrderId();
                     if(order_orderId ==null) return;
 
                     if(getFilteredData().get(groupPosition).getReceivingItem() != null) {

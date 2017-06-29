@@ -1,6 +1,7 @@
 package com.example.james.rms.Core.Model;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by jamie on 2017/4/23.
@@ -23,6 +24,8 @@ public class WeightProfileModel {
     private String lastModifiedBy;
 
     private Status status;
+
+    private List<ProductModel> product;
 
     public Long getWeightId() {
         return weightId;
@@ -99,6 +102,16 @@ public class WeightProfileModel {
                 ", lastModifiedDate=" + lastModifiedDate +
                 ", lastModifiedBy='" + lastModifiedBy + '\'' +
                 ", status=" + status +
+                ", product=" + product +
                 '}';
     }
+
+    public List<ProductModel> getProduct() {
+        return product;
+    }
+
+    public void setProduct(List<ProductModel> product) {
+        this.product = product;
+    }
+
 }

@@ -37,9 +37,6 @@ public class DeliveryOrderModel {
 
     private List<DeliveryItemModel> deliveryItem;
 
-    // For Android Use
-    private List<ReceivingOrderModel> receivingOrderModels;
-
     public Long getOrderId() {
         return orderId;
     }
@@ -144,14 +141,6 @@ public class DeliveryOrderModel {
         this.deliveryItem = deliveryItem;
     }
 
-    public List<ReceivingOrderModel> getReceivingOrderModels() {
-        return receivingOrderModels;
-    }
-
-    public void setReceivingOrderModels(List<ReceivingOrderModel> receivingOrderModels) {
-        this.receivingOrderModels = receivingOrderModels;
-    }
-
     @Override
     public String toString() {
         return "DeliveryOrderModel{" +
@@ -168,7 +157,6 @@ public class DeliveryOrderModel {
                 ", lastModifiedDate=" + lastModifiedDate +
                 ", lastModifiedBy='" + lastModifiedBy + '\'' +
                 ", deliveryItem=" + deliveryItem +
-                ", receivingOrderModels=" + receivingOrderModels +
                 '}';
     }
 }
