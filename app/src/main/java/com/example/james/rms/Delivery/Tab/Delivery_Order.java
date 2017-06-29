@@ -9,6 +9,7 @@ import android.widget.ListView;
 
 import com.example.james.rms.CommonProfile.Library.AnimatedExpandableListView;
 import com.example.james.rms.CommonProfile.MyBaseFragment;
+import com.example.james.rms.CommonProfile.ObjectUtil;
 import com.example.james.rms.CommonProfile.SharePreferences.PartyIdPreferences;
 import com.example.james.rms.Core.Combine.DeliveryOrderCombine;
 import com.example.james.rms.Core.Combine.DeliveryOrderSearchCombine;
@@ -41,6 +42,8 @@ public class Delivery_Order extends MyBaseFragment {
     //Model
     private List<DeliveryOrderModel> deliveryOrderModels;
 
+    //Adapter
+    private DeliveryOrderExpandListAdapter deliveryOrderExpandListAdapter;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -54,7 +57,7 @@ public class Delivery_Order extends MyBaseFragment {
 
         deliveryOrderModels = deliveryOrderDao.findByPartyIdAndStatus(combine_partyIdAndStatus);
 
-        DeliveryOrderExpandListAdapter deliveryOrderExpandListAdapter = new DeliveryOrderExpandListAdapter(getActivity(),deliveryOrderModels);
+        deliveryOrderExpandListAdapter = new DeliveryOrderExpandListAdapter(getActivity(),deliveryOrderModels);
         listView.setAdapter(deliveryOrderExpandListAdapter);
 //        pager.setPagingEnabled(false);
         return rootView;
@@ -67,7 +70,12 @@ public class Delivery_Order extends MyBaseFragment {
 
     @Override
     public boolean onQueryTextChange(String newText) {
-        return false;
+        if(ObjectUtil.isNullEmpty(newText)){
+            deliveryOrderExpandListAdapter.filterByRemark("");
+        }else {
+            deliveryOrderExpandListAdapter.filterByRemark(newText);
+        }
+        return true;
     }
 
     @Override

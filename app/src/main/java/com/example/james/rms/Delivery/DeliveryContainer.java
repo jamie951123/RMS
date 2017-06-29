@@ -50,6 +50,14 @@ public class DeliveryContainer extends MyBaseFragment {
 
     @Override
     public boolean onQueryTextChange(String newText) {
+        MyBaseFragment myBaseFragment = (MyBaseFragment)fragments.get(pager.getCurrentItem());
+        try{
+            return myBaseFragment.onQueryTextChange(newText);
+        }catch (ClassCastException e){
+            e.printStackTrace();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
         return false;
     }
 

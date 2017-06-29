@@ -133,6 +133,17 @@
     <string name="deliveryOrder_estimateQty">EstimateQty:</string>
     <string name="deliveryOrder_itemQty">Goods Qty:</string>
 
+    <!--Delivery Item-->
+    <string name="deliveryItem_ProductCode">ProductCode:</string>
+    <string name="deliveryItem_ProductName">ProductName:</string>
+    <string name="deliveryItem_itemStockOutDate">StockOutDate:</string>
+    <string name="deliveryItem_itemGrossWeight_Unit">GrossWeight/Unit:</string>
+    <string name="deliveryItem_itemQuantity_Unit">Quantity/Unit:</string>
+    <string name="deliveryItem_itemStatus">Status:</string>
+    <string name="deliveryItem_itemCreateDate">CreateDate:</string>
+    <string name="deliveryItem_itemcloseDate">CloseDate:</string>
+    <string name="deliveryItem_itemRemark">Remark:</string>
+
     <!--Action-->
     <string name="add_product">Add Product</string>
     <string name="add_receiving_order">Add Receiving Order</string>

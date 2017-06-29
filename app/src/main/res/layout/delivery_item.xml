@@ -1,20 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/delivery_item">
+    android:id="@+id/delivery_item"
+    android:background="@color/backgroundE8E8E8"
+    tools:context="com.example.james.rms.Delivery.Tab.Delivery_Item">
 
-    <TextView
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="Delivery_Item"
-        android:layout_weight="1"/>
+        android:layout_weight="2">
+        <com.github.mikephil.charting.charts.HorizontalBarChart
+            android:id="@+id/receivingItem_HorbarChart"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:foreground="?android:attr/selectableItemBackground"/>
+    </RelativeLayout>
 
-    <ListView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/de_item_listview">
-    </ListView>
+        android:paddingBottom="@dimen/card_margin"
+        android:paddingLeft="@dimen/card_margin"
+        android:paddingRight="@dimen/card_margin"
+        android:paddingTop="@dimen/card_margin"
+        android:layout_weight="1">
+
+        <com.example.james.rms.CommonProfile.Library.AnimatedExpandableListView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/de_item_listview">
+        </com.example.james.rms.CommonProfile.Library.AnimatedExpandableListView>
+
+    </LinearLayout>
 </LinearLayout>

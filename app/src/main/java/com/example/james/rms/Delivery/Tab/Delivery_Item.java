@@ -7,12 +7,16 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import com.example.james.rms.CommonProfile.Library.AnimatedExpandableListView;
 import com.example.james.rms.CommonProfile.MyBaseFragment;
+import com.example.james.rms.CommonProfile.ObjectUtil;
 import com.example.james.rms.CommonProfile.SharePreferences.PartyIdPreferences;
 import com.example.james.rms.Core.Combine.DeliveryItemCombine;
 import com.example.james.rms.Core.Dao.DeliveryItemDao;
 import com.example.james.rms.Core.Dao.DeliveryItemDaoImpl;
 import com.example.james.rms.Core.Model.DeliveryItemModel;
+import com.example.james.rms.Core.Model.DeliveryOrderModel;
+import com.example.james.rms.Delivery.Adapter.DeliveryItemExpandListAdapter;
 import com.example.james.rms.R;
 
 import java.util.ArrayList;
@@ -28,13 +32,17 @@ import butterknife.ButterKnife;
 public class Delivery_Item extends MyBaseFragment{
 
     @BindView(R.id.de_item_listview)
-    ListView listView;
+    AnimatedExpandableListView listView;
 
     //Interface
     private DeliveryItemDao deliveryItemDao = new DeliveryItemDaoImpl();
 
     //Model
+    private DeliveryOrderModel deliveryOrderModel;
     private List<DeliveryItemModel> deliveryItemModels;
+
+    //Adapter
+    private DeliveryItemExpandListAdapter deliveryItemExpandListAdapter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -49,12 +57,6 @@ public class Delivery_Item extends MyBaseFragment{
 
         deliveryItemModels = deliveryItemDao.findAll();
 
-        List<String> test = new ArrayList<>();
-        for(DeliveryItemModel model : deliveryItemModels){
-            test.add(model.getPartyId());
-        }
-        ArrayAdapter<String> arrayAdapter = new ArrayAdapter(getActivity(),android.R.layout.simple_list_item_1,test);
-        listView.setAdapter(arrayAdapter);
 //        pager.setPagingEnabled(false);
         return rootView;
     }
@@ -66,7 +68,12 @@ public class Delivery_Item extends MyBaseFragment{
 
     @Override
     public boolean onQueryTextChange(String newText) {
-        return false;
+        if(ObjectUtil.isNullEmpty(newText)){
+            deliveryItemExpandListAdapter.filterByProductCode("");
+        }else {
+            deliveryItemExpandListAdapter.filterByProductCode(newText);
+        }
+        return true;
     }
 
     @Override
@@ -76,6 +83,11 @@ public class Delivery_Item extends MyBaseFragment{
 
     @Override
     public void transferViewPager(int rid, Object model) {
+        deliveryOrderModel = (DeliveryOrderModel) model;
+        deliveryItemModels = deliveryOrderModel.getDeliveryItem();
 
+        deliveryItemExpandListAdapter = new DeliveryItemExpandListAdapter(getActivity(), deliveryOrderModel);
+        listView.setAdapter(deliveryItemExpandListAdapter);
+        listView.setGroupIndicator(null);
     }
 }

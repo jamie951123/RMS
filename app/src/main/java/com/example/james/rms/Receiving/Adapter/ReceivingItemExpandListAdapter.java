@@ -2,6 +2,7 @@ package com.example.james.rms.Receiving.Adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -57,12 +58,13 @@ public class ReceivingItemExpandListAdapter extends MyExpandableListAdapter<Rece
             viewHolder.receivingItem_itemReceivingDate.setText(ObjectUtil.dateToString(receivingItemModel.getItemReceivingDate()));
             viewHolder.receivingItem_itemGrossWeight.setText(ObjectUtil.bigDecimalToString(receivingItemModel.getItemGrossWeight()));
             viewHolder.receivingItem_itemGrossWeightUnit.setText(receivingItemModel.getProduct().getWeightprofile() == null ? "" : receivingItemModel.getProduct().getWeightprofile().getWeightUnit());
-            GlideApp.with(getContext())
-                    .load(R.drawable.mailbox_black)
-                    .error(R.drawable.question_purple)
-                    .placeholder(R.drawable.question_purple)
-                    .fitCenter()
-                    .into(viewHolder.receivingItem_image);
+            viewHolder.receivingItem_image.setImageDrawable(ContextCompat.getDrawable(getContext(),R.drawable.mailbox_black));
+//            GlideApp.with(getContext())
+//                    .load(R.drawable.mailbox_black)
+//                    .error(R.drawable.question_purple)
+//                    .placeholder(R.drawable.question_purple)
+//                    .fitCenter()
+//                    .into(viewHolder.receivingItem_image);
 
             viewHolder.receivingItem_linear_edit.setOnClickListener(new View.OnClickListener() {
                 @Override
