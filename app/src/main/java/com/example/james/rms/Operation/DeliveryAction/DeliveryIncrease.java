@@ -117,9 +117,9 @@ public class DeliveryIncrease extends AppCompatActivity implements View.OnClickL
         //
         order_original = new ArrayList<>();
         for(ReceivingOrderModel r : receivingOrderModels){
-            ReceivingOrderModel rOrder = new ReceivingOrderModel();
+            ReceivingOrderModel rOrder =r.newReceivingOrderModel();
             List<ReceivingItemModel> rItem = new ArrayList<>();
-            for(ReceivingItemModel i : r.newReceivingOrderModel().getReceivingItem()){
+            for(ReceivingItemModel i : rOrder.getReceivingItem()){
                 rItem.add(i.newReceivingItemModel());
             }
             rOrder.setReceivingItem(rItem);
@@ -149,19 +149,24 @@ public class DeliveryIncrease extends AppCompatActivity implements View.OnClickL
             getDeliveryModelMapWhenEdit(deliveryOrderModel.getDeliveryItem());
             Log.d("asd","deliveryOrder_json : " + deliveryOrder_json);
             Log.d("asd","orginalMapByReceivingItemId : " + orginalMapByReceivingItemId);
-            for(Map.Entry<Long,DeliveryItemModel> entry : orginalMapByReceivingItemId.entrySet()){
-                Long receivingOrderId = entry.getValue().getOrderId();
-                ReceivingItemModel rItem = entry.getValue().getReceivingItem();
-//                for(ReceivingOrderModel order :order_latest){
-//                    if(order.getOrderId() == receivingOrderId){
-//                        order.setReceivingItem(rItem);
-//                        order_listview.add();
-//                    }
-//                }
+            for(ReceivingOrderModel order :order_latest){
+                List<ReceivingItemModel> newItems = new ArrayList<>();
+                    for(ReceivingItemModel item: order.getReceivingItem()) {
+                        if (orginalMapByReceivingItemId.containsKey(item.getReceivingId())) {
+                            newItems.add(item);
+                        }
+                    }
+                    if(!newItems.isEmpty()){
+                        order.setReceivingItem(newItems);
+                        order_listview.add(order);
+                    }
             }
+
 //            setAllField(orderModel);
-            return;
+//            return;
         }
+        deliveryIncreaseItemExpandableAdapter = new DeliveryIncreaseItemExpandableAdapter(this,order_listview,orginalMapByReceivingItemId,listView);
+        listView.setAdapter(deliveryIncreaseItemExpandableAdapter);
         setUpListView(order_listview);
         Log.v("asd","DeliveryIncrease-[order_original] :" + order_original);
     }
