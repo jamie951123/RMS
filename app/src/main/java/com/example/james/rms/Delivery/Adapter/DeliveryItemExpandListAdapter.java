@@ -2,8 +2,10 @@ package com.example.james.rms.Delivery.Adapter;
 
 import android.content.Context;
 import android.support.v4.content.ContextCompat;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.james.rms.CommonProfile.MyExpandableListAdapter;
@@ -32,6 +34,42 @@ public class DeliveryItemExpandListAdapter extends MyExpandableListAdapter<Deliv
     }
 
     @Override
+    public View getGroupView(final int groupPosition, boolean isExpanded, View convertView, ViewGroup parent) {
+        GroupHolder viewHolder;
+        DeliveryItemModel deliveryItemModel = getGroup(groupPosition);
+        if (convertView == null) {
+            convertView = getLayoutInflater().inflate(R.layout.delivery_item_expendablelist_group, parent, false);
+            viewHolder = new GroupHolder(convertView);
+            convertView.setTag(viewHolder);
+        } else {
+            viewHolder = (GroupHolder) convertView.getTag();
+        }
+        viewHolder.imageView.setImageDrawable(ContextCompat.getDrawable(getContext(),R.drawable.mailbox_black));
+        viewHolder.deliveryItem_ProductCode.setText(deliveryItemModel.getReceivingItem().getProduct().getProductCode());
+        viewHolder.deliveryItem_ProductName.setText(deliveryItemModel.getReceivingItem().getProduct().getProductName());
+        viewHolder.deliveryItem_itemStockOutDate.setText(ObjectUtil.dateToString_OnlyDate(deliveryItemModel.getItemStockOutDate()));
+        viewHolder.deliveryItem_itemGrossWeight.setText(ObjectUtil.bigDecimalToString(deliveryItemModel.getItemGrossWeight()));
+        viewHolder.deliveryItem_itemGrossWeightUnit.setText(deliveryItemModel.getReceivingItem().getProduct().getWeightprofile()==null?"":deliveryItemModel.getReceivingItem().getProduct().getWeightprofile().getWeightUnit());
+        viewHolder.deliveryItem_itemQuantity.setText(ObjectUtil.intToString(deliveryItemModel.getItemQty()));
+        viewHolder.deliveryItem_itemQuantityUnit.setText(deliveryItemModel.getReceivingItem().getProduct().getQuantityProfile()==null?"":deliveryItemModel.getReceivingItem().getProduct().getQuantityProfile().getQuantityUnit());
+        viewHolder.delivery_item_linear_edit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.d("asd","delivery_item_linear_edit");
+            }
+        });
+
+        viewHolder.delivery_item_linear_delete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.d("asd","delivery_item_image_delete");
+            }
+        });
+        return convertView;
+    }
+
+
+    @Override
     public View getRealChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
         ChildHolder viewHolder;
         DeliveryItemModel deliveryItemModel = getChild(groupPosition,childPosition);
@@ -51,29 +89,6 @@ public class DeliveryItemExpandListAdapter extends MyExpandableListAdapter<Deliv
     @Override
     public int getRealChildrenCount(int groupPosition) {
         return 1;
-    }
-
-    @Override
-    public View getGroupView(final int groupPosition, boolean isExpanded, View convertView, ViewGroup parent) {
-        GroupHolder viewHolder;
-        DeliveryItemModel deliveryItemModel = getGroup(groupPosition);
-        if (convertView == null) {
-            convertView = getLayoutInflater().inflate(R.layout.delivery_item_expendablelist_group, parent, false);
-            viewHolder = new GroupHolder(convertView);
-            convertView.setTag(viewHolder);
-        } else {
-            viewHolder = (GroupHolder) convertView.getTag();
-        }
-        viewHolder.imageView.setImageDrawable(ContextCompat.getDrawable(getContext(),R.drawable.mailbox_black));
-        viewHolder.deliveryItem_ProductCode.setText(deliveryItemModel.getReceivingItem().getProduct().getProductCode());
-        viewHolder.deliveryItem_ProductName.setText(deliveryItemModel.getReceivingItem().getProduct().getProductName());
-        viewHolder.deliveryItem_itemStockOutDate.setText(ObjectUtil.dateToString_OnlyDate(deliveryItemModel.getItemStockOutDate()));
-        viewHolder.deliveryItem_itemGrossWeight.setText(ObjectUtil.bigDecimalToString(deliveryItemModel.getItemGrossWeight()));
-        viewHolder.deliveryItem_itemGrossWeightUnit.setText(deliveryItemModel.getReceivingItem().getProduct().getWeightprofile()==null?"":deliveryItemModel.getReceivingItem().getProduct().getWeightprofile().getWeightUnit());
-        viewHolder.deliveryItem_itemQuantity.setText(ObjectUtil.intToString(deliveryItemModel.getItemQty()));
-        viewHolder.deliveryItem_itemQuantityUnit.setText(deliveryItemModel.getReceivingItem().getProduct().getQuantityProfile()==null?"":deliveryItemModel.getReceivingItem().getProduct().getQuantityProfile().getQuantityUnit());
-
-        return convertView;
     }
 
 
@@ -113,6 +128,10 @@ public class DeliveryItemExpandListAdapter extends MyExpandableListAdapter<Deliv
         TextView deliveryItem_itemQuantity;
         @BindView(R.id.deliveryItem_itemQuantityUnit)
         TextView deliveryItem_itemQuantityUnit;
+        @BindView(R.id.delivery_item_linear_edit)
+        LinearLayout delivery_item_linear_edit;
+        @BindView(R.id.delivery_item_linear_delete)
+        LinearLayout delivery_item_linear_delete;
 
 
         public GroupHolder(View view){

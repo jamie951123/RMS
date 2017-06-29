@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import com.example.james.rms.CommonProfile.Graphics.GenericChat;
 import com.example.james.rms.CommonProfile.Library.AnimatedExpandableListView;
 import com.example.james.rms.CommonProfile.MyBaseFragment;
 import com.example.james.rms.CommonProfile.ObjectUtil;
@@ -18,6 +19,8 @@ import com.example.james.rms.Core.Model.DeliveryItemModel;
 import com.example.james.rms.Core.Model.DeliveryOrderModel;
 import com.example.james.rms.Delivery.Adapter.DeliveryItemExpandListAdapter;
 import com.example.james.rms.R;
+import com.github.mikephil.charting.charts.HorizontalBarChart;
+import com.github.mikephil.charting.data.BarEntry;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,6 +36,8 @@ public class Delivery_Item extends MyBaseFragment{
 
     @BindView(R.id.de_item_listview)
     AnimatedExpandableListView listView;
+    @BindView(R.id.deliveryItem_HorbarChart)
+    HorizontalBarChart horizontalBarChart;
 
     //Interface
     private DeliveryItemDao deliveryItemDao = new DeliveryItemDaoImpl();
@@ -44,6 +49,10 @@ public class Delivery_Item extends MyBaseFragment{
     //Adapter
     private DeliveryItemExpandListAdapter deliveryItemExpandListAdapter;
 
+    //
+    private float spaceForBar = 1f;
+    private List<String> theName;
+    private List<BarEntry> barEntries ;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -55,7 +64,6 @@ public class Delivery_Item extends MyBaseFragment{
         //partyId
         String combine_partyId = DeliveryItemCombine.combine_partyId(partyId);
 
-        deliveryItemModels = deliveryItemDao.findAll();
 
 //        pager.setPagingEnabled(false);
         return rootView;
@@ -89,5 +97,24 @@ public class Delivery_Item extends MyBaseFragment{
         deliveryItemExpandListAdapter = new DeliveryItemExpandListAdapter(getActivity(), deliveryOrderModel);
         listView.setAdapter(deliveryItemExpandListAdapter);
         listView.setGroupIndicator(null);
+
+        GenericChat genericChat = new GenericChat();
+        getCharDateAndLabel();
+        genericChat.horizontalBarChart(getActivity(),horizontalBarChart,barEntries,theName);
     }
+
+    public void getCharDateAndLabel(){
+        barEntries = new ArrayList<>();
+        theName = new ArrayList<>();
+        for(int i = 0; i< deliveryItemModels.size(); i++){
+            DeliveryItemModel deliveryItemModel = deliveryItemModels.get(i);
+            String label = deliveryItemModel.getReceivingItem().getProduct()==null ? "":ObjectUtil.isNullEmpty(deliveryItemModel.getReceivingItem().getProduct().getProductName()) ? "":deliveryItemModel.getReceivingItem().getProduct().getProductName();
+            BarEntry barEntry = new BarEntry (i*spaceForBar,
+                    deliveryItemModel.getItemGrossWeight() == null ? 0 : deliveryItemModel.getItemGrossWeight().intValueExact(), label);
+            barEntries.add(barEntry);
+            theName.add(label);
+
+        }
+    }
+
 }

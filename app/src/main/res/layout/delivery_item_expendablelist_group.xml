@@ -234,7 +234,74 @@
 
                     </LinearLayout>
 
+                    <!--Finish Blue-->
+
                 </LinearLayout>
+
+            </LinearLayout>
+            <!--End Blue-->
+
+            <!--Bottom-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="4"
+                android:orientation="horizontal"
+                android:paddingTop="@dimen/card_margin">
+
+                <!--Edit-->
+                <LinearLayout
+                    android:id="@+id/delivery_item_linear_edit"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:foreground="?android:attr/selectableItemBackground"
+                    android:orientation="vertical">
+
+                    <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+                        android:id="@+id/delivery_item_image_edit"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:src="@drawable/pencil_color"
+                        app:civ_border_width="2dp"
+                        app:civ_fill_color="@color/organeFFC266" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:text="@string/label_edit"
+                        android:textSize="15sp" />
+                </LinearLayout>
+
+                <!--Delete-->
+                <LinearLayout
+                    android:id="@+id/delivery_item_linear_delete"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:foreground="?android:attr/selectableItemBackground"
+                    android:orientation="vertical">
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        xmlns:app="http://schemas.android.com/apk/res-auto"
+                        android:id="@+id/delivery_item_image_delete"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:src="@drawable/delete_color"
+                        app:civ_border_width="2dp"
+                        app:civ_fill_color="@color/redFF3333" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:text="@string/label_delete"
+                        android:textSize="15sp" />
+                </LinearLayout>
+
             </LinearLayout>
 
         </LinearLayout>
