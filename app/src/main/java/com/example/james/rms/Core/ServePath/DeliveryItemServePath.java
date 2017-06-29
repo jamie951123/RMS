@@ -38,4 +38,11 @@ public class DeliveryItemServePath {
         return serve_path;
     }
 
+    public static String serve_delete() {
+        String serve = ServeProfile.getServe();
+        String path = ServeProfile.getDe_item_delete();
+        String serve_path = serve + path;
+        return serve_path;
+    }
+
 }

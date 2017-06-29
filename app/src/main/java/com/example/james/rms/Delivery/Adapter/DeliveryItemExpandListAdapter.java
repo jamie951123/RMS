@@ -10,8 +10,13 @@ import android.widget.TextView;
 
 import com.example.james.rms.CommonProfile.MyExpandableListAdapter;
 import com.example.james.rms.CommonProfile.ObjectUtil;
+import com.example.james.rms.CommonProfile.ResponseStatus;
+import com.example.james.rms.Core.Combine.DeliveryItemCombine;
+import com.example.james.rms.Core.Dao.DeliveryItemDao;
+import com.example.james.rms.Core.Dao.DeliveryItemDaoImpl;
 import com.example.james.rms.Core.Model.DeliveryItemModel;
 import com.example.james.rms.Core.Model.DeliveryOrderModel;
+import com.example.james.rms.Core.Model.ResponseMessage;
 import com.example.james.rms.R;
 import com.github.siyamed.shapeimageview.RoundedImageView;
 
@@ -36,7 +41,7 @@ public class DeliveryItemExpandListAdapter extends MyExpandableListAdapter<Deliv
     @Override
     public View getGroupView(final int groupPosition, boolean isExpanded, View convertView, ViewGroup parent) {
         GroupHolder viewHolder;
-        DeliveryItemModel deliveryItemModel = getGroup(groupPosition);
+        final DeliveryItemModel deliveryItemModel = getGroup(groupPosition);
         if (convertView == null) {
             convertView = getLayoutInflater().inflate(R.layout.delivery_item_expendablelist_group, parent, false);
             viewHolder = new GroupHolder(convertView);
@@ -62,7 +67,15 @@ public class DeliveryItemExpandListAdapter extends MyExpandableListAdapter<Deliv
         viewHolder.delivery_item_linear_delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.d("asd","delivery_item_image_delete");
+                DeliveryItemCombine deliveryItemCombine = new DeliveryItemCombine(DeliveryItemModel.class);
+                String json = deliveryItemCombine.modelToJson(deliveryItemModel);
+                DeliveryItemDao deliveryItemDao = new DeliveryItemDaoImpl();
+                ResponseMessage responseMessage = deliveryItemDao.delete(json);
+                if (responseMessage != null && ResponseStatus.getSuccessful().equalsIgnoreCase(responseMessage.getMessage_status())) {
+                    getFilteredData().remove(groupPosition);
+                    notifyDataSetChanged();
+                }
+                Log.d("asd", "[ReceivingItemExpandListAdapter]-responseMessage : " + responseMessage);
             }
         });
         return convertView;

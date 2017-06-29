@@ -4,8 +4,10 @@ import android.util.Log;
 
 import com.example.james.rms.CommonProfile.GsonUtil;
 import com.example.james.rms.Core.Model.DeliveryItemModel;
+import com.example.james.rms.Core.Model.ResponseMessage;
 import com.example.james.rms.Core.ServePath.DeliveryItemServePath;
 import com.example.james.rms.NetWork.HttpGetAsync;
+import com.example.james.rms.NetWork.HttpPostAsync;
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 import com.google.gson.reflect.TypeToken;
@@ -58,5 +60,29 @@ public class DeliveryItemDaoImpl implements DeliveryItemDao {
     @Override
     public List<DeliveryItemModel> saves(String deliveryItemModels) {
         return null;
+    }
+
+    @Override
+    public ResponseMessage delete(String deliveryItemModel_json) {
+        Log.d("asd:","[DeliveryItemModel]-delete(Request--JSON):" + deliveryItemModel_json);
+        String result = "";
+        ResponseMessage responseMessage = new ResponseMessage();
+        try {
+            result = new HttpPostAsync().execute(DeliveryItemServePath.serve_delete(),deliveryItemModel_json).get();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+        Log.d("asd:","[DeliveryItemModel]-delete(Response--String): :"+result);
+        try{
+            Gson gson = GsonUtil.fromJson();
+            responseMessage = gson.fromJson(result,ResponseMessage.class);
+            Log.d("asd","[DeliveryItemModel]-delete(Gson): "+responseMessage);
+        }catch(JsonSyntaxException e){
+            e.printStackTrace();
+        }
+
+        return responseMessage;
     }
 }

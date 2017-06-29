@@ -1,6 +1,7 @@
 package com.example.james.rms.Core.Dao;
 
 import com.example.james.rms.Core.Model.DeliveryItemModel;
+import com.example.james.rms.Core.Model.ResponseMessage;
 
 import java.util.List;
 
@@ -18,4 +19,5 @@ public interface DeliveryItemDao {
     List<DeliveryItemModel> saves (String deliveryItemModels);
 
 //    Delete
+    ResponseMessage delete (String deliveryItemModel);
 }
