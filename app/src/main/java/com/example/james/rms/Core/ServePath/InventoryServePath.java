@@ -29,16 +29,16 @@ public class InventoryServePath {
         return serve_path;
     }
 
-    public static String serve_insertInventory(){
+    public static String serve_save(){
         String serve = ServeProfile.getServe();
-        String path = ServeProfile.getInventory_insertInventory();
+        String path = ServeProfile.getInventory_save();
         String serve_path = serve+path;
         return serve_path;
     }
 
-    public static String serve_insertInventorys(){
+    public static String serve_saves(){
         String serve = ServeProfile.getServe();
-        String path = ServeProfile.getInventory_insertInventorys();
+        String path = ServeProfile.getInventory_saves();
         String serve_path = serve+path;
         return serve_path;
     }

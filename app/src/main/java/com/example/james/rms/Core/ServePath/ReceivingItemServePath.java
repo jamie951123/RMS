@@ -49,4 +49,11 @@ public class ReceivingItemServePath {
         return serve_path;
     }
 
+    public static String deletes(){
+        String serve = ServeProfile.getServe();
+        String path = ServeProfile.getRe_item_deletes();
+        String serve_path = serve+path;
+        return serve_path;
+    }
+
 }

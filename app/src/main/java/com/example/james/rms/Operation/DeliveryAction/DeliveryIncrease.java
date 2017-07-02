@@ -106,15 +106,12 @@ public class DeliveryIncrease extends AppCompatActivity implements View.OnClickL
         common_partyId =  partyIdPreferences.getPreferences_PartyId().get("partyId");
         //Combine
         String combine_partyIdAndstatus = DeliveryOrderSearchCombine.combine_partyIdAndStatus(common_partyId,Status.PROGRESS);
-        //HttpOK
-//        String combine_partyIdAndStatus = DeliveryOrderSearchCombine.combine_partyIdAndStatus(common_partyId, Status.PROGRESS);
-//        List<ReceivingOrderModel> deliveryModels = receivingOrderDao.findByOrderIdAndStatus(combine_partyIdAndStatus);
-
         //
         ReceivingOrderDao receivingOrderDao = new ReceivingOrderDaoImpl();
         List<ReceivingOrderModel> receivingOrderModels = receivingOrderDao.findByPartyIdAndStatus(combine_partyIdAndstatus);
         Log.d("asd","receivingOrderModels :" + receivingOrderModels);
-        //
+
+        //Creat Original ReceivingOrder
         order_original = new ArrayList<>();
         for(ReceivingOrderModel r : receivingOrderModels){
             ReceivingOrderModel rOrder =r.newReceivingOrderModel();
@@ -125,11 +122,14 @@ public class DeliveryIncrease extends AppCompatActivity implements View.OnClickL
             rOrder.setReceivingItem(rItem);
             order_original.add(rOrder);
         }
+        //Last ReceivingOrder
         order_latest = new ArrayList<>(receivingOrderModels);
+        //Listview ReceivingOrder
         order_listview = new ArrayList<>();
         //order and child checkbox setup
         setOriginalCheckbox(order_original);
-
+        //new DeliveryOrder
+        deliveryOrderModel = new DeliveryOrderModel();
 //        Intent
         String deliveryOrder_json = null;
         if (savedInstanceState == null) {
@@ -141,9 +141,10 @@ public class DeliveryIncrease extends AppCompatActivity implements View.OnClickL
             }
         }
 
+        //Edit
         if (ObjectUtil.isNotNullEmpty(deliveryOrder_json)) {
             DeliveryOrderCombine deliveryOrderCombine = new DeliveryOrderCombine(DeliveryOrderModel.class);
-            deliveryOrderModel = new DeliveryOrderModel();
+//            deliveryOrderModel = new DeliveryOrderModel();
             deliveryOrderModel = deliveryOrderCombine.jsonToModel(deliveryOrder_json);
             toolbar_title.setText(R.string.title_edit_delivery);
             getDeliveryModelMapWhenEdit(deliveryOrderModel.getDeliveryItem());
@@ -161,15 +162,21 @@ public class DeliveryIncrease extends AppCompatActivity implements View.OnClickL
                         order_listview.add(order);
                     }
             }
-
-//            setAllField(orderModel);
-//            return;
+            setLatestCheckBox(order_listview);
+//            SetDeliveryOrder Field
+            setAllField(deliveryOrderModel);
         }
         deliveryIncreaseItemExpandableAdapter = new DeliveryIncreaseItemExpandableAdapter(this,order_listview,orginalMapByReceivingItemId,listView);
         listView.setAdapter(deliveryIncreaseItemExpandableAdapter);
         setUpListView(order_listview);
         Log.v("asd","DeliveryIncrease-[order_original] :" + order_original);
     }
+
+    private void setAllField(DeliveryOrderModel deliveryOrderModel) {
+        remark_edit.setText(ObjectUtil.isNullEmpty(deliveryOrderModel.getRemark())?"":deliveryOrderModel.getRemark());
+        datePicker.setText(ObjectUtil.dateToString_OnlyDate(deliveryOrderModel.getStockOutDate()));
+    }
+
 
     //    WHen Edit
     private void getDeliveryModelMapWhenEdit(List<DeliveryItemModel> itemModels){
@@ -204,7 +211,7 @@ public class DeliveryIncrease extends AppCompatActivity implements View.OnClickL
         }
         deliveryIncreaseDialog.show(fm,"delivery_increase");
         Communicate_Interface communicateInterface = deliveryIncreaseDialog;
-        communicateInterface.putOriginalProductModels(order_original,order_latest,expandableSelectedModel);
+        communicateInterface.putOriginalProductModels(order_original,null,expandableSelectedModel);
         Toast.makeText(this,"DeliveryIncrease",Toast.LENGTH_SHORT).show();
     }
 
@@ -218,6 +225,18 @@ public class DeliveryIncrease extends AppCompatActivity implements View.OnClickL
         newFragment.show(getSupportFragmentManager(), StartActivityForResultKey.deliveryIncrease);
     }
 
+    //Edit
+    public void setLatestCheckBox(List<ReceivingOrderModel>  receivingOrderModel){
+        for (int i=0; i<receivingOrderModel.size();i++){
+            List<ReceivingItemModel> receivingItemModels = receivingOrderModel.get(i).getReceivingItem();
+            for(int j=0; j< receivingItemModels.size();j++){
+                Long existReceivingItemId = receivingItemModels.get(j).getReceivingId();
+                if(expandableSelectedModel.getIsItemSelected().containsKey(existReceivingItemId))
+                    expandableSelectedModel.getIsItemSelected().put(existReceivingItemId,true);
+            }
+        }
+    }
+    //Create
     public void setOriginalCheckbox(List<ReceivingOrderModel>  receivingOrderModel){
         LinkedHashMap<Long,Boolean> isOrderSelected = new LinkedHashMap<>();
         LinkedHashMap<Long,Boolean> isItemSelected = new LinkedHashMap<>();
@@ -255,7 +274,7 @@ public class DeliveryIncrease extends AppCompatActivity implements View.OnClickL
 //    Save
     @Override
     public boolean onOptionsItemSelected(MenuItem menuItem) {
-        DeliveryOrderModel deliveryOrderModel = new DeliveryOrderModel();
+//        DeliveryOrderModel deliveryOrderModel = new DeliveryOrderModel();
         List<DeliveryItemModel> deliveryItemModels = new ArrayList<>();
         int itemCount = 0;
         Date createDate = new Date();

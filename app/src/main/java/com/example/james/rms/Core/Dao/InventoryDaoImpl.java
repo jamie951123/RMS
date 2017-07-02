@@ -58,7 +58,7 @@ public class InventoryDaoImpl implements InventoryDao {
         Log.d("asd","[InventoryModel]-save(Request--JSON):" + json);
         String result = "";
         try {
-            result = new HttpPostAsync().execute(InventoryServePath.serve_insertInventory(),json).get();
+            result = new HttpPostAsync().execute(InventoryServePath.serve_save(),json).get();
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {
@@ -83,7 +83,7 @@ public class InventoryDaoImpl implements InventoryDao {
         Log.d("asd","[InventoryModel]-saves(Request--JSON):" + json);
         String result = "";
         try {
-            result = new HttpPostAsync().execute(InventoryServePath.serve_insertInventorys(),json).get();
+            result = new HttpPostAsync().execute(InventoryServePath.serve_saves(),json).get();
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {

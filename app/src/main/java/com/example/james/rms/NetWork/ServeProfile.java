@@ -47,6 +47,7 @@ public class ServeProfile {
     final static String re_item_updateOrderIdNullByOrderId = "rms/receiving/item/updateOrderIdNullByOrderId";
     final static String re_item_deleteByProductId = "rms/receiving/item/deleteByProductId";
     final static String re_item_delete= "rms/receiving/item/delete";
+    final static String re_item_deletes= "rms/receiving/item/deletes";
 
     //WeightProfile
     final static String weight_findAll = "rms/weight/findAll";
@@ -65,8 +66,8 @@ public class ServeProfile {
     final static String inventory_findAll = "rms/inventory/findAll";
     final static String inventory_findByPartyId = "rms/inventory/findByPartyId";
     final static String inventory_findByPartyIdAndStatus = "rms/inventory/findByPartyIdAndStauts";
-    final static String inventory_insertInventory = "rms/inventory/insertInventory";
-    final static String inventory_insertInventorys = "rms/inventory/insertInventorys";
+    final static String inventory_save = "rms/inventory/save";
+    final static String inventory_saves = "rms/inventory/saves";
     final static String inventory_deleteByProductId = "rms/inventory/deleteByProductId";
 
     //InventorySum
@@ -246,12 +247,12 @@ public class ServeProfile {
         return inventory_findByPartyIdAndStatus;
     }
 
-    public static String getInventory_insertInventory() {
-        return inventory_insertInventory;
+    public static String getInventory_save() {
+        return inventory_save;
     }
 
-    public static String getInventory_insertInventorys() {
-        return inventory_insertInventorys;
+    public static String getInventory_saves() {
+        return inventory_saves;
     }
 
     public static String getInventory_deleteByProductId() {
@@ -324,5 +325,9 @@ public class ServeProfile {
 
     public static String getDe_saveOrderAndItem() {
         return de_saveOrderAndItem;
+    }
+
+    public static String getRe_item_deletes() {
+        return re_item_deletes;
     }
 }

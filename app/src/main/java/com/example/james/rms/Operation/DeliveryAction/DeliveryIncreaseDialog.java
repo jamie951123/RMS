@@ -43,7 +43,7 @@ public class DeliveryIncreaseDialog extends DialogFragment implements Communicat
 
     //
     private List<ReceivingOrderModel> item_original;
-    private List<ReceivingOrderModel> item_latest;
+//    private List<ReceivingOrderModel> item_latest; //only receiving
     private List<ReceivingOrderModel> item_lsitview;
     //
     private ExpandableSelectedModel expandableSelectedModel;
@@ -63,14 +63,14 @@ public class DeliveryIncreaseDialog extends DialogFragment implements Communicat
         cancel.setOnClickListener(this);
         submit.setOnClickListener(this);
 
-        deliveryIncreaseDialogExpandableAdapter = new DeliveryIncreaseDialogExpandableAdapter(getActivity(), item_latest, expandableSelectedModel, listView);
+        deliveryIncreaseDialogExpandableAdapter = new DeliveryIncreaseDialogExpandableAdapter(getActivity(), item_original, expandableSelectedModel, listView);
         listView.setAdapter(deliveryIncreaseDialogExpandableAdapter);
         listView.setGroupIndicator(null);
         listView.setChildIndicator(null);
         listView.setDivider(ContextCompat.getDrawable(getActivity(), R.color.black1F1F1F));
         listView.setChildDivider(ContextCompat.getDrawable(getActivity(), R.color.transperent_color));
         listView.setDividerHeight(5);
-        for (int i = 0; i < item_latest.size(); i++) {
+        for (int i = 0; i < item_original.size(); i++) {
             listView.expandGroup(i);
 
         }
@@ -115,7 +115,6 @@ public class DeliveryIncreaseDialog extends DialogFragment implements Communicat
     @Override
     public void putOriginalProductModels(List<ReceivingOrderModel> item_original, List<ReceivingOrderModel> item_latest, ExpandableSelectedModel expandableSelectModel) {
         this.item_original = item_original;
-        this.item_latest = item_latest;
         this.expandableSelectedModel = expandableSelectModel;
     }
 
@@ -128,7 +127,7 @@ public class DeliveryIncreaseDialog extends DialogFragment implements Communicat
     public boolean onChildClick(ExpandableListView expandableListView, View view, int i, int i1, long l) {
         DeliveryIncreaseDialogExpandableAdapter.ChildHolder childHolder = (DeliveryIncreaseDialogExpandableAdapter.ChildHolder) view.getTag();
         childHolder.child_checkbox.toggle();
-        ReceivingItemModel receivingItemModel = item_latest.get(i).getReceivingItem().get(i1);
+        ReceivingItemModel receivingItemModel = item_original.get(i).getReceivingItem().get(i1);
         deliveryIncreaseDialogExpandableAdapter.getExpandableSelectedModel().getIsItemSelected().put(receivingItemModel.getReceivingId(), childHolder.child_checkbox.isChecked());
 //        Log.d("asd","onChildClick --i :" + i + "---i1 :" + i1 + "----isChecked :" + childHolder.child_checkbox.isChecked());
         return true;
@@ -138,7 +137,7 @@ public class DeliveryIncreaseDialog extends DialogFragment implements Communicat
     public boolean onGroupClick(ExpandableListView expandableListView, View view, int i, long l) {
         DeliveryIncreaseDialogExpandableAdapter.GroupHolder groupHolder = (DeliveryIncreaseDialogExpandableAdapter.GroupHolder) view.getTag();
         groupHolder.group_checkbox.toggle();
-        deliveryIncreaseDialogExpandableAdapter.getExpandableSelectedModel().getIsOrderSelected().put(item_latest.get(i).getOrderId(), groupHolder.group_checkbox.isChecked());
+        deliveryIncreaseDialogExpandableAdapter.getExpandableSelectedModel().getIsOrderSelected().put(item_original.get(i).getOrderId(), groupHolder.group_checkbox.isChecked());
 //        Log.d("asd","onGroupClick --i :" + i + "----isChecked :" + groupHolder.group_checkbox.isChecked());
         return true;
     }
@@ -153,8 +152,8 @@ public class DeliveryIncreaseDialog extends DialogFragment implements Communicat
                 orginal_ritem_map.put(itemModel.getReceivingId(),itemModel);
             }
         }
-        for (int i=0; i<item_latest.size(); i++) {
-            ReceivingOrderModel order = item_latest.get(i);
+        for (int i=0; i<item_original.size(); i++) {
+            ReceivingOrderModel order = item_original.get(i);
             ReceivingOrderModel newOrder = order.newReceivingOrderModelWithOutReceivingItem();
             isSelected = false;
             List<ReceivingItemModel> itemModel = new ArrayList<>();

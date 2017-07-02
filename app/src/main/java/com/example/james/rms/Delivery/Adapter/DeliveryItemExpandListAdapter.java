@@ -1,6 +1,7 @@
 package com.example.james.rms.Delivery.Adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.View;
@@ -11,12 +12,15 @@ import android.widget.TextView;
 import com.example.james.rms.CommonProfile.MyExpandableListAdapter;
 import com.example.james.rms.CommonProfile.ObjectUtil;
 import com.example.james.rms.CommonProfile.ResponseStatus;
+import com.example.james.rms.CommonProfile.StartActivityForResultKey;
 import com.example.james.rms.Core.Combine.DeliveryItemCombine;
+import com.example.james.rms.Core.Combine.DeliveryOrderCombine;
 import com.example.james.rms.Core.Dao.DeliveryItemDao;
 import com.example.james.rms.Core.Dao.DeliveryItemDaoImpl;
 import com.example.james.rms.Core.Model.DeliveryItemModel;
 import com.example.james.rms.Core.Model.DeliveryOrderModel;
 import com.example.james.rms.Core.Model.ResponseMessage;
+import com.example.james.rms.Operation.DeliveryAction.DeliveryIncrease;
 import com.example.james.rms.R;
 import com.github.siyamed.shapeimageview.RoundedImageView;
 
@@ -60,7 +64,13 @@ public class DeliveryItemExpandListAdapter extends MyExpandableListAdapter<Deliv
         viewHolder.delivery_item_linear_edit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.d("asd","delivery_item_linear_edit");
+                Intent intent = new Intent();
+                intent.setClass(getContext(), DeliveryIncrease.class);
+                DeliveryOrderCombine deliveryOrderCombine = new DeliveryOrderCombine(DeliveryOrderModel.class);
+                String deliveryOrder_json = deliveryOrderCombine.modelToJson(deliveryOrderModel);
+                intent.putExtra(StartActivityForResultKey.deliveryOrderModel,deliveryOrder_json);
+                getContext().startActivity(intent);
+                Log.d("asd","[DeliveryItemExpandListAdapter] : " + deliveryOrder_json);
             }
         });
 
