@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 import com.example.james.rms.CommonProfile.MyBaseAdapter;
 import com.example.james.rms.CommonProfile.ObjectUtil;
-import com.example.james.rms.Core.Model.InventorySumModel;
+import com.example.james.rms.Core.Model.InventoryModel;
 import com.example.james.rms.R;
 
 import java.math.BigDecimal;
@@ -24,9 +24,9 @@ import de.hdodenhof.circleimageview.CircleImageView;
  * Created by james on 16/3/2017.
  */
 
-public class InventoryItemListAdapter  extends MyBaseAdapter<InventorySumModel>{
+public class InventoryItemListAdapter  extends MyBaseAdapter<InventoryModel>{
 
-    public InventoryItemListAdapter(Context context, List<InventorySumModel> dataArrayList) {
+    public InventoryItemListAdapter(Context context, List<InventoryModel> dataArrayList) {
         super(context, dataArrayList);
     }
 
@@ -41,10 +41,10 @@ public class InventoryItemListAdapter  extends MyBaseAdapter<InventorySumModel>{
             convertView.setTag(viewHolder);
         }
 
-        BigDecimal itemGw = getItem(position).getGrossWeight();
+        BigDecimal itemGw = getItem(position).getTotalGrossWeight();
         String itemGwUnit = getItem(position).getWeightUnit();
 
-        Integer itemQty = getItem(position).getQty();
+        Integer itemQty = getItem(position).getTotalQty();
         String itemQtyUnit = getItem(position).getQuantityUnit();
 
         viewHolder.productCode.setText(getItem(position).getProductCode());
@@ -58,21 +58,21 @@ public class InventoryItemListAdapter  extends MyBaseAdapter<InventorySumModel>{
     }
 
     @Override
-    public boolean productCodeMatch(InventorySumModel inventorySumModel, String string) {
-        if(ObjectUtil.isNullEmpty(inventorySumModel.getProductCode()) && ObjectUtil.isNullEmpty(string)){
+    public boolean productCodeMatch(InventoryModel inventoryModel, String string) {
+        if(ObjectUtil.isNullEmpty(inventoryModel.getProductCode()) && ObjectUtil.isNullEmpty(string)){
             return true;
         }
-        boolean result = inventorySumModel.getProductCode().toUpperCase().contains(string.toUpperCase());
+        boolean result = inventoryModel.getProductCode().toUpperCase().contains(string.toUpperCase());
         return result;
     }
 
     @Override
-    public boolean productNameMatch(InventorySumModel inventorySumModel, String string) {
+    public boolean productNameMatch(InventoryModel inventoryModel, String string) {
         return false;
     }
 
     @Override
-    public boolean receivingRemarkMatch(InventorySumModel inventorySumModel, String string) {
+    public boolean receivingRemarkMatch(InventoryModel inventoryModel, String string) {
         return false;
     }
 

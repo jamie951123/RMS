@@ -9,15 +9,13 @@ import android.widget.ListView;
 import com.example.james.rms.CommonProfile.MyBaseFragment;
 import com.example.james.rms.CommonProfile.ObjectUtil;
 import com.example.james.rms.CommonProfile.SharePreferences.PartyIdPreferences;
-import com.example.james.rms.Core.Dao.InventorySumDao;
-import com.example.james.rms.Core.Dao.InventorySumDaoImpl;
+import com.example.james.rms.Core.Dao.InventoryDao;
+import com.example.james.rms.Core.Dao.InventoryDaoImpl;
 import com.example.james.rms.Core.Model.InventoryModel;
-import com.example.james.rms.Core.Model.InventorySumModel;
 import com.example.james.rms.Core.Model.Status;
 import com.example.james.rms.Core.SearchObject.SearchCombine;
 import com.example.james.rms.ITF.ViewPagerListener;
 import com.example.james.rms.Inventory.Adapter.InventoryItemListAdapter;
-import com.example.james.rms.Inventory.InventoryCombine;
 import com.example.james.rms.R;
 
 import java.util.List;
@@ -34,7 +32,6 @@ public class Inventory_Item extends MyBaseFragment implements ViewPagerListener{
     ListView listView;
 
     List<InventoryModel> inventoryModels;
-    List<InventorySumModel> inventorySumModels;
 
     private InventoryItemListAdapter inventoryItemListAdapter;
     @Override
@@ -48,14 +45,11 @@ public class Inventory_Item extends MyBaseFragment implements ViewPagerListener{
         //partyId
         String combine_partyIdAndStatus = SearchCombine.combine_partyIdAndStatus(partyId, Status.PROGRESS);
         //Service Inventory
-//        InventoryDao inventoryDao = new InventoryDaoImpl();
-//        inventoryModels = inventoryDao.findByPartyIdAndStatus(combine_partyIdAndStatus);
-        //Service InventorySum
-        InventorySumDao inventorySumDao = new InventorySumDaoImpl();
-        inventorySumModels = inventorySumDao.findByPartyIdAndStatusOrderByProductId(combine_partyIdAndStatus);
+        InventoryDao inventoryDao = new InventoryDaoImpl();
+        inventoryModels = inventoryDao.findByPartyIdAndStatusOrderByProductIdAsc(combine_partyIdAndStatus);
         // this is data fro recycler view
-        if(inventorySumModels != null) {
-            inventoryItemListAdapter = new InventoryItemListAdapter(getActivity(), inventorySumModels);
+        if(inventoryModels != null) {
+            inventoryItemListAdapter = new InventoryItemListAdapter(getActivity(), inventoryModels);
         }
         listView.setAdapter(inventoryItemListAdapter);
         return rootView;

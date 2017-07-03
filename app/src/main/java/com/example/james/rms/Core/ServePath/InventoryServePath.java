@@ -3,49 +3,28 @@ package com.example.james.rms.Core.ServePath;
 import com.example.james.rms.NetWork.ServeProfile;
 
 /**
- * Created by jamie on 2017/4/27.
+ * Created by jamie on 2017/5/1.
  */
 
 public class InventoryServePath {
 
-    public static String serve_findAll(){
-        String serve = ServeProfile.getServe();
-        String path = ServeProfile.getInventory_findAll();
-        String serve_path = serve+path;
-        return serve_path;
-    }
-
-    public static String serve_findByPartyId(){
-        String serve = ServeProfile.getServe();
-        String path = ServeProfile.getInventory_findByPartyId();
-        String serve_path = serve+path;
-        return serve_path;
-    }
-
     public static String serve_findByPartyIdAndStatus(){
         String serve = ServeProfile.getServe();
-        String path = ServeProfile.getInventory_findByPartyIdAndStatus();
+        String path = ServeProfile.getInventorySum_findByPartyIdAndStatus();
         String serve_path = serve+path;
         return serve_path;
     }
 
-    public static String serve_save(){
+    public static String serve_findByPartyIdAndStatusOrderByProductId(){
         String serve = ServeProfile.getServe();
-        String path = ServeProfile.getInventory_save();
+        String path = ServeProfile.getInventorySum_findByPartyIdAndStatusOrderByProductId();
         String serve_path = serve+path;
         return serve_path;
     }
 
-    public static String serve_saves(){
+    public static String serve_findByPartyIdAndStatusOrderByProductIdAsc(){
         String serve = ServeProfile.getServe();
-        String path = ServeProfile.getInventory_saves();
-        String serve_path = serve+path;
-        return serve_path;
-    }
-
-    public static String serve_deleteByProductId(){
-        String serve = ServeProfile.getServe();
-        String path = ServeProfile.getInventory_deleteByProductId();
+        String path = ServeProfile.getInventory_findByPartyIdAndStatusOrderByProductIdAsc();
         String serve_path = serve+path;
         return serve_path;
     }

@@ -1,49 +1,24 @@
 package com.example.james.rms.Core.Model;
 
 import java.math.BigDecimal;
-import java.util.Date;
 
 /**
- * Created by jamie on 2017/4/27.
+ * Created by jamie on 2017/5/1.
  */
 
 public class InventoryModel {
 
-    private Long inventoryId;
-
     private Long productId;
-
     private String partyId;
-
-    private Date createDate;
-
-    private String createBy;
-
-    private Date closeDate;
-
-    private Date lastModifiedDate;
-
-    private String lastModifiedBy;
-
-    private Date stockOutDate;
-
-    private Date stockInDate;
-
-    private String status;
-
-    private BigDecimal grossWeight;
-
-    private Integer qty;
-
-    private ProductModel product;
-
-    public Long getInventoryId() {
-        return inventoryId;
-    }
-
-    public void setInventoryId(Long inventoryId) {
-        this.inventoryId = inventoryId;
-    }
+    private Status status;
+    private Long weightId;
+    private Long quantityId;
+    private String productCode;
+    private String productName;
+    private BigDecimal totalGrossWeight;
+    private String weightUnit;
+    private Integer totalQty;
+    private String quantityUnit;
 
     public Long getProductId() {
         return productId;
@@ -61,111 +36,92 @@ public class InventoryModel {
         this.partyId = partyId;
     }
 
-    public Date getCreateDate() {
-        return createDate;
-    }
-
-    public void setCreateDate(Date createDate) {
-        this.createDate = createDate;
-    }
-
-    public String getCreateBy() {
-        return createBy;
-    }
-
-    public void setCreateBy(String createBy) {
-        this.createBy = createBy;
-    }
-
-    public Date getCloseDate() {
-        return closeDate;
-    }
-
-    public void setCloseDate(Date closeDate) {
-        this.closeDate = closeDate;
-    }
-
-    public Date getLastModifiedDate() {
-        return lastModifiedDate;
-    }
-
-    public void setLastModifiedDate(Date lastModifiedDate) {
-        this.lastModifiedDate = lastModifiedDate;
-    }
-
-    public String getLastModifiedBy() {
-        return lastModifiedBy;
-    }
-
-    public void setLastModifiedBy(String lastModifiedBy) {
-        this.lastModifiedBy = lastModifiedBy;
-    }
-
-    public Date getStockOutDate() {
-        return stockOutDate;
-    }
-
-    public void setStockOutDate(Date stockOutDate) {
-        this.stockOutDate = stockOutDate;
-    }
-
-    public Date getStockInDate() {
-        return stockInDate;
-    }
-
-    public void setStockInDate(Date stockInDate) {
-        this.stockInDate = stockInDate;
-    }
-
-    public String getStatus() {
+    public Status getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(Status status) {
         this.status = status;
     }
 
-    public BigDecimal getGrossWeight() {
-        return grossWeight;
+    public Long getWeightId() {
+        return weightId;
     }
 
-    public void setGrossWeight(BigDecimal grossWeight) {
-        this.grossWeight = grossWeight;
+    public void setWeightId(Long weightId) {
+        this.weightId = weightId;
     }
 
-    public Integer getQty() {
-        return qty;
+    public Long getQuantityId() {
+        return quantityId;
     }
 
-    public void setQty(Integer qty) {
-        this.qty = qty;
+    public void setQuantityId(Long quantityId) {
+        this.quantityId = quantityId;
     }
 
-    public ProductModel getProduct() {
-        return product;
+    public String getProductCode() {
+        return productCode;
     }
 
-    public void setProduct(ProductModel product) {
-        this.product = product;
+    public void setProductCode(String productCode) {
+        this.productCode = productCode;
+    }
+
+    public String getProductName() {
+        return productName;
+    }
+
+    public void setProductName(String productName) {
+        this.productName = productName;
+    }
+
+    public BigDecimal getTotalGrossWeight() {
+        return totalGrossWeight;
+    }
+
+    public void setTotalGrossWeight(BigDecimal totalGrossWeight) {
+        this.totalGrossWeight = totalGrossWeight;
+    }
+
+    public String getWeightUnit() {
+        return weightUnit;
+    }
+
+    public void setWeightUnit(String weightUnit) {
+        this.weightUnit = weightUnit;
+    }
+
+    public Integer getTotalQty() {
+        return totalQty;
+    }
+
+    public void setTotalQty(Integer totalQty) {
+        this.totalQty = totalQty;
+    }
+
+    public String getQuantityUnit() {
+        return quantityUnit;
+    }
+
+    public void setQuantityUnit(String quantityUnit) {
+        this.quantityUnit = quantityUnit;
     }
 
     @Override
     public String toString() {
         return "InventoryModel{" +
-                "inventoryId=" + inventoryId +
-                ", productId=" + productId +
+                "productId=" + productId +
                 ", partyId='" + partyId + '\'' +
-                ", createDate=" + createDate +
-                ", createBy='" + createBy + '\'' +
-                ", closeDate=" + closeDate +
-                ", lastModifiedDate=" + lastModifiedDate +
-                ", lastModifiedBy='" + lastModifiedBy + '\'' +
-                ", stockOutDate=" + stockOutDate +
-                ", stockInDate=" + stockInDate +
                 ", status=" + status +
-                ", grossWeight=" + grossWeight +
-                ", qty=" + qty +
-                ", product=" + product +
+                ", weightId=" + weightId +
+                ", quantityId=" + quantityId +
+                ", productCode='" + productCode + '\'' +
+                ", productName='" + productName + '\'' +
+                ", totalGrossWeight=" + totalGrossWeight +
+                ", weightUnit='" + weightUnit + '\'' +
+                ", totalQty=" + totalQty +
+                ", quantityUnit='" + quantityUnit + '\'' +
                 '}';
     }
 }

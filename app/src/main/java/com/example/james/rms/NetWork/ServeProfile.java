@@ -66,6 +66,7 @@ public class ServeProfile {
     final static String inventory_findAll = "rms/inventory/findAll";
     final static String inventory_findByPartyId = "rms/inventory/findByPartyId";
     final static String inventory_findByPartyIdAndStatus = "rms/inventory/findByPartyIdAndStauts";
+    final static String inventory_findByPartyIdAndStatusOrderByProductIdAsc = "rms/inventory/findByPartyIdAndStatusOrderByProductIdAsc";
     final static String inventory_save = "rms/inventory/save";
     final static String inventory_saves = "rms/inventory/saves";
     final static String inventory_deleteByProductId = "rms/inventory/deleteByProductId";
@@ -329,5 +330,9 @@ public class ServeProfile {
 
     public static String getRe_item_deletes() {
         return re_item_deletes;
+    }
+
+    public static String getInventory_findByPartyIdAndStatusOrderByProductIdAsc() {
+        return inventory_findByPartyIdAndStatusOrderByProductIdAsc;
     }
 }
