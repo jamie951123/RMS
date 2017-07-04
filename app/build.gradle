@@ -70,4 +70,7 @@ dependencies {
 
     //gson
     compile 'com.google.code.gson:gson:2.8.0'
+
+    //Facebook
+    compile 'com.facebook.android:facebook-android-sdk:[4,5)'
 }
