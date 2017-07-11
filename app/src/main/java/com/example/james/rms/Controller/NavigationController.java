@@ -38,6 +38,7 @@ import com.example.james.rms.ProductPool.ProductContainer;
 import com.example.james.rms.R;
 import com.example.james.rms.Receiving.ReceivingContainer;
 import com.example.james.rms.Setting.SettingContainer;
+import com.facebook.login.LoginManager;
 import com.github.clans.fab.FloatingActionButton;
 import com.github.clans.fab.FloatingActionMenu;
 
@@ -66,6 +67,8 @@ public class NavigationController extends AppCompatActivity implements Navigatio
     //
     private NavPagerAdapter navPagerAdapter;
     private List<Fragment> fragments = new ArrayList<>();
+    //
+    private LoginPreferences loginPreferences ;
 
     String partyId;
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,6 +76,7 @@ public class NavigationController extends AppCompatActivity implements Navigatio
         setContentView(R.layout.navigation_controller);
         ButterKnife.bind(this);
         navigationView.setNavigationItemSelectedListener(this);
+        loginPreferences = new LoginPreferences(this,"loginInformation", MODE_PRIVATE);
         setUpActionBar();
         setUpFragmentType();
         setUpViewPager();
@@ -207,7 +211,7 @@ public class NavigationController extends AppCompatActivity implements Navigatio
     }
 
     private void logoutStatus(){
-        LoginPreferences loginPreferences = new LoginPreferences(this,"loginInformation", MODE_PRIVATE);
+        LoginManager.getInstance().logOut();
         if( loginPreferences.getPreferences_loginInformation() != null){
             String username = loginPreferences.getPreferences_loginInformation().get("username");
             String password = loginPreferences.getPreferences_loginInformation().get("password");

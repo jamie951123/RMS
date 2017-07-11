@@ -28,6 +28,16 @@ public class UserProfile{
 
     private Date closeDate;
 
+    private Facebook facebook;
+
+    public Facebook getFacebook() {
+        return facebook;
+    }
+
+    public void setFacebook(Facebook facebook) {
+        this.facebook = facebook;
+    }
+
     public Long getUserProfileId() {
         return userProfileId;
     }
@@ -121,6 +131,7 @@ public class UserProfile{
                 ", lastModifiedDate=" + lastModifiedDate +
                 ", lastModifiedBy='" + lastModifiedBy + '\'' +
                 ", closeDate=" + closeDate +
+                ", facebook=" + facebook +
                 '}';
     }
 }

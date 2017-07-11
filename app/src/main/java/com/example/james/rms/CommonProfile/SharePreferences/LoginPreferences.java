@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 
 import com.example.james.rms.CommonProfile.ObjectUtil;
 import com.example.james.rms.Core.Model.LoginModel;
+import com.example.james.rms.Core.Model.UserProfile;
 
 import java.util.HashMap;
 
@@ -25,9 +26,6 @@ public class LoginPreferences {
         this.sharedLogin = this.context.getSharedPreferences(this.preferencesKey , this.context.MODE_PRIVATE);
     }
 
-    public void setPreferences_loginInformation(){
-
-    }
 
     public void setPreferences_loginInformation(String username, String password){
         clear_loginInformation();
@@ -48,20 +46,34 @@ public class LoginPreferences {
         sharedLogin.edit().putString("closeDate" , ObjectUtil.dateToString(loginModel.getUserProfile().getCloseDate())).apply();
     }
 
+    public void setPreferences_loginInformation(UserProfile userProfile){
+//        clear_loginInformation();
+        sharedLogin.edit().putLong("userProfileId" , userProfile.getUserProfileId()).apply();
+        sharedLogin.edit().putString("username" , userProfile.getUsername()).apply();
+        sharedLogin.edit().putString("password" , userProfile.getPassword()).apply();
+        sharedLogin.edit().putString("partyId" , userProfile.getPartyId()).apply();
+        sharedLogin.edit().putString("status" , userProfile.getStatus()).apply();
+        sharedLogin.edit().putString("createDate" , ObjectUtil.dateToString(userProfile.getCreateDate())).apply();
+        sharedLogin.edit().putString("closeDate" , ObjectUtil.dateToString(userProfile.getCloseDate())).apply();
+    }
+
     public HashMap<String,String> getPreferences_loginInformation(){
         String username = sharedLogin.getString("username" , "");
         String password = sharedLogin.getString("password" , "");
         String partyId  = sharedLogin.getString("partyId" , "");
-        if(!ObjectUtil.isNotNullEmpty(username) && !ObjectUtil.isNotNullEmpty(password)) {
-            return null;
-        }
+
         HashMap<String, String> map = new HashMap<String, String>();
-        map.put("username",username);
-        map.put("password",password);
-        map.put("partyId",partyId);
+        if(ObjectUtil.isNotNullEmpty(username))map.put("username",username);
+        if(ObjectUtil.isNotNullEmpty(password))map.put("password",password);
+        if(ObjectUtil.isNotNullEmpty(partyId))map.put("partyId",partyId);
         return map;
     }
 
+
+
+    public boolean remove_partyId(){
+        return sharedLogin.edit().remove("partyId").commit();
+    }
     public void clear_loginInformation(){
         sharedLogin.edit().clear().commit();
     }

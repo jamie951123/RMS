@@ -5,7 +5,7 @@ import android.util.Log;
 import com.example.james.rms.CommonProfile.GsonUtil;
 import com.example.james.rms.Core.Model.LoginModel;
 import com.example.james.rms.Core.Model.UserProfile;
-import com.example.james.rms.Core.ServePath.LoginServePath;
+import com.example.james.rms.Core.ServePath.UserProfileServePath;
 import com.example.james.rms.NetWork.HttpGetAsync;
 import com.example.james.rms.NetWork.HttpPostAsync;
 import com.google.gson.Gson;
@@ -24,7 +24,7 @@ public class UserProfileDaoImpl implements UserProfileDao {
 
     @Override
     public List<UserProfile> findAll() {
-        String url = LoginServePath.serve_findAll();
+        String url = UserProfileServePath.serve_findAll();
         String result="";
         List<UserProfile> userProfile = new ArrayList<>();
         try {
@@ -41,7 +41,8 @@ public class UserProfileDaoImpl implements UserProfileDao {
             userProfile = gson.fromJson(result,listType);
             Log.d("asd","[UserProfile]-findAll(Gson): "+userProfile);
         }catch (Exception e){
-
+            Log.d("asd","[UserProfile]-findAll(Gson)-[Error]-[json to Gson Error] : ");
+            e.printStackTrace();
         }
         return userProfile;
     }
@@ -49,6 +50,31 @@ public class UserProfileDaoImpl implements UserProfileDao {
     @Override
     public List<LoginModel> findByPartyId() {
         return null;
+    }
+
+    @Override
+    public UserProfile findByFacebookId(String userProfileSearchObject_json) {
+        String url = UserProfileServePath.serve_findbyFacebookId();
+        Log.d("asd","[UserProfile]-findByFacebookId--Request(JSON) :"+ userProfileSearchObject_json);
+        String result = "";
+        try {
+            result = new HttpPostAsync().execute(url,userProfileSearchObject_json).get();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+        Log.d("asd","[UserProfile]-findByFacebookId(Response): "+result);
+        UserProfile userProfile = new UserProfile();
+        try{
+            Gson gson = GsonUtil.fromJson();
+            userProfile = gson.fromJson(result,UserProfile.class);
+            Log.d("asd","[UserProfile]-findByFacebookId(Gson): "+userProfile);
+        }catch (Exception e){
+            Log.d("asd","[UserProfile]-findByFacebookId(Gson)-[Error]-[json to Gson Error] : ");
+            e.printStackTrace();
+        }
+        return userProfile;
     }
 
     @Override
@@ -73,6 +99,32 @@ public class UserProfileDaoImpl implements UserProfileDao {
             e.printStackTrace();
         }
         return loginModel;
+    }
+
+    @Override
+    public UserProfile save(String userProfile_json) {
+        String url = UserProfileServePath.serve_save();
+
+        Log.d("asd","[UserProfile]-save--Request(JSON) :"+ userProfile_json);
+        String result = "";
+        try {
+            result = new HttpPostAsync().execute(url,userProfile_json).get();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+        Log.d("asd","[UserProfile]-save(Response) :"+ result);
+        UserProfile userProfile = new UserProfile();
+        try{
+            Gson gson = GsonUtil.fromJson();
+            userProfile = gson.fromJson(result,UserProfile.class);
+            Log.d("asd","[UserProfile]-save(Gson): "+userProfile);
+        }catch (Exception e){
+            Log.d("asd","[UserProfile]-save(Gson)-[Error]-[json to Gson Error] : ");
+            e.printStackTrace();
+        }
+        return userProfile;
     }
 
 

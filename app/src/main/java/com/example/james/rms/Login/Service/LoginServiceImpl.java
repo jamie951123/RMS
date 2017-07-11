@@ -4,7 +4,7 @@ import com.example.james.rms.Core.Dao.UserProfileDao;
 import com.example.james.rms.Core.Dao.UserProfileDaoImpl;
 import com.example.james.rms.Core.Model.LoginModel;
 import com.example.james.rms.Core.Model.UserProfile;
-import com.example.james.rms.Core.ServePath.LoginServePath;
+import com.example.james.rms.Core.ServePath.UserProfileServePath;
 
 import java.util.List;
 
@@ -28,7 +28,7 @@ public class LoginServiceImpl implements LoginService {
 
     @Override
     public LoginModel checkLogin(String json) {
-        String url_checkLogin = LoginServePath.serve_checkLogin();
+        String url_checkLogin = UserProfileServePath.serve_checkLogin();
         return userProfileDao.checkLogin(json,url_checkLogin);
     }
 }

@@ -16,6 +16,14 @@ public class ServeProfile {
     //Login
     final static String login_findAll = "rms/login/findAll";
     final static String login_checklogin = "rms/login/checklogin";
+    final static String login_findByFacebookId = "rms/login/findByFacebookId";
+    final static String login_save = "rms/login/save";
+
+//    Facebook
+    final static String facebook_findAll = "rms/facebook/findAll";
+    final static String facebook_findByFacebookId = "rms/facebook/findByFacebookId";
+    final static String facebook_countFacebookId = "rms/facebook/countFacebookId";
+
     //Product
     final static String product_findAll = "rms/product/findAll";
     final static String product_findByPartyId = "rms/product/findByPartyId";
@@ -334,5 +342,25 @@ public class ServeProfile {
 
     public static String getInventory_findByPartyIdAndStatusOrderByProductIdAsc() {
         return inventory_findByPartyIdAndStatusOrderByProductIdAsc;
+    }
+
+    public static String getLogin_findByFacebookId() {
+        return login_findByFacebookId;
+    }
+
+    public static String getLogin_save() {
+        return login_save;
+    }
+
+    public static String getFacebook_findAll() {
+        return facebook_findAll;
+    }
+
+    public static String getFacebook_findByFacebookId() {
+        return facebook_findByFacebookId;
+    }
+
+    public static String getFacebook_countFacebookId() {
+        return facebook_countFacebookId;
     }
 }

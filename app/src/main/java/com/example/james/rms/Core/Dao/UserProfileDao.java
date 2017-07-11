@@ -10,7 +10,13 @@ import java.util.List;
  */
 
 public interface UserProfileDao {
+//    Find
     List<UserProfile> findAll();
     List<LoginModel> findByPartyId();
+    UserProfile findByFacebookId(String userProfileSearchObject_json);
     LoginModel checkLogin(String json,String url);
+
+//    Save
+    UserProfile save(String userProfile_json);
+
 }

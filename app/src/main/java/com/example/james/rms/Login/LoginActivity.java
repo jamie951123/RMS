@@ -3,6 +3,7 @@ package com.example.james.rms.Login;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -12,12 +13,33 @@ import com.example.james.rms.CommonProfile.DialogBox.ClassicDialog;
 import com.example.james.rms.CommonProfile.ObjectUtil;
 import com.example.james.rms.CommonProfile.SharePreferences.LoginPreferences;
 import com.example.james.rms.Controller.NavigationController;
+import com.example.james.rms.Core.Combine.FacebookCombine;
+import com.example.james.rms.Core.Combine.FacebookSearchCombine;
+import com.example.james.rms.Core.Combine.UserProfileCombine;
+import com.example.james.rms.Core.Combine.UserProfileSearchCombine;
+import com.example.james.rms.Core.Dao.FacebookDao;
+import com.example.james.rms.Core.Dao.FacebookDaoImpl;
+import com.example.james.rms.Core.Dao.UserProfileDao;
+import com.example.james.rms.Core.Dao.UserProfileDaoImpl;
+import com.example.james.rms.Core.Model.Facebook;
 import com.example.james.rms.Core.Model.LoginModel;
+import com.example.james.rms.Core.Model.Status;
 import com.example.james.rms.Core.Model.UserProfile;
+import com.example.james.rms.Core.SearchObject.FacebookSearchObject;
+import com.example.james.rms.Core.SearchObject.UserProfileSearchObject;
 import com.example.james.rms.Login.Service.LoginService;
 import com.example.james.rms.Login.Service.LoginServiceImpl;
 import com.example.james.rms.R;
+import com.facebook.AccessToken;
+import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
+import com.facebook.FacebookSdk;
+import com.facebook.appevents.AppEventsLogger;
+import com.facebook.login.LoginResult;
+import com.facebook.login.widget.LoginButton;
 
+import java.util.Date;
 import java.util.List;
 
 import butterknife.BindView;
@@ -35,15 +57,21 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     Button btnCancel;
     @BindView(R.id.saveLoginCheckBox)
     android.support.v7.widget.AppCompatCheckBox saveLoginCheckBox;
+    @BindView(R.id.facebooklogin)
+    LoginButton login;
 
-    LoginPreferences loginPreferences ;
-    //
-    private LoginCombine loginCombine;
+    private LoginPreferences loginPreferences ;
+
+    //Facebook
+    private CallbackManager callbackManager;
+    private AccessToken accessToken;
     //dialog
     ClassicDialog classicDialog;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        FacebookSdk.sdkInitialize(getApplicationContext());
+        AppEventsLogger.activateApp(this);
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
         loginPreferences = new LoginPreferences(this,"loginInformation", MODE_PRIVATE);
@@ -56,17 +84,126 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             String password = loginPreferences.getPreferences_loginInformation().get("password");
             String partyId  = loginPreferences.getPreferences_loginInformation().get("partyId");
             setEditUsernameAndPassWord(username,password);
-            if(ObjectUtil.isNotNullEmpty(username) && ObjectUtil.isNotNullEmpty(password) && ObjectUtil.isNotNullEmpty(partyId)){
+//            if(ObjectUtil.isNotNullEmpty(username) && ObjectUtil.isNotNullEmpty(password) && ObjectUtil.isNotNullEmpty(partyId)){
+            if(ObjectUtil.isNotNullEmpty(partyId)){
                 Intent intent = new Intent();
                 intent.setClass(this, NavigationController.class);
                 startActivity(intent);
             }
         }
+        FacebookLogin();
+//        LoginManager.getInstance().logInWithReadPermissions(this, Arrays.asList("public_profile"));
+    }
+
+    public void FacebookLogin(){
+        //Facebook
+        callbackManager = CallbackManager.Factory.create();
+        login.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
+            @Override
+            public void onSuccess(LoginResult loginResult) {
+                //accessToken之後或許還會用到 先存起來
+                accessToken = loginResult.getAccessToken();
+//                GraphRequest request = GraphRequest.newMeRequest(
+//                        accessToken,
+//                        new GraphRequest.GraphJSONObjectCallback() {
+//
+//                            //當RESPONSE回來的時候
+//
+//                            @Override
+//                            public void onCompleted(JSONObject object, GraphResponse response) {
+//
+//                                //讀出姓名 ID FB個人頁面連結
+//
+//                                Log.d("FB","complete");
+//                                Log.d("FB",object.optString("name"));
+//                                Log.d("FB",object.optString("link"));
+//                                Log.d("FB",object.optString("id"));
+//
+//                            }
+//                        });
+//                //包入你想要得到的資料 送出request
+//
+//                Bundle parameters = new Bundle();
+//                parameters.putString("fields", "id,name,link");
+//                request.setParameters(parameters);
+//                request.executeAsync();
+                String facebook_userId = accessToken.getUserId();
+                String facebook_token = accessToken.getToken();
+                Log.d("asd","loginResult (Successful)-[UserId]: " + facebook_userId);
+                Log.d("asd","loginResult (Successful)-[Token]: " + facebook_token);
+
+                FacebookSearchObject facebookSearchObject = new FacebookSearchObject();
+                facebookSearchObject.setFacebookId(facebook_userId);
+
+                try {
+                    FacebookSearchCombine facebookSearchCombine = new FacebookSearchCombine(FacebookSearchObject.class);
+                    String request_json = facebookSearchCombine.modelToJson(facebookSearchObject);
+                    FacebookDao facebookDao = new FacebookDaoImpl();
+                    Integer facebook_count = facebookDao.countFacebookId(request_json);
+                    Log.d("asd", "userProfile [Response]: " + facebook_count);
+
+                    if(facebook_count !=null){
+                        loginPreferences.clear_loginInformation();
+                    }else{
+                        new Exception("facebook_count  is Empty [Serve Response Error])");
+                    }
+
+                    if(facebook_count >=1){
+                        UserProfileDao UserProfileDao = new UserProfileDaoImpl();
+                        UserProfile u = UserProfileDao.findByFacebookId(request_json);
+                        Log.d("asd","[Login]-[Facebook]-[Result]  :" + u.toString());
+                        loginPreferences.setPreferences_loginInformation(u);
+                        Log.d("asd","partyId :" + loginPreferences.getPreferences_loginInformation().get("partyId"));
+                        Toast.makeText(getApplicationContext(),loginPreferences.getPreferences_loginInformation().get("partyId"),Toast.LENGTH_SHORT).show();
+                    } else if(facebook_count == 0) {
+                        Facebook facebook = new Facebook();
+                        facebook.setFacebookId(facebook_userId);
+                        UserProfile userProfile = new UserProfile();
+                        userProfile.setStatus(Status.PROGRESS.name());
+                        userProfile.setCreateDate(new Date());
+                        userProfile.setCreateBy(facebook_userId+".TL");
+                        userProfile.setPartyId(facebook_userId+".TL");
+                        userProfile.setFacebook(facebook);
+
+                        UserProfileCombine userProfileCombine = new UserProfileCombine(UserProfile.class);
+                        String userProfile_json = userProfileCombine.modelToJson(userProfile);
+
+                        UserProfileDao userProfileDao = new UserProfileDaoImpl();
+                        UserProfile save_response = userProfileDao.save(userProfile_json);
+                        Log.d("asd", "save_response [Response]: " + save_response);
+                        loginPreferences.setPreferences_loginInformation(userProfile);
+                        Toast.makeText(getApplicationContext(),"Create New Account",Toast.LENGTH_SHORT).show();
+                    }
+                    if(ObjectUtil.isNotNullEmpty(loginPreferences.getPreferences_loginInformation().get("partyId"))) {
+                        Intent intent = new Intent();
+                        intent.setClass(LoginActivity.this, NavigationController.class);
+                        startActivity(intent);
+                    }
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onCancel() {
+                Log.d("asd","loginResult (Cancel): ");
+
+            }
+
+            @Override
+            public void onError(FacebookException error) {
+                Log.d("asd","loginResult (error): " + error);
+                error.printStackTrace();
+            }
+        });
+    }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        callbackManager.onActivityResult(requestCode,resultCode,data);
     }
 
     @Override
     public void onClick(View v) {
-        loginCombine = new LoginCombine();
         String username = editUsername.getText().toString();
         String password = editPassword.getText().toString();
         LoginService loginService = new LoginServiceImpl();
@@ -87,7 +224,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     setEditUsernameAndPassWord("", "");
                 }
                     classicDialog.showIndeterminate(R.color.blue0895ef,getString(R.string.loading),getString(R.string.waiting));
-                    String loginValue = loginCombine.combine_loginValue(username, password);
+                    String loginValue = UserProfileCombine.combine_usernameAndpassword(username, password);
                     loginService.checkLogin(loginValue);
                     LoginModel loginModel = loginService.checkLogin(loginValue);
                     if (checkLoginStatus(loginModel)) {
