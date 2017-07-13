@@ -18,6 +18,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.james.rms.CommonProfile.DeepCopy;
 import com.example.james.rms.CommonProfile.DialogBox.ClassicDialog;
 import com.example.james.rms.CommonProfile.DialogBox.MyDatePicker;
 import com.example.james.rms.CommonProfile.DialogBox.NumberDialog;
@@ -88,6 +89,7 @@ public class ReceivingIncrease extends AppCompatActivity implements View.OnClick
     private List<ReceivingItemModel> item_listview;
     private String common_partyId;
 
+    //
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -96,6 +98,7 @@ public class ReceivingIncrease extends AppCompatActivity implements View.OnClick
         this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         fab_btn.setOnClickListener(this);
         datePicker_btn.setOnClickListener(this);
+        //clear open dialogbox count when enter the receivingIncrease Activity
         setUpToolbar();
         //Preferences
         PartyIdPreferences partyIdPreferences = new PartyIdPreferences(this, "loginInformation", MODE_PRIVATE);
@@ -207,6 +210,7 @@ public class ReceivingIncrease extends AppCompatActivity implements View.OnClick
     public void onClick(View v) {
         switch (v.getId()) {
             case receiving_increase_fab:
+//                expandableSelectModel.setCount_dialogBox(expandableSelectModel.getCount_dialogBox()+1);
                 createDialogBox();
                 break;
             case receiving_increase_datePicker:
@@ -322,6 +326,8 @@ public class ReceivingIncrease extends AppCompatActivity implements View.OnClick
             }
         }
         expandableSelectModel.setIsItemSelected(isSelected);
+        //Copy
+        expandableSelectModel.setOrginal_isItemSelected(DeepCopy.copyLinkedHashMap_Long_Boolean(expandableSelectModel.getIsItemSelected()));
     }
 
     public void setOriginalCheckbox(List<ReceivingItemModel> receivingItemModels) {

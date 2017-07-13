@@ -56,4 +56,10 @@ public class ReceivingItemServePath {
         return serve_path;
     }
 
+    public static String deleteByReceivingIds(){
+        String serve = ServeProfile.getServe();
+        String path = ServeProfile.getRe_item_deleteByReceivingIds();
+        String serve_path = serve+path;
+        return serve_path;
+    }
 }

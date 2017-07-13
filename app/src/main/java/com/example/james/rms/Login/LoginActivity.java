@@ -13,10 +13,8 @@ import com.example.james.rms.CommonProfile.DialogBox.ClassicDialog;
 import com.example.james.rms.CommonProfile.ObjectUtil;
 import com.example.james.rms.CommonProfile.SharePreferences.LoginPreferences;
 import com.example.james.rms.Controller.NavigationController;
-import com.example.james.rms.Core.Combine.FacebookCombine;
 import com.example.james.rms.Core.Combine.FacebookSearchCombine;
 import com.example.james.rms.Core.Combine.UserProfileCombine;
-import com.example.james.rms.Core.Combine.UserProfileSearchCombine;
 import com.example.james.rms.Core.Dao.FacebookDao;
 import com.example.james.rms.Core.Dao.FacebookDaoImpl;
 import com.example.james.rms.Core.Dao.UserProfileDao;
@@ -26,7 +24,6 @@ import com.example.james.rms.Core.Model.LoginModel;
 import com.example.james.rms.Core.Model.Status;
 import com.example.james.rms.Core.Model.UserProfile;
 import com.example.james.rms.Core.SearchObject.FacebookSearchObject;
-import com.example.james.rms.Core.SearchObject.UserProfileSearchObject;
 import com.example.james.rms.Login.Service.LoginService;
 import com.example.james.rms.Login.Service.LoginServiceImpl;
 import com.example.james.rms.R;
@@ -151,7 +148,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     if(facebook_count >=1){
                         UserProfileDao UserProfileDao = new UserProfileDaoImpl();
                         UserProfile u = UserProfileDao.findByFacebookId(request_json);
-                        Log.d("asd","[Login]-[Facebook]-[Result]  :" + u.toString());
+                        Log.d("asd","[Login]-[Facebook]-[findByFacebookId]-[Result]  :" + u.toString());
                         loginPreferences.setPreferences_loginInformation(u);
                         Log.d("asd","partyId :" + loginPreferences.getPreferences_loginInformation().get("partyId"));
                         Toast.makeText(getApplicationContext(),loginPreferences.getPreferences_loginInformation().get("partyId"),Toast.LENGTH_SHORT).show();
@@ -170,8 +167,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
                         UserProfileDao userProfileDao = new UserProfileDaoImpl();
                         UserProfile save_response = userProfileDao.save(userProfile_json);
-                        Log.d("asd", "save_response [Response]: " + save_response);
-                        loginPreferences.setPreferences_loginInformation(userProfile);
+                        Log.d("asd","[Login]-[Facebook]-[save]-[Result]  :" + save_response.toString());
+                        loginPreferences.setPreferences_loginInformation(save_response);
                         Toast.makeText(getApplicationContext(),"Create New Account",Toast.LENGTH_SHORT).show();
                     }
                     if(ObjectUtil.isNotNullEmpty(loginPreferences.getPreferences_loginInformation().get("partyId"))) {

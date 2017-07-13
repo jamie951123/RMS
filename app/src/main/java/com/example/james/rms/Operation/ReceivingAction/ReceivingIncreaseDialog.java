@@ -11,6 +11,7 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 
+import com.example.james.rms.CommonProfile.DeepCopy;
 import com.example.james.rms.Core.Model.ExpandableSelectedModel;
 import com.example.james.rms.Core.Model.ReceivingItemModel;
 import com.example.james.rms.ITF.Communicate_Interface;
@@ -44,6 +45,7 @@ public class ReceivingIncreaseDialog extends DialogFragment implements AdapterVi
     private List<ReceivingItemModel>  item_latest;
     //
     private ExpandableSelectedModel expandableSelectModel;
+    private LinkedHashMap<Long,Boolean> onlyOriginalClicked;
     //
     ReceivingIncreaseDialogListAdapter receivingDialogListAdapter;
 
@@ -58,7 +60,7 @@ public class ReceivingIncreaseDialog extends DialogFragment implements AdapterVi
 //        getDialog().getWindow().setSoftInputMode(
 //                WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
         getDialog().setCanceledOnTouchOutside(false);
-        receivingDialogListAdapter = new ReceivingIncreaseDialogListAdapter(getActivity(),item_latest,expandableSelectModel.getIsItemSelected());
+        receivingDialogListAdapter = new ReceivingIncreaseDialogListAdapter(getActivity(),item_latest,expandableSelectModel,this.onlyOriginalClicked);
         listView.setAdapter(receivingDialogListAdapter);
         listView.setOnItemClickListener(this);
         cancel.setOnClickListener(this);
@@ -134,6 +136,9 @@ public class ReceivingIncreaseDialog extends DialogFragment implements AdapterVi
         this.item_original = item_original;
         this.item_latest = item_latest;
         this.expandableSelectModel = expandableSelectModel;
+//        if(expandableSelectModel.getCount_dialogBox() == 1) {
+//            this.onlyOriginalClicked = new LinkedHashMap<>(DeepCopy.copyLinkedHashMap_Long_Boolean(expandableSelectModel.getIsItemSelected()));
+//        }
 //
 //        if(this.item_original.get(0) == item_original.get(0)){
 //            Log.d("asd","Same");

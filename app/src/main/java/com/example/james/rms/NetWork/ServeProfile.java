@@ -56,6 +56,7 @@ public class ServeProfile {
     final static String re_item_deleteByProductId = "rms/receiving/item/deleteByProductId";
     final static String re_item_delete= "rms/receiving/item/delete";
     final static String re_item_deletes= "rms/receiving/item/deletes";
+    final static String re_item_deleteByReceivingIds= "rms/receiving/item/deleteByReceivingIds";
 
     //WeightProfile
     final static String weight_findAll = "rms/weight/findAll";
@@ -362,5 +363,9 @@ public class ServeProfile {
 
     public static String getFacebook_countFacebookId() {
         return facebook_countFacebookId;
+    }
+
+    public static String getRe_item_deleteByReceivingIds() {
+        return re_item_deleteByReceivingIds;
     }
 }

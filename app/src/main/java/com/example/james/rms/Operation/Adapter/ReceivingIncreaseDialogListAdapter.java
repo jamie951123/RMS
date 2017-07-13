@@ -1,6 +1,8 @@
 package com.example.james.rms.Operation.Adapter;
 
 import android.content.Context;
+import android.support.v7.widget.LinearSnapHelper;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,6 +10,7 @@ import android.widget.TextView;
 
 import com.example.james.rms.CommonProfile.MyBaseAdapter;
 import com.example.james.rms.CommonProfile.ObjectUtil;
+import com.example.james.rms.Core.Model.ExpandableSelectedModel;
 import com.example.james.rms.Core.Model.ReceivingItemModel;
 import com.example.james.rms.R;
 import java.util.LinkedHashMap;
@@ -23,11 +26,12 @@ import butterknife.ButterKnife;
 public class ReceivingIncreaseDialogListAdapter extends MyBaseAdapter<ReceivingItemModel> {
 
     // 用來控制CheckBox的選中狀況
-    private static LinkedHashMap<Long, Boolean> isSelected;
-
-    public ReceivingIncreaseDialogListAdapter(Context context, List<ReceivingItemModel> dataArrayList, LinkedHashMap<Long, Boolean> isSelected) {
+    private static ExpandableSelectedModel expandableSelectModel;
+//    private LinkedHashMap<Long,Boolean> onlyOriginalClicked ;
+    public ReceivingIncreaseDialogListAdapter(Context context, List<ReceivingItemModel> dataArrayList, ExpandableSelectedModel expandableSelectModel, LinkedHashMap<Long,Boolean> onlyOriginalClicked) {
         super(context,dataArrayList);
-        this.isSelected = isSelected;
+        this.expandableSelectModel = expandableSelectModel;
+//        this.onlyOriginalClicked = onlyOriginalClicked;
     }
 
     @Override
@@ -44,7 +48,19 @@ public class ReceivingIncreaseDialogListAdapter extends MyBaseAdapter<ReceivingI
         viewHolder.receiving_increase_dialog_item_productName.setText(getItem(position).getProduct().getProductCode());
         if(getIsSelected().containsKey(getItem(position).getProductId())){
             viewHolder.receiving_increase_dialog_item_checkbox.setChecked(getIsSelected().get(getItem(position).getProductId()));
+//            if(getIsSelected().get(getItem(position).getProductId())){
+//                onlyOriginalClicked.put(getItem(position).getProductId(),true);
+//            }
         }return convertView;
+    }
+
+    @Override
+    public boolean isEnabled(int position) {
+        //If onlyOriginalClicked Match Item ProductId disable clickable
+        if(expandableSelectModel.getOrginal_isItemSelected().get(getItem(position).getProductId())){
+            return false;
+        }
+        return true;
     }
 
     @Override
@@ -78,7 +94,7 @@ public class ReceivingIncreaseDialogListAdapter extends MyBaseAdapter<ReceivingI
     }
 
     public static LinkedHashMap<Long, Boolean> getIsSelected() {
-        return isSelected;
+        return expandableSelectModel.getIsItemSelected();
     }
 
 }
