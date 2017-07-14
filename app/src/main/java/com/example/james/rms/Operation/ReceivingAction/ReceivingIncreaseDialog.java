@@ -45,7 +45,6 @@ public class ReceivingIncreaseDialog extends DialogFragment implements AdapterVi
     private List<ReceivingItemModel>  item_latest;
     //
     private ExpandableSelectedModel expandableSelectModel;
-    private LinkedHashMap<Long,Boolean> onlyOriginalClicked;
     //
     ReceivingIncreaseDialogListAdapter receivingDialogListAdapter;
 
@@ -60,7 +59,7 @@ public class ReceivingIncreaseDialog extends DialogFragment implements AdapterVi
 //        getDialog().getWindow().setSoftInputMode(
 //                WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
         getDialog().setCanceledOnTouchOutside(false);
-        receivingDialogListAdapter = new ReceivingIncreaseDialogListAdapter(getActivity(),item_latest,expandableSelectModel,this.onlyOriginalClicked);
+        receivingDialogListAdapter = new ReceivingIncreaseDialogListAdapter(getActivity(),item_latest,expandableSelectModel);
         listView.setAdapter(receivingDialogListAdapter);
         listView.setOnItemClickListener(this);
         cancel.setOnClickListener(this);

@@ -2,6 +2,7 @@ package com.example.james.rms.Operation.Adapter;
 
 import android.content.Context;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.widget.CardView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
@@ -61,9 +62,10 @@ public class DeliveryIncreaseDialogExpandableAdapter extends MyExpandableListAda
         holder.receivingOrder_orderId.setText(ObjectUtil.longToString(receivingOrderModel.getOrderId()));
         holder.receivingOrder_date.setText(ObjectUtil.dateToString_OnlyDate(receivingOrderModel.getReceivingDate()));
         holder.receivingOrder_itemQty.setText(ObjectUtil.intToString(receivingOrderModel.getItemQty()));
-        if(expandableSelectedModel.getIsOrderSelected().containsKey(receivingOrderModel.getOrderId())){
-            holder.group_checkbox.setChecked(expandableSelectedModel.getIsOrderSelected().get(receivingOrderModel.getOrderId()));
-        }
+//        if(expandableSelectedModel.getIsOrderSelected().containsKey(receivingOrderModel.getOrderId())){
+//            holder.group_checkbox.setChecked(expandableSelectedModel.getIsOrderSelected().get(receivingOrderModel.getOrderId()));
+//        }
+
 //        GlideApp.with(getContext())
 //                .load(R.drawable.input)
 //                .error(R.drawable.question_purple)
@@ -83,6 +85,15 @@ public class DeliveryIncreaseDialogExpandableAdapter extends MyExpandableListAda
             }
         });
         return convertView;
+    }
+
+    @Override
+    public boolean isChildSelectable(int groupPosition, int childPosition) {
+        Long receivingId = getGroup(groupPosition).getReceivingItem().get(childPosition).getReceivingId();
+        if(expandableSelectedModel != null && expandableSelectedModel.getOrginal_isItemSelected() != null && expandableSelectedModel.getOrginal_isItemSelected().get(receivingId)){
+            return false;
+        }
+        return true;
     }
 
     @Override
@@ -125,6 +136,7 @@ public class DeliveryIncreaseDialogExpandableAdapter extends MyExpandableListAda
         return convertView;
     }
 
+
     @Override
     public int getRealChildrenCount(int groupPosition) {
         return getGroup(groupPosition).getReceivingItem().size();
@@ -156,8 +168,8 @@ public class DeliveryIncreaseDialogExpandableAdapter extends MyExpandableListAda
         public LinearLayout delivery_order_increase_dialog_receivingOrder_image_linear;
         @BindView(R.id.delivery_order_increase_dialog_receivingOrder_image)
         public com.github.siyamed.shapeimageview.RoundedImageView receivingOrder_image;
-        @BindView(R.id.delivery_order_increase_dialog_checkbox)
-        public android.support.v7.widget.AppCompatCheckBox group_checkbox;
+//        @BindView(R.id.delivery_order_increase_dialog_checkbox)
+//        public android.support.v7.widget.AppCompatCheckBox group_checkbox;
 
 
         public GroupHolder(View view){
@@ -166,6 +178,8 @@ public class DeliveryIncreaseDialogExpandableAdapter extends MyExpandableListAda
     }
 
     public static class ChildHolder {
+        @BindView(R.id.delivery_item_increase_card_view)
+        public CardView cardView;
         @BindView(R.id.delivery_item_increase_dialog_checkbox)
         public android.support.v7.widget.AppCompatCheckBox child_checkbox;
         @BindView(R.id.delivery_item_increase_receivingItem_image)

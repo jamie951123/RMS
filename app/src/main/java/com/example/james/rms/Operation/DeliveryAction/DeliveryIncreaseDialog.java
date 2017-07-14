@@ -74,12 +74,12 @@ public class DeliveryIncreaseDialog extends DialogFragment implements Communicat
             listView.expandGroup(i);
 
         }
-        listView.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
-            @Override
-            public boolean onGroupClick(ExpandableListView expandableListView, View view, int i, long l) {
-                return true;
-            }
-        });
+//        listView.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
+//            @Override
+//            public boolean onGroupClick(ExpandableListView expandableListView, View view, int i, long l) {
+//                return true;
+//            }
+//        });
 
         listView.setOnGroupClickListener(this);
         listView.setOnChildClickListener(this);
@@ -126,20 +126,20 @@ public class DeliveryIncreaseDialog extends DialogFragment implements Communicat
     @Override
     public boolean onChildClick(ExpandableListView expandableListView, View view, int i, int i1, long l) {
         DeliveryIncreaseDialogExpandableAdapter.ChildHolder childHolder = (DeliveryIncreaseDialogExpandableAdapter.ChildHolder) view.getTag();
-        childHolder.child_checkbox.toggle();
         ReceivingItemModel receivingItemModel = item_original.get(i).getReceivingItem().get(i1);
+        childHolder.child_checkbox.toggle();
         deliveryIncreaseDialogExpandableAdapter.getExpandableSelectedModel().getIsItemSelected().put(receivingItemModel.getReceivingId(), childHolder.child_checkbox.isChecked());
 //        Log.d("asd","onChildClick --i :" + i + "---i1 :" + i1 + "----isChecked :" + childHolder.child_checkbox.isChecked());
-        return true;
+        return false;
     }
 
     @Override
     public boolean onGroupClick(ExpandableListView expandableListView, View view, int i, long l) {
-        DeliveryIncreaseDialogExpandableAdapter.GroupHolder groupHolder = (DeliveryIncreaseDialogExpandableAdapter.GroupHolder) view.getTag();
-        groupHolder.group_checkbox.toggle();
-        deliveryIncreaseDialogExpandableAdapter.getExpandableSelectedModel().getIsOrderSelected().put(item_original.get(i).getOrderId(), groupHolder.group_checkbox.isChecked());
+//        DeliveryIncreaseDialogExpandableAdapter.GroupHolder groupHolder = (DeliveryIncreaseDialogExpandableAdapter.GroupHolder) view.getTag();
+//        groupHolder.group_checkbox.toggle();
+//        deliveryIncreaseDialogExpandableAdapter.getExpandableSelectedModel().getIsOrderSelected().put(item_original.get(i).getOrderId(), groupHolder.group_checkbox.isChecked());
 //        Log.d("asd","onGroupClick --i :" + i + "----isChecked :" + groupHolder.group_checkbox.isChecked());
-        return true;
+        return false;
     }
 
     public void getSelectedReceiving(ExpandableSelectedModel expandableSelectedModel) {

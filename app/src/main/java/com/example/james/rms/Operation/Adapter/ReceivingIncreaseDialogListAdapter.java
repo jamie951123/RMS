@@ -28,7 +28,7 @@ public class ReceivingIncreaseDialogListAdapter extends MyBaseAdapter<ReceivingI
     // 用來控制CheckBox的選中狀況
     private static ExpandableSelectedModel expandableSelectModel;
 //    private LinkedHashMap<Long,Boolean> onlyOriginalClicked ;
-    public ReceivingIncreaseDialogListAdapter(Context context, List<ReceivingItemModel> dataArrayList, ExpandableSelectedModel expandableSelectModel, LinkedHashMap<Long,Boolean> onlyOriginalClicked) {
+    public ReceivingIncreaseDialogListAdapter(Context context, List<ReceivingItemModel> dataArrayList, ExpandableSelectedModel expandableSelectModel) {
         super(context,dataArrayList);
         this.expandableSelectModel = expandableSelectModel;
 //        this.onlyOriginalClicked = onlyOriginalClicked;
@@ -57,7 +57,7 @@ public class ReceivingIncreaseDialogListAdapter extends MyBaseAdapter<ReceivingI
     @Override
     public boolean isEnabled(int position) {
         //If onlyOriginalClicked Match Item ProductId disable clickable
-        if(expandableSelectModel.getOrginal_isItemSelected().get(getItem(position).getProductId())){
+        if(expandableSelectModel.getOrginal_isItemSelected() != null && expandableSelectModel.getOrginal_isItemSelected().get(getItem(position).getProductId())){
             return false;
         }
         return true;

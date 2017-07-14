@@ -19,6 +19,7 @@ import android.widget.ExpandableListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.james.rms.CommonProfile.DeepCopy;
 import com.example.james.rms.CommonProfile.DialogBox.ClassicDialog;
 import com.example.james.rms.CommonProfile.DialogBox.MyDatePicker;
 import com.example.james.rms.CommonProfile.Library.AnimatedExpandableListView;
@@ -130,7 +131,8 @@ public class DeliveryIncrease extends AppCompatActivity implements View.OnClickL
         setOriginalCheckbox(order_original);
         //new DeliveryOrder
         deliveryOrderModel = new DeliveryOrderModel();
-//        Intent
+
+        //
         String deliveryOrder_json = null;
         if (savedInstanceState == null) {
             Bundle extras = getIntent().getExtras();
@@ -235,6 +237,8 @@ public class DeliveryIncrease extends AppCompatActivity implements View.OnClickL
                     expandableSelectedModel.getIsItemSelected().put(existReceivingItemId,true);
             }
         }
+        //Deep Clone CkeckBox
+        expandableSelectedModel.setOrginal_isItemSelected(DeepCopy.copyLinkedHashMap_Long_Boolean(expandableSelectedModel.getIsItemSelected()));
     }
     //Create
     public void setOriginalCheckbox(List<ReceivingOrderModel>  receivingOrderModel){
