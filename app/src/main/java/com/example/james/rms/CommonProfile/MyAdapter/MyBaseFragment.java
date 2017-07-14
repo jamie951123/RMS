@@ -1,4 +1,4 @@
-package com.example.james.rms.CommonProfile;
+package com.example.james.rms.CommonProfile.MyAdapter;
 
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.SearchView;

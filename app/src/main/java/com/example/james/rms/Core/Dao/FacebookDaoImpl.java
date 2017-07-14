@@ -2,8 +2,8 @@ package com.example.james.rms.Core.Dao;
 
 import android.util.Log;
 
-import com.example.james.rms.CommonProfile.GsonUtil;
-import com.example.james.rms.CommonProfile.ObjectUtil;
+import com.example.james.rms.CommonProfile.Util.GsonUtil;
+import com.example.james.rms.CommonProfile.Util.ObjectUtil;
 import com.example.james.rms.Core.Model.Facebook;
 import com.example.james.rms.Core.ServePath.FacebookServerPath;
 import com.example.james.rms.NetWork.HttpGetAsync;

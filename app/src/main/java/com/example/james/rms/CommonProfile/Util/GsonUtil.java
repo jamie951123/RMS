@@ -1,4 +1,4 @@
-package com.example.james.rms.CommonProfile;
+package com.example.james.rms.CommonProfile.Util;
 
 import android.util.Log;
 

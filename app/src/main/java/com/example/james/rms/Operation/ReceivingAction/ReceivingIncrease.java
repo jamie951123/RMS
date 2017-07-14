@@ -18,21 +18,22 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.james.rms.CommonProfile.DeepCopy;
+import com.example.james.rms.CommonProfile.Util.DeepCopyUtil;
 import com.example.james.rms.CommonProfile.DialogBox.ClassicDialog;
 import com.example.james.rms.CommonProfile.DialogBox.MyDatePicker;
-import com.example.james.rms.CommonProfile.DialogBox.NumberDialog;
-import com.example.james.rms.CommonProfile.GsonUtil;
-import com.example.james.rms.CommonProfile.ObjectUtil;
+import com.example.james.rms.CommonProfile.Util.GsonUtil;
+import com.example.james.rms.CommonProfile.Util.ObjectUtil;
 import com.example.james.rms.CommonProfile.SharePreferences.PartyIdPreferences;
 import com.example.james.rms.CommonProfile.StartActivityForResultKey;
 import com.example.james.rms.Controller.NavigationController;
+import com.example.james.rms.Core.Combine.MovementRecordCombine;
 import com.example.james.rms.Core.Dao.ProductDao;
 import com.example.james.rms.Core.Dao.ProductDaoImpl;
 import com.example.james.rms.Core.Dao.ReceivingOrderDao;
 import com.example.james.rms.Core.Dao.ReceivingOrderDaoImpl;
 import com.example.james.rms.Core.Model.ExpandableSelectedModel;
 import com.example.james.rms.Core.Model.KeyModel;
+import com.example.james.rms.Core.Model.MovementRecord;
 import com.example.james.rms.Core.Model.ProductModel;
 import com.example.james.rms.Core.Model.ReceivingItemModel;
 import com.example.james.rms.Core.Model.ReceivingOrderModel;
@@ -83,13 +84,17 @@ public class ReceivingIncrease extends AppCompatActivity implements View.OnClick
     //
     private ExpandableSelectedModel expandableSelectModel;
 
+    //PutExtra
     private ReceivingOrderModel orderModel = new ReceivingOrderModel();
+    private MovementRecord movementRecord;
+
     private List<ReceivingItemModel> item_original;
     private List<ReceivingItemModel> item_latest;
     private List<ReceivingItemModel> item_listview;
     private String common_partyId;
 
     //
+    MovementRecordCombine movementRecordCombine = new MovementRecordCombine(MovementRecord.class);
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -113,19 +118,25 @@ public class ReceivingIncrease extends AppCompatActivity implements View.OnClick
         //
         setOriginalCheckbox(item_original);
 
-        String receivingOrder_Json = null;
+        String receivingOrder_json = null;
+        String movementRecord_jsom = null;
         if (savedInstanceState == null) {
             Bundle extras = getIntent().getExtras();
             if (extras == null) {
-                receivingOrder_Json = null;
+                receivingOrder_json = null;
+                movementRecord_jsom = null;
             } else {
-                receivingOrder_Json = extras.getString(StartActivityForResultKey.receivingOrderModel);
+                receivingOrder_json = extras.getString(StartActivityForResultKey.receivingOrderModel);
+                movementRecord_jsom = extras.getString(StartActivityForResultKey.movementRecord);
             }
         }
 
-        if (ObjectUtil.isNotNullEmpty(receivingOrder_Json)) {
+        if(ObjectUtil.isNotNullEmpty(movementRecord_jsom)){
+            movementRecord = movementRecordCombine.jsonToModel(movementRecord_jsom);
+        }
+        if (ObjectUtil.isNotNullEmpty(receivingOrder_json)) {
             ReceivingOrderCombine receivingOrderCombine = new ReceivingOrderCombine(ReceivingOrderModel.class);
-            orderModel = receivingOrderCombine.jsonToModel(receivingOrder_Json);
+            orderModel = receivingOrderCombine.jsonToModel(receivingOrder_json);
             receiving_increase_toolbar_title.setText(R.string.title_edit_receiving);
             setAllField(orderModel);
             return;
@@ -197,7 +208,7 @@ public class ReceivingIncrease extends AppCompatActivity implements View.OnClick
             ReceivingOrderModel saveResult = receivingOrderDao.saveOrderAndItem(result_json);
             if (saveResult != null) {
                 Intent intent = new Intent();
-                intent.putExtra("NavigationController", StartActivityForResultKey.navReceiving);
+                intent.putExtra(StartActivityForResultKey.movementRecord, movementRecordCombine.modelToJson(movementRecord));
                 intent.setClass(this, NavigationController.class);
                 startActivity(intent);
             }
@@ -239,7 +250,7 @@ public class ReceivingIncrease extends AppCompatActivity implements View.OnClick
     public void onBackPressed() {
 //        super.onBackPressed();
         ClassicDialog classicDialog = new ClassicDialog(this);
-        classicDialog.showBackPrevious(getString(R.string.previous));
+        classicDialog.showBackPrevious(getString(R.string.previous),movementRecord);
 
     }
 
@@ -312,7 +323,7 @@ public class ReceivingIncrease extends AppCompatActivity implements View.OnClick
                 @Override
                 public void onClick(View v) {
                     ClassicDialog classicDialog = new ClassicDialog(v.getContext());
-                    classicDialog.showBackPrevious(getString(R.string.previous));
+                    classicDialog.showBackPrevious(getString(R.string.previous),movementRecord);
                 }
             });
         }
@@ -327,7 +338,7 @@ public class ReceivingIncrease extends AppCompatActivity implements View.OnClick
         }
         expandableSelectModel.setIsItemSelected(isSelected);
         //Copy
-        expandableSelectModel.setOrginal_isItemSelected(DeepCopy.copyLinkedHashMap_Long_Boolean(expandableSelectModel.getIsItemSelected()));
+        expandableSelectModel.setOrginal_isItemSelected(DeepCopyUtil.copyLinkedHashMap_Long_Boolean(expandableSelectModel.getIsItemSelected()));
     }
 
     public void setOriginalCheckbox(List<ReceivingItemModel> receivingItemModels) {

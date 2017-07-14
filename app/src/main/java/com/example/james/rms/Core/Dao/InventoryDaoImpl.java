@@ -2,7 +2,7 @@ package com.example.james.rms.Core.Dao;
 
 import android.util.Log;
 
-import com.example.james.rms.CommonProfile.GsonUtil;
+import com.example.james.rms.CommonProfile.Util.GsonUtil;
 import com.example.james.rms.Core.Model.InventoryModel;
 import com.example.james.rms.Core.ServePath.InventoryServePath;
 import com.example.james.rms.NetWork.HttpPostAsync;

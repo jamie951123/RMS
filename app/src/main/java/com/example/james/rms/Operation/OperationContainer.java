@@ -9,7 +9,10 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
 
+import com.example.james.rms.CommonProfile.StartActivityForResultKey;
 import com.example.james.rms.Controller.NavigationController;
+import com.example.james.rms.Core.Combine.MovementRecordCombine;
+import com.example.james.rms.Core.Model.MovementRecord;
 import com.example.james.rms.Operation.Adapter.OperationGridAdapter;
 import com.example.james.rms.Operation.DeliveryAction.DeliveryIncrease;
 import com.example.james.rms.Operation.ProductAction.ProductIncrease;
@@ -54,18 +57,25 @@ public class OperationContainer extends AppCompatActivity implements AdapterView
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         Intent intent = new Intent();
-
+        MovementRecord movementRecord = new MovementRecord();
+        movementRecord.setOriginalClass_string(OperationContainer.class.getCanonicalName());
         switch(position){
             case 0:
+                movementRecord.setTargetClass_string(ProductIncrease.class.getCanonicalName());
                 intent = intent.setClass(this, ProductIncrease.class);
                 break;
             case 1:
+                movementRecord.setTargetClass_string(ReceivingIncrease.class.getCanonicalName());
                 intent = intent.setClass(this, ReceivingIncrease.class);
                 break;
             case 2:
+                movementRecord.setTargetClass_string(DeliveryIncrease.class.getCanonicalName());
                 intent = intent.setClass(this, DeliveryIncrease.class);
                 break;
         }
+        MovementRecordCombine movementRecordCombine = new MovementRecordCombine(MovementRecord.class);
+        String movement_json = movementRecordCombine.modelToJson(movementRecord);
+        intent.putExtra(StartActivityForResultKey.movementRecord,movement_json);
         startActivity(intent);
     }
 

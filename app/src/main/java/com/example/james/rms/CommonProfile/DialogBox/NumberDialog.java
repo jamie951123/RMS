@@ -14,7 +14,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.example.james.rms.CommonProfile.ObjectUtil;
+import com.example.james.rms.CommonProfile.Util.ObjectUtil;
 import com.example.james.rms.Core.Model.KeyModel;
 import com.example.james.rms.Core.TransferModel.NumberDialogModel;
 import com.example.james.rms.ITF.NumberDialogListener;

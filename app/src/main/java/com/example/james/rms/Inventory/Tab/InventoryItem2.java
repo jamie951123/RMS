@@ -5,7 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.james.rms.CommonProfile.MyBaseFragment;
+import com.example.james.rms.CommonProfile.MyAdapter.MyBaseFragment;
 import com.example.james.rms.R;
 
 import java.util.List;

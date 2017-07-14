@@ -1,6 +1,5 @@
 package com.example.james.rms.Operation.Adapter;
 
-import android.app.Activity;
 import android.content.Context;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -8,7 +7,6 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
@@ -16,15 +14,14 @@ import android.widget.TextView;
 
 import com.example.james.rms.CommonProfile.DialogBox.NumberDialog;
 import com.example.james.rms.CommonProfile.Library.AnimatedExpandableListView;
-import com.example.james.rms.CommonProfile.MyExpandableListAdapter;
-import com.example.james.rms.CommonProfile.ObjectUtil;
+import com.example.james.rms.CommonProfile.MyAdapter.MyExpandableListAdapter;
+import com.example.james.rms.CommonProfile.Util.ObjectUtil;
 import com.example.james.rms.Core.Model.DeliveryItemModel;
 import com.example.james.rms.Core.Model.KeyModel;
 import com.example.james.rms.Core.Model.ReceivingItemModel;
 import com.example.james.rms.Core.Model.ReceivingOrderModel;
 import com.example.james.rms.Core.TransferModel.NumberDialogModel;
 import com.example.james.rms.ITF.NumberDialogListener;
-import com.example.james.rms.Operation.DeliveryAction.DeliveryIncrease;
 import com.example.james.rms.R;
 
 import java.math.BigDecimal;

@@ -11,7 +11,6 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 
-import com.example.james.rms.CommonProfile.DeepCopy;
 import com.example.james.rms.Core.Model.ExpandableSelectedModel;
 import com.example.james.rms.Core.Model.ReceivingItemModel;
 import com.example.james.rms.ITF.Communicate_Interface;
@@ -136,7 +135,7 @@ public class ReceivingIncreaseDialog extends DialogFragment implements AdapterVi
         this.item_latest = item_latest;
         this.expandableSelectModel = expandableSelectModel;
 //        if(expandableSelectModel.getCount_dialogBox() == 1) {
-//            this.onlyOriginalClicked = new LinkedHashMap<>(DeepCopy.copyLinkedHashMap_Long_Boolean(expandableSelectModel.getIsItemSelected()));
+//            this.onlyOriginalClicked = new LinkedHashMap<>(DeepCopyUtil.copyLinkedHashMap_Long_Boolean(expandableSelectModel.getIsItemSelected()));
 //        }
 //
 //        if(this.item_original.get(0) == item_original.get(0)){

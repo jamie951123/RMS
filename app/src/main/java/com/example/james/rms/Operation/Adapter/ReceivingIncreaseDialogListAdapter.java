@@ -1,15 +1,13 @@
 package com.example.james.rms.Operation.Adapter;
 
 import android.content.Context;
-import android.support.v7.widget.LinearSnapHelper;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.example.james.rms.CommonProfile.MyBaseAdapter;
-import com.example.james.rms.CommonProfile.ObjectUtil;
+import com.example.james.rms.CommonProfile.MyAdapter.MyBaseAdapter;
+import com.example.james.rms.CommonProfile.Util.ObjectUtil;
 import com.example.james.rms.Core.Model.ExpandableSelectedModel;
 import com.example.james.rms.Core.Model.ReceivingItemModel;
 import com.example.james.rms.R;

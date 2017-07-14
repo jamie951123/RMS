@@ -1,6 +1,6 @@
 package com.example.james.rms.Inventory;
 
-import com.example.james.rms.CommonProfile.GsonUtil;
+import com.example.james.rms.CommonProfile.Util.GsonUtil;
 import com.example.james.rms.Core.Model.InventoryModel;
 import com.example.james.rms.Core.Model.Status;
 import com.example.james.rms.Core.SearchObject.InventorySearchObject;

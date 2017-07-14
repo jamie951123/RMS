@@ -1,6 +1,6 @@
 package com.example.james.rms.Core.Combine;
 
-import com.example.james.rms.CommonProfile.GsonUtil;
+import com.example.james.rms.CommonProfile.Util.GsonUtil;
 import com.example.james.rms.Core.Model.WeightProfileModel;
 import com.example.james.rms.Core.SearchObject.WeightSearchObject;
 import com.google.gson.Gson;

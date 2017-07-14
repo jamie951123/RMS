@@ -1,13 +1,9 @@
 package com.example.james.rms.Core.Combine;
 
-import com.example.james.rms.CommonProfile.GsonUtil;
+import com.example.james.rms.CommonProfile.Util.GsonUtil;
 import com.example.james.rms.Core.Model.ProductModel;
 import com.example.james.rms.Core.Model.Status;
-import com.example.james.rms.Core.SearchObject.ProductSearchObject;
 import com.google.gson.Gson;
-
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.Date;
 

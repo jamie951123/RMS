@@ -2,12 +2,11 @@ package com.example.james.rms.Core.Dao;
 
 import android.util.Log;
 
-import com.example.james.rms.CommonProfile.GsonUtil;
-import com.example.james.rms.CommonProfile.ObjectUtil;
+import com.example.james.rms.CommonProfile.Util.GsonUtil;
+import com.example.james.rms.CommonProfile.Util.ObjectUtil;
 import com.example.james.rms.Core.Model.ReceivingItemModel;
 import com.example.james.rms.Core.Model.ResponseMessage;
 import com.example.james.rms.Core.ServePath.ReceivingItemServePath;
-import com.example.james.rms.Core.ServePath.ReceivingOrderServePath;
 import com.example.james.rms.NetWork.HttpPostAsync;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;

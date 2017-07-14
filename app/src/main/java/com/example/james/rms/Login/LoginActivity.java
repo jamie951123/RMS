@@ -10,7 +10,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.james.rms.CommonProfile.DialogBox.ClassicDialog;
-import com.example.james.rms.CommonProfile.ObjectUtil;
+import com.example.james.rms.CommonProfile.Util.ObjectUtil;
 import com.example.james.rms.CommonProfile.SharePreferences.LoginPreferences;
 import com.example.james.rms.Controller.NavigationController;
 import com.example.james.rms.Core.Combine.FacebookSearchCombine;

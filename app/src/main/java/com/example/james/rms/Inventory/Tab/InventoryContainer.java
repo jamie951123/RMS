@@ -2,12 +2,11 @@ package com.example.james.rms.Inventory.Tab;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.james.rms.CommonProfile.MyBaseFragment;
+import com.example.james.rms.CommonProfile.MyAdapter.MyBaseFragment;
 import com.example.james.rms.Controller.MyViewPager;
 import com.example.james.rms.ITF.ViewPagerListener;
 import com.example.james.rms.Inventory.Adapter.InventoryContainer_Adapter;

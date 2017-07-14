@@ -7,13 +7,12 @@ import android.view.ViewGroup;
 
 import com.example.james.rms.CommonProfile.Graphics.GenericChat;
 import com.example.james.rms.CommonProfile.Library.AnimatedExpandableListView;
-import com.example.james.rms.CommonProfile.MyBaseFragment;
-import com.example.james.rms.CommonProfile.ObjectUtil;
+import com.example.james.rms.CommonProfile.MyAdapter.MyBaseFragment;
+import com.example.james.rms.CommonProfile.Util.ObjectUtil;
 import com.example.james.rms.Core.Model.ReceivingItemModel;
 import com.example.james.rms.Core.Model.ReceivingOrderModel;
 import com.example.james.rms.R;
 import com.example.james.rms.Receiving.Adapter.ReceivingItemExpandListAdapter;
-import com.example.james.rms.Receiving.Adapter.ReceivingItemListAdapter;
 import com.github.mikephil.charting.charts.HorizontalBarChart;
 import com.github.mikephil.charting.data.BarEntry;
 

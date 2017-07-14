@@ -9,9 +9,9 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.example.james.rms.CommonProfile.GlideApp;
-import com.example.james.rms.CommonProfile.MyExpandableListAdapter;
-import com.example.james.rms.CommonProfile.ObjectUtil;
+import com.example.james.rms.CommonProfile.MyAdapter.MyExpandableListAdapter;
+import com.example.james.rms.CommonProfile.Util.ActivityUtil;
+import com.example.james.rms.CommonProfile.Util.ObjectUtil;
 import com.example.james.rms.CommonProfile.ResponseStatus;
 import com.example.james.rms.CommonProfile.StartActivityForResultKey;
 import com.example.james.rms.Controller.NavigationController;
@@ -64,11 +64,16 @@ public class DeliveryOrderExpandListAdapter extends MyExpandableListAdapter<Deli
         holder.deliveryOrder_linear_edit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //Movement Record
+                String movementRecord_str = ActivityUtil.movementFactory_str(NavigationController.class.getCanonicalName(),DeliveryIncrease.class.getCanonicalName(),StartActivityForResultKey.navDelivery);
+
+                //
                 Intent intent = new Intent();
                 intent.setClass(getContext(), DeliveryIncrease.class);
                 DeliveryOrderCombine deliveryOrderCombine = new DeliveryOrderCombine(DeliveryOrderModel.class);
                 String deliveryOrder_json = deliveryOrderCombine.modelToJson(deliveryOrderModel);
                 intent.putExtra(StartActivityForResultKey.deliveryOrderModel,deliveryOrder_json);
+                intent.putExtra(StartActivityForResultKey.movementRecord,movementRecord_str);
                 getContext().startActivity(intent);
                 Log.d("asd","deliveryOrder_linear_edit");
             }

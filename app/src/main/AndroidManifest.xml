@@ -119,7 +119,7 @@
             android:configChanges="orientation"
             android:screenOrientation="portrait"></activity>
 
-        <meta-data android:name="com.example.james.rms.CommonProfile.MyAppGlideModule"
+        <meta-data android:name="com.example.james.rms.CommonProfile.MyAdapter.MyAppGlideModule"
             android:value="AppGlideModule"/>
 
     </application>

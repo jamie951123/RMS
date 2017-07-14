@@ -9,11 +9,11 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.example.james.rms.CommonProfile.GlideApp;
-import com.example.james.rms.CommonProfile.MyExpandableListAdapter;
-import com.example.james.rms.CommonProfile.ObjectUtil;
+import com.example.james.rms.CommonProfile.MyAdapter.GlideApp;
+import com.example.james.rms.CommonProfile.MyAdapter.MyExpandableListAdapter;
 import com.example.james.rms.CommonProfile.ResponseStatus;
 import com.example.james.rms.CommonProfile.StartActivityForResultKey;
+import com.example.james.rms.CommonProfile.Util.ObjectUtil;
 import com.example.james.rms.Core.Combine.ProductCombine;
 import com.example.james.rms.Core.Dao.ProductDao;
 import com.example.james.rms.Core.Dao.ProductDaoImpl;

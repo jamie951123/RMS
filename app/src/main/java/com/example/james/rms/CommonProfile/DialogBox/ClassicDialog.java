@@ -10,7 +10,11 @@ import android.view.View;
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.example.james.rms.CommonProfile.DialogBox.Service.ClassicDialogService;
+import com.example.james.rms.CommonProfile.StartActivityForResultKey;
+import com.example.james.rms.Controller.NavigationController;
+import com.example.james.rms.Core.Combine.MovementRecordCombine;
 import com.example.james.rms.Core.Model.KeyModel;
+import com.example.james.rms.Core.Model.MovementRecord;
 import com.example.james.rms.Core.Model.QuantityProfileModel;
 import com.example.james.rms.Core.Model.Status;
 import com.example.james.rms.Core.Model.WeightProfileModel;
@@ -28,9 +32,10 @@ import java.util.List;
  */
 
 public class ClassicDialog {
-    Context context;
-    MaterialDialog materialDialog;
+    private Context context;
+    private MaterialDialog materialDialog;
 
+    private MovementRecord movementRecordModel;
 
     public ClassicDialog(Context context){
         this.context = context;
@@ -71,7 +76,8 @@ public class ClassicDialog {
                 .show();
     }
 
-    public void showBackPrevious(String content){
+    public void showBackPrevious(String content, final MovementRecord movementRecord){
+        this.movementRecordModel = movementRecord;
         materialDialog = new MaterialDialog.Builder(context)
                 .content(content)
                 .canceledOnTouchOutside(false)
@@ -81,9 +87,18 @@ public class ClassicDialog {
                 .onPositive(new MaterialDialog.SingleButtonCallback() {
                     @Override
                     public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                        Intent intent=new Intent();
-                        intent.setClass(context,OperationContainer.class);
-                        context.startActivity(intent);
+                        try {
+                            Intent intent=new Intent();
+                            intent.setClass(context,Class.forName(movementRecordModel.getOriginalClass_string()));
+                            if(movementRecordModel.getOriginalClass_string().equals(NavigationController.class.getCanonicalName())){
+                                MovementRecordCombine movementRecordCombine = new MovementRecordCombine(MovementRecord.class);
+                                intent.putExtra(StartActivityForResultKey.movementRecord,movementRecordCombine.modelToJson(movementRecord));
+                            }
+                            context.startActivity(intent);
+                        }catch (ClassNotFoundException e){
+                            e.printStackTrace();
+                        }
+
                     }
                 })
                 .onNegative(new MaterialDialog.SingleButtonCallback() {

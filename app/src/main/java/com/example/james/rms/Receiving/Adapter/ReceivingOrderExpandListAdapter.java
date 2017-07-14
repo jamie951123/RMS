@@ -9,16 +9,18 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.example.james.rms.CommonProfile.GlideApp;
-import com.example.james.rms.CommonProfile.GsonUtil;
-import com.example.james.rms.CommonProfile.MyExpandableListAdapter;
-import com.example.james.rms.CommonProfile.ObjectUtil;
+import com.example.james.rms.CommonProfile.Util.ActivityUtil;
+import com.example.james.rms.CommonProfile.Util.GsonUtil;
+import com.example.james.rms.CommonProfile.MyAdapter.MyExpandableListAdapter;
+import com.example.james.rms.CommonProfile.Util.ObjectUtil;
 import com.example.james.rms.CommonProfile.ResponseStatus;
 import com.example.james.rms.CommonProfile.StartActivityForResultKey;
 import com.example.james.rms.Controller.NavigationController;
+import com.example.james.rms.Core.Combine.MovementRecordCombine;
 import com.example.james.rms.Core.Combine.ReceivingOrderCombine;
 import com.example.james.rms.Core.Dao.ReceivingOrderDao;
 import com.example.james.rms.Core.Dao.ReceivingOrderDaoImpl;
+import com.example.james.rms.Core.Model.MovementRecord;
 import com.example.james.rms.Core.Model.ReceivingOrderModel;
 import com.example.james.rms.Core.Model.ResponseMessage;
 import com.example.james.rms.ITF.ViewPagerListener;
@@ -72,9 +74,13 @@ public class ReceivingOrderExpandListAdapter extends MyExpandableListAdapter<Rec
                 ReceivingOrderCombine receivingOrderCombine = new ReceivingOrderCombine(ReceivingOrderModel.class);
                 String receivingOrder_json = receivingOrderCombine.modelToJson(receivingOrderModel);
                 if(ObjectUtil.isNotNullEmpty(receivingOrder_json)) {
+                    //MovementRecord
+                    String movementRecord_str = ActivityUtil.movementFactory_str(NavigationController.class.getCanonicalName(),ReceivingIncrease.class.getCanonicalName(),StartActivityForResultKey.navReceiving);
+                    //
                     Intent intent = new Intent();
                     intent.setClass(getContext(), ReceivingIncrease.class);
                     intent.putExtra(StartActivityForResultKey.receivingOrderModel,receivingOrder_json);
+                    intent.putExtra(StartActivityForResultKey.movementRecord,movementRecord_str);
                     getContext().startActivity(intent);
                 }
             }

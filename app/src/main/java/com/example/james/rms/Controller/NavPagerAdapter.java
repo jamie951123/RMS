@@ -3,7 +3,7 @@ package com.example.james.rms.Controller;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 
-import com.example.james.rms.CommonProfile.MyPagerAdapter;
+import com.example.james.rms.CommonProfile.MyAdapter.MyPagerAdapter;
 
 import java.util.List;
 

@@ -19,17 +19,17 @@ import android.widget.ExpandableListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.james.rms.CommonProfile.DeepCopy;
+import com.example.james.rms.CommonProfile.Util.DeepCopyUtil;
 import com.example.james.rms.CommonProfile.DialogBox.ClassicDialog;
 import com.example.james.rms.CommonProfile.DialogBox.MyDatePicker;
 import com.example.james.rms.CommonProfile.Library.AnimatedExpandableListView;
-import com.example.james.rms.CommonProfile.ObjectUtil;
+import com.example.james.rms.CommonProfile.Util.ObjectUtil;
 import com.example.james.rms.CommonProfile.SharePreferences.PartyIdPreferences;
 import com.example.james.rms.CommonProfile.StartActivityForResultKey;
 import com.example.james.rms.Controller.NavigationController;
 import com.example.james.rms.Core.Combine.DeliveryOrderCombine;
 import com.example.james.rms.Core.Combine.DeliveryOrderSearchCombine;
-import com.example.james.rms.Core.Combine.ReceivingOrderCombine;
+import com.example.james.rms.Core.Combine.MovementRecordCombine;
 import com.example.james.rms.Core.Dao.DeliveryOrderDao;
 import com.example.james.rms.Core.Dao.DeliveryOrderDaoImpl;
 import com.example.james.rms.Core.Dao.ReceivingOrderDao;
@@ -38,6 +38,7 @@ import com.example.james.rms.Core.Model.DeliveryItemModel;
 import com.example.james.rms.Core.Model.DeliveryOrderModel;
 import com.example.james.rms.Core.Model.ExpandableSelectedModel;
 import com.example.james.rms.Core.Model.KeyModel;
+import com.example.james.rms.Core.Model.MovementRecord;
 import com.example.james.rms.Core.Model.ReceivingItemModel;
 import com.example.james.rms.Core.Model.ReceivingOrderModel;
 import com.example.james.rms.Core.Model.Status;
@@ -87,12 +88,18 @@ public class DeliveryIncrease extends AppCompatActivity implements View.OnClickL
     private List<ReceivingOrderModel>  order_original;
     private List<ReceivingOrderModel>  order_latest;
     private List<ReceivingOrderModel>  order_listview;
+    //PutExtra
     private DeliveryOrderModel deliveryOrderModel;
+    private MovementRecord movementRecord;
     //
     private DeliveryIncreaseItemExpandableAdapter deliveryIncreaseItemExpandableAdapter;
     //
     private LinkedHashMap<Long,DeliveryItemModel> orginalMapByReceivingItemId = new LinkedHashMap<>();
     private LinkedHashMap<Long,DeliveryItemModel> latestMapByReceivingItemId = new LinkedHashMap<>();
+
+    //Combine
+    private MovementRecordCombine movementRecordCombine = new MovementRecordCombine(MovementRecord.class);
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -129,20 +136,27 @@ public class DeliveryIncrease extends AppCompatActivity implements View.OnClickL
         order_listview = new ArrayList<>();
         //order and child checkbox setup
         setOriginalCheckbox(order_original);
-        //new DeliveryOrder
-        deliveryOrderModel = new DeliveryOrderModel();
 
+        //new DeliveryOrder (put Extra)
+        deliveryOrderModel = new DeliveryOrderModel();
+        movementRecord = new MovementRecord();
         //
         String deliveryOrder_json = null;
+        String movementRecord_json = null;
         if (savedInstanceState == null) {
             Bundle extras = getIntent().getExtras();
             if (extras == null) {
                 deliveryOrder_json = null;
+                movementRecord_json = null;
             } else {
                 deliveryOrder_json = extras.getString(StartActivityForResultKey.deliveryOrderModel);
+                movementRecord_json = extras.getString(StartActivityForResultKey.movementRecord);
             }
         }
 
+        if(ObjectUtil.isNotNullEmpty(movementRecord_json)){
+            movementRecord = movementRecordCombine.jsonToModel(movementRecord_json);
+        }
         //Edit
         if (ObjectUtil.isNotNullEmpty(deliveryOrder_json)) {
             DeliveryOrderCombine deliveryOrderCombine = new DeliveryOrderCombine(DeliveryOrderModel.class);
@@ -238,7 +252,7 @@ public class DeliveryIncrease extends AppCompatActivity implements View.OnClickL
             }
         }
         //Deep Clone CkeckBox
-        expandableSelectedModel.setOrginal_isItemSelected(DeepCopy.copyLinkedHashMap_Long_Boolean(expandableSelectedModel.getIsItemSelected()));
+        expandableSelectedModel.setOrginal_isItemSelected(DeepCopyUtil.copyLinkedHashMap_Long_Boolean(expandableSelectedModel.getIsItemSelected()));
     }
     //Create
     public void setOriginalCheckbox(List<ReceivingOrderModel>  receivingOrderModel){
@@ -269,7 +283,7 @@ public class DeliveryIncrease extends AppCompatActivity implements View.OnClickL
                 @Override
                 public void onClick(View v) {
                     ClassicDialog classicDialog = new ClassicDialog(v.getContext());
-                    classicDialog.showBackPrevious(getString(R.string.previous));
+                    classicDialog.showBackPrevious(getString(R.string.previous),movementRecord);
                 }
             });
         }
@@ -307,7 +321,7 @@ public class DeliveryIncrease extends AppCompatActivity implements View.OnClickL
 
         if (saveResult != null) {
             Intent intent = new Intent();
-            intent.putExtra("NavigationController", StartActivityForResultKey.navDelivery);
+            intent.putExtra(StartActivityForResultKey.movementRecord, movementRecordCombine.modelToJson(movementRecord));
             intent.setClass(this, NavigationController.class);
             startActivity(intent);
         }
@@ -331,7 +345,7 @@ public class DeliveryIncrease extends AppCompatActivity implements View.OnClickL
     public void onBackPressed() {
 //        super.onBackPressed();
         ClassicDialog classicDialog = new ClassicDialog(this);
-        classicDialog.showBackPrevious(getString(R.string.previous));
+        classicDialog.showBackPrevious(getString(R.string.previous),movementRecord);
     }
 
     @Override
@@ -379,7 +393,7 @@ public class DeliveryIncrease extends AppCompatActivity implements View.OnClickL
         listView.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
             @Override
             public boolean onGroupClick(ExpandableListView expandableListView, View view, int i, long l) {
-                return true;
+                return false;
             }
         });
     }

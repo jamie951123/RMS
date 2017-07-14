@@ -24,11 +24,14 @@ import android.widget.Toast;
 
 import com.example.james.rms.CommonProfile.DialogBox.ClassicDialog;
 import com.example.james.rms.CommonProfile.FabButton.FabCore;
-import com.example.james.rms.CommonProfile.MyBaseFragment;
+import com.example.james.rms.CommonProfile.MyAdapter.MyBaseFragment;
 import com.example.james.rms.CommonProfile.SharePreferences.LoginPreferences;
 import com.example.james.rms.CommonProfile.SharePreferences.NavPreferences;
 import com.example.james.rms.CommonProfile.StartActivityForResultKey;
+import com.example.james.rms.CommonProfile.Util.ObjectUtil;
 import com.example.james.rms.Controller.CommunicateService.NavToRL;
+import com.example.james.rms.Core.Combine.MovementRecordCombine;
+import com.example.james.rms.Core.Model.MovementRecord;
 import com.example.james.rms.Delivery.DeliveryContainer;
 import com.example.james.rms.ITF.ViewPagerListener;
 import com.example.james.rms.Inventory.Tab.InventoryContainer;
@@ -70,6 +73,9 @@ public class NavigationController extends AppCompatActivity implements Navigatio
     //
     private LoginPreferences loginPreferences ;
 
+    //PutExtra
+    private MovementRecord movementRecord;
+
     String partyId;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -90,13 +96,22 @@ public class NavigationController extends AppCompatActivity implements Navigatio
         FabSetting();
 
         Integer requestCode = null;
+        String movementRecord_str = null;
         if (savedInstanceState == null) {
             Bundle extras = getIntent().getExtras();
             if(extras == null) {
-                requestCode= null;
+//                requestCode= null;
+                movementRecord_str = null;
             } else {
-                requestCode= extras.getInt("NavigationController");
+//                requestCode= extras.getInt("NavigationController");
+                movementRecord_str = extras.getString(StartActivityForResultKey.movementRecord);
             }
+        }
+
+        if(ObjectUtil.isNotNullEmpty(movementRecord_str)){
+            MovementRecordCombine movementRecordCombine = new MovementRecordCombine(MovementRecord.class);
+            movementRecord = movementRecordCombine.jsonToModel(movementRecord_str);
+            requestCode = movementRecord.getExist_fragment();
         }
         if(requestCode != null) {
             switch (requestCode) {
@@ -189,23 +204,29 @@ public class NavigationController extends AppCompatActivity implements Navigatio
         if (id == R.id.nav_all_product) {
             pager.setCurrentItem(0);
             toolbar.setTitle(R.string.allproduct);
+            navigationView.setCheckedItem(R.id.nav_all_product);
         } else if (id == R.id.nav_receiving) {
             pager.setCurrentItem(1);
             toolbar.setTitle(R.string.receiving);
+            navigationView.setCheckedItem(R.id.nav_receiving);
         } else if (id == R.id.nav_inventory) {
             pager.setCurrentItem(2);
             toolbar.setTitle(R.string.inventory);
+            navigationView.setCheckedItem(R.id.nav_inventory);
         } else if (id == R.id.nav_stockOut) {
             pager.setCurrentItem(3);
             toolbar.setTitle(R.string.stockout);
+            navigationView.setCheckedItem(R.id.nav_stockOut);
         } else if (id == R.id.nav_record) {
             //            toolbar.setTitle(R.string.record);
         } else if (id == R.id.nav_setting) {
             //            toolbar.setTitle(R.string.setting);
+            navigationView.setCheckedItem(R.id.nav_setting);
             Intent intent = new Intent();
             intent.setClass(this, SettingContainer.class);
             startActivity(intent);
         } else if (id == R.id.nav_logout) {
+            navigationView.setCheckedItem(R.id.nav_logout);
             logoutStatus();
         }
     }

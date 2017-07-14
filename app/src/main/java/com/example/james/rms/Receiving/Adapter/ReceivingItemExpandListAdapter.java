@@ -9,12 +9,13 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.example.james.rms.CommonProfile.GlideApp;
-import com.example.james.rms.CommonProfile.GsonUtil;
-import com.example.james.rms.CommonProfile.MyExpandableListAdapter;
-import com.example.james.rms.CommonProfile.ObjectUtil;
+import com.example.james.rms.CommonProfile.Util.ActivityUtil;
+import com.example.james.rms.CommonProfile.Util.GsonUtil;
+import com.example.james.rms.CommonProfile.MyAdapter.MyExpandableListAdapter;
+import com.example.james.rms.CommonProfile.Util.ObjectUtil;
 import com.example.james.rms.CommonProfile.ResponseStatus;
 import com.example.james.rms.CommonProfile.StartActivityForResultKey;
+import com.example.james.rms.Controller.NavigationController;
 import com.example.james.rms.Core.Combine.ReceivingItemCombine;
 import com.example.james.rms.Core.Dao.ReceivingItemDao;
 import com.example.james.rms.Core.Dao.ReceivingItemDaoImpl;
@@ -77,9 +78,13 @@ public class ReceivingItemExpandListAdapter extends MyExpandableListAdapter<Rece
                         e.printStackTrace();
                     }
                     if(ObjectUtil.isNotNullEmpty(receivingOrder_json)) {
+                        //MovementRecord
+                        String movementRecord_str = ActivityUtil.movementFactory_str(NavigationController.class.getCanonicalName(),ReceivingIncrease.class.getCanonicalName(),StartActivityForResultKey.navReceiving);
+                        //
                         Intent intent = new Intent();
                         intent.setClass(getContext(), ReceivingIncrease.class);
                         intent.putExtra(StartActivityForResultKey.receivingOrderModel,receivingOrder_json);
+                        intent.putExtra(StartActivityForResultKey.movementRecord,movementRecord_str);
                         getContext().startActivity(intent);
                     }
                     Log.v("asd", "linear_edit");

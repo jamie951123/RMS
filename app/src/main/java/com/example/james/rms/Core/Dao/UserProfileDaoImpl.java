@@ -2,7 +2,7 @@ package com.example.james.rms.Core.Dao;
 
 import android.util.Log;
 
-import com.example.james.rms.CommonProfile.GsonUtil;
+import com.example.james.rms.CommonProfile.Util.GsonUtil;
 import com.example.james.rms.Core.Model.LoginModel;
 import com.example.james.rms.Core.Model.UserProfile;
 import com.example.james.rms.Core.ServePath.UserProfileServePath;
