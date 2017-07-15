@@ -230,11 +230,17 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                         intent.setClass(this, NavigationController.class);
                         startActivity(intent);
                     }
-                    Toast.makeText(getApplicationContext(), loginModel.getLoginMessage(), Toast.LENGTH_SHORT).show();
+                    if(loginModel !=null) Toast.makeText(getApplicationContext(), loginModel.getLoginMessage(), Toast.LENGTH_SHORT).show();
                     classicDialog.dismiss();
                 break;
         }
 
+    }
+
+    @Override
+    public void onBackPressed() {
+//        super.onBackPressed();
+        classicDialog.showLeave(getString(R.string.leave));
     }
 
     public void setEditUsernameAndPassWord(String username , String password){
@@ -244,7 +250,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     public Boolean checkLoginStatus(LoginModel loginModel){
         Boolean isSuccessful = false;
-        if(getApplicationContext().getResources().getString(R.string.loginSuccessful).equals(loginModel.getLoginStatus())){
+        if(loginModel != null && getApplicationContext().getResources().getString(R.string.loginSuccessful).equals(loginModel.getLoginStatus())){
             isSuccessful = true;
         }
         return isSuccessful;

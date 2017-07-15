@@ -239,6 +239,7 @@ public class NavigationController extends AppCompatActivity implements Navigatio
             loginPreferences.setPreferences_loginInformation(username,password);
             Intent intent = new Intent();
             intent.setClass(this, LoginActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);
         }
     }
