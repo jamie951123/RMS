@@ -3,12 +3,14 @@ package com.example.james.rms.Receiving.Adapter;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.example.james.rms.CommonProfile.CommonFactory;
 import com.example.james.rms.CommonProfile.Util.ActivityUtil;
 import com.example.james.rms.CommonProfile.Util.GsonUtil;
 import com.example.james.rms.CommonProfile.MyAdapter.MyExpandableListAdapter;
@@ -35,11 +37,14 @@ import butterknife.ButterKnife;
 
 public class ReceivingItemExpandListAdapter extends MyExpandableListAdapter<ReceivingItemModel> {
 
-    ReceivingOrderModel receivingOrderModel;
+    private ReceivingOrderModel receivingOrderModel;
+    //Dao
+    ReceivingItemDao receivingItemDao;
 
     public ReceivingItemExpandListAdapter(Context context, ReceivingOrderModel receivingOrderModel) {
         super(context, receivingOrderModel.getReceivingItem());
         this.receivingOrderModel = receivingOrderModel;
+        receivingItemDao = new ReceivingItemDaoImpl((AppCompatActivity)context);
     }
 
     @Override
@@ -79,7 +84,7 @@ public class ReceivingItemExpandListAdapter extends MyExpandableListAdapter<Rece
                     }
                     if(ObjectUtil.isNotNullEmpty(receivingOrder_json)) {
                         //MovementRecord
-                        String movementRecord_str = ActivityUtil.movementFactory_str(NavigationController.class.getCanonicalName(),ReceivingIncrease.class.getCanonicalName(),StartActivityForResultKey.navReceiving);
+                        String movementRecord_str = CommonFactory.movementFactory_str(NavigationController.class.getCanonicalName(),ReceivingIncrease.class.getCanonicalName(),StartActivityForResultKey.navReceiving);
                         //
                         Intent intent = new Intent();
                         intent.setClass(getContext(), ReceivingIncrease.class);
@@ -96,7 +101,6 @@ public class ReceivingItemExpandListAdapter extends MyExpandableListAdapter<Rece
                 public void onClick(View v) {
                     ReceivingItemCombine receivingItemCombine = new ReceivingItemCombine(ReceivingItemModel.class);
                     String receivingItem_json = receivingItemCombine.modelToJson(getFilteredData().get(groupPosition));
-                    ReceivingItemDao receivingItemDao = new ReceivingItemDaoImpl();
                     ResponseMessage responseMessage = receivingItemDao.delete(receivingItem_json);
                     if (responseMessage != null && ResponseStatus.getSuccessful().equalsIgnoreCase(responseMessage.getMessage_status())) {
                         getFilteredData().remove(groupPosition);

@@ -16,15 +16,4 @@ public class ActivityUtil {
         InputMethodManager inputMethodManager = (InputMethodManager)  activity.getSystemService(Activity.INPUT_METHOD_SERVICE);
         inputMethodManager.hideSoftInputFromWindow(activity.getCurrentFocus().getWindowToken(), 0);
     }
-
-    public static String movementFactory_str(String orginalClass,String tragetClass,int exist_fragment){
-        MovementRecord movementRecord = new MovementRecord();
-        movementRecord.setOriginalClass_string(orginalClass);
-        movementRecord.setTargetClass_string(tragetClass);
-        movementRecord.setExist_fragment(exist_fragment);
-
-        MovementRecordCombine movementRecordCombine = new MovementRecordCombine(MovementRecord.class);
-        String movementRecord_str = movementRecordCombine.modelToJson(movementRecord);
-        return  movementRecord_str;
-    }
 }

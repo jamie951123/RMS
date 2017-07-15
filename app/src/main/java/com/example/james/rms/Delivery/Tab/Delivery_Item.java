@@ -37,9 +37,6 @@ public class Delivery_Item extends MyBaseFragment{
     @BindView(R.id.deliveryItem_HorbarChart)
     HorizontalBarChart horizontalBarChart;
 
-    //Interface
-    private DeliveryItemDao deliveryItemDao = new DeliveryItemDaoImpl();
-
     //Model
     private DeliveryOrderModel deliveryOrderModel;
     private List<DeliveryItemModel> deliveryItemModels;

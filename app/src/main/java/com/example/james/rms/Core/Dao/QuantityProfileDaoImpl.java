@@ -1,8 +1,11 @@
 package com.example.james.rms.Core.Dao;
 
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
 import com.example.james.rms.CommonProfile.Util.GsonUtil;
+import com.example.james.rms.CommonProfile.Util.ObjectUtil;
+import com.example.james.rms.Core.Model.NetworkModel;
 import com.example.james.rms.Core.Model.QuantityProfileModel;
 import com.example.james.rms.Core.Model.ResponseMessage;
 import com.example.james.rms.Core.ServePath.QuantityServePath;
@@ -20,19 +23,29 @@ import java.util.concurrent.ExecutionException;
  * Created by jamie on 2017/4/23.
  */
 
-public class QuantityProfileDaoImpl implements QuantityProfileDao {
+public class QuantityProfileDaoImpl extends NetworkModel implements QuantityProfileDao {
+
+
+    public QuantityProfileDaoImpl(AppCompatActivity appCompatActivity) {
+        super(appCompatActivity);
+    }
+
     @Override
     public List<QuantityProfileModel> findAll() {
         String url = QuantityServePath.serve_findAll();
         String result="";
         try {
-            result = new HttpGetAsync().execute(url).get();
+            result = new HttpGetAsync(this).execute(url).get();
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {
             e.printStackTrace();
         }
         Log.d("asd","[QuantityProfileModel]-findAll(Response): "+result);
+        if(!ObjectUtil.isCorrectResponse(result)){
+            return null;
+        }
+
         List<QuantityProfileModel> quantityProfileModels = new ArrayList<>();
         try{
             Gson gson = new Gson();
@@ -50,13 +63,17 @@ public class QuantityProfileDaoImpl implements QuantityProfileDao {
         Log.d("asd","[QuantityProfileModel]-findByPartyId(Request--JSON):" + json);
         String result = "";
         try {
-            result = new HttpPostAsync().execute(QuantityServePath.serve_findByPartyId(),json).get();
+            result = new HttpPostAsync(this).execute(QuantityServePath.serve_findByPartyId(),json).get();
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {
             e.printStackTrace();
         }
         Log.d("asd:","[QuantityProfileModel]-findByPartyId-[Response(String)] : "+result);
+        if(!ObjectUtil.isCorrectResponse(result)){
+            return null;
+        }
+
         List<QuantityProfileModel> quantityProfileModels = new ArrayList<>();
         try{
             Gson gson = GsonUtil.fromJson();
@@ -79,13 +96,17 @@ public class QuantityProfileDaoImpl implements QuantityProfileDao {
         Log.d("asd","[QuantityProfileModel]-delete(Request--JSON):" + json);
         String result = "";
         try {
-            result = new HttpPostAsync().execute(QuantityServePath.serve_quantityDelete(),json).get();
+            result = new HttpPostAsync(this).execute(QuantityServePath.serve_quantityDelete(),json).get();
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {
             e.printStackTrace();
         }
         Log.d("asd:","[QuantityProfileModel]-delete-[Response(String)] : "+result);
+        if(!ObjectUtil.isCorrectResponse(result)){
+            return null;
+        }
+
         ResponseMessage responseMessage = new ResponseMessage();
         try{
             Gson gson = GsonUtil.fromJson();
@@ -106,13 +127,17 @@ public class QuantityProfileDaoImpl implements QuantityProfileDao {
         Log.d("asd","[QuantityProfileModel]-save(Request--JSON):" + json);
         String result = "";
         try {
-            result = new HttpPostAsync().execute(QuantityServePath.serve_save(),json).get();
+            result = new HttpPostAsync(this).execute(QuantityServePath.serve_save(),json).get();
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {
             e.printStackTrace();
         }
         Log.d("asd:","[QuantityProfileModel]-save-[Response(String)] : "+result);
+        if(!ObjectUtil.isCorrectResponse(result)){
+            return null;
+        }
+
         QuantityProfileModel quantityProfileModel = new QuantityProfileModel();
         try{
             Gson gson = GsonUtil.fromJson();

@@ -1,5 +1,7 @@
 package com.example.james.rms.CommonProfile.Util;
 
+import com.example.james.rms.CommonProfile.AsyncMessage;
+
 import java.math.BigDecimal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -115,5 +117,12 @@ public class ObjectUtil {
     public static boolean isNumeric(String str)
     {
         return str.matches("-?\\d+(\\.\\d+)?");  //match a number with optional '-' and decimal.
+    }
+
+    public static boolean isCorrectResponse(String result){
+        if(result.equals(AsyncMessage.error_network)){
+            return false;
+        }
+        return true;
     }
 }

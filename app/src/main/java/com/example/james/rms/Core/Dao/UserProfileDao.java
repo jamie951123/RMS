@@ -14,7 +14,7 @@ public interface UserProfileDao {
     List<UserProfile> findAll();
     List<LoginModel> findByPartyId();
     UserProfile findByFacebookId(String userProfileSearchObject_json);
-    LoginModel checkLogin(String json,String url);
+    LoginModel checkLogin(String userProfile_json);
 
 //    Save
     UserProfile save(String userProfile_json);

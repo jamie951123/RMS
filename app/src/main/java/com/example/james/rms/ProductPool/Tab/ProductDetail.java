@@ -1,6 +1,7 @@
 package com.example.james.rms.ProductPool.Tab;
 
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,15 +33,18 @@ public class ProductDetail extends MyBaseFragment implements AdapterView.OnItemC
     @BindView(R.id.product_listView)
     AnimatedExpandableListView listView;
 
-    private ProductDao productDao = new ProductDaoImpl();
-
     private ProductExpandListAdapter productExpandListAdapter ;
 
+    //Dao
+    private ProductDao productDao;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.product_detail,container , false);
         ButterKnife.bind(this,rootView);
+        //Dao
+        productDao = new ProductDaoImpl((AppCompatActivity)getActivity());
+
         //Preferences
         PartyIdPreferences partyIdPreferences = new PartyIdPreferences(getActivity(),"loginInformation",getActivity().MODE_PRIVATE);
         String partyId =  partyIdPreferences.getPreferences_PartyId().get("partyId");

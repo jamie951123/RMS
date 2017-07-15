@@ -3,12 +3,14 @@ package com.example.james.rms.Delivery.Adapter;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.example.james.rms.CommonProfile.CommonFactory;
 import com.example.james.rms.CommonProfile.MyAdapter.MyExpandableListAdapter;
 import com.example.james.rms.CommonProfile.Util.ActivityUtil;
 import com.example.james.rms.CommonProfile.Util.ObjectUtil;
@@ -35,8 +37,12 @@ import butterknife.ButterKnife;
 
 public class DeliveryOrderExpandListAdapter extends MyExpandableListAdapter<DeliveryOrderModel> {
 
+//    Dao
+    private  DeliveryOrderDao deliveryOrderDao;
+
     public DeliveryOrderExpandListAdapter(Context context, List<DeliveryOrderModel> dataArrayList) {
         super(context, dataArrayList);
+        deliveryOrderDao = new DeliveryOrderDaoImpl((AppCompatActivity)context);
     }
 
     @Override
@@ -65,7 +71,7 @@ public class DeliveryOrderExpandListAdapter extends MyExpandableListAdapter<Deli
             @Override
             public void onClick(View v) {
                 //Movement Record
-                String movementRecord_str = ActivityUtil.movementFactory_str(NavigationController.class.getCanonicalName(),DeliveryIncrease.class.getCanonicalName(),StartActivityForResultKey.navDelivery);
+                String movementRecord_str = CommonFactory.movementFactory_str(NavigationController.class.getCanonicalName(),DeliveryIncrease.class.getCanonicalName(),StartActivityForResultKey.navDelivery);
 
                 //
                 Intent intent = new Intent();
@@ -86,7 +92,6 @@ public class DeliveryOrderExpandListAdapter extends MyExpandableListAdapter<Deli
 
                 try {
                     String delete_json = deliveryOrderCombine.modelToJson(getGroup(groupPosition));
-                    DeliveryOrderDao deliveryOrderDao = new DeliveryOrderDaoImpl();
                     ResponseMessage responseMessage = deliveryOrderDao.delete(delete_json);
                     if (responseMessage != null && ResponseStatus.getSuccessful().equalsIgnoreCase(responseMessage.getMessage_status())) {
                         getFilteredData().remove(groupPosition);

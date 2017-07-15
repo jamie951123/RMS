@@ -1,6 +1,7 @@
 package com.example.james.rms.Delivery.Tab;
 
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,19 +32,23 @@ public class Delivery_Order extends MyBaseFragment {
     @BindView(R.id.de_order_listview)
     AnimatedExpandableListView listView;
 
-    //Interface
-    private DeliveryOrderDao deliveryOrderDao = new DeliveryOrderDaoImpl();
-
     //Model
     private List<DeliveryOrderModel> deliveryOrderModels;
 
     //Adapter
     private DeliveryOrderExpandListAdapter deliveryOrderExpandListAdapter;
+
+    //Dao
+    private DeliveryOrderDao deliveryOrderDao;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.delivery_order,container , false);
         ButterKnife.bind(this,rootView);
+        //Dao
+        deliveryOrderDao = new DeliveryOrderDaoImpl((AppCompatActivity) getActivity());
+
         //Preferences
         PartyIdPreferences partyIdPreferences = new PartyIdPreferences(getActivity(),"loginInformation",getActivity().MODE_PRIVATE);
         String partyId =  partyIdPreferences.getPreferences_PartyId().get("partyId");
@@ -51,9 +56,10 @@ public class Delivery_Order extends MyBaseFragment {
         String combine_partyIdAndStatus = DeliveryOrderSearchCombine.combine_partyIdAndStatus(partyId, Status.PROGRESS);
 
         deliveryOrderModels = deliveryOrderDao.findByPartyIdAndStatus(combine_partyIdAndStatus);
-
-        deliveryOrderExpandListAdapter = new DeliveryOrderExpandListAdapter(getActivity(),deliveryOrderModels);
-        listView.setAdapter(deliveryOrderExpandListAdapter);
+        if(deliveryOrderModels != null) {
+            deliveryOrderExpandListAdapter = new DeliveryOrderExpandListAdapter(getActivity(), deliveryOrderModels);
+            listView.setAdapter(deliveryOrderExpandListAdapter);
+        }
 //        pager.setPagingEnabled(false);
         return rootView;
     }

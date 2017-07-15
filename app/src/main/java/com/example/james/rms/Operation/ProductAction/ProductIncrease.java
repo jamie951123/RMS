@@ -37,6 +37,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import de.keyboardsurfer.android.widget.crouton.Crouton;
 
 /**
  * Created by james on 13/3/2017.
@@ -68,13 +69,7 @@ public class ProductIncrease extends AppCompatActivity implements View.OnClickLi
     private Long weightId = null;
     private Long quantityId = null;
     //
-    private ProductDao productDao = new ProductDaoImpl();
-    //
     DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
-    //
-    private WeightProfileDao weightProfileDao = new WeightProfileDaoImpl();
-    //
-    private QuantityProfileDao quantityProfileDao = new QuantityProfileDaoImpl();
 
     String common_partyId;
     private List<WeightProfileModel> weightProfileModelList;
@@ -82,11 +77,22 @@ public class ProductIncrease extends AppCompatActivity implements View.OnClickLi
     private Long defaultWeightId;
     private Long defaultQtyId;
     ProductModel gateInProductModel = new ProductModel();
+    //
+    //
+    private WeightProfileDao weightProfileDao;
+    private QuantityProfileDao quantityProfileDao;
+    private ProductDao productDao;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.product_increase);
         ButterKnife.bind(this);
+        // Dao
+        weightProfileDao = new WeightProfileDaoImpl(this);
+        quantityProfileDao = new QuantityProfileDaoImpl(this);
+        productDao = new ProductDaoImpl(this);
+        //
         defaultWeightId = null;
         defaultQtyId = null;
         increase_submit.setOnClickListener(this);
@@ -165,7 +171,7 @@ public class ProductIncrease extends AppCompatActivity implements View.OnClickLi
         Date createDate      = new Date();
         String partyId       = common_partyId;
 
-        ClassicDialog classicDialog = new ClassicDialog(this);
+//        ClassicDialog classicDialog = new ClassicDialog(this);
         switch (v.getId()){
             case (R.id.increase_submit):
                 if(!checkConCatFieldIsNotNUll(productCode,puductName)){
@@ -186,10 +192,10 @@ public class ProductIncrease extends AppCompatActivity implements View.OnClickLi
                 break;
 
             case (R.id.product_increase_weight_unit):
-                classicDialog.showSingleChoice(getString(R.string.title_select_weight_unit),null,this.weightProfileModelList, KeyModel.gw,defaultWeightId);
+                ClassicDialog.showSingleChoice(this,getString(R.string.title_select_weight_unit),null,this.weightProfileModelList, KeyModel.gw,defaultWeightId);
                 break;
             case (R.id.product_increase_quantity_unit):
-                classicDialog.showSingleChoice(getString(R.string.title_select_quantity_unit),null,this.quantityProfileModelList, KeyModel.qty,defaultQtyId);
+                ClassicDialog.showSingleChoice(this,getString(R.string.title_select_quantity_unit),null,this.quantityProfileModelList, KeyModel.qty,defaultQtyId);
                 break;
         }
     }
@@ -217,4 +223,11 @@ public class ProductIncrease extends AppCompatActivity implements View.OnClickLi
 //        quantityId = quantityProfileModel.getQuantityId();
         Log.v("asd","settingPagesQty :" + quantityProfileModel.toString());
     }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Crouton.cancelAllCroutons();
+    }
+
 }

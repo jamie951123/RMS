@@ -2,6 +2,7 @@ package com.example.james.rms.Login;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -9,9 +10,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example.james.rms.CommonProfile.DialogBox.ClassicDialog;
-import com.example.james.rms.CommonProfile.Util.ObjectUtil;
+import com.example.james.rms.CommonProfile.CommonFactory;
 import com.example.james.rms.CommonProfile.SharePreferences.LoginPreferences;
+import com.example.james.rms.CommonProfile.Util.ObjectUtil;
 import com.example.james.rms.Controller.NavigationController;
 import com.example.james.rms.Core.Combine.FacebookSearchCombine;
 import com.example.james.rms.Core.Combine.UserProfileCombine;
@@ -24,8 +25,6 @@ import com.example.james.rms.Core.Model.LoginModel;
 import com.example.james.rms.Core.Model.Status;
 import com.example.james.rms.Core.Model.UserProfile;
 import com.example.james.rms.Core.SearchObject.FacebookSearchObject;
-import com.example.james.rms.Login.Service.LoginService;
-import com.example.james.rms.Login.Service.LoginServiceImpl;
 import com.example.james.rms.R;
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
@@ -41,6 +40,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import de.keyboardsurfer.android.widget.crouton.Crouton;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener{
 
@@ -62,8 +62,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     //Facebook
     private CallbackManager callbackManager;
     private AccessToken accessToken;
-    //dialog
-    ClassicDialog classicDialog;
+    //Dao
+    private UserProfileDao userProfileDao;
+    private  FacebookDao facebookDao;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -71,10 +72,14 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         AppEventsLogger.activateApp(this);
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
+        //setup Dao
+        userProfileDao = new UserProfileDaoImpl(this);
+        facebookDao = new FacebookDaoImpl(this);
+        //
         loginPreferences = new LoginPreferences(this,"loginInformation", MODE_PRIVATE);
-        classicDialog = new ClassicDialog(this);
         btnCancel.setOnClickListener(this);
         btnLogin.setOnClickListener(this);
+        //
         if( loginPreferences.getPreferences_loginInformation() != null){
             saveLoginCheckBox.setChecked(true);
             String username = loginPreferences.getPreferences_loginInformation().get("username");
@@ -135,7 +140,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 try {
                     FacebookSearchCombine facebookSearchCombine = new FacebookSearchCombine(FacebookSearchObject.class);
                     String request_json = facebookSearchCombine.modelToJson(facebookSearchObject);
-                    FacebookDao facebookDao = new FacebookDaoImpl();
                     Integer facebook_count = facebookDao.countFacebookId(request_json);
                     Log.d("asd", "userProfile [Response]: " + facebook_count);
 
@@ -146,8 +150,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     }
 
                     if(facebook_count >=1){
-                        UserProfileDao UserProfileDao = new UserProfileDaoImpl();
-                        UserProfile u = UserProfileDao.findByFacebookId(request_json);
+                        UserProfile u = userProfileDao.findByFacebookId(request_json);
                         Log.d("asd","[Login]-[Facebook]-[findByFacebookId]-[Result]  :" + u.toString());
                         loginPreferences.setPreferences_loginInformation(u);
                         Log.d("asd","partyId :" + loginPreferences.getPreferences_loginInformation().get("partyId"));
@@ -165,7 +168,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                         UserProfileCombine userProfileCombine = new UserProfileCombine(UserProfile.class);
                         String userProfile_json = userProfileCombine.modelToJson(userProfile);
 
-                        UserProfileDao userProfileDao = new UserProfileDaoImpl();
                         UserProfile save_response = userProfileDao.save(userProfile_json);
                         Log.d("asd","[Login]-[Facebook]-[save]-[Result]  :" + save_response.toString());
                         loginPreferences.setPreferences_loginInformation(save_response);
@@ -203,10 +205,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     public void onClick(View v) {
         String username = editUsername.getText().toString();
         String password = editPassword.getText().toString();
-        LoginService loginService = new LoginServiceImpl();
         switch (v.getId()){
             case R.id.btnCancel:
-                List<UserProfile> loginModels = loginService.findAll();
+                List<UserProfile> loginModels = userProfileDao.findAll();
                 Toast.makeText(getApplicationContext(),loginModels.toString(),Toast.LENGTH_SHORT).show();
                 break;
 
@@ -220,10 +221,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     loginPreferences.clear_loginInformation();
                     setEditUsernameAndPassWord("", "");
                 }
-                    classicDialog.showIndeterminate(R.color.blue0895ef,getString(R.string.loading),getString(R.string.waiting));
                     String loginValue = UserProfileCombine.combine_usernameAndpassword(username, password);
-                    loginService.checkLogin(loginValue);
-                    LoginModel loginModel = loginService.checkLogin(loginValue);
+                    LoginModel loginModel = userProfileDao.checkLogin(loginValue);
                     if (checkLoginStatus(loginModel)) {
                         loginPreferences.setPreferences_loginInformation(loginModel);
                         Intent intent = new Intent();
@@ -231,7 +230,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                         startActivity(intent);
                     }
                     if(loginModel !=null) Toast.makeText(getApplicationContext(), loginModel.getLoginMessage(), Toast.LENGTH_SHORT).show();
-                    classicDialog.dismiss();
                 break;
         }
 
@@ -240,7 +238,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     @Override
     public void onBackPressed() {
 //        super.onBackPressed();
-        classicDialog.showLeave(getString(R.string.leave));
+        if(CommonFactory.isNetworkConnection(this)) {
+            View view = CommonFactory.updateView(getLayoutInflater().inflate(R.layout.crouton_custom_view, null), getString(R.string.label_bad_network_connection), ContextCompat.getDrawable(this, R.drawable.wifi_scan_black));
+            Crouton.make(this, view).show();
+        }
+//        classicDialog.showLeave(getString(R.string.leave));
     }
 
     public void setEditUsernameAndPassWord(String username , String password){
@@ -255,4 +257,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         }
         return isSuccessful;
     }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Crouton.cancelAllCroutons();
+    }
+
 }

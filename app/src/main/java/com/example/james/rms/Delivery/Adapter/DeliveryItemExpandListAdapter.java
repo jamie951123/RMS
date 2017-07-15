@@ -3,14 +3,15 @@ package com.example.james.rms.Delivery.Adapter;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.example.james.rms.CommonProfile.CommonFactory;
 import com.example.james.rms.CommonProfile.MyAdapter.MyExpandableListAdapter;
-import com.example.james.rms.CommonProfile.Util.ActivityUtil;
 import com.example.james.rms.CommonProfile.Util.ObjectUtil;
 import com.example.james.rms.CommonProfile.ResponseStatus;
 import com.example.james.rms.CommonProfile.StartActivityForResultKey;
@@ -35,11 +36,14 @@ import butterknife.ButterKnife;
 
 public class DeliveryItemExpandListAdapter extends MyExpandableListAdapter<DeliveryItemModel> {
 
-    DeliveryOrderModel deliveryOrderModel;
+    private DeliveryOrderModel deliveryOrderModel;
+    //Dao
+    private DeliveryItemDao deliveryItemDao;
 
     public DeliveryItemExpandListAdapter(Context context, DeliveryOrderModel deliveryOrderModel) {
         super(context, deliveryOrderModel.getDeliveryItem());
         this.deliveryOrderModel = deliveryOrderModel;
+        deliveryItemDao = new DeliveryItemDaoImpl((AppCompatActivity)context);
     }
 
     @Override
@@ -65,7 +69,7 @@ public class DeliveryItemExpandListAdapter extends MyExpandableListAdapter<Deliv
             @Override
             public void onClick(View view) {
                 //Movement Record
-                String movementRecord_str = ActivityUtil.movementFactory_str(NavigationController.class.getCanonicalName(),DeliveryIncrease.class.getCanonicalName(),StartActivityForResultKey.navDelivery);
+                String movementRecord_str = CommonFactory.movementFactory_str(NavigationController.class.getCanonicalName(),DeliveryIncrease.class.getCanonicalName(),StartActivityForResultKey.navDelivery);
 
                 //
                 Intent intent = new Intent();
@@ -84,7 +88,6 @@ public class DeliveryItemExpandListAdapter extends MyExpandableListAdapter<Deliv
             public void onClick(View view) {
                 DeliveryItemCombine deliveryItemCombine = new DeliveryItemCombine(DeliveryItemModel.class);
                 String json = deliveryItemCombine.modelToJson(deliveryItemModel);
-                DeliveryItemDao deliveryItemDao = new DeliveryItemDaoImpl();
                 ResponseMessage responseMessage = deliveryItemDao.delete(json);
                 if (responseMessage != null && ResponseStatus.getSuccessful().equalsIgnoreCase(responseMessage.getMessage_status())) {
                     getFilteredData().remove(groupPosition);

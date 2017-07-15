@@ -50,6 +50,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import de.keyboardsurfer.android.widget.crouton.Crouton;
 
 public class NavigationController extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener,
         android.support.v7.widget.SearchView.OnQueryTextListener,
@@ -302,8 +303,8 @@ public class NavigationController extends AppCompatActivity implements Navigatio
                     break;
             }
             if(!isFirst){
-                ClassicDialog classicDialog = new ClassicDialog(this);
-                classicDialog.showLeave(getString(R.string.leave));
+//                ClassicDialog classicDialog = new ClassicDialog(this);
+                ClassicDialog.showLeave(this,getString(R.string.leave));
             }
         }
     }
@@ -377,5 +378,11 @@ public class NavigationController extends AppCompatActivity implements Navigatio
         if(opened){
 //            drawer.openDrawer(GravityCompat.START);
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Crouton.cancelAllCroutons();
     }
 }

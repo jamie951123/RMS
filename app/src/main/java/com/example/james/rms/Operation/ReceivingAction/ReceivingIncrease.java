@@ -55,6 +55,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import de.keyboardsurfer.android.widget.crouton.Crouton;
 
 import static com.example.james.rms.R.id.receiving_increase_datePicker;
 import static com.example.james.rms.R.id.receiving_increase_fab;
@@ -78,9 +79,6 @@ public class ReceivingIncrease extends AppCompatActivity implements View.OnClick
     TextView datePicker_btn;
     @BindView(R.id.receiving_increase_toolbar_title)
     TextView receiving_increase_toolbar_title;
-    private ProductDao productDao = new ProductDaoImpl();
-    //
-    private ReceivingOrderDao receivingOrderDao = new ReceivingOrderDaoImpl();
     //
     private ExpandableSelectedModel expandableSelectModel;
 
@@ -94,6 +92,10 @@ public class ReceivingIncrease extends AppCompatActivity implements View.OnClick
     private String common_partyId;
 
     //
+    private ReceivingOrderDao receivingOrderDao;
+    private ProductDao productDao;
+    //
+
     MovementRecordCombine movementRecordCombine = new MovementRecordCombine(MovementRecord.class);
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -101,6 +103,10 @@ public class ReceivingIncrease extends AppCompatActivity implements View.OnClick
         setContentView(R.layout.receiving_increase);
         ButterKnife.bind(this);
         this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+        //Dao
+        receivingOrderDao = new ReceivingOrderDaoImpl(this);
+        productDao = new ProductDaoImpl(this);
+        //
         fab_btn.setOnClickListener(this);
         datePicker_btn.setOnClickListener(this);
         //clear open dialogbox count when enter the receivingIncrease Activity
@@ -186,8 +192,8 @@ public class ReceivingIncrease extends AppCompatActivity implements View.OnClick
         if (receivingDate == null) {
             List<String> missingField = new ArrayList<>();
             missingField.add(getString(R.string.label_receivingDate));
-            ClassicDialog classicDialog = new ClassicDialog(this);
-            classicDialog.showMissingField(missingField);
+//            ClassicDialog classicDialog = new ClassicDialog(this);
+            ClassicDialog.showMissingField(this,missingField);
             return super.onOptionsItemSelected(menuItem);
         }
 
@@ -249,8 +255,8 @@ public class ReceivingIncrease extends AppCompatActivity implements View.OnClick
     @Override
     public void onBackPressed() {
 //        super.onBackPressed();
-        ClassicDialog classicDialog = new ClassicDialog(this);
-        classicDialog.showBackPrevious(getString(R.string.previous),movementRecord);
+//        ClassicDialog classicDialog = new ClassicDialog(this);
+        ClassicDialog.showBackPrevious(this,getString(R.string.previous),movementRecord);
 
     }
 
@@ -322,8 +328,8 @@ public class ReceivingIncrease extends AppCompatActivity implements View.OnClick
             toolbar.setNavigationOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    ClassicDialog classicDialog = new ClassicDialog(v.getContext());
-                    classicDialog.showBackPrevious(getString(R.string.previous),movementRecord);
+//                    ClassicDialog classicDialog = new ClassicDialog(v.getContext());
+                    ClassicDialog.showBackPrevious(v.getContext(),getString(R.string.previous),movementRecord);
                 }
             });
         }
@@ -410,6 +416,12 @@ public class ReceivingIncrease extends AppCompatActivity implements View.OnClick
         ReceivingIncreaseListAdapter receivingIncreaseListAdapter = new ReceivingIncreaseListAdapter(this, item_listview);
         listView.setAdapter(receivingIncreaseListAdapter);
         Log.v("asd", "putLatestProductModel_listview :" + item_listview.toString());
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Crouton.cancelAllCroutons();
     }
 
 }

@@ -149,6 +149,9 @@
     <string name="add_receiving_order">Add Receiving Order</string>
     <string name="add_stock_out_order">Add Stockout Order</string>
 
+    <!--wifi-->
+    <string name="label_bad_network_connection">Bad Network Connection!</string>
+
     <!--label-->
     <string name="label_grossweight">GW:</string>
     <string name="label_quantity">Qty:</string>

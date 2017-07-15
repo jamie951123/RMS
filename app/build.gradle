@@ -73,4 +73,10 @@ dependencies {
 
     //Facebook
     compile 'com.facebook.android:facebook-android-sdk:[4,5)'
+
+    //Crouton
+    compile('de.keyboardsurfer.android.widget:crouton:1.8.5@aar') {
+        // exclusion is not necessary, but generally a good idea.
+        exclude group: 'com.google.android', module: 'support-v4'
+    }
 }

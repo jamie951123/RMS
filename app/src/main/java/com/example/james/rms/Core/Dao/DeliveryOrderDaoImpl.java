@@ -1,9 +1,13 @@
 package com.example.james.rms.Core.Dao;
 
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
+import com.example.james.rms.CommonProfile.AsyncMessage;
 import com.example.james.rms.CommonProfile.Util.GsonUtil;
+import com.example.james.rms.CommonProfile.Util.ObjectUtil;
 import com.example.james.rms.Core.Model.DeliveryOrderModel;
+import com.example.james.rms.Core.Model.NetworkModel;
 import com.example.james.rms.Core.Model.ResponseMessage;
 import com.example.james.rms.Core.ServePath.DeliveryOrderServePath;
 import com.example.james.rms.NetWork.HttpGetAsync;
@@ -21,8 +25,11 @@ import java.util.concurrent.ExecutionException;
  * Created by Jamie on 15/6/2017.
  */
 
-public class DeliveryOrderDaoImpl implements DeliveryOrderDao {
+public class DeliveryOrderDaoImpl extends NetworkModel implements DeliveryOrderDao {
 
+    public DeliveryOrderDaoImpl(AppCompatActivity appCompatActivity) {
+        super(appCompatActivity);
+    }
 
     @Override
     public List<DeliveryOrderModel> findAll() {
@@ -30,13 +37,16 @@ public class DeliveryOrderDaoImpl implements DeliveryOrderDao {
         String result = "";
         List<DeliveryOrderModel> deliveryOrderModels = new ArrayList<>();
         try {
-            result = new HttpGetAsync().execute(DeliveryOrderServePath.serve_findAll()).get();
+            result = new HttpGetAsync(this).execute(DeliveryOrderServePath.serve_findAll()).get();
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {
             e.printStackTrace();
         }
         Log.d("asd:","[DeliveryOrderModel]-findAll(Response--String): :"+result);
+        if(!ObjectUtil.isCorrectResponse(result)){
+            return null;
+        }
         try{
             Gson gson = GsonUtil.fromJson();
             Type listType = new TypeToken<List<DeliveryOrderModel>>() {}.getType();
@@ -54,13 +64,16 @@ public class DeliveryOrderDaoImpl implements DeliveryOrderDao {
         String result = "";
         List<DeliveryOrderModel> deliveryOrderModels = new ArrayList<>();
         try {
-            result = new HttpPostAsync().execute(DeliveryOrderServePath.serve_findByPartyIdAndStatus(),deliverySearchObject).get();
+            result = new HttpPostAsync(this).execute(DeliveryOrderServePath.serve_findByPartyIdAndStatus(),deliverySearchObject).get();
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {
             e.printStackTrace();
         }
         Log.d("asd:","[DeliveryOrderModel]-findByPartyIdAndStatus(Response--String): :"+result);
+        if(!ObjectUtil.isCorrectResponse(result)){
+            return null;
+        }
         try{
             Gson gson = GsonUtil.fromJson();
             Type listType = new TypeToken<List<DeliveryOrderModel>>() {}.getType();
@@ -78,13 +91,16 @@ public class DeliveryOrderDaoImpl implements DeliveryOrderDao {
         String result = "";
         List<DeliveryOrderModel> deliveryOrderModels = new ArrayList<>();
         try {
-            result = new HttpPostAsync().execute(DeliveryOrderServePath.serve_findByOrderIdAndStatus(),deliverySearchObject).get();
+            result = new HttpPostAsync(this).execute(DeliveryOrderServePath.serve_findByOrderIdAndStatus(),deliverySearchObject).get();
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {
             e.printStackTrace();
         }
         Log.d("asd:","[DeliveryOrderModel]-findByOrderIdAndStatus(Response--String): :"+result);
+        if(!ObjectUtil.isCorrectResponse(result)){
+            return null;
+        }
         try{
             Gson gson = GsonUtil.fromJson();
             Type listType = new TypeToken<List<DeliveryOrderModel>>() {}.getType();
@@ -102,13 +118,16 @@ public class DeliveryOrderDaoImpl implements DeliveryOrderDao {
         String result = "";
         DeliveryOrderModel deliveryOrderModel = new DeliveryOrderModel();
         try {
-            result = new HttpPostAsync().execute(DeliveryOrderServePath.serve_save(),deliveryOrderModel_json).get();
+            result = new HttpPostAsync(this).execute(DeliveryOrderServePath.serve_save(),deliveryOrderModel_json).get();
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {
             e.printStackTrace();
         }
         Log.d("asd:","[DeliveryOrderModel]-save(Response--String): :"+result);
+        if(!ObjectUtil.isCorrectResponse(result)){
+            return null;
+        }
         try{
             Gson gson = GsonUtil.fromJson();
             deliveryOrderModel = gson.fromJson(result,DeliveryOrderModel.class);
@@ -125,13 +144,16 @@ public class DeliveryOrderDaoImpl implements DeliveryOrderDao {
         String result = "";
         DeliveryOrderModel deliveryOrderModel = new DeliveryOrderModel();
         try {
-            result = new HttpPostAsync().execute(DeliveryOrderServePath.serve_saveOrderAndItem(),deliveryOrderModel_json).get();
+            result = new HttpPostAsync(this).execute(DeliveryOrderServePath.serve_saveOrderAndItem(),deliveryOrderModel_json).get();
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {
             e.printStackTrace();
         }
         Log.d("asd:","[DeliveryOrderModel]-saveOrderAndItem(Response--String): :"+result);
+        if(!ObjectUtil.isCorrectResponse(result)){
+            return null;
+        }
         try{
             Gson gson = GsonUtil.fromJson();
             deliveryOrderModel = gson.fromJson(result,DeliveryOrderModel.class);
@@ -148,13 +170,16 @@ public class DeliveryOrderDaoImpl implements DeliveryOrderDao {
         String result = "";
         ResponseMessage responseMessage = new ResponseMessage();
         try {
-            result = new HttpPostAsync().execute(DeliveryOrderServePath.serve_delete(),DeliveryOrderModel).get();
+            result = new HttpPostAsync(this).execute(DeliveryOrderServePath.serve_delete(),DeliveryOrderModel).get();
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {
             e.printStackTrace();
         }
         Log.d("asd:","[DeliveryOrderModel]-delete(Response--String): :"+result);
+        if(!ObjectUtil.isCorrectResponse(result)){
+            return null;
+        }
         try{
             Gson gson = GsonUtil.fromJson();
             responseMessage = gson.fromJson(result,ResponseMessage.class);

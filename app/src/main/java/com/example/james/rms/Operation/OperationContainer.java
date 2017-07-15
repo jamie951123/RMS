@@ -62,14 +62,17 @@ public class OperationContainer extends AppCompatActivity implements AdapterView
         switch(position){
             case 0:
                 movementRecord.setTargetClass_string(ProductIncrease.class.getCanonicalName());
+                movementRecord.setExist_fragment(StartActivityForResultKey.navProduct);
                 intent = intent.setClass(this, ProductIncrease.class);
                 break;
             case 1:
                 movementRecord.setTargetClass_string(ReceivingIncrease.class.getCanonicalName());
+                movementRecord.setExist_fragment(StartActivityForResultKey.navReceiving);
                 intent = intent.setClass(this, ReceivingIncrease.class);
                 break;
             case 2:
                 movementRecord.setTargetClass_string(DeliveryIncrease.class.getCanonicalName());
+                movementRecord.setExist_fragment(StartActivityForResultKey.navDelivery);
                 intent = intent.setClass(this, DeliveryIncrease.class);
                 break;
         }

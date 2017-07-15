@@ -3,6 +3,7 @@ package com.example.james.rms.ProductPool.Adapter;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +18,7 @@ import com.example.james.rms.CommonProfile.Util.ObjectUtil;
 import com.example.james.rms.Core.Combine.ProductCombine;
 import com.example.james.rms.Core.Dao.ProductDao;
 import com.example.james.rms.Core.Dao.ProductDaoImpl;
+import com.example.james.rms.Core.Model.NetworkModel;
 import com.example.james.rms.Core.Model.ProductModel;
 import com.example.james.rms.Core.Model.ResponseMessage;
 import com.example.james.rms.Operation.ProductAction.ProductIncrease;
@@ -33,9 +35,11 @@ import butterknife.ButterKnife;
 
 public class ProductExpandListAdapter extends MyExpandableListAdapter<ProductModel> {
 
+    private ProductDao productDao;
 
     public ProductExpandListAdapter(Context context, List<ProductModel> dataArrayList) {
         super(context, dataArrayList);
+        productDao = new ProductDaoImpl((AppCompatActivity)context);
     }
 
     @Override
@@ -77,7 +81,6 @@ public class ProductExpandListAdapter extends MyExpandableListAdapter<ProductMod
             public void onClick(View v) {
                 ProductCombine productCombine = new ProductCombine(ProductModel.class);
                 String productModel = productCombine.modelToJson(getFilteredData().get(groupPosition));
-                ProductDao productDao = new ProductDaoImpl();
                 ResponseMessage responseMessage = productDao.delete(productModel);
                 if(responseMessage != null && ResponseStatus.getSuccessful().equalsIgnoreCase(responseMessage.getMessage_status())){
                     getFilteredData().remove(groupPosition);

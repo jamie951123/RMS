@@ -1,9 +1,11 @@
 package com.example.james.rms.Core.Dao;
 
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
 import com.example.james.rms.CommonProfile.Util.GsonUtil;
 import com.example.james.rms.CommonProfile.Util.ObjectUtil;
+import com.example.james.rms.Core.Model.NetworkModel;
 import com.example.james.rms.Core.Model.ProductModel;
 import com.example.james.rms.Core.Model.ResponseMessage;
 import com.example.james.rms.Core.ServePath.ProductServerPath;
@@ -22,7 +24,12 @@ import java.util.concurrent.ExecutionException;
  * Created by james on 26/3/2017.
  */
 
-public class ProductDaoImpl implements ProductDao {
+public class ProductDaoImpl extends NetworkModel implements ProductDao {
+
+
+    public ProductDaoImpl(AppCompatActivity appCompatActivity) {
+        super(appCompatActivity);
+    }
 
     @Override
     public List<ProductModel> findAll() {
@@ -30,13 +37,16 @@ public class ProductDaoImpl implements ProductDao {
         String result = "";
         List<ProductModel> products = new ArrayList<>();
         try {
-            result = new HttpGetAsync().execute(ProductServerPath.serve_findAll()).get();
+            result = new HttpGetAsync(this).execute(ProductServerPath.serve_findAll()).get();
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {
             e.printStackTrace();
         }
         Log.d("asd:","[ProductModel]-findAll(Response--String): :"+result);
+        if(!ObjectUtil.isCorrectResponse(result)){
+            return null;
+        }
         try{
             Gson gson = new Gson();
             Type listType = new TypeToken<List<ProductModel>>() {}.getType();
@@ -54,13 +64,16 @@ public class ProductDaoImpl implements ProductDao {
         String result = "";
         ProductModel product = new ProductModel();
         try {
-            result = new HttpPostAsync().execute(ProductServerPath.serve_findByProductId(),json).get();
+            result = new HttpPostAsync(this).execute(ProductServerPath.serve_findByProductId(),json).get();
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {
             e.printStackTrace();
         }
         Log.d("asd:","[ProductModel]-findByProductId(Response--String): :"+result);
+        if(!ObjectUtil.isCorrectResponse(result)){
+            return null;
+        }
         try{
             Gson gson = GsonUtil.fromJson();
             product = gson.fromJson(result,ProductModel.class);
@@ -77,13 +90,16 @@ public class ProductDaoImpl implements ProductDao {
         String result = "";
         List<ProductModel> products = new ArrayList<>();
         try {
-            result = new HttpPostAsync().execute(ProductServerPath.serve_findByPartyId(),json).get();
+            result = new HttpPostAsync(this).execute(ProductServerPath.serve_findByPartyId(),json).get();
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {
             e.printStackTrace();
         }
         Log.d("asd","[ProductModel]-findByPartyId(Response-String): "+result);
+        if(!ObjectUtil.isCorrectResponse(result)){
+            return null;
+        }
         try{
             Gson gson = GsonUtil.fromJson();
             Type listType = new TypeToken<List<ProductModel>>() {}.getType();
@@ -101,13 +117,16 @@ public class ProductDaoImpl implements ProductDao {
         Log.d("asd:","[ProductModel]-insertProduct-[Request (JSON)]: :"+json);
         String result = "";
         try {
-            result = new HttpPostAsync().execute(ProductServerPath.serve_insertProduct(),json).get();
+            result = new HttpPostAsync(this).execute(ProductServerPath.serve_insertProduct(),json).get();
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {
             e.printStackTrace();
         }
         Log.d("asd:","[ProductModel]-insertProduct-[Response(String)]: :"+result);
+        if(!ObjectUtil.isCorrectResponse(result)){
+            return null;
+        }
 
         ProductModel productModel = new ProductModel();
         try{
@@ -126,13 +145,17 @@ public class ProductDaoImpl implements ProductDao {
         Log.d("asd:","[ProductModel]-updateWeightIdNullByWeightIdAndPartyId-[Request (JSON)]: :"+json);
         String result = "";
         try {
-            result = new HttpPostAsync().execute(ProductServerPath.serve_updateWeightIdNullByWeightIdAndPartyId(),json).get();
+            result = new HttpPostAsync(this).execute(ProductServerPath.serve_updateWeightIdNullByWeightIdAndPartyId(),json).get();
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {
             e.printStackTrace();
         }
         Log.d("asd:","[ProductModel]-updateWeightIdNullByWeightIdAndPartyId-[Response(String)]: :"+result);
+        if(!ObjectUtil.isCorrectResponse(result)){
+            return null;
+        }
+        //
         if(ObjectUtil.isNotNullEmpty(result)){
             return Integer.parseInt(result);
         }
@@ -145,13 +168,17 @@ public class ProductDaoImpl implements ProductDao {
         Log.d("asd:","[ProductModel]-updateQuantityIdNullByWeightIdAndPartyId-[Request (JSON)]: :"+json);
         String result = "";
         try {
-            result = new HttpPostAsync().execute(ProductServerPath.serve_updateQuantityIdNullByQuantityIdAndPartyId(),json).get();
+            result = new HttpPostAsync(this).execute(ProductServerPath.serve_updateQuantityIdNullByQuantityIdAndPartyId(),json).get();
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {
             e.printStackTrace();
         }
         Log.d("asd:","[ProductModel]-updateQuantityIdNullByWeightIdAndPartyId-[Response(String)]: :"+result);
+        if(!ObjectUtil.isCorrectResponse(result)){
+            return null;
+        }
+        //
         if(ObjectUtil.isNotNullEmpty(result)){
             return Integer.parseInt(result);
         }
@@ -164,13 +191,17 @@ public class ProductDaoImpl implements ProductDao {
         Log.d("asd:","[ProductModel]-updateQuantityIdAndWeightIdNullByProductId-[Request (JSON)]: :"+json);
         String result = "";
         try {
-            result = new HttpPostAsync().execute(ProductServerPath.serve_updateQuantityIdAndWeightIdNullByProductId(),json).get();
+            result = new HttpPostAsync(this).execute(ProductServerPath.serve_updateQuantityIdAndWeightIdNullByProductId(),json).get();
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {
             e.printStackTrace();
         }
         Log.d("asd:","[ProductModel]-updateQuantityIdAndWeightIdNullByProductId-[Response(String)]: :"+result);
+        if(!ObjectUtil.isCorrectResponse(result)){
+            return null;
+        }
+        //
         if(ObjectUtil.isNotNullEmpty(result)){
             return Integer.parseInt(result);
         }
@@ -183,13 +214,17 @@ public class ProductDaoImpl implements ProductDao {
         Log.d("asd:","[ProductModel]-deleteByProductId-[Request (JSON)]: :"+json);
         String result = "";
         try {
-            result = new HttpPostAsync().execute(ProductServerPath.serve_deleteByProductId(),json).get();
+            result = new HttpPostAsync(this).execute(ProductServerPath.serve_deleteByProductId(),json).get();
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {
             e.printStackTrace();
         }
         Log.d("asd:","[ProductModel]-deleteByProductId-[Response(String)]: :"+result);
+        if(!ObjectUtil.isCorrectResponse(result)){
+            return null;
+        }
+        //
         if(ObjectUtil.isNotNullEmpty(result)){
             ResponseMessage responseMessage = new ResponseMessage();
             try {
@@ -208,13 +243,17 @@ public class ProductDaoImpl implements ProductDao {
         Log.d("asd:","[ProductModel]-delete-[Request (JSON)]: :"+product_json);
         String result = "";
         try {
-            result = new HttpPostAsync().execute(ProductServerPath.serve_delete(),product_json).get();
+            result = new HttpPostAsync(this).execute(ProductServerPath.serve_delete(),product_json).get();
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {
             e.printStackTrace();
         }
         Log.d("asd:","[ProductModel]-delete-[Response(String)]: :"+result);
+        if(!ObjectUtil.isCorrectResponse(result)){
+            return null;
+        }
+        //
         if(ObjectUtil.isNotNullEmpty(result)){
             ResponseMessage responseMessage = new ResponseMessage();
             try {

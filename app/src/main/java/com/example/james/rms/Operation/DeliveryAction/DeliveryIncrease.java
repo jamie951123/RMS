@@ -57,6 +57,7 @@ import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import de.keyboardsurfer.android.widget.crouton.Crouton;
 
 import static com.example.james.rms.R.id.delivery_increase_datePicker;
 import static com.example.james.rms.R.id.delivery_increase_fab;
@@ -97,6 +98,10 @@ public class DeliveryIncrease extends AppCompatActivity implements View.OnClickL
     private LinkedHashMap<Long,DeliveryItemModel> orginalMapByReceivingItemId = new LinkedHashMap<>();
     private LinkedHashMap<Long,DeliveryItemModel> latestMapByReceivingItemId = new LinkedHashMap<>();
 
+    //Dao
+    private ReceivingOrderDao receivingOrderDao;
+    private DeliveryOrderDao deliveryOrderDao;
+
     //Combine
     private MovementRecordCombine movementRecordCombine = new MovementRecordCombine(MovementRecord.class);
 
@@ -105,6 +110,10 @@ public class DeliveryIncrease extends AppCompatActivity implements View.OnClickL
         super.onCreate(savedInstanceState);
         setContentView(R.layout.delivery_increase);
         ButterKnife.bind(this);
+        //Dao
+        receivingOrderDao = new ReceivingOrderDaoImpl(this);
+        deliveryOrderDao = new DeliveryOrderDaoImpl(this);
+        //
         datePicker.setOnClickListener(this);
         fab.setOnClickListener(this);
         this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
@@ -115,7 +124,6 @@ public class DeliveryIncrease extends AppCompatActivity implements View.OnClickL
         //Combine
         String combine_partyIdAndstatus = DeliveryOrderSearchCombine.combine_partyIdAndStatus(common_partyId,Status.PROGRESS);
         //
-        ReceivingOrderDao receivingOrderDao = new ReceivingOrderDaoImpl();
         List<ReceivingOrderModel> receivingOrderModels = receivingOrderDao.findByPartyIdAndStatus(combine_partyIdAndstatus);
         Log.d("asd","receivingOrderModels :" + receivingOrderModels);
 
@@ -282,8 +290,8 @@ public class DeliveryIncrease extends AppCompatActivity implements View.OnClickL
             toolbar.setNavigationOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    ClassicDialog classicDialog = new ClassicDialog(v.getContext());
-                    classicDialog.showBackPrevious(getString(R.string.previous),movementRecord);
+//                    ClassicDialog classicDialog = new ClassicDialog(v.getContext());
+                    ClassicDialog.showBackPrevious(v.getContext(),getString(R.string.previous),movementRecord);
                 }
             });
         }
@@ -316,7 +324,6 @@ public class DeliveryIncrease extends AppCompatActivity implements View.OnClickL
         DeliveryOrderCombine deliveryOrderCombine = new DeliveryOrderCombine(DeliveryOrderModel.class);
         String deliveryOrder_json = deliveryOrderCombine.modelToJson(deliveryOrderModel);
 
-        DeliveryOrderDao deliveryOrderDao = new DeliveryOrderDaoImpl();
         DeliveryOrderModel saveResult = deliveryOrderDao.saveOrderAndItem(deliveryOrder_json);
 
         if (saveResult != null) {
@@ -344,8 +351,8 @@ public class DeliveryIncrease extends AppCompatActivity implements View.OnClickL
     @Override
     public void onBackPressed() {
 //        super.onBackPressed();
-        ClassicDialog classicDialog = new ClassicDialog(this);
-        classicDialog.showBackPrevious(getString(R.string.previous),movementRecord);
+//        ClassicDialog classicDialog = new ClassicDialog(this);
+        ClassicDialog.showBackPrevious(this,getString(R.string.previous),movementRecord);
     }
 
     @Override
@@ -417,4 +424,11 @@ public class DeliveryIncrease extends AppCompatActivity implements View.OnClickL
         Log.d("asd","[NumberDialog]-->[DeliveryIncrease]-[order_latest] :" + orginalMapByReceivingItemId);
         deliveryIncreaseItemExpandableAdapter.notifyDataSetChanged();
     }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Crouton.cancelAllCroutons();
+    }
+
 }

@@ -30,6 +30,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import de.keyboardsurfer.android.widget.crouton.Crouton;
 
 /**
  * Created by jamie on 2017/5/3.
@@ -55,11 +56,20 @@ public class SettingContainer extends AppCompatActivity implements View.OnClickL
     private List<QuantityProfileModel> quantityProfileModelList = new ArrayList<>();
     private String partyId;
     private String common_partyId;
+
+    // Dao
+    private WeightProfileDao weightProfileDao;
+    private QuantityProfileDao quantityProfileDao;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.setting);
         ButterKnife.bind(this);
+        //Dao
+        weightProfileDao = new WeightProfileDaoImpl(this);
+        quantityProfileDao = new QuantityProfileDaoImpl(this);
+        //
         setUpActionBar();
         //Preferences
         PartyIdPreferences partyIdPreferences = new PartyIdPreferences(this,"loginInformation",MODE_PRIVATE);
@@ -67,21 +77,23 @@ public class SettingContainer extends AppCompatActivity implements View.OnClickL
         common_partyId = SettingSearchCombine.combine_partyId(partyId);
 
         //weight
-        WeightProfileDao weightProfileDao = new WeightProfileDaoImpl();
         weightProfileModelList = weightProfileDao.findByPartyId(common_partyId);
-        wAdapter = new SettingWeightListAdapter(this,weightProfileModelList,wlistView,partyId);
-        wlistView.setAdapter(wAdapter);
-        wAdapter.setMode(Attributes.Mode.Single);
-        waddbtn.setOnClickListener(this);
-        ListViewGrowthUtil.setListViewHeightBasedOnChildren(wlistView);
+        if(weightProfileModelList != null) {
+            wAdapter = new SettingWeightListAdapter(this, weightProfileModelList, wlistView, partyId);
+            wlistView.setAdapter(wAdapter);
+            wAdapter.setMode(Attributes.Mode.Single);
+            waddbtn.setOnClickListener(this);
+            ListViewGrowthUtil.setListViewHeightBasedOnChildren(wlistView);
+        }
         //quantity
-        QuantityProfileDao quantityProfileDao = new QuantityProfileDaoImpl();
         quantityProfileModelList = quantityProfileDao.findByPartyId(common_partyId);
-        qAdapter = new SettingQuantityListAdapter(this,quantityProfileModelList,qlistView,partyId);
-        qlistView.setAdapter(qAdapter);
-        qAdapter.setMode(Attributes.Mode.Single);
-        qaddbtn.setOnClickListener(this);
-        ListViewGrowthUtil.setListViewHeightBasedOnChildren(qlistView);
+        if(quantityProfileModelList != null) {
+            qAdapter = new SettingQuantityListAdapter(this, quantityProfileModelList, qlistView, partyId);
+            qlistView.setAdapter(qAdapter);
+            qAdapter.setMode(Attributes.Mode.Single);
+            qaddbtn.setOnClickListener(this);
+            ListViewGrowthUtil.setListViewHeightBasedOnChildren(qlistView);
+        }
     }
 
     private void setUpActionBar() {
@@ -99,14 +111,14 @@ public class SettingContainer extends AppCompatActivity implements View.OnClickL
 
     @Override
     public void onClick(View v) {
-        ClassicDialog classicDialog = new ClassicDialog(this);
+//        ClassicDialog classicDialog = new ClassicDialog(this);
         switch (v.getId()){
             case R.id.waddbtn:
-                classicDialog.showInputBox(getString(R.string.add_weight_unit),null,null, KeyModel.gw,partyId);
+                ClassicDialog.showInputBox(this,getString(R.string.add_weight_unit),null,null, KeyModel.gw,partyId);
                 break;
 
             case R.id.qaddbtn:
-                classicDialog.showInputBox(getString(R.string.add_weight_unit),null,null, KeyModel.qty,partyId);
+                ClassicDialog.showInputBox(this,getString(R.string.add_weight_unit),null,null, KeyModel.qty,partyId);
                 break;
         }
     }
@@ -116,7 +128,6 @@ public class SettingContainer extends AppCompatActivity implements View.OnClickL
         WeightProfileCombine weightProfileCombine = new WeightProfileCombine(WeightProfileModel.class);
         String json = weightProfileCombine.modelToJson(weightProfileModel);
         //service
-        WeightProfileDao weightProfileDao = new WeightProfileDaoImpl();
         weightProfileModel = weightProfileDao.save(json);
         //
         if(weightProfileModel != null) {
@@ -132,7 +143,6 @@ public class SettingContainer extends AppCompatActivity implements View.OnClickL
         QuantityProfileCombine quantityProfileCombine = new QuantityProfileCombine(QuantityProfileModel.class);
         String json = quantityProfileCombine.modelToJson(quantityProfileModel);
         //service
-        QuantityProfileDao quantityProfileDao = new QuantityProfileDaoImpl();
         quantityProfileModel = quantityProfileDao.save(json);
         //
         if(quantityProfileModel != null){
@@ -141,5 +151,10 @@ public class SettingContainer extends AppCompatActivity implements View.OnClickL
 //            Toast.makeText(this,quantityProfileModel.toString(),Toast.LENGTH_SHORT).show();
         }
         ListViewGrowthUtil.setListViewHeightBasedOnChildren(qlistView);
+    }
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Crouton.cancelAllCroutons();
     }
 }

@@ -3,6 +3,7 @@ package com.example.james.rms.Setting;
 import android.app.Activity;
 import android.content.Context;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -43,11 +44,15 @@ public class SettingQuantityListAdapter extends MyBaseSwipeAdapter<QuantityProfi
 
     private ListView listView;
     private String partyId;
+    //    Dao
+    private QuantityProfileDao quantityProfileDao;
+
     public SettingQuantityListAdapter(Context mContext, List<QuantityProfileModel> list,ListView listView,String partyId) {
         this.mContext = mContext;
         this.list = list;
         this.listView = listView;
         this.partyId = partyId;
+        quantityProfileDao = new QuantityProfileDaoImpl((AppCompatActivity) mContext);
     }
 
     @Override
@@ -81,7 +86,6 @@ public class SettingQuantityListAdapter extends MyBaseSwipeAdapter<QuantityProfi
 //                ProductDao productDao = new ProductDaoImpl();
 //                Integer deleteCount = productDao.updateQuantityIdNullByQuantityIdAndPartyId(gson);
 //                if(deleteCount != null){
-                    QuantityProfileDao quantityProfileDao = new QuantityProfileDaoImpl();
                     ResponseMessage responseMessage = quantityProfileDao.delete(gson);
                     if(responseMessage != null && ResponseStatus.getSuccessful().equalsIgnoreCase(responseMessage.getMessage_status())){
                         getList().remove(position);
@@ -118,7 +122,6 @@ public class SettingQuantityListAdapter extends MyBaseSwipeAdapter<QuantityProfi
                 QuantityProfileCombine quantityProfileCombine = new QuantityProfileCombine(QuantityProfileModel.class);
                 String json = quantityProfileCombine.modelToJson(quantityProfileModel);
                 //Service
-                QuantityProfileDao quantityProfileDao = new QuantityProfileDaoImpl();
                 QuantityProfileModel result = quantityProfileDao.save(json);
                 if(result != null){
                     viewHolder.front_unit.setText(lastestUnit);

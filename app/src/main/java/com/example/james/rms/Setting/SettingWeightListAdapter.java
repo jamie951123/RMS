@@ -3,6 +3,7 @@ package com.example.james.rms.Setting;
 import android.app.Activity;
 import android.content.Context;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -43,11 +44,15 @@ public class SettingWeightListAdapter extends MyBaseSwipeAdapter<WeightProfileMo
 
     private ListView listView;
     private String partyId;
+    //Dao
+    private WeightProfileDao weightProfileDao;
+
     public SettingWeightListAdapter(Context mContext, List<WeightProfileModel> list, ListView listView,String partyId) {
         this.mContext = mContext;
         this.list = list;
         this.listView = listView;
         this.partyId = partyId;
+        weightProfileDao = new WeightProfileDaoImpl((AppCompatActivity)mContext);
     }
 
     @Override
@@ -81,7 +86,6 @@ public class SettingWeightListAdapter extends MyBaseSwipeAdapter<WeightProfileMo
 //                ProductDao productDao = new ProductDaoImpl();
 //                Integer deleteCount = productDao.updateWeightIdNullByWeightIdAndPartyId(gson);
 //                if(deleteCount != null){
-                    WeightProfileDao weightProfileDao = new WeightProfileDaoImpl();
                     ResponseMessage responseMessage = weightProfileDao.delete(gson);
                     if(responseMessage != null && ResponseStatus.getSuccessful().equalsIgnoreCase(responseMessage.getMessage_status())){
                         getList().remove(position);
@@ -119,7 +123,6 @@ public class SettingWeightListAdapter extends MyBaseSwipeAdapter<WeightProfileMo
                 WeightProfileCombine weightProfileCombine = new WeightProfileCombine(WeightProfileModel.class);
                 String json = weightProfileCombine.modelToJson(weightProfileModel);
                 //Service
-                WeightProfileDao weightProfileDao = new WeightProfileDaoImpl();
                 weightProfileModel = weightProfileDao.save(json);
                 if(weightProfileModel != null){
                     viewHolder.front_unit.setText(lastestUnit);

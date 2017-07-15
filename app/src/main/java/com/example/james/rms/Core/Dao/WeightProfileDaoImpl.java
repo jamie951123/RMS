@@ -1,8 +1,11 @@
 package com.example.james.rms.Core.Dao;
 
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
 import com.example.james.rms.CommonProfile.Util.GsonUtil;
+import com.example.james.rms.CommonProfile.Util.ObjectUtil;
+import com.example.james.rms.Core.Model.NetworkModel;
 import com.example.james.rms.Core.Model.ResponseMessage;
 import com.example.james.rms.Core.Model.WeightProfileModel;
 import com.example.james.rms.Core.ServePath.WeightServePath;
@@ -20,19 +23,28 @@ import java.util.concurrent.ExecutionException;
  * Created by jamie on 2017/4/23.
  */
 
-public class WeightProfileDaoImpl implements WeightProfileDao {
+public class WeightProfileDaoImpl extends NetworkModel implements WeightProfileDao {
+
+    public WeightProfileDaoImpl(AppCompatActivity appCompatActivity) {
+        super(appCompatActivity);
+    }
+
     @Override
     public List<WeightProfileModel> findAll() {
         String url = WeightServePath.serve_findAll();
         String result="";
         try {
-            result = new HttpGetAsync().execute(url).get();
+            result = new HttpGetAsync(this).execute(url).get();
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {
             e.printStackTrace();
         }
         Log.d("asd","[WeightProfileModel]-findAll(Response): "+result);
+        if(!ObjectUtil.isCorrectResponse(result)){
+            return null;
+        }
+        //
         List<WeightProfileModel> weightProfileModels = new ArrayList<>();
         try{
             Gson gson = new Gson();
@@ -50,13 +62,17 @@ public class WeightProfileDaoImpl implements WeightProfileDao {
         Log.d("asd","[WeightProfileModel]-findByPartyId(Request--JSON):" + json);
         String result = "";
         try {
-            result = new HttpPostAsync().execute(WeightServePath.serve_findByPartyId(),json).get();
+            result = new HttpPostAsync(this).execute(WeightServePath.serve_findByPartyId(),json).get();
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {
             e.printStackTrace();
         }
         Log.d("asd:","[WeightProfileModel]-findByPartyId-[Response(String)] : "+result);
+        if(!ObjectUtil.isCorrectResponse(result)){
+            return null;
+        }
+        //
         List<WeightProfileModel> weightProfileModels = new ArrayList<>();
         try{
             Gson gson = GsonUtil.fromJson();
@@ -79,13 +95,17 @@ public class WeightProfileDaoImpl implements WeightProfileDao {
         Log.d("asd","[WeightProfileModel]-delete(Request--JSON):" + json);
         String result = "";
         try {
-            result = new HttpPostAsync().execute(WeightServePath.serve_delete(),json).get();
+            result = new HttpPostAsync(this).execute(WeightServePath.serve_delete(),json).get();
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {
             e.printStackTrace();
         }
         Log.d("asd:","[WeightProfileModel]-delete-[Response(String)] : "+result);
+        if(!ObjectUtil.isCorrectResponse(result)){
+            return null;
+        }
+        //
         ResponseMessage responseMessage = new ResponseMessage();
         try{
             Gson gson = GsonUtil.fromJson();
@@ -106,13 +126,17 @@ public class WeightProfileDaoImpl implements WeightProfileDao {
         Log.d("asd","[WeightProfileModel]-save(Request--JSON):" + json);
         String result = "";
         try {
-            result = new HttpPostAsync().execute(WeightServePath.serve_save(),json).get();
+            result = new HttpPostAsync(this).execute(WeightServePath.serve_save(),json).get();
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {
             e.printStackTrace();
         }
         Log.d("asd:","[WeightProfileModel]-save-[Response(String)] : "+result);
+        if(!ObjectUtil.isCorrectResponse(result)){
+            return null;
+        }
+        //
         WeightProfileModel weightProfileModel = new WeightProfileModel();
         try{
             Gson gson = GsonUtil.fromJson();

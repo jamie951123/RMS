@@ -1,6 +1,7 @@
 package com.example.james.rms.Receiving.Tab;
 
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,20 +30,23 @@ public class Receiving_order extends MyBaseFragment implements AdapterView.OnIte
     @BindView(R.id.receiving_order_listView)
     AnimatedExpandableListView listView;
 
-    //Interface
-    private ReceivingOrderDao receivingOrderDao = new ReceivingOrderDaoImpl();
-
     //Adapter
     private ReceivingOrderExpandListAdapter receivingOrderExpandListAdapter;
 
     //Model
     List<ReceivingOrderModel> receivingOrderModels;
     //    List<ReceivingItemModel> receivingItemModels;
+
+    //Dao
+    private ReceivingOrderDao receivingOrderDao;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.receiving_order,container , false);
         ButterKnife.bind(this,rootView);
+        //Dao
+        receivingOrderDao = new ReceivingOrderDaoImpl((AppCompatActivity)getContext());
         //Preferences
         PartyIdPreferences partyIdPreferences = new PartyIdPreferences(getActivity(),"loginInformation",getActivity().MODE_PRIVATE);
         String partyId =  partyIdPreferences.getPreferences_PartyId().get("partyId");

@@ -1,6 +1,7 @@
 package com.example.james.rms.Inventory.Tab;
 
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,18 +35,23 @@ public class Inventory_Item extends MyBaseFragment implements ViewPagerListener{
     List<InventoryModel> inventoryModels;
 
     private InventoryItemListAdapter inventoryItemListAdapter;
+
+    //Dao
+    InventoryDao inventoryDao;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.inventort_item,container , false);
         ButterKnife.bind(this,rootView);
+        //Dao
+        inventoryDao = new InventoryDaoImpl((AppCompatActivity) getActivity());
+
         //Preferences
         PartyIdPreferences partyIdPreferences = new PartyIdPreferences(getActivity(),"loginInformation",getActivity().MODE_PRIVATE);
         String partyId =  partyIdPreferences.getPreferences_PartyId().get("partyId");
         //partyId
         String combine_partyIdAndStatus = SearchCombine.combine_partyIdAndStatus(partyId, Status.PROGRESS);
         //Service Inventory
-        InventoryDao inventoryDao = new InventoryDaoImpl();
         inventoryModels = inventoryDao.findByPartyIdAndStatusOrderByProductIdAsc(combine_partyIdAndStatus);
         // this is data fro recycler view
         if(inventoryModels != null) {

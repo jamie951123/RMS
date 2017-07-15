@@ -32,25 +32,20 @@ import java.util.List;
  */
 
 public class ClassicDialog {
-    private Context context;
-    private MaterialDialog materialDialog;
 
-    private MovementRecord movementRecordModel;
+    private static MaterialDialog materialDialog;
 
-    public ClassicDialog(Context context){
-        this.context = context;
-    }
-    public void showIndeterminate(int color, String title, String content){
+    public static void showIndeterminate(Context context,int color, String title, String content){
                  materialDialog = new MaterialDialog.Builder(context)
                 .title(title)
                 .content(content)
                 .progress(true, 0)
-                .canceledOnTouchOutside(false)
-                .cancelable(false)
+//                .canceledOnTouchOutside(false)
+//                .cancelable(false)
                 .show();
     }
 
-    public void showLeave(String content){
+    public static void showLeave(final Context context,String content){
         materialDialog = new MaterialDialog.Builder(context)
                 .content(content)
                 .canceledOnTouchOutside(false)
@@ -77,8 +72,7 @@ public class ClassicDialog {
                 .show();
     }
 
-    public void showBackPrevious(String content, final MovementRecord movementRecord){
-        this.movementRecordModel = movementRecord;
+    public static void showBackPrevious(final Context context,String content, final MovementRecord movementRecord){
         materialDialog = new MaterialDialog.Builder(context)
                 .content(content)
                 .canceledOnTouchOutside(false)
@@ -90,8 +84,8 @@ public class ClassicDialog {
                     public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
                         try {
                             Intent intent=new Intent();
-                            intent.setClass(context,Class.forName(movementRecordModel.getOriginalClass_string()));
-                            if(movementRecordModel.getOriginalClass_string().equals(NavigationController.class.getCanonicalName())){
+                            intent.setClass(context,Class.forName(movementRecord.getOriginalClass_string()));
+                            if(movementRecord.getOriginalClass_string().equals(NavigationController.class.getCanonicalName())){
                                 MovementRecordCombine movementRecordCombine = new MovementRecordCombine(MovementRecord.class);
                                 intent.putExtra(StartActivityForResultKey.movementRecord,movementRecordCombine.modelToJson(movementRecord));
                             }
@@ -111,7 +105,7 @@ public class ClassicDialog {
                 .show();
     }
 
-    public void showMissingField(List<String> name){
+    public static void showMissingField(final Context context,List<String> name){
         materialDialog = new MaterialDialog.Builder(context)
                 .title(R.string.missingField)
                 .canceledOnTouchOutside(false)
@@ -125,7 +119,7 @@ public class ClassicDialog {
                 })
                 .show();
     }
-    public void showReceivingPreInsertBox(){
+    public static void showReceivingPreInsertBox(final Context context){
         materialDialog = new MaterialDialog.Builder(context)
                 .title(R.string.createReceivingOrder)
                 .content(R.string.createQusetion)
@@ -146,7 +140,7 @@ public class ClassicDialog {
                 .show();
     }
 
-    public void showInputBox(String title, final String content, String hint,final String key,final String partyId){
+    public static void showInputBox(final Context context,String title, final String content, String hint,final String key,final String partyId){
         new MaterialDialog.Builder(context)
                 .title(title)
                 .content(content)
@@ -193,7 +187,7 @@ public class ClassicDialog {
                 }).show();
     }
 
-    public void showSingleChoice(String title, String hint,final List modeles,final String key,Long itemId){
+    public static void showSingleChoice(final Context context,String title, String hint,final List modeles,final String key,Long itemId){
         List<String> stringList = new ArrayList<>();
         int defaultSelected= -1;
 
@@ -212,7 +206,7 @@ public class ClassicDialog {
             }
         }
 
-        new MaterialDialog.Builder(this.context)
+        new MaterialDialog.Builder(context)
                 .title(title)
                 .items(stringList)
                 .positiveText(R.string.choose)
@@ -260,7 +254,9 @@ public class ClassicDialog {
                 })
                 .show();
     }
-    public void dismiss(){
+    public static void dismiss(){
+        Log.v("asd","Dialog Dismiss :" + materialDialog.isCancelled());
         materialDialog.dismiss();
+
     }
 }

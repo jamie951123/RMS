@@ -1,9 +1,13 @@
 package com.example.james.rms.Core.Dao;
 
+import android.content.Context;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
 import com.example.james.rms.CommonProfile.Util.GsonUtil;
+import com.example.james.rms.CommonProfile.Util.ObjectUtil;
 import com.example.james.rms.Core.Model.LoginModel;
+import com.example.james.rms.Core.Model.NetworkModel;
 import com.example.james.rms.Core.Model.UserProfile;
 import com.example.james.rms.Core.ServePath.UserProfileServePath;
 import com.example.james.rms.NetWork.HttpGetAsync;
@@ -20,7 +24,11 @@ import java.util.concurrent.ExecutionException;
  * Created by Jamie on 16/4/2017.
  */
 
-public class UserProfileDaoImpl implements UserProfileDao {
+public class UserProfileDaoImpl extends NetworkModel implements UserProfileDao {
+
+    public UserProfileDaoImpl(AppCompatActivity appCompatActivity) {
+        super(appCompatActivity);
+    }
 
     @Override
     public List<UserProfile> findAll() {
@@ -28,13 +36,17 @@ public class UserProfileDaoImpl implements UserProfileDao {
         String result="";
         List<UserProfile> userProfile = new ArrayList<>();
         try {
-            result = new HttpGetAsync().execute(url).get();
+            result = new HttpGetAsync(this).execute(url).get();
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {
             e.printStackTrace();
         }
         Log.d("asd","[UserProfile]-findAll(Response): "+result);
+        if(!ObjectUtil.isCorrectResponse(result)){
+            return null;
+        }
+        //
         try{
             Gson gson = GsonUtil.fromJson();
             Type listType = new TypeToken<List<UserProfile>>() {}.getType();
@@ -58,13 +70,17 @@ public class UserProfileDaoImpl implements UserProfileDao {
         Log.d("asd","[UserProfile]-findByFacebookId--Request(JSON) :"+ userProfileSearchObject_json);
         String result = "";
         try {
-            result = new HttpPostAsync().execute(url,userProfileSearchObject_json).get();
+            result = new HttpPostAsync(this).execute(url,userProfileSearchObject_json).get();
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {
             e.printStackTrace();
         }
         Log.d("asd","[UserProfile]-findByFacebookId(Response): "+result);
+        if(!ObjectUtil.isCorrectResponse(result)){
+            return null;
+        }
+        //
         UserProfile userProfile = new UserProfile();
         try{
             Gson gson = GsonUtil.fromJson();
@@ -78,18 +94,21 @@ public class UserProfileDaoImpl implements UserProfileDao {
     }
 
     @Override
-    public LoginModel checkLogin(String json,String url) {
-        Log.d("asd","[UserProfile]-checkLogin--Request(JSON) :"+ json);
+    public LoginModel checkLogin(String userProfile_json) {
+        Log.d("asd","[UserProfile]-checkLogin--Request(JSON) :"+ userProfile_json);
         String result = "";
         try {
-            result = new HttpPostAsync().execute(url,json).get();
+            result = new HttpPostAsync(this).execute(UserProfileServePath.serve_checkLogin(),userProfile_json).get();
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {
             e.printStackTrace();
         }
         Log.d("asd","[UserProfile]-checkLogin(Response) :"+ result);
-
+        if(!ObjectUtil.isCorrectResponse(result)){
+            return null;
+        }
+        //
         LoginModel loginModel = new LoginModel();
         try {
             Gson gson = GsonUtil.fromJson();
@@ -108,13 +127,14 @@ public class UserProfileDaoImpl implements UserProfileDao {
         Log.d("asd","[UserProfile]-save--Request(JSON) :"+ userProfile_json);
         String result = "";
         try {
-            result = new HttpPostAsync().execute(url,userProfile_json).get();
+            result = new HttpPostAsync(this).execute(url,userProfile_json).get();
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {
             e.printStackTrace();
         }
         Log.d("asd","[UserProfile]-save(Response) :"+ result);
+
         UserProfile userProfile = new UserProfile();
         try{
             Gson gson = GsonUtil.fromJson();

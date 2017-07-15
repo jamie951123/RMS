@@ -1,9 +1,12 @@
 package com.example.james.rms.Core.Dao;
 
+import android.content.Context;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
 import com.example.james.rms.CommonProfile.Util.GsonUtil;
 import com.example.james.rms.CommonProfile.Util.ObjectUtil;
+import com.example.james.rms.Core.Model.NetworkModel;
 import com.example.james.rms.Core.Model.ReceivingOrderModel;
 import com.example.james.rms.Core.Model.ResponseMessage;
 import com.example.james.rms.Core.ServePath.ReceivingOrderServePath;
@@ -20,20 +23,29 @@ import java.util.concurrent.ExecutionException;
  * Created by james on 26/3/2017.
  */
 
-public class ReceivingOrderDaoImpl implements ReceivingOrderDao {
+public class ReceivingOrderDaoImpl extends NetworkModel implements ReceivingOrderDao {
+
+
+    public ReceivingOrderDaoImpl(AppCompatActivity appCompatActivity) {
+        super(appCompatActivity);
+    }
 
     @Override
     public List<ReceivingOrderModel> findByPartyId(String json) {
         String result = "";
         Log.d("asd","[ReceivingOrderModel]-findByPartyId(Request--JSON) :" + json);
         try {
-            result = new HttpPostAsync().execute(ReceivingOrderServePath.findByPartyId(),json).get();
+            result = new HttpPostAsync(this).execute(ReceivingOrderServePath.findByPartyId(),json).get();
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {
             e.printStackTrace();
         }
         Log.d("asd:","[ReceivingOrderModel]-findByPartyId-[Response(String)] : "+result);
+        if(!ObjectUtil.isCorrectResponse(result)){
+            return null;
+        }
+        //
         List<ReceivingOrderModel> receivingOrderModels = new ArrayList<>();
         try{
             Gson gson = GsonUtil.fromJson();
@@ -55,13 +67,17 @@ public class ReceivingOrderDaoImpl implements ReceivingOrderDao {
         String result = "";
         Log.d("asd","[ReceivingOrderModel]-findByPartyIdAndStatus(Request--JSON) :" + json);
         try {
-            result = new HttpPostAsync().execute(ReceivingOrderServePath.findByPartyIdAndStatus(),json).get();
+            result = new HttpPostAsync(this).execute(ReceivingOrderServePath.findByPartyIdAndStatus(),json).get();
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {
             e.printStackTrace();
         }
         Log.d("asd:","[ReceivingOrderModel]-findByPartyIdAndStatus-[Response(String)] : "+result);
+        if(!ObjectUtil.isCorrectResponse(result)){
+            return null;
+        }
+        //
         List<ReceivingOrderModel> receivingOrderModels = new ArrayList<>();
         try{
             Gson gson = GsonUtil.fromJson();
@@ -83,13 +99,17 @@ public class ReceivingOrderDaoImpl implements ReceivingOrderDao {
         String result = "";
         Log.d("asd","[ReceivingOrderModel]-findByOrderIdAndStatus(Request--JSON) :" + json);
         try {
-            result = new HttpPostAsync().execute(ReceivingOrderServePath.findByOrderIdAndStatus(),json).get();
+            result = new HttpPostAsync(this).execute(ReceivingOrderServePath.findByOrderIdAndStatus(),json).get();
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {
             e.printStackTrace();
         }
         Log.d("asd:","[ReceivingOrderModel]-findByOrderIdAndStatus-[Response(String)] : "+result);
+        if(!ObjectUtil.isCorrectResponse(result)){
+            return null;
+        }
+        //
         List<ReceivingOrderModel> receivingOrderModels = new ArrayList<>();
         try{
             Gson gson = GsonUtil.fromJson();
@@ -111,13 +131,17 @@ public class ReceivingOrderDaoImpl implements ReceivingOrderDao {
         String result = "";
         Log.d("asd", "[ReceivingOrderModel]- save(Request--JSON) :" + json);
         try {
-            result = new HttpPostAsync().execute(ReceivingOrderServePath.save(), json).get();
+            result = new HttpPostAsync(this).execute(ReceivingOrderServePath.save(), json).get();
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {
             e.printStackTrace();
         }
         Log.d("asd", "[ReceivingOrderModel]-save(Response-[String]):" + result);
+        if(!ObjectUtil.isCorrectResponse(result)){
+            return null;
+        }
+        //
         ReceivingOrderModel receivingOrderModel = new ReceivingOrderModel();
         try {
             Gson gson = GsonUtil.fromJson();
@@ -156,13 +180,17 @@ public class ReceivingOrderDaoImpl implements ReceivingOrderDao {
         Log.d("asd","[ReceivingOrderModel]-saveOrderAndItem(Request--JSON) :" + json);
         String result ="";
         try{
-            result = new HttpPostAsync().execute(ReceivingOrderServePath.saveOrderAndItem(),json).get();
+            result = new HttpPostAsync(this).execute(ReceivingOrderServePath.saveOrderAndItem(),json).get();
         }catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {
             e.printStackTrace();
         }
-
+        Log.d("asd", "[ReceivingOrderModel]-saveOrderAndItem(Response-[String]):" + result);
+        if(!ObjectUtil.isCorrectResponse(result)){
+            return null;
+        }
+        //
         ReceivingOrderModel receivingOrderModel = new ReceivingOrderModel();
         try {
             Gson gson = GsonUtil.fromJson();
@@ -184,14 +212,17 @@ public class ReceivingOrderDaoImpl implements ReceivingOrderDao {
         Log.d("asd:","[ReceivingOrderModel]-delete-[Request (JSON)]: :"+receivingOrder_json);
         String result = "";
         try {
-            result = new HttpPostAsync().execute(ReceivingOrderServePath.delete(),receivingOrder_json).get();
+            result = new HttpPostAsync(this).execute(ReceivingOrderServePath.delete(),receivingOrder_json).get();
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {
             e.printStackTrace();
         }
         Log.d("asd:","[ReceivingOrderModel]-delete-[Response(String)]: :"+result);
-
+        if(!ObjectUtil.isCorrectResponse(result)){
+            return null;
+        }
+        //
         if(ObjectUtil.isNotNullEmpty(result)){
             ResponseMessage responseMessage = new ResponseMessage();
             try {

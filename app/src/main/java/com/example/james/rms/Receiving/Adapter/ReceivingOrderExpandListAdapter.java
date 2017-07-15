@@ -3,12 +3,14 @@ package com.example.james.rms.Receiving.Adapter;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.example.james.rms.CommonProfile.CommonFactory;
 import com.example.james.rms.CommonProfile.Util.ActivityUtil;
 import com.example.james.rms.CommonProfile.Util.GsonUtil;
 import com.example.james.rms.CommonProfile.MyAdapter.MyExpandableListAdapter;
@@ -39,8 +41,12 @@ import butterknife.ButterKnife;
 
 public class ReceivingOrderExpandListAdapter extends MyExpandableListAdapter<ReceivingOrderModel> {
 
+    //Dao
+    private ReceivingOrderDao receivingOrderDao;
+
     public ReceivingOrderExpandListAdapter(Context context, List<ReceivingOrderModel> dataArrayList) {
         super(context, dataArrayList);
+        receivingOrderDao = new ReceivingOrderDaoImpl((AppCompatActivity)context);
     }
 
     @Override
@@ -75,7 +81,7 @@ public class ReceivingOrderExpandListAdapter extends MyExpandableListAdapter<Rec
                 String receivingOrder_json = receivingOrderCombine.modelToJson(receivingOrderModel);
                 if(ObjectUtil.isNotNullEmpty(receivingOrder_json)) {
                     //MovementRecord
-                    String movementRecord_str = ActivityUtil.movementFactory_str(NavigationController.class.getCanonicalName(),ReceivingIncrease.class.getCanonicalName(),StartActivityForResultKey.navReceiving);
+                    String movementRecord_str = CommonFactory.movementFactory_str(NavigationController.class.getCanonicalName(),ReceivingIncrease.class.getCanonicalName(),StartActivityForResultKey.navReceiving);
                     //
                     Intent intent = new Intent();
                     intent.setClass(getContext(), ReceivingIncrease.class);
@@ -109,7 +115,6 @@ public class ReceivingOrderExpandListAdapter extends MyExpandableListAdapter<Rec
                 try{
                     Gson gson = GsonUtil.toJson();
                     String receivingOrder_json =gson.toJson(receivingOrderModel,ReceivingOrderModel.class);
-                    ReceivingOrderDao receivingOrderDao = new ReceivingOrderDaoImpl();
                     ResponseMessage responseMessage = receivingOrderDao.delete(receivingOrder_json);
                     if(responseMessage != null && ResponseStatus.getSuccessful().equalsIgnoreCase(responseMessage.getMessage_status())){
                         getFilteredData().remove(groupPosition);
