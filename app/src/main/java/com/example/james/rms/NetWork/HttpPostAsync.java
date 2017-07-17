@@ -1,5 +1,6 @@
 package com.example.james.rms.NetWork;
 
+import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -10,6 +11,7 @@ import com.example.james.rms.CommonProfile.CommonFactory;
 import com.example.james.rms.CommonProfile.DialogBox.ClassicDialog;
 import com.example.james.rms.CommonProfile.Util.ObjectUtil;
 import com.example.james.rms.Core.Model.NetworkModel;
+import com.example.james.rms.Login.LoginActivity;
 import com.example.james.rms.R;
 
 import java.io.IOException;
@@ -25,10 +27,9 @@ import okhttp3.Response;
  * Created by James on 21/1/2017.
  */
 
-public class HttpPostAsync extends AsyncTask<String,Void,String> {
+public class HttpPostAsync extends AsyncTask<String,Integer,String> {
 
     private NetworkModel networkModel;
-//    private ClassicDialog classicDialog;
 
     public HttpPostAsync(NetworkModel networkModel) {
         this.networkModel = networkModel;
@@ -40,8 +41,7 @@ public class HttpPostAsync extends AsyncTask<String,Void,String> {
 
     @Override
     protected void onPreExecute() {
-//        classicDialog = new ClassicDialog(networkModel.getAppCompatActivity());
-        ClassicDialog.showIndeterminate(networkModel.getAppCompatActivity(),R.color.blue0895ef,networkModel.getAppCompatActivity().getString(R.string.loading),networkModel.getAppCompatActivity().getString(R.string.waiting));
+
     }
 
     @Override
@@ -54,21 +54,28 @@ public class HttpPostAsync extends AsyncTask<String,Void,String> {
         String json = params[1];
         String result="";
         try {
+//            publishProgress(25);
             result = post(url,json);
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return result;
     }
 
     @Override
+    protected void onProgressUpdate(Integer... progress) {
+
+    }
+
+    @Override
     protected void onPostExecute(String s) {
+//        super.onPostExecute(s);
         if(ObjectUtil.isNotNullEmpty(s) && s.equals(AsyncMessage.error_network)){
             AppCompatActivity appCompatActivity = (AppCompatActivity)networkModel.getAppCompatActivity();
             View view = CommonFactory.updateView(appCompatActivity.getLayoutInflater().inflate(R.layout.crouton_custom_view, null), networkModel.getAppCompatActivity().getString(R.string.label_bad_network_connection), ContextCompat.getDrawable(networkModel.getAppCompatActivity(), R.drawable.wifi_scan_black));
             Crouton.make(appCompatActivity, view).show();
         }
-        ClassicDialog.dismiss();
+//        ClassicDialog.dismiss();
     }
 
     public String post(String url, String json) throws IOException {

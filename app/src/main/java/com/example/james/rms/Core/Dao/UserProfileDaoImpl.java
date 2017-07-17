@@ -1,6 +1,5 @@
 package com.example.james.rms.Core.Dao;
 
-import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
@@ -97,11 +96,11 @@ public class UserProfileDaoImpl extends NetworkModel implements UserProfileDao {
     public LoginModel checkLogin(String userProfile_json) {
         Log.d("asd","[UserProfile]-checkLogin--Request(JSON) :"+ userProfile_json);
         String result = "";
+        result = "";
         try {
             result = new HttpPostAsync(this).execute(UserProfileServePath.serve_checkLogin(),userProfile_json).get();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
+//    new HttpPostAsyncUI(this).execute(UserProfileServePath.serve_checkLogin(),userProfile_json);
+        } catch (Exception e) {
             e.printStackTrace();
         }
         Log.d("asd","[UserProfile]-checkLogin(Response) :"+ result);
@@ -146,6 +145,5 @@ public class UserProfileDaoImpl extends NetworkModel implements UserProfileDao {
         }
         return userProfile;
     }
-
 
 }

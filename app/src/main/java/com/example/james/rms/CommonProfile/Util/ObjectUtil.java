@@ -120,6 +120,9 @@ public class ObjectUtil {
     }
 
     public static boolean isCorrectResponse(String result){
+        if(ObjectUtil.isNullEmpty(result)){
+            return false;
+        }
         if(result.equals(AsyncMessage.error_network)){
             return false;
         }

@@ -65,6 +65,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     //Dao
     private UserProfileDao userProfileDao;
     private  FacebookDao facebookDao;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -205,9 +206,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     public void onClick(View v) {
         String username = editUsername.getText().toString();
         String password = editPassword.getText().toString();
+//        ClassicDialog.showIndeterminate(this,R.color.blue0895ef,getString(R.string.loading),getString(R.string.waiting));
         switch (v.getId()){
             case R.id.btnCancel:
                 List<UserProfile> loginModels = userProfileDao.findAll();
+                if(loginModels != null)
                 Toast.makeText(getApplicationContext(),loginModels.toString(),Toast.LENGTH_SHORT).show();
                 break;
 
@@ -221,15 +224,15 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     loginPreferences.clear_loginInformation();
                     setEditUsernameAndPassWord("", "");
                 }
-                    String loginValue = UserProfileCombine.combine_usernameAndpassword(username, password);
-                    LoginModel loginModel = userProfileDao.checkLogin(loginValue);
-                    if (checkLoginStatus(loginModel)) {
-                        loginPreferences.setPreferences_loginInformation(loginModel);
-                        Intent intent = new Intent();
-                        intent.setClass(this, NavigationController.class);
-                        startActivity(intent);
-                    }
-                    if(loginModel !=null) Toast.makeText(getApplicationContext(), loginModel.getLoginMessage(), Toast.LENGTH_SHORT).show();
+                String loginValue = UserProfileCombine.combine_usernameAndpassword(username, password);
+                LoginModel loginModel = userProfileDao.checkLogin(loginValue);
+                if (checkLoginStatus(loginModel)) {
+                    loginPreferences.setPreferences_loginInformation(loginModel);
+                    Intent intent = new Intent();
+                    intent.setClass(this, NavigationController.class);
+                    startActivity(intent);
+                }
+                if(loginModel !=null) Toast.makeText(getApplicationContext(), loginModel.getLoginMessage(), Toast.LENGTH_SHORT).show();
                 break;
         }
 
