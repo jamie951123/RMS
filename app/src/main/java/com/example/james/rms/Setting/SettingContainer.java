@@ -10,7 +10,7 @@ import android.widget.ListView;
 import com.daimajia.swipe.util.Attributes;
 import com.example.james.rms.CommonProfile.DialogBox.ClassicDialog;
 import com.example.james.rms.CommonProfile.DialogBox.Service.ClassicDialogService;
-import com.example.james.rms.CommonProfile.Listview.ListViewGrowthUtil;
+import com.example.james.rms.CommonProfile.Listview.ListViewUtil;
 import com.example.james.rms.CommonProfile.SharePreferences.PartyIdPreferences;
 import com.example.james.rms.Core.Combine.QuantityProfileCombine;
 import com.example.james.rms.Core.Combine.SettingSearchCombine;
@@ -22,7 +22,6 @@ import com.example.james.rms.Core.Dao.WeightProfileDaoImpl;
 import com.example.james.rms.Core.Model.KeyModel;
 import com.example.james.rms.Core.Model.QuantityProfileModel;
 import com.example.james.rms.Core.Model.WeightProfileModel;
-import com.example.james.rms.Core.SearchObject.SettingSearchObject;
 import com.example.james.rms.R;
 
 import java.util.ArrayList;
@@ -83,7 +82,7 @@ public class SettingContainer extends AppCompatActivity implements View.OnClickL
             wlistView.setAdapter(wAdapter);
             wAdapter.setMode(Attributes.Mode.Single);
             waddbtn.setOnClickListener(this);
-            ListViewGrowthUtil.setListViewHeightBasedOnChildren(wlistView);
+            ListViewUtil.setListViewHeightBasedOnChildren(wlistView);
         }
         //quantity
         quantityProfileModelList = quantityProfileDao.findByPartyId(common_partyId);
@@ -92,7 +91,7 @@ public class SettingContainer extends AppCompatActivity implements View.OnClickL
             qlistView.setAdapter(qAdapter);
             qAdapter.setMode(Attributes.Mode.Single);
             qaddbtn.setOnClickListener(this);
-            ListViewGrowthUtil.setListViewHeightBasedOnChildren(qlistView);
+            ListViewUtil.setListViewHeightBasedOnChildren(qlistView);
         }
     }
 
@@ -135,7 +134,7 @@ public class SettingContainer extends AppCompatActivity implements View.OnClickL
             wAdapter.notifyDataSetChanged();
 //            Toast.makeText(this,weightProfileModel.toString(),Toast.LENGTH_SHORT).show();
         }
-        ListViewGrowthUtil.setListViewHeightBasedOnChildren(wlistView);
+        ListViewUtil.setListViewHeightBasedOnChildren(wlistView);
     }
 
     @Override
@@ -150,7 +149,7 @@ public class SettingContainer extends AppCompatActivity implements View.OnClickL
             qAdapter.notifyDataSetChanged();
 //            Toast.makeText(this,quantityProfileModel.toString(),Toast.LENGTH_SHORT).show();
         }
-        ListViewGrowthUtil.setListViewHeightBasedOnChildren(qlistView);
+        ListViewUtil.setListViewHeightBasedOnChildren(qlistView);
     }
     @Override
     protected void onDestroy() {

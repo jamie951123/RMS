@@ -4,21 +4,31 @@
     android:id="@+id/product_pool"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="@color/backgroundE8E8E8"
+    android:orientation="vertical"
     tools:context="com.example.james.rms.ProductPool.Tab.ProductDetail">
 
-    <LinearLayout
+    <android.support.v4.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/product_swipe"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:paddingBottom="@dimen/card_margin"
-        android:paddingTop="@dimen/card_margin"
-        android:paddingLeft="@dimen/card_margin"
-        android:paddingRight="@dimen/card_margin"
-        android:layout_weight="1">
-        <com.example.james.rms.CommonProfile.Library.AnimatedExpandableListView
+        android:layout_height="match_parent">
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/product_listView"></com.example.james.rms.CommonProfile.Library.AnimatedExpandableListView>
-    </LinearLayout>
+            android:layout_weight="1"
+            android:paddingBottom="@dimen/card_margin"
+            android:paddingLeft="@dimen/card_margin"
+            android:paddingRight="@dimen/card_margin"
+            android:paddingTop="@dimen/card_margin">
+
+            <com.example.james.rms.CommonProfile.Library.AnimatedExpandableListView
+                android:id="@+id/product_listView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"></com.example.james.rms.CommonProfile.Library.AnimatedExpandableListView>
+
+        </LinearLayout>
+
+    </android.support.v4.widget.SwipeRefreshLayout>
+
 </LinearLayout>

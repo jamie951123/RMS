@@ -19,7 +19,7 @@ import com.daimajia.androidanimations.library.YoYo;
 import com.daimajia.swipe.SimpleSwipeListener;
 import com.daimajia.swipe.SwipeLayout;
 import com.example.james.rms.CommonProfile.Util.ActivityUtil;
-import com.example.james.rms.CommonProfile.Listview.ListViewGrowthUtil;
+import com.example.james.rms.CommonProfile.Listview.ListViewUtil;
 import com.example.james.rms.CommonProfile.MyAdapter.MyBaseSwipeAdapter;
 import com.example.james.rms.CommonProfile.ResponseStatus;
 import com.example.james.rms.Core.Combine.WeightProfileCombine;
@@ -90,7 +90,7 @@ public class SettingWeightListAdapter extends MyBaseSwipeAdapter<WeightProfileMo
                     if(responseMessage != null && ResponseStatus.getSuccessful().equalsIgnoreCase(responseMessage.getMessage_status())){
                         getList().remove(position);
                         notifyDataSetChanged();
-                        ListViewGrowthUtil.setListViewHeightBasedOnChildren(listView);
+                        ListViewUtil.setListViewHeightBasedOnChildren(listView);
 
                         Toast.makeText(getmContext(), responseMessage.getMessage_content(), Toast.LENGTH_SHORT).show();
                         return;

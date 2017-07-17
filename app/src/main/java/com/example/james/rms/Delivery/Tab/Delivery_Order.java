@@ -1,13 +1,18 @@
 package com.example.james.rms.Delivery.Tab;
 
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.james.rms.CommonProfile.Library.AnimatedExpandableListView;
+import com.example.james.rms.CommonProfile.Listview.ListViewUtil;
 import com.example.james.rms.CommonProfile.MyAdapter.MyBaseFragment;
+import com.example.james.rms.CommonProfile.Swipe.SwipeUtil;
 import com.example.james.rms.CommonProfile.Util.ObjectUtil;
 import com.example.james.rms.CommonProfile.SharePreferences.PartyIdPreferences;
 import com.example.james.rms.Core.Combine.DeliveryOrderSearchCombine;
@@ -17,6 +22,7 @@ import com.example.james.rms.Core.Model.DeliveryOrderModel;
 import com.example.james.rms.Core.Model.Status;
 import com.example.james.rms.Delivery.Adapter.DeliveryOrderExpandListAdapter;
 import com.example.james.rms.R;
+import com.example.james.rms.Receiving.Adapter.ReceivingOrderExpandListAdapter;
 
 import java.util.List;
 
@@ -27,10 +33,12 @@ import butterknife.ButterKnife;
  * Created by Jamie on 15/6/2017.
  */
 
-public class Delivery_Order extends MyBaseFragment {
+public class Delivery_Order extends MyBaseFragment implements SwipeRefreshLayout.OnRefreshListener,View.OnTouchListener {
 
     @BindView(R.id.de_order_listview)
     AnimatedExpandableListView listView;
+    @BindView(R.id.delivery_order_swipe)
+    SwipeRefreshLayout laySwipe;
 
     //Model
     private List<DeliveryOrderModel> deliveryOrderModels;
@@ -41,6 +49,9 @@ public class Delivery_Order extends MyBaseFragment {
     //Dao
     private DeliveryOrderDao deliveryOrderDao;
 
+    //
+    private String combine_partyIdAndStatus;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -48,18 +59,16 @@ public class Delivery_Order extends MyBaseFragment {
         ButterKnife.bind(this,rootView);
         //Dao
         deliveryOrderDao = new DeliveryOrderDaoImpl((AppCompatActivity) getActivity());
-
+        //SetUp
+        laySwipe.setOnRefreshListener(this);
+        SwipeUtil.setColor(laySwipe);
         //Preferences
         PartyIdPreferences partyIdPreferences = new PartyIdPreferences(getActivity(),"loginInformation",getActivity().MODE_PRIVATE);
         String partyId =  partyIdPreferences.getPreferences_PartyId().get("partyId");
         //partyId
-        String combine_partyIdAndStatus = DeliveryOrderSearchCombine.combine_partyIdAndStatus(partyId, Status.PROGRESS);
+        combine_partyIdAndStatus = DeliveryOrderSearchCombine.combine_partyIdAndStatus(partyId, Status.PROGRESS);
 
-        deliveryOrderModels = deliveryOrderDao.findByPartyIdAndStatus(combine_partyIdAndStatus);
-        if(deliveryOrderModels != null) {
-            deliveryOrderExpandListAdapter = new DeliveryOrderExpandListAdapter(getActivity(), deliveryOrderModels);
-            listView.setAdapter(deliveryOrderExpandListAdapter);
-        }
+        getData();
 //        pager.setPagingEnabled(false);
         return rootView;
     }
@@ -87,5 +96,27 @@ public class Delivery_Order extends MyBaseFragment {
     @Override
     public void transferViewPager(int rid, Object model) {
 
+    }
+
+    @Override
+    public boolean onTouch(View v, MotionEvent event) {
+        ListViewUtil.detectTop(event,listView,laySwipe);
+        return false;
+    }
+
+    @Override
+    public void onRefresh() {
+        laySwipe.setRefreshing(true);
+        getData();
+        laySwipe.setRefreshing(false);
+
+    }
+
+    public void getData(){
+        deliveryOrderModels = deliveryOrderDao.findByPartyIdAndStatus(combine_partyIdAndStatus);
+        if(deliveryOrderModels != null) {
+            deliveryOrderExpandListAdapter = new DeliveryOrderExpandListAdapter(getActivity(), deliveryOrderModels);
+            listView.setAdapter(deliveryOrderExpandListAdapter);
+        }
     }
 }

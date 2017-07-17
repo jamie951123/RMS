@@ -1,5 +1,7 @@
 package com.example.james.rms.CommonProfile.Listview;
 
+import android.support.v4.widget.SwipeRefreshLayout;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
@@ -10,7 +12,7 @@ import android.widget.ListView;
  * Created by jamie on 2017/5/15.
  */
 
-public class ListViewGrowthUtil {
+public class ListViewUtil {
 
     public static void setListViewHeightBasedOnChildren(ListView listView) {
         ListAdapter listAdapter = listView.getAdapter();
@@ -32,5 +34,21 @@ public class ListViewGrowthUtil {
         ViewGroup.LayoutParams params = listView.getLayoutParams();
         params.height = totalHeight + (listView.getDividerHeight() * (listAdapter.getCount() - 1));
         listView.setLayoutParams(params);
+    }
+
+    public static void detectTop(MotionEvent event,ListView listView,SwipeRefreshLayout laySwipe){
+        View mView = listView.getChildAt(0);
+        int top = mView.getTop();
+
+        switch(event.getAction()){
+
+            case MotionEvent.ACTION_MOVE:
+                // see if it top is at Zero, and first visible position is at 0
+                if(top == 0 && listView.getFirstVisiblePosition() == 0){
+                    laySwipe.setEnabled(true);
+                }else{
+                    laySwipe.setEnabled(false);
+                }
+        }
     }
 }

@@ -1,14 +1,19 @@
 package com.example.james.rms.Receiving.Tab;
 
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 
 import com.example.james.rms.CommonProfile.Library.AnimatedExpandableListView;
+import com.example.james.rms.CommonProfile.Listview.ListViewUtil;
 import com.example.james.rms.CommonProfile.MyAdapter.MyBaseFragment;
+import com.example.james.rms.CommonProfile.Swipe.SwipeUtil;
 import com.example.james.rms.CommonProfile.Util.ObjectUtil;
 import com.example.james.rms.CommonProfile.SharePreferences.PartyIdPreferences;
 import com.example.james.rms.Controller.NavigationController;
@@ -25,11 +30,12 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class Receiving_order extends MyBaseFragment implements AdapterView.OnItemClickListener,AdapterView.OnItemLongClickListener {
+public class Receiving_order extends MyBaseFragment implements AdapterView.OnItemClickListener,AdapterView.OnItemLongClickListener,SwipeRefreshLayout.OnRefreshListener,View.OnTouchListener {
 
     @BindView(R.id.receiving_order_listView)
     AnimatedExpandableListView listView;
-
+    @BindView(R.id.receiving_order_swipe)
+    SwipeRefreshLayout laySwipe;
     //Adapter
     private ReceivingOrderExpandListAdapter receivingOrderExpandListAdapter;
 
@@ -40,6 +46,9 @@ public class Receiving_order extends MyBaseFragment implements AdapterView.OnIte
     //Dao
     private ReceivingOrderDao receivingOrderDao;
 
+    //
+    private String combine_partyId;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -47,24 +56,17 @@ public class Receiving_order extends MyBaseFragment implements AdapterView.OnIte
         ButterKnife.bind(this,rootView);
         //Dao
         receivingOrderDao = new ReceivingOrderDaoImpl((AppCompatActivity)getContext());
+        //SetUp
+        laySwipe.setOnRefreshListener(this);
+        SwipeUtil.setColor(laySwipe);
         //Preferences
         PartyIdPreferences partyIdPreferences = new PartyIdPreferences(getActivity(),"loginInformation",getActivity().MODE_PRIVATE);
         String partyId =  partyIdPreferences.getPreferences_PartyId().get("partyId");
         //partyId
-        String combine_partyId = ReceivingOrderCombine.combine_partyId(partyId);
+        combine_partyId = ReceivingOrderCombine.combine_partyId(partyId);
 
         //HttpOK
-        receivingOrderModels = receivingOrderDao.findByPartyId(combine_partyId);
-//        receivingItemModels = receivingItemDao.findReceivingItemByPartyId(combine_partyId);
-
-        //listView
-        if(receivingOrderModels != null) {
-            receivingOrderExpandListAdapter = new ReceivingOrderExpandListAdapter(getActivity(), receivingOrderModels);
-            listView.setAdapter(receivingOrderExpandListAdapter);
-            listView.setOnItemLongClickListener(this);
-            listView.setGroupIndicator(null);
-//            listView.setDivider(null);
-        }
+        getData();
         return rootView;
     }
 
@@ -112,4 +114,31 @@ public class Receiving_order extends MyBaseFragment implements AdapterView.OnIte
     public void transferViewPager(int rid, Object models) {
 
     }
+
+    @Override
+    public boolean onTouch(View v, MotionEvent event) {
+        ListViewUtil.detectTop(event,listView,laySwipe);
+        return false;
+    }
+
+    @Override
+    public void onRefresh() {
+        laySwipe.setRefreshing(true);
+        getData();
+        laySwipe.setRefreshing(false);
+
+    }
+
+    public void getData(){
+        receivingOrderModels = receivingOrderDao.findByPartyId(combine_partyId);
+        if(receivingOrderModels != null) {
+            receivingOrderExpandListAdapter = new ReceivingOrderExpandListAdapter(getActivity(), receivingOrderModels);
+            listView.setAdapter(receivingOrderExpandListAdapter);
+            listView.setOnItemLongClickListener(this);
+            listView.setOnTouchListener(this);
+            listView.setGroupIndicator(null);
+        }
+        listView.setAdapter(receivingOrderExpandListAdapter);
+    }
+
 }
