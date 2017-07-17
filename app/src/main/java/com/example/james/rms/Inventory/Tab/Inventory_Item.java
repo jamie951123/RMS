@@ -111,8 +111,8 @@ public class Inventory_Item extends MyBaseFragment implements ViewPagerListener,
         // this is data fro recycler view
         if(inventoryModels != null) {
             inventoryItemListAdapter = new InventoryItemListAdapter(getActivity(), inventoryModels);
+            listView.setAdapter(inventoryItemListAdapter);
         }
-        listView.setAdapter(inventoryItemListAdapter);
     }
 
 }

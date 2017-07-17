@@ -36,43 +36,44 @@
                 <!-- Product Code -->
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="2">
+                    android:layout_height="@dimen/header_layout_size"
+                    android:minHeight="@dimen/header_layout_size"
+                    android:layout_weight="1">
 
                     <TextView
                         android:id="@+id/deliveryItem_ProductCode"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:gravity="center"
-                        android:padding="10dip"
                         android:text="test"
-                        android:textColor="@color/delivery_item_value_color"
-                        android:textSize="20dip"
-                        android:textStyle="bold" />
+                        android:textSize="@dimen/header_text_size"
+                        android:textStyle="bold"
+                        android:textColor="@color/receiving_item_value_color" />
                 </LinearLayout>
 
 
-                <!--<View-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="1dp"-->
-                <!--android:background="@color/whiteFFFFFF"/>-->
+                <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="@color/whiteFFFFFF"/>
 
                 <!--Main-->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:paddingTop="@dimen/insizecard">
 
                     <!--Left-->
                     <!--ImageView-->
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_weight="4"
-                        android:gravity="center"
                         android:paddingLeft="@dimen/card_margin"
-                        android:paddingRight="@dimen/card_margin">
+                        android:paddingRight="@dimen/card_margin"
+                        android:gravity="center"
+                        android:layout_weight="4">
 
                         <com.github.siyamed.shapeimageview.RoundedImageView
                             android:id="@+id/deliveryItem_image"
@@ -97,7 +98,7 @@
                         <!-- Product Name -->
                         <LinearLayout
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent"
+                            android:layout_height="@dimen/context_layout_size"
                             android:layout_weight="3"
                             android:orientation="horizontal">
 
@@ -105,42 +106,52 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:layout_weight="2"
-                                android:text="@string/deliveryItem_ProductName" />
+                                android:text="@string/deliveryItem_ProductName"
+                                android:gravity="center_vertical"
+                                android:textSize="@dimen/context_text_size"
+                                android:maxLines="2"/>/>
 
                             <TextView
                                 android:id="@+id/deliveryItem_ProductName"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
-                                android:textColor="@color/delivery_item_value_color" />
+                                android:textColor="@color/delivery_item_value_color"
+                                android:gravity="center_vertical"
+                                android:textSize="@dimen/context_text_size"
+                                android:maxLines="2"/>
                         </LinearLayout>
 
                         <!-- Stock Out Date-->
                         <LinearLayout
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_weight="3"
+                            android:layout_height="@dimen/context_layout_size"
+                            android:layout_weight="2"
                             android:orientation="horizontal">
 
                             <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:layout_weight="2"
-                                android:text="@string/deliveryItem_itemStockOutDate" />
+                                android:text="@string/deliveryItem_itemStockOutDate"
+                                android:textSize="@dimen/context_text_size"
+                                android:maxLines="2"/>
 
                             <TextView
                                 android:id="@+id/deliveryItem_itemStockOutDate"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
-                                android:textColor="@color/delivery_item_value_color" />
+                                android:textColor="@color/delivery_item_value_color"
+                                android:textSize="@dimen/context_text_size"
+                                android:maxLines="2"/>
                         </LinearLayout>
 
                         <!-- ItemGrossWeight Unit-->
                         <!--Label-->
                         <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
+                            android:layout_width="wrap_content"
+                            android:layout_height="@dimen/context_layout_size"
                             android:layout_weight="3"
                             android:orientation="horizontal">
 
@@ -154,13 +165,15 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text="@string/deliveryItem_itemGrossWeight_Unit"
-                                    android:textStyle="bold" />
+                                    android:textStyle="bold"
+                                    android:textSize="@dimen/context_text_size"
+                                    android:maxLines="2"/>
 
                             </LinearLayout>
 
                             <!--GW-Value-->
                             <LinearLayout
-                                android:layout_width="match_parent"
+                                android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1">
 
@@ -168,18 +181,24 @@
                                     android:id="@+id/deliveryItem_itemGrossWeight"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:textColor="@color/delivery_item_value_color" />
+                                    android:textColor="@color/delivery_item_value_color"
+                                    android:textSize="@dimen/context_text_size"
+                                    android:maxLines="2"/>
 
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="/" />
+                                    android:text="/"
+                                    android:textSize="@dimen/context_text_size"
+                                    android:maxLines="2"/>
 
                                 <TextView
                                     android:id="@+id/deliveryItem_itemGrossWeightUnit"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:textColor="@color/delivery_item_value_color" />
+                                    android:textColor="@color/delivery_item_value_color"
+                                    android:textSize="@dimen/context_text_size"
+                                    android:maxLines="2"/>
                             </LinearLayout>
 
                         </LinearLayout>
@@ -187,8 +206,8 @@
                         <!-- ItemQTY Unit-->
                         <!--Label-->
                         <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
+                            android:layout_width="wrap_content"
+                            android:layout_height="@dimen/context_layout_size"
                             android:layout_weight="3"
                             android:orientation="horizontal">
 
@@ -202,7 +221,9 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text="@string/deliveryItem_itemQuantity_Unit"
-                                    android:textStyle="bold" />
+                                    android:textStyle="bold"
+                                    android:textSize="@dimen/context_text_size"
+                                    android:maxLines="2"/>
 
                             </LinearLayout>
 
@@ -216,18 +237,24 @@
                                     android:id="@+id/deliveryItem_itemQuantity"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:textColor="@color/delivery_item_value_color" />
+                                    android:textColor="@color/delivery_item_value_color"
+                                    android:textSize="@dimen/context_text_size"
+                                    android:maxLines="2"/>
 
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="/" />
+                                    android:text="/"
+                                    android:textSize="@dimen/context_text_size"
+                                    android:maxLines="2"/>
 
                                 <TextView
                                     android:id="@+id/deliveryItem_itemQuantityUnit"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:textColor="@color/delivery_item_value_color" />
+                                    android:textColor="@color/delivery_item_value_color"
+                                    android:textSize="@dimen/context_text_size"
+                                    android:maxLines="2"/>
                             </LinearLayout>
 
                         </LinearLayout>
@@ -241,15 +268,16 @@
             </LinearLayout>
             <!--End Blue-->
 
-            <!--Bottom-->
+            <!--Fooder-Button-->
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="4"
-                android:orientation="horizontal"
-                android:paddingTop="@dimen/card_margin">
+                android:layout_height="@dimen/fooder_layout_size"
+                android:layout_weight="1"
+                android:paddingTop="@dimen/card_margin"
+                android:paddingBottom="@dimen/card_margin"
+                android:orientation="horizontal">
 
-                <!--Edit-->
+                <!--EditBotton-->
                 <LinearLayout
                     android:id="@+id/delivery_item_linear_edit"
                     android:layout_width="match_parent"
@@ -275,7 +303,7 @@
                         android:textSize="15sp" />
                 </LinearLayout>
 
-                <!--Delete-->
+                <!--DeleteBotton-->
                 <LinearLayout
                     android:id="@+id/delivery_item_linear_delete"
                     android:layout_width="match_parent"

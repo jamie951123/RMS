@@ -10,4 +10,18 @@
     <dimen name="rl_increase_list_item_edittext">5dp</dimen>
     <dimen name="toolbarsize">16dp</dimen>
     <dimen name="insizecard">10dp</dimen>
+
+
+    <!--item Design-->
+    <dimen name="header_layout_size">30dp</dimen>
+    <dimen name="header_text_size">15dip</dimen>
+    <dimen name="image_layout_size">60dp</dimen>
+    <dimen name="image_size">40dp</dimen>
+    <dimen name="context_layout_size">30dp</dimen>
+    <dimen name="context_text_size">12dip</dimen>
+    <dimen name="fooder_layout_size">50dp</dimen>
+
+    <!--receiving_increase_dialog_header-->
+    <dimen name="increase_dialog_header">50dp</dimen>
+
 </resources>

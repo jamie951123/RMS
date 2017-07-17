@@ -122,8 +122,9 @@
         <meta-data android:name="com.example.james.rms.CommonProfile.MyAdapter.MyAppGlideModule"
             android:value="AppGlideModule"/>
 
+        <provider android:authorities="com.facebook.app.FacebookContentProvider1234"
+            android:name="com.facebook.FacebookContentProvider"
+            android:exported="true" />
+
     </application>
-    <provider android:authorities="com.facebook.app.FacebookContentProvider1234"
-        android:name="com.facebook.FacebookContentProvider"
-        android:exported="true" />
 </manifest>

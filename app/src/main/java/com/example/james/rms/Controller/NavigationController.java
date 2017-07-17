@@ -218,7 +218,7 @@ public class NavigationController extends AppCompatActivity implements Navigatio
             pager.setCurrentItem(3);
             toolbar.setTitle(R.string.stockout);
             navigationView.setCheckedItem(R.id.nav_stockOut);
-        } else if (id == R.id.nav_record) {
+//        } else if (id == R.id.nav_record) {
             //            toolbar.setTitle(R.string.record);
         } else if (id == R.id.nav_setting) {
             //            toolbar.setTitle(R.string.setting);

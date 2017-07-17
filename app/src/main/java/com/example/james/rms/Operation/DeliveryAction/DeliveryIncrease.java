@@ -304,6 +304,14 @@ public class DeliveryIncrease extends AppCompatActivity implements View.OnClickL
         List<DeliveryItemModel> deliveryItemModels = new ArrayList<>();
         int itemCount = 0;
         Date createDate = new Date();
+        Date stock_out_date = ObjectUtil.stringToDate_onlyDate(datePicker.getText().toString());
+        if (stock_out_date == null) {
+            List<String> missingField = new ArrayList<>();
+            missingField.add(getString(R.string.label_stockoutDate));
+            ClassicDialog.showMissingField(this,missingField);
+            return super.onOptionsItemSelected(menuItem);
+        }
+
         for(Map.Entry<Long,DeliveryItemModel> entry : latestMapByReceivingItemId.entrySet()){
             DeliveryItemModel item = entry.getValue();
             item.setItemCreateDate(createDate);
@@ -314,7 +322,7 @@ public class DeliveryIncrease extends AppCompatActivity implements View.OnClickL
 //        deliveryOrderModel.setOrderId(new Long(6));
         deliveryOrderModel.setItemQty(itemCount);
         deliveryOrderModel.setRemark(remark_edit.getText().toString());
-        deliveryOrderModel.setStockOutDate(ObjectUtil.stringToDate_onlyDate(datePicker.getText().toString()));
+        deliveryOrderModel.setStockOutDate(stock_out_date);
         deliveryOrderModel.setCreateDate(createDate);
         deliveryOrderModel.setStatus(Status.PROGRESS.name());
         deliveryOrderModel.setPartyId(common_partyId);

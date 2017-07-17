@@ -62,8 +62,8 @@ public class ReceivingOrderExpandListAdapter extends MyExpandableListAdapter<Rec
         }
         holder.receivingOrder_orderId.setText(ObjectUtil.longToString(receivingOrderModel.getOrderId()));
         holder.receivingOrder_date.setText(ObjectUtil.dateToString_OnlyDate(receivingOrderModel.getReceivingDate()));
-        holder.receivingOrder_actualQty.setText(ObjectUtil.intToString(receivingOrderModel.getActualQty()));
-        holder.receivingOrder_estimateQty.setText(ObjectUtil.intToString(receivingOrderModel.getEstimateQty()));
+//        holder.receivingOrder_actualQty.setText(ObjectUtil.intToString(receivingOrderModel.getActualQty()));
+//        holder.receivingOrder_estimateQty.setText(ObjectUtil.intToString(receivingOrderModel.getEstimateQty()));
         holder.receivingOrder_itemQty.setText(ObjectUtil.intToString(receivingOrderModel.getItemQty()));
         holder.receivingOrder_image.setImageDrawable(ContextCompat.getDrawable(getContext(),R.drawable.input));
 
@@ -181,10 +181,10 @@ public class ReceivingOrderExpandListAdapter extends MyExpandableListAdapter<Rec
         TextView receivingOrder_date;
         @BindView(R.id.receivingOrder_itemQty)
         TextView receivingOrder_itemQty;
-        @BindView(R.id.receivingOrder_actualQty)
-        TextView receivingOrder_actualQty;
-        @BindView(R.id.receivingOrder_estimateQty)
-        TextView receivingOrder_estimateQty;
+//        @BindView(R.id.receivingOrder_actualQty)
+//        TextView receivingOrder_actualQty;
+//        @BindView(R.id.receivingOrder_estimateQty)
+//        TextView receivingOrder_estimateQty;
         @BindView(R.id.receivingOrder_linear_detail)
         LinearLayout receivingOrder_linear_detail;
         @BindView(R.id.receivingOrder_linear_delete)

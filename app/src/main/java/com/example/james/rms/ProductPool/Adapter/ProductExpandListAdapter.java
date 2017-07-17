@@ -3,6 +3,7 @@ package com.example.james.rms.ProductPool.Adapter;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -10,7 +11,6 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.example.james.rms.CommonProfile.MyAdapter.GlideApp;
 import com.example.james.rms.CommonProfile.MyAdapter.MyExpandableListAdapter;
 import com.example.james.rms.CommonProfile.ResponseStatus;
 import com.example.james.rms.CommonProfile.StartActivityForResultKey;
@@ -18,7 +18,6 @@ import com.example.james.rms.CommonProfile.Util.ObjectUtil;
 import com.example.james.rms.Core.Combine.ProductCombine;
 import com.example.james.rms.Core.Dao.ProductDao;
 import com.example.james.rms.Core.Dao.ProductDaoImpl;
-import com.example.james.rms.Core.Model.NetworkModel;
 import com.example.james.rms.Core.Model.ProductModel;
 import com.example.james.rms.Core.Model.ResponseMessage;
 import com.example.james.rms.Operation.ProductAction.ProductIncrease;
@@ -56,12 +55,13 @@ public class ProductExpandListAdapter extends MyExpandableListAdapter<ProductMod
         holder.productCode.setText(productModel.getProductCode());
         holder.productName.setText(productModel.getProductName());
         holder.createDate.setText(ObjectUtil.dateToString(productModel.getCreateDate()));
-        GlideApp.with(getContext())
-                .load(R.drawable.mailbox_black)
-                .error(R.drawable.question_purple)
-                .placeholder(R.drawable.question_purple)
-                .fitCenter()
-                .into(holder.productImage);
+        holder.productImage.setImageDrawable(ContextCompat.getDrawable(getContext(),R.drawable.mailbox_black));
+//        GlideApp.with(getContext())
+//                .load(R.drawable.mailbox_black)
+//                .error(R.drawable.question_purple)
+//                .placeholder(R.drawable.question_purple)
+//                .fitCenter()
+//                .into(holder.productImage);
 
         holder.linear_edit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -114,6 +114,7 @@ public class ProductExpandListAdapter extends MyExpandableListAdapter<ProductMod
         } else {
             holder = (ChildHolder) convertView.getTag();
         }
+        holder.status.setText(productModel.getStatus());
         holder.descriptionEN.setText(productModel.getProductDescriptionEN());
         holder.descriptionCH.setText(productModel.getProductDescriptionCH());
         holder.closeDate.setText(ObjectUtil.dateToString(productModel.getCloseDate()));

@@ -36,41 +36,42 @@
                 <!-- Product Code -->
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="2">
+                    android:layout_height="@dimen/header_layout_size"
+                    android:minHeight="@dimen/header_layout_size"
+                    android:layout_weight="1">
 
                     <TextView
                         android:id="@+id/receivingItem_ProductCode"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:gravity="center"
-                        android:padding="10dip"
                         android:text="test"
-                        android:textColor="@color/receiving_item_value_color"
-                        android:textSize="20dip"
-                        android:textStyle="bold" />
+                        android:textSize="@dimen/header_text_size"
+                        android:textStyle="bold"
+                        android:textColor="@color/receiving_item_value_color" />
                 </LinearLayout>
 
-                <!--<View-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="1dp"-->
-                <!--android:background="@color/whiteFFFFFF"/>-->
+                <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="@color/whiteFFFFFF"/>
 
                 <!--Main-->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:paddingTop="@dimen/insizecard">
                     <!--Left-->
                     <!--ImageView-->
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_weight="4"
-                        android:gravity="center"
                         android:paddingLeft="@dimen/card_margin"
-                        android:paddingRight="@dimen/card_margin">
+                        android:paddingRight="@dimen/card_margin"
+                        android:gravity="center"
+                        android:layout_weight="4">
 
                         <com.github.siyamed.shapeimageview.RoundedImageView
                             android:id="@+id/receivingItem_image"
@@ -95,50 +96,60 @@
                         <!-- Product Name -->
                         <LinearLayout
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_weight="3"
+                            android:layout_height="@dimen/context_layout_size"
+                            android:layout_weight="1"
                             android:orientation="horizontal">
 
                             <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:layout_weight="2"
-                                android:text="@string/receivingItem_ProductName" />
+                                android:text="@string/receivingItem_ProductName"
+                                android:gravity="center_vertical"
+                                android:textSize="@dimen/context_text_size"
+                                android:maxLines="2"/>
 
                             <TextView
                                 android:id="@+id/receivingItem_ProductName"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
-                                android:textColor="@color/receiving_item_value_color" />
+                                android:textColor="@color/receiving_item_value_color"
+                                android:gravity="center_vertical"
+                                android:textSize="@dimen/context_text_size"
+                                android:maxLines="2"/>
                         </LinearLayout>
 
                         <!-- Receiving Date-->
                         <LinearLayout
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_weight="3"
+                            android:layout_height="@dimen/context_layout_size"
+                            android:layout_weight="2"
                             android:orientation="horizontal">
 
                             <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:layout_weight="2"
-                                android:text="@string/receivingItem_itemReceivingDate" />
+                                android:text="@string/createDate"
+                                android:textSize="@dimen/context_text_size"
+                                android:maxLines="2" />
 
                             <TextView
                                 android:id="@+id/receivingItem_itemReceivingDate"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
+                                android:textColor="@color/receiving_item_value_color"
                                 android:layout_weight="1"
-                                android:textColor="@color/receiving_item_value_color" />
+                                android:textSize="@dimen/context_text_size"
+                                android:maxLines="2"/>
                         </LinearLayout>
 
                         <!-- ItemGrossWeight Unit-->
                         <!--Label-->
                         <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
+                            android:layout_width="wrap_content"
+                            android:layout_height="@dimen/context_layout_size"
                             android:layout_weight="3"
                             android:orientation="horizontal">
 
@@ -152,32 +163,41 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text="@string/receivingItem_itemGrossWeight_Unit"
-                                    android:textStyle="bold" />
+                                    android:textStyle="bold"
+                                    android:textSize="@dimen/context_text_size"
+                                    android:maxLines="2"/>
 
                             </LinearLayout>
 
                             <!--GW-Value-->
                             <LinearLayout
-                                android:layout_width="match_parent"
+                                android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
+                                android:paddingLeft="8dp"
                                 android:layout_weight="1">
 
                                 <TextView
                                     android:id="@+id/receivingItem_itemGrossWeight"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:textColor="@color/receiving_item_value_color" />
+                                    android:textColor="@color/receiving_item_value_color"
+                                    android:textSize="@dimen/context_text_size"
+                                    android:maxLines="2"/>
 
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="/" />
+                                    android:text="/"
+                                    android:textSize="@dimen/context_text_size"
+                                    android:maxLines="2"/>
 
                                 <TextView
                                     android:id="@+id/receivingItem_itemGrossWeightUnit"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:textColor="@color/receiving_item_value_color" />
+                                    android:textColor="@color/receiving_item_value_color"
+                                    android:textSize="@dimen/context_text_size"
+                                    android:maxLines="2"/>
                             </LinearLayout>
 
                         </LinearLayout>
@@ -192,10 +212,11 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="4"
-                android:orientation="horizontal"
-                android:paddingTop="@dimen/card_margin">
+                android:layout_height="@dimen/fooder_layout_size"
+                android:layout_weight="1"
+                android:paddingTop="@dimen/card_margin"
+                android:paddingBottom="@dimen/card_margin"
+                android:orientation="horizontal">
 
                 <LinearLayout
                     android:id="@+id/receiving_item_linear_edit"

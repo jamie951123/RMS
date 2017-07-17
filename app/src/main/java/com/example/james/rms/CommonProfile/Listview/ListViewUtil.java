@@ -37,6 +37,9 @@ public class ListViewUtil {
     }
 
     public static void detectTop(MotionEvent event,ListView listView,SwipeRefreshLayout laySwipe){
+        if(listView == null || listView.getChildAt(0) == null){
+            return;
+        }
         View mView = listView.getChildAt(0);
         int top = mView.getTop();
 

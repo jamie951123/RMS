@@ -36,33 +36,34 @@
                 <!-- Product Code -->
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="4">
+                    android:layout_height="@dimen/header_layout_size"
+                    android:minHeight="@dimen/header_layout_size"
+                    android:layout_weight="1">
 
                     <TextView
                         android:id="@+id/product_productCode"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:gravity="center"
-                        android:padding="10dip"
                         android:text="test"
-                        android:textSize="20dip"
+                        android:textSize="@dimen/header_text_size"
                         android:textStyle="bold"
                         android:textColor="@color/whiteFFFFFF"/>
 
                 </LinearLayout>
 
-                <!--<View-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="1dp"-->
-                <!--android:background="@color/whiteFFFFFF"/>-->
+                <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="@color/whiteFFFFFF"/>
 
                 <!--Main-->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:paddingTop="@dimen/insizecard">
                     <!--Left-->
                     <!--ImageView-->
                     <LinearLayout
@@ -96,7 +97,7 @@
                         <!--ProductName-->
                         <LinearLayout
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent"
+                            android:layout_height="@dimen/context_layout_size"
                             android:layout_weight="1"
                             android:orientation="horizontal">
 
@@ -104,20 +105,26 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:layout_weight="2"
-                                android:text="@string/productName" />
+                                android:text="@string/productName"
+                                android:gravity="center_vertical"
+                                android:textSize="@dimen/context_text_size"
+                                android:maxLines="2"/>
 
                             <TextView
                                 android:id="@+id/product_productName"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
-                                android:textColor="@color/whiteFFFFFF"/>
+                                android:textColor="@color/whiteFFFFFF"
+                                android:gravity="center_vertical"
+                                android:textSize="@dimen/context_text_size"
+                                android:maxLines="2"/>
                         </LinearLayout>
 
                         <!--CreateDate-->
                         <LinearLayout
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent"
+                            android:layout_height="@dimen/context_layout_size"
                             android:layout_weight="2"
                             android:orientation="horizontal">
 
@@ -125,14 +132,18 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:layout_weight="2"
-                                android:text="@string/createDate" />
+                                android:text="@string/createDate"
+                                android:textSize="@dimen/context_text_size"
+                                android:maxLines="2"/>
 
                             <TextView
                                 android:id="@+id/product_createDate"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:textColor="@color/whiteFFFFFF"
-                                android:layout_weight="1" />
+                                android:layout_weight="1"
+                                android:textSize="@dimen/context_text_size"
+                                android:maxLines="2"/>
                         </LinearLayout>
 
                     </LinearLayout>
@@ -145,16 +156,13 @@
             <!--Action LinearLayout-->
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="4"
+                android:layout_height="@dimen/fooder_layout_size"
+                android:layout_weight="1"
                 android:paddingTop="@dimen/card_margin"
+                android:paddingBottom="@dimen/card_margin"
                 android:orientation="horizontal">
 
-                <!--<LinearLayout-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="match_parent"-->
-                <!--android:layout_weight="1"-->
-                <!--&gt;</LinearLayout>-->
+                <!--Edit Button-->
                 <LinearLayout
                     android:id="@+id/product_linear_edit"
                     android:layout_width="match_parent"
@@ -180,6 +188,7 @@
                         android:textSize="15sp" />
                 </LinearLayout>
 
+                <!--Delete Button-->
                 <LinearLayout
                     android:id="@+id/product_linear_delete"
                     android:layout_width="match_parent"
@@ -204,13 +213,7 @@
                         android:text="@string/label_delete"
                         android:textSize="15sp" />
                 </LinearLayout>
-                <!--<GridView-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="match_parent"-->
-                <!--android:id="@+id/product_gridview"-->
-                <!--android:focusable="false"-->
-                <!--android:clickable="false">-->
-                <!--</GridView>-->
+
             </LinearLayout>
 
         </LinearLayout>

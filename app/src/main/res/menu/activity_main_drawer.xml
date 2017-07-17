@@ -30,11 +30,11 @@
 
     <group >
         <menu>
-            <item
-                android:id="@+id/nav_record"
-                android:icon="@drawable/record"
-                android:title="@string/record"
-                android:checkable="true"/>
+            <!--<item-->
+                <!--android:id="@+id/nav_record"-->
+                <!--android:icon="@drawable/record"-->
+                <!--android:title="@string/record"-->
+                <!--android:checkable="true"/>-->
             <item
                 android:id="@+id/nav_setting"
                 android:icon="@drawable/setting"

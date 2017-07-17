@@ -57,28 +57,32 @@
                 <!-- Product Code -->
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="@dimen/context_layout_size"
                     android:layout_weight="3">
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_weight="3"
-                        android:text="@string/receivingItem_ProductCode" />
+                        android:text="@string/receivingItem_ProductCode"
+                        android:textSize="@dimen/context_text_size"
+                        android:maxLines="2"/>
 
                     <TextView
                         android:id="@+id/delivery_item_increase_receivingItem_ProductCode"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_weight="2"
-                        android:textColor="@color/receiving_item_value_color"
-                        android:textStyle="bold" />
+                        android:textColor="@color/delivery_increase_dialoag_child_value_color"
+                        android:textStyle="bold"
+                        android:textSize="@dimen/context_text_size"
+                        android:maxLines="2"/>
                 </LinearLayout>
 
                 <!-- Product Name -->
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="@dimen/context_layout_size"
                     android:layout_weight="3"
                     android:orientation="horizontal">
 
@@ -86,20 +90,24 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_weight="3"
-                        android:text="@string/receivingItem_ProductName" />
+                        android:text="@string/receivingItem_ProductName"
+                        android:textSize="@dimen/context_text_size"
+                        android:maxLines="2"/>
 
                     <TextView
                         android:id="@+id/delivery_item_increase_receivingItem_ProductName"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_weight="2"
-                        android:textColor="@color/receiving_item_value_color" />
+                        android:textColor="@color/delivery_increase_dialoag_child_value_color"
+                        android:textSize="@dimen/context_text_size"
+                        android:maxLines="2"/>
                 </LinearLayout>
 
                 <!-- Receiving Date-->
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="@dimen/context_layout_size"
                     android:layout_weight="3"
                     android:orientation="horizontal">
 
@@ -107,26 +115,30 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_weight="3"
-                        android:text="@string/receivingItem_itemReceivingDate" />
+                        android:text="@string/receivingItem_itemReceivingDate"
+                        android:textSize="@dimen/context_text_size"
+                        android:maxLines="2"/>
 
                     <TextView
                         android:id="@+id/delivery_item_increase_receivingItem_itemReceivingDate"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_weight="2"
-                        android:textColor="@color/receiving_item_value_color" />
+                        android:textColor="@color/delivery_increase_dialoag_child_value_color"
+                        android:textSize="@dimen/context_text_size"
+                        android:maxLines="2"/>
                 </LinearLayout>
 
                 <!-- ItemQuantity Unit-->
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="@dimen/context_layout_size"
                     android:layout_weight="3"
                     android:orientation="horizontal">
 
                     <!--Lable-->
                     <LinearLayout
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:orientation="horizontal">
@@ -135,13 +147,15 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/receivingItem_itemQuantity_Unit"
-                            android:textStyle="bold" />
+                            android:textStyle="bold"
+                            android:textSize="@dimen/context_text_size"
+                            android:maxLines="2"/>
 
                     </LinearLayout>
 
                     <!--Value-->
                     <LinearLayout
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_weight="2">
 
@@ -149,18 +163,24 @@
                             android:id="@+id/delivery_item_increase_receivingItem_itemQuantity"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textColor="@color/receiving_item_value_color" />
+                            android:textColor="@color/delivery_increase_dialoag_child_value_color"
+                            android:textSize="@dimen/context_text_size"
+                            android:maxLines="2"/>
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="/" />
+                            android:text="/"
+                            android:textSize="@dimen/context_text_size"
+                            android:maxLines="2"/>
 
                         <TextView
                             android:id="@+id/delivery_item_increase_receivingItem_itemQuantity_unit"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textColor="@color/receiving_item_value_color" />
+                            android:textColor="@color/delivery_increase_dialoag_child_value_color"
+                            android:textSize="@dimen/context_text_size"
+                            android:maxLines="2"/>
                     </LinearLayout>
 
                 </LinearLayout>
@@ -168,13 +188,13 @@
                 <!-- ItemGrossWeight Unit-->
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="@dimen/context_layout_size"
                     android:layout_weight="3"
                     android:orientation="horizontal">
 
                     <!--Lable-->
                     <LinearLayout
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:orientation="horizontal">
@@ -183,13 +203,15 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/receivingItem_itemGrossWeight_Unit"
-                            android:textStyle="bold" />
+                            android:textStyle="bold"
+                            android:textSize="@dimen/context_text_size"
+                            android:maxLines="2"/>
 
                     </LinearLayout>
 
                     <!--Value-->
                     <LinearLayout
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_weight="2">
 
@@ -197,18 +219,22 @@
                             android:id="@+id/delivery_item_increase_receivingItem_itemGrossWeight"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textColor="@color/receiving_item_value_color" />
+                            android:textColor="@color/delivery_increase_dialoag_child_value_color" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="/" />
+                            android:text="/"
+                            android:textSize="@dimen/context_text_size"
+                            android:maxLines="2"/>
 
                         <TextView
                             android:id="@+id/delivery_item_increase_receivingItem_itemGrossWeight_unit"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textColor="@color/receiving_item_value_color" />
+                            android:textColor="@color/delivery_increase_dialoag_child_value_color"
+                            android:textSize="@dimen/context_text_size"
+                            android:maxLines="2"/>
                     </LinearLayout>
 
                 </LinearLayout>

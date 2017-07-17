@@ -11,7 +11,7 @@
     <color name="receiving_order_value_color">#FFFFFF</color>
 
     <!--ReceivingItem-->
-    <color name="receiving_item_value_color">#000</color>
+    <color name="receiving_item_value_color">#FFFFFF</color>
 
     <!--Delivery Order-->
     <color name="delivery_order_value_color">#FFFFFF</color>
@@ -26,7 +26,7 @@
     <color name="delivery_increase_dialoag_group_value_color">#FFFFFF</color>
 
     <!--delivery_increase_dialoag_child-->
-    <color name="delivery_increase_dialoag_child_value_color">#FFFFFF</color>
+    <color name="delivery_increase_dialoag_child_value_color">#000</color>
 
     <!--delivery_increase_item_group-->
     <color name="delivery_increase_item_group_value_color">#FFFFFF</color>

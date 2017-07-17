@@ -138,7 +138,6 @@ public class Receiving_order extends MyBaseFragment implements AdapterView.OnIte
             listView.setOnTouchListener(this);
             listView.setGroupIndicator(null);
         }
-        listView.setAdapter(receivingOrderExpandListAdapter);
     }
 
 }
