@@ -18,12 +18,13 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.james.rms.CommonProfile.SharePreferences.MyPreferences;
+import com.example.james.rms.CommonProfile.SharePreferences.PreferencesKey;
 import com.example.james.rms.CommonProfile.Util.DeepCopyUtil;
 import com.example.james.rms.CommonProfile.DialogBox.ClassicDialog;
 import com.example.james.rms.CommonProfile.DialogBox.MyDatePicker;
 import com.example.james.rms.CommonProfile.Util.GsonUtil;
 import com.example.james.rms.CommonProfile.Util.ObjectUtil;
-import com.example.james.rms.CommonProfile.SharePreferences.PartyIdPreferences;
 import com.example.james.rms.CommonProfile.StartActivityForResultKey;
 import com.example.james.rms.Controller.NavigationController;
 import com.example.james.rms.Core.Combine.MovementRecordCombine;
@@ -89,7 +90,12 @@ public class ReceivingIncrease extends AppCompatActivity implements View.OnClick
     private List<ReceivingItemModel> item_original;
     private List<ReceivingItemModel> item_latest;
     private List<ReceivingItemModel> item_listview;
-    private String common_partyId;
+
+    //MyPreferences
+    private MyPreferences myPreferences;
+    private String combine_partyId;
+    private String combine_partyIdAndStatus;
+    private String partyId;
 
     //
     private ReceivingOrderDao receivingOrderDao;
@@ -112,10 +118,10 @@ public class ReceivingIncrease extends AppCompatActivity implements View.OnClick
         //clear open dialogbox count when enter the receivingIncrease Activity
         setUpToolbar();
         //Preferences
-        PartyIdPreferences partyIdPreferences = new PartyIdPreferences(this, "loginInformation", MODE_PRIVATE);
-        common_partyId = partyIdPreferences.getPreferences_PartyId().get("partyId");
+        myPreferences = new MyPreferences(this, PreferencesKey.login_information);
+        partyId =  myPreferences.getPreferences_PartyId().get("partyId");
         //HttpOK
-        String combine_partyId = ReceivingOrderCombine.combine_partyId(common_partyId);
+        combine_partyId = ReceivingOrderCombine.combine_partyId(partyId);
         List<ProductModel> allModel = productDao.findByPartyId(combine_partyId);
         //
         item_original = new ArrayList<>(modelConvert(allModel));
@@ -277,8 +283,8 @@ public class ReceivingIncrease extends AppCompatActivity implements View.OnClick
                 receivingItemModel.setReceivingId(receivingId);
                 receivingItemModel.setProductId(productId);
                 receivingItemModel.setItemCreateDate(itemCreateDate);
-                receivingItemModel.setItemCreateBy(common_partyId);
-                receivingItemModel.setPartyId(common_partyId);
+                receivingItemModel.setItemCreateBy(this.partyId);
+                receivingItemModel.setPartyId(this.partyId);
                 receivingItemModel.setItemStatus(Status.PROGRESS.name());
                 receivingItemModel.setItemReceivingDate(itemReceivingDate);
                 receivingItemModel.setItemGrossWeight(itemGrossWeight);
@@ -294,9 +300,9 @@ public class ReceivingIncrease extends AppCompatActivity implements View.OnClick
     }
 
     public ReceivingOrderModel getReceivingOrder(int itemSize, Date receivingDate, Date createDate, String orderRemark) {
-        if (createDate != null && receivingDate != null && ObjectUtil.isNotNullEmpty(common_partyId)) {
-            orderModel.setPartyId(common_partyId);
-            orderModel.setCreateBy(common_partyId);
+        if (createDate != null && receivingDate != null && ObjectUtil.isNotNullEmpty(this.partyId)) {
+            orderModel.setPartyId(this.partyId);
+            orderModel.setCreateBy(this.partyId);
             orderModel.setStatus(Status.PROGRESS.name());
             orderModel.setReceivingDate(receivingDate);
             orderModel.setItemQty(itemSize);

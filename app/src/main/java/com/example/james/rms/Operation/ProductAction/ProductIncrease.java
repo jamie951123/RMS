@@ -12,8 +12,9 @@ import android.widget.Toast;
 
 import com.example.james.rms.CommonProfile.DialogBox.ClassicDialog;
 import com.example.james.rms.CommonProfile.DialogBox.Service.ClassicDialogService;
+import com.example.james.rms.CommonProfile.SharePreferences.MyPreferences;
+import com.example.james.rms.CommonProfile.SharePreferences.PreferencesKey;
 import com.example.james.rms.CommonProfile.Util.ObjectUtil;
-import com.example.james.rms.CommonProfile.SharePreferences.PartyIdPreferences;
 import com.example.james.rms.CommonProfile.StartActivityForResultKey;
 import com.example.james.rms.Controller.NavigationController;
 import com.example.james.rms.Core.Dao.ProductDao;
@@ -71,7 +72,12 @@ public class ProductIncrease extends AppCompatActivity implements View.OnClickLi
     //
     DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
 
-    String common_partyId;
+    //MyPreferences
+    private MyPreferences myPreferences;
+    private String combine_partyIdAndStatus;
+    private String partyId;
+
+    //
     private List<WeightProfileModel> weightProfileModelList;
     private List<QuantityProfileModel> quantityProfileModelList;
     private Long defaultWeightId;
@@ -99,10 +105,10 @@ public class ProductIncrease extends AppCompatActivity implements View.OnClickLi
         product_increase_weight_unit.setOnClickListener(this);
         product_increase_quantity_unit.setOnClickListener(this);
         //Preferences
-        PartyIdPreferences partyIdPreferences = new PartyIdPreferences(this,"loginInformation",MODE_PRIVATE);
-        common_partyId =  partyIdPreferences.getPreferences_PartyId().get("partyId");
+        myPreferences = new MyPreferences(this, PreferencesKey.login_information);
+        partyId =  myPreferences.getPreferences_PartyId().get("partyId");
         //HttpOK
-        String combine_partyId = SearchCombine.combine_partyId(common_partyId);
+        String combine_partyId = SearchCombine.combine_partyId(partyId);
         weightProfileModelList = weightProfileDao.findByPartyId(combine_partyId);
         quantityProfileModelList  = quantityProfileDao.findByPartyId(combine_partyId);
 
@@ -169,7 +175,7 @@ public class ProductIncrease extends AppCompatActivity implements View.OnClickLi
         String descriptionEN = increase_descriptionEN.getText().toString();
         String remark        = increase_remark.getText().toString();
         Date createDate      = new Date();
-        String partyId       = common_partyId;
+        String partyId       = this.partyId;
 
 //        ClassicDialog classicDialog = new ClassicDialog(this);
         switch (v.getId()){

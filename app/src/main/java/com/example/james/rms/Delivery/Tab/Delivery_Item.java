@@ -8,11 +8,10 @@ import android.view.ViewGroup;
 import com.example.james.rms.CommonProfile.Graphics.GenericChat;
 import com.example.james.rms.CommonProfile.Library.AnimatedExpandableListView;
 import com.example.james.rms.CommonProfile.MyAdapter.MyBaseFragment;
+import com.example.james.rms.CommonProfile.SharePreferences.MyPreferences;
+import com.example.james.rms.CommonProfile.SharePreferences.PreferencesKey;
 import com.example.james.rms.CommonProfile.Util.ObjectUtil;
-import com.example.james.rms.CommonProfile.SharePreferences.PartyIdPreferences;
 import com.example.james.rms.Core.Combine.DeliveryItemCombine;
-import com.example.james.rms.Core.Dao.DeliveryItemDao;
-import com.example.james.rms.Core.Dao.DeliveryItemDaoImpl;
 import com.example.james.rms.Core.Model.DeliveryItemModel;
 import com.example.james.rms.Core.Model.DeliveryOrderModel;
 import com.example.james.rms.Delivery.Adapter.DeliveryItemExpandListAdapter;
@@ -48,14 +47,18 @@ public class Delivery_Item extends MyBaseFragment{
     private float spaceForBar = 1f;
     private List<String> theName;
     private List<BarEntry> barEntries ;
+    //Preferences
+    private MyPreferences myPreferences;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.delivery_item,container , false);
         ButterKnife.bind(this,rootView);
         //Preferences
-        PartyIdPreferences partyIdPreferences = new PartyIdPreferences(getActivity(),"loginInformation",getActivity().MODE_PRIVATE);
-        String partyId =  partyIdPreferences.getPreferences_PartyId().get("partyId");
+        myPreferences = new MyPreferences(getActivity(), PreferencesKey.login_information);
+        String partyId =  myPreferences.getPreferences_PartyId().get("partyId");
+        //
         //partyId
         String combine_partyId = DeliveryItemCombine.combine_partyId(partyId);
 

@@ -19,12 +19,13 @@ import android.widget.ExpandableListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.james.rms.CommonProfile.SharePreferences.MyPreferences;
+import com.example.james.rms.CommonProfile.SharePreferences.PreferencesKey;
 import com.example.james.rms.CommonProfile.Util.DeepCopyUtil;
 import com.example.james.rms.CommonProfile.DialogBox.ClassicDialog;
 import com.example.james.rms.CommonProfile.DialogBox.MyDatePicker;
 import com.example.james.rms.CommonProfile.Library.AnimatedExpandableListView;
 import com.example.james.rms.CommonProfile.Util.ObjectUtil;
-import com.example.james.rms.CommonProfile.SharePreferences.PartyIdPreferences;
 import com.example.james.rms.CommonProfile.StartActivityForResultKey;
 import com.example.james.rms.Controller.NavigationController;
 import com.example.james.rms.Core.Combine.DeliveryOrderCombine;
@@ -81,8 +82,10 @@ public class DeliveryIncrease extends AppCompatActivity implements View.OnClickL
     @BindView(R.id.delivery_increase_listview)
     AnimatedExpandableListView listView;
 
-    //
-    private String common_partyId;
+    //MyPreferences
+    private MyPreferences myPreferences;
+    private String partyId;
+    private String combine_partyIdAndstatus;
     //
     private ExpandableSelectedModel expandableSelectedModel = new ExpandableSelectedModel();
     //
@@ -119,10 +122,11 @@ public class DeliveryIncrease extends AppCompatActivity implements View.OnClickL
         this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         setUpToolbar();
         //Preferences
-        PartyIdPreferences partyIdPreferences = new PartyIdPreferences(this,"loginInformation",MODE_PRIVATE);
-        common_partyId =  partyIdPreferences.getPreferences_PartyId().get("partyId");
+        myPreferences = new MyPreferences(this, PreferencesKey.login_information);
+        partyId =  myPreferences.getPreferences_PartyId().get("partyId");
+        //partyId
         //Combine
-        String combine_partyIdAndstatus = DeliveryOrderSearchCombine.combine_partyIdAndStatus(common_partyId,Status.PROGRESS);
+        combine_partyIdAndstatus = DeliveryOrderSearchCombine.combine_partyIdAndStatus(partyId,Status.PROGRESS);
         //
         List<ReceivingOrderModel> receivingOrderModels = receivingOrderDao.findByPartyIdAndStatus(combine_partyIdAndstatus);
         Log.d("asd","receivingOrderModels :" + receivingOrderModels);
@@ -325,8 +329,8 @@ public class DeliveryIncrease extends AppCompatActivity implements View.OnClickL
         deliveryOrderModel.setStockOutDate(stock_out_date);
         deliveryOrderModel.setCreateDate(createDate);
         deliveryOrderModel.setStatus(Status.PROGRESS.name());
-        deliveryOrderModel.setPartyId(common_partyId);
-        deliveryOrderModel.setCreateBy(common_partyId);
+        deliveryOrderModel.setPartyId(partyId);
+        deliveryOrderModel.setCreateBy(partyId);
         deliveryOrderModel.setDeliveryItem(deliveryItemModels);
 
         DeliveryOrderCombine deliveryOrderCombine = new DeliveryOrderCombine(DeliveryOrderModel.class);

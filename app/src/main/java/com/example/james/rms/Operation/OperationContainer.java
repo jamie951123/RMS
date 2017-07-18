@@ -17,6 +17,7 @@ import com.example.james.rms.Operation.Adapter.OperationGridAdapter;
 import com.example.james.rms.Operation.DeliveryAction.DeliveryIncrease;
 import com.example.james.rms.Operation.ProductAction.ProductIncrease;
 import com.example.james.rms.Operation.ReceivingAction.ReceivingIncrease;
+import com.example.james.rms.Operation.UnitAction.UnitIncrease;
 import com.example.james.rms.R;
 
 import java.util.ArrayList;
@@ -51,6 +52,7 @@ public class OperationContainer extends AppCompatActivity implements AdapterView
         arrayList.add(new GridComponent(getString(R.string.add_product), ContextCompat.getDrawable(this,R.drawable.mailbox_black)));
         arrayList.add(new GridComponent(getString(R.string.add_receiving_order),ContextCompat.getDrawable(this,R.drawable.input)));
         arrayList.add(new GridComponent(getString(R.string.add_stock_out_order),ContextCompat.getDrawable(this,R.drawable.output)));
+        arrayList.add(new GridComponent(getString(R.string.add_unit), ContextCompat.getDrawable(this,R.drawable.ruler_black)));
         return arrayList;
     }
 
@@ -74,6 +76,11 @@ public class OperationContainer extends AppCompatActivity implements AdapterView
                 movementRecord.setTargetClass_string(DeliveryIncrease.class.getCanonicalName());
                 movementRecord.setExist_fragment(StartActivityForResultKey.navDelivery);
                 intent = intent.setClass(this, DeliveryIncrease.class);
+                break;
+            case 3:
+                movementRecord.setTargetClass_string(DeliveryIncrease.class.getCanonicalName());
+                movementRecord.setExist_fragment(StartActivityForResultKey.navProduct);
+                intent = intent.setClass(this, UnitIncrease.class);
                 break;
         }
         MovementRecordCombine movementRecordCombine = new MovementRecordCombine(MovementRecord.class);

@@ -19,7 +19,10 @@
     <dimen name="image_size">40dp</dimen>
     <dimen name="context_layout_size">30dp</dimen>
     <dimen name="context_text_size">12dip</dimen>
-    <dimen name="fooder_layout_size">50dp</dimen>
+    <dimen name="fooder_layout_size">60dp</dimen>
+    <dimen name="fooder_image_size">30dp</dimen>
+    <dimen name="fooder_button_text_size">14dip</dimen>
+
 
     <!--receiving_increase_dialog_header-->
     <dimen name="increase_dialog_header">50dp</dimen>

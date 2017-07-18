@@ -11,9 +11,10 @@ import android.widget.ListView;
 
 import com.example.james.rms.CommonProfile.Listview.ListViewUtil;
 import com.example.james.rms.CommonProfile.MyAdapter.MyBaseFragment;
+import com.example.james.rms.CommonProfile.SharePreferences.MyPreferences;
+import com.example.james.rms.CommonProfile.SharePreferences.PreferencesKey;
 import com.example.james.rms.CommonProfile.Swipe.SwipeUtil;
 import com.example.james.rms.CommonProfile.Util.ObjectUtil;
-import com.example.james.rms.CommonProfile.SharePreferences.PartyIdPreferences;
 import com.example.james.rms.Core.Dao.InventoryDao;
 import com.example.james.rms.Core.Dao.InventoryDaoImpl;
 import com.example.james.rms.Core.Model.InventoryModel;
@@ -45,7 +46,8 @@ public class Inventory_Item extends MyBaseFragment implements ViewPagerListener,
     //Dao
     InventoryDao inventoryDao;
 
-    //
+    //MyPreferences
+    private MyPreferences myPreferences;
     private String combine_partyIdAndStatus;
 
     @Override
@@ -59,8 +61,8 @@ public class Inventory_Item extends MyBaseFragment implements ViewPagerListener,
         laySwipe.setOnRefreshListener(this);
         SwipeUtil.setColor(laySwipe);
         //Preferences
-        PartyIdPreferences partyIdPreferences = new PartyIdPreferences(getActivity(),"loginInformation",getActivity().MODE_PRIVATE);
-        String partyId =  partyIdPreferences.getPreferences_PartyId().get("partyId");
+        myPreferences = new MyPreferences(getActivity(), PreferencesKey.login_information);
+        String partyId =  myPreferences.getPreferences_PartyId().get("partyId");
         //partyId
         combine_partyIdAndStatus = SearchCombine.combine_partyIdAndStatus(partyId, Status.PROGRESS);
         getData();

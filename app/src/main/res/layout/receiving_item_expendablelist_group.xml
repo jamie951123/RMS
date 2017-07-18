@@ -228,8 +228,9 @@
 
                     <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
                         android:id="@+id/receiving_item_image_edit"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
                         android:layout_gravity="center"
                         android:src="@drawable/pencil_color"
                         app:civ_border_width="2dp"
@@ -238,9 +239,10 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:layout_weight="2"
                         android:gravity="center"
                         android:text="@string/label_edit"
-                        android:textSize="15sp" />
+                        android:textSize="@dimen/fooder_button_text_size" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -253,8 +255,9 @@
 
                     <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
                         android:id="@+id/receiving_item_image_delete"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
                         android:layout_gravity="center"
                         android:src="@drawable/delete_color"
                         app:civ_border_width="2dp"
@@ -263,9 +266,10 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:layout_weight="2"
                         android:gravity="center"
                         android:text="@string/label_delete"
-                        android:textSize="15sp" />
+                        android:textSize="@dimen/fooder_button_text_size" />
                 </LinearLayout>
 
             </LinearLayout>

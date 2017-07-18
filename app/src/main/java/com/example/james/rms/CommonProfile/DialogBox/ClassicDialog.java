@@ -18,10 +18,9 @@ import com.example.james.rms.Core.Model.MovementRecord;
 import com.example.james.rms.Core.Model.QuantityProfileModel;
 import com.example.james.rms.Core.Model.Status;
 import com.example.james.rms.Core.Model.WeightProfileModel;
-import com.example.james.rms.Operation.OperationContainer;
 import com.example.james.rms.Operation.ProductAction.ProductIncrease;
 import com.example.james.rms.R;
-import com.example.james.rms.Setting.SettingContainer;
+import com.example.james.rms.Operation.UnitAction.UnitIncrease;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -160,9 +159,9 @@ public class ClassicDialog {
                         Log.d("asd","[ClassicDialog]-showInputBox : " +input);
                         dialog.getActionButton(DialogAction.POSITIVE).setEnabled(true);
                         ClassicDialogService c;
-                        if(context instanceof SettingContainer){
-                            SettingContainer settingContainer = (SettingContainer)context;
-                            c = settingContainer;
+                        if(context instanceof UnitIncrease){
+                            UnitIncrease unitIncrease = (UnitIncrease)context;
+                            c = unitIncrease;
                             switch (key){
                                 case KeyModel.gw:
                                     WeightProfileModel weightProfileModel = new WeightProfileModel();
@@ -238,12 +237,12 @@ public class ClassicDialog {
                             }
                             switch (key){
                                 case KeyModel.gw:
-                                    if(weightProfileModelList != null && !weightProfileModelList.isEmpty()) {
+                                    if(weightProfileModelList != null && !weightProfileModelList.isEmpty() && which != -1) {
                                         c.settingPagesWeight(weightProfileModelList.get(which));
                                     }
                                     break;
                                 case KeyModel.qty:
-                                    if(quantityProfileModelList != null && !quantityProfileModelList.isEmpty()) {
+                                    if(quantityProfileModelList != null && !quantityProfileModelList.isEmpty() && which != -1) {
                                         c.settingPagesQty(quantityProfileModelList.get(which));
                                     }
                             }

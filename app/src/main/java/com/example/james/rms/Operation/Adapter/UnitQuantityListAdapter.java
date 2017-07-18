@@ -1,4 +1,4 @@
-package com.example.james.rms.Setting;
+package com.example.james.rms.Operation.Adapter;
 
 import android.app.Activity;
 import android.content.Context;
@@ -40,14 +40,14 @@ import butterknife.ButterKnife;
  * Created by jamie on 2017/5/10.
  */
 
-public class SettingQuantityListAdapter extends MyBaseSwipeAdapter<QuantityProfileModel> {
+public class UnitQuantityListAdapter extends MyBaseSwipeAdapter<QuantityProfileModel> {
 
     private ListView listView;
     private String partyId;
     //    Dao
     private QuantityProfileDao quantityProfileDao;
 
-    public SettingQuantityListAdapter(Context mContext, List<QuantityProfileModel> list,ListView listView,String partyId) {
+    public UnitQuantityListAdapter(Context mContext, List<QuantityProfileModel> list, ListView listView, String partyId) {
         this.mContext = mContext;
         this.list = list;
         this.listView = listView;
@@ -104,7 +104,7 @@ public class SettingQuantityListAdapter extends MyBaseSwipeAdapter<QuantityProfi
 
     @Override
     public void fillValues(final int position, View convertView) {
-        final SettingQuantityListAdapter.ViewHolder viewHolder = new SettingQuantityListAdapter.ViewHolder(convertView);
+        final UnitQuantityListAdapter.ViewHolder viewHolder = new UnitQuantityListAdapter.ViewHolder(convertView);
         //front
         viewHolder.front_image.setImageDrawable(ContextCompat.getDrawable(getmContext(),R.drawable.box_color));
         viewHolder.front_unit.setText(getItem(position).getQuantityUnit());
@@ -127,9 +127,9 @@ public class SettingQuantityListAdapter extends MyBaseSwipeAdapter<QuantityProfi
                     viewHolder.front_unit.setText(lastestUnit);
                     ((SwipeLayout)(listView.getChildAt(position - listView.getFirstVisiblePosition()))).close(true);
                     ActivityUtil.hideSoftKeyboard((Activity)getmContext());
-                    Log.d("asd","[SettingQuantityListAdapter]-[save]-[Successful] : " + result);
+                    Log.d("asd","[UnitQuantityListAdapter]-[save]-[Successful] : " + result);
                 }else{
-                    Log.d("asd","[SettingQuantityListAdapter]-[save] -[Fail] : " + result);
+                    Log.d("asd","[UnitQuantityListAdapter]-[save] -[Fail] : " + result);
                 }
 
             }

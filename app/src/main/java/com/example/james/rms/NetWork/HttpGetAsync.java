@@ -14,6 +14,7 @@ import com.example.james.rms.Core.Model.NetworkModel;
 import com.example.james.rms.R;
 
 import java.io.IOException;
+import java.util.concurrent.TimeUnit;
 
 import de.keyboardsurfer.android.widget.crouton.Crouton;
 import okhttp3.OkHttpClient;
@@ -68,6 +69,12 @@ public class HttpGetAsync extends AsyncTask<String, Void, String>{
     }
 
     private String run(String url) throws IOException {
+        client = new OkHttpClient.Builder()
+                .connectTimeout(5, TimeUnit.SECONDS)
+                .writeTimeout(10, TimeUnit.SECONDS)
+                .readTimeout(10, TimeUnit.SECONDS)
+                .build();
+
         Request request = new Request.Builder()
                 .url(url)
                 .build();

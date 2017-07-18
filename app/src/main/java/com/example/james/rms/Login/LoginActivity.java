@@ -2,7 +2,6 @@ package com.example.james.rms.Login;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -10,8 +9,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example.james.rms.CommonProfile.CommonFactory;
-import com.example.james.rms.CommonProfile.SharePreferences.LoginPreferences;
+import com.example.james.rms.CommonProfile.DialogBox.ClassicDialog;
+import com.example.james.rms.CommonProfile.Localization;
+import com.example.james.rms.CommonProfile.SharePreferences.MyPreferences;
+import com.example.james.rms.CommonProfile.SharePreferences.PreferencesKey;
 import com.example.james.rms.CommonProfile.Util.ObjectUtil;
 import com.example.james.rms.Controller.NavigationController;
 import com.example.james.rms.Core.Combine.FacebookSearchCombine;
@@ -32,11 +33,14 @@ import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
 import com.facebook.FacebookSdk;
 import com.facebook.appevents.AppEventsLogger;
+import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 
 import java.util.Date;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -57,7 +61,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     @BindView(R.id.facebooklogin)
     LoginButton login;
 
-    private LoginPreferences loginPreferences ;
+    //MyPreferences
+    private MyPreferences myPreferences;
 
     //Facebook
     private CallbackManager callbackManager;
@@ -73,25 +78,26 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         AppEventsLogger.activateApp(this);
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
+        //Facebook
+        LoginManager.getInstance().logOut();
         //setup Dao
         userProfileDao = new UserProfileDaoImpl(this);
         facebookDao = new FacebookDaoImpl(this);
+        //Preferences
+        myPreferences = new MyPreferences(this, PreferencesKey.login_information);
         //
-        loginPreferences = new LoginPreferences(this,"loginInformation", MODE_PRIVATE);
         btnCancel.setOnClickListener(this);
         btnLogin.setOnClickListener(this);
         //
-        if( loginPreferences.getPreferences_loginInformation() != null){
+        if( myPreferences.getPreferences_loginInformation() != null){
             saveLoginCheckBox.setChecked(true);
-            String username = loginPreferences.getPreferences_loginInformation().get("username");
-            String password = loginPreferences.getPreferences_loginInformation().get("password");
-            String partyId  = loginPreferences.getPreferences_loginInformation().get("partyId");
+            String username = myPreferences.getPreferences_loginInformation().get("username");
+            String password = myPreferences.getPreferences_loginInformation().get("password");
+            String partyId  = myPreferences.getPreferences_loginInformation().get("partyId");
             setEditUsernameAndPassWord(username,password);
 //            if(ObjectUtil.isNotNullEmpty(username) && ObjectUtil.isNotNullEmpty(password) && ObjectUtil.isNotNullEmpty(partyId)){
             if(ObjectUtil.isNotNullEmpty(partyId)){
-                Intent intent = new Intent();
-                intent.setClass(this, NavigationController.class);
-                startActivity(intent);
+                goToNavController();
             }
         }
         FacebookLogin();
@@ -145,7 +151,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     Log.d("asd", "userProfile [Response]: " + facebook_count);
 
                     if(facebook_count !=null){
-                        loginPreferences.clear_loginInformation();
+                        myPreferences.clear();
                     }else{
                         new Exception("facebook_count  is Empty [Serve Response Error])");
                     }
@@ -153,9 +159,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     if(facebook_count >=1){
                         UserProfile u = userProfileDao.findByFacebookId(request_json);
                         Log.d("asd","[Login]-[Facebook]-[findByFacebookId]-[Result]  :" + u.toString());
-                        loginPreferences.setPreferences_loginInformation(u);
-                        Log.d("asd","partyId :" + loginPreferences.getPreferences_loginInformation().get("partyId"));
-                        Toast.makeText(getApplicationContext(),loginPreferences.getPreferences_loginInformation().get("partyId"),Toast.LENGTH_SHORT).show();
+                        myPreferences.setPreferences_loginInformation(u);
+                        Log.d("asd","partyId :" + myPreferences.getPreferences_loginInformation().get("partyId"));
+                        Toast.makeText(getApplicationContext(), myPreferences.getPreferences_loginInformation().get("partyId"),Toast.LENGTH_SHORT).show();
                     } else if(facebook_count == 0) {
                         Facebook facebook = new Facebook();
                         facebook.setFacebookId(facebook_userId);
@@ -171,13 +177,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
                         UserProfile save_response = userProfileDao.save(userProfile_json);
                         Log.d("asd","[Login]-[Facebook]-[save]-[Result]  :" + save_response.toString());
-                        loginPreferences.setPreferences_loginInformation(save_response);
+                        myPreferences.setPreferences_loginInformation(save_response);
                         Toast.makeText(getApplicationContext(),"Create New Account",Toast.LENGTH_SHORT).show();
                     }
-                    if(ObjectUtil.isNotNullEmpty(loginPreferences.getPreferences_loginInformation().get("partyId"))) {
-                        Intent intent = new Intent();
-                        intent.setClass(LoginActivity.this, NavigationController.class);
-                        startActivity(intent);
+                    if(ObjectUtil.isNotNullEmpty(myPreferences.getPreferences_loginInformation().get("partyId"))) {
+                        goToNavController();
                     }
                 }catch (Exception e){
                     e.printStackTrace();
@@ -221,13 +225,13 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     break;
                 }
                 if(!saveLoginCheckBox.isChecked()) {
-                    loginPreferences.clear_loginInformation();
+                    myPreferences.clear();
                     setEditUsernameAndPassWord("", "");
                 }
                 String loginValue = UserProfileCombine.combine_usernameAndpassword(username, password);
                 LoginModel loginModel = userProfileDao.checkLogin(loginValue);
                 if (checkLoginStatus(loginModel)) {
-                    loginPreferences.setPreferences_loginInformation(loginModel);
+                    myPreferences.setPreferences_loginInformation(loginModel);
                     Intent intent = new Intent();
                     intent.setClass(this, NavigationController.class);
                     startActivity(intent);
@@ -241,11 +245,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     @Override
     public void onBackPressed() {
 //        super.onBackPressed();
-        if(CommonFactory.isNetworkConnection(this)) {
-            View view = CommonFactory.updateView(getLayoutInflater().inflate(R.layout.crouton_custom_view, null), getString(R.string.label_bad_network_connection), ContextCompat.getDrawable(this, R.drawable.wifi_scan_black));
-            Crouton.make(this, view).show();
-        }
-//        classicDialog.showLeave(getString(R.string.leave));
+        ClassicDialog.showLeave(this,getString(R.string.leave));
     }
 
     public void setEditUsernameAndPassWord(String username , String password){
@@ -255,7 +255,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     public Boolean checkLoginStatus(LoginModel loginModel){
         Boolean isSuccessful = false;
-        if(loginModel != null && getApplicationContext().getResources().getString(R.string.loginSuccessful).equals(loginModel.getLoginStatus())){
+        if(loginModel != null && "LoginSuccessful".equals(loginModel.getLoginStatus())){
             isSuccessful = true;
         }
         return isSuccessful;
@@ -267,4 +267,24 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         Crouton.cancelAllCroutons();
     }
 
+    private void goToNavController(){
+        checkCurrentLocalization();
+        Intent intent = new Intent();
+        intent.setClass(LoginActivity.this, NavigationController.class);
+        startActivity(intent);
+    }
+
+    private void checkCurrentLocalization(){
+        MyPreferences languagePreferences = new MyPreferences(this,PreferencesKey.localization);
+        LinkedHashMap<String,String> language_Map = languagePreferences.getPreferences_Localization();
+        String current_language = Locale.getDefault().getLanguage();
+        String current_country = Locale.getDefault().getCountry();
+        if(language_Map == null || language_Map.size() == 0){
+            languagePreferences.setPreferences_Localization(current_language,current_country);
+        }else{
+            current_language = language_Map.get("language");
+            current_country = language_Map.get("country");
+            Localization.setLanguage(this,current_language,current_country);
+        }
+    }
 }

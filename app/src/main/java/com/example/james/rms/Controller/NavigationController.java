@@ -25,8 +25,8 @@ import android.widget.Toast;
 import com.example.james.rms.CommonProfile.DialogBox.ClassicDialog;
 import com.example.james.rms.CommonProfile.FabButton.FabCore;
 import com.example.james.rms.CommonProfile.MyAdapter.MyBaseFragment;
-import com.example.james.rms.CommonProfile.SharePreferences.LoginPreferences;
-import com.example.james.rms.CommonProfile.SharePreferences.NavPreferences;
+import com.example.james.rms.CommonProfile.SharePreferences.MyPreferences;
+import com.example.james.rms.CommonProfile.SharePreferences.PreferencesKey;
 import com.example.james.rms.CommonProfile.StartActivityForResultKey;
 import com.example.james.rms.CommonProfile.Util.ObjectUtil;
 import com.example.james.rms.Controller.CommunicateService.NavToRL;
@@ -40,7 +40,7 @@ import com.example.james.rms.Operation.OperationContainer;
 import com.example.james.rms.ProductPool.ProductContainer;
 import com.example.james.rms.R;
 import com.example.james.rms.Receiving.ReceivingContainer;
-import com.example.james.rms.Setting.SettingContainer;
+import com.example.james.rms.Setting.Setting;
 import com.facebook.login.LoginManager;
 import com.github.clans.fab.FloatingActionButton;
 import com.github.clans.fab.FloatingActionMenu;
@@ -72,7 +72,7 @@ public class NavigationController extends AppCompatActivity implements Navigatio
     private NavPagerAdapter navPagerAdapter;
     private List<Fragment> fragments = new ArrayList<>();
     //
-    private LoginPreferences loginPreferences ;
+    private MyPreferences myPreferences;
 
     //PutExtra
     private MovementRecord movementRecord;
@@ -83,17 +83,17 @@ public class NavigationController extends AppCompatActivity implements Navigatio
         setContentView(R.layout.navigation_controller);
         ButterKnife.bind(this);
         navigationView.setNavigationItemSelectedListener(this);
-        loginPreferences = new LoginPreferences(this,"loginInformation", MODE_PRIVATE);
+        myPreferences = new MyPreferences(this,"loginInformation");
         setUpActionBar();
         setUpFragmentType();
         setUpViewPager();
         //Preferences
-        NavPreferences navPreferences = new NavPreferences(this,"loginInformation",MODE_PRIVATE);
-        String userName = navPreferences.getPreferences_NavPreferences().get("username");
-        partyId =  navPreferences.getPreferences_NavPreferences().get("partyId");
+        myPreferences = new MyPreferences(this, PreferencesKey.login_information);
+        //
+        String username = myPreferences.getPreferences_loginInformation().get("username");
         View hearder = navigationView.getHeaderView(0);
         TextView navUsername  = (TextView) hearder.findViewById(R.id.navUserName);
-        navUsername.setText(userName);
+        navUsername.setText(username);
         FabSetting();
 
         Integer requestCode = null;
@@ -224,7 +224,7 @@ public class NavigationController extends AppCompatActivity implements Navigatio
             //            toolbar.setTitle(R.string.setting);
             navigationView.setCheckedItem(R.id.nav_setting);
             Intent intent = new Intent();
-            intent.setClass(this, SettingContainer.class);
+            intent.setClass(this, Setting.class);
             startActivity(intent);
         } else if (id == R.id.nav_logout) {
             navigationView.setCheckedItem(R.id.nav_logout);
@@ -234,10 +234,10 @@ public class NavigationController extends AppCompatActivity implements Navigatio
 
     private void logoutStatus(){
         LoginManager.getInstance().logOut();
-        if( loginPreferences.getPreferences_loginInformation() != null){
-            String username = loginPreferences.getPreferences_loginInformation().get("username");
-            String password = loginPreferences.getPreferences_loginInformation().get("password");
-            loginPreferences.setPreferences_loginInformation(username,password);
+        if( myPreferences.getPreferences_loginInformation() != null){
+            String username = myPreferences.getPreferences_loginInformation().get("username");
+            String password = myPreferences.getPreferences_loginInformation().get("password");
+            myPreferences.setPreferences_loginInformation(username,password);
             Intent intent = new Intent();
             intent.setClass(this, LoginActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);

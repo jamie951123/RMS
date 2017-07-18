@@ -15,6 +15,7 @@ import com.example.james.rms.Login.LoginActivity;
 import com.example.james.rms.R;
 
 import java.io.IOException;
+import java.util.concurrent.TimeUnit;
 
 import de.keyboardsurfer.android.widget.crouton.Crouton;
 import okhttp3.MediaType;
@@ -35,8 +36,7 @@ public class HttpPostAsync extends AsyncTask<String,Integer,String> {
         this.networkModel = networkModel;
     }
 
-    public static final MediaType JSON
-            = MediaType.parse("application/json; charset=utf-8");
+    public static final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
     OkHttpClient client = new OkHttpClient();
 
     @Override
@@ -79,11 +79,17 @@ public class HttpPostAsync extends AsyncTask<String,Integer,String> {
     }
 
     public String post(String url, String json) throws IOException {
+        client = new OkHttpClient.Builder()
+                .connectTimeout(5, TimeUnit.SECONDS)
+                .writeTimeout(10, TimeUnit.SECONDS)
+                .readTimeout(10, TimeUnit.SECONDS)
+                .build();
         RequestBody body = RequestBody.create(JSON, json);
         Request request = new Request.Builder()
                 .url(url)
                 .post(body)
                 .build();
+
         try (Response response = client.newCall(request).execute()) {
             return response.body().string();
         }

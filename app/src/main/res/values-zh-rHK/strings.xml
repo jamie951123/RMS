@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="locale">zhHK</string>
+
+    <string name="app_name">RMS</string>
+    Facebook
+    <string name="facebook_app_id">129140231016831</string>
+    <string name="fb_login_protocol_scheme">fb129140231016831</string>
+    <!--Common-->
+    <string name="loading">加載中...</string>
+    <string name="waiting">請等等...</string>
+    <string name="logout">登出</string>
+    <string name="leave">離開</string>
+    <string name="yes">是</string>
+    <string name="no">否</string>
+    <string name="confirme">確定</string>
+    <string name="cancel">取消</string>
+    <string name="submit">提交</string>
+    <string name="create">創建</string>
+    <string name="back">返回</string>
+    <string name="previous">上一頁</string>
+    <string name="createReceivingOrder">創建收貨單</string>
+    <string name="createQusetion">創建嗎?</string>
+    <string name="insert_successful">加入成功</string>
+    <string name="insert_fail">成功失敗</string>
+    <string name="choose">選擇</string>
+    <string name="close">關閉</string>
+    <string name="choice">選擇</string>
+    <string name="setting">設定</string>
+    <!--Error-->
+    <string name="missingField">遺漏</string>
+    <!--searchview-->
+    <string name="search_hint">搜尋...</string>
+    <!--ErrorMessage-->
+    <string name="loginValueIsNull">請輸入用戶名和密碼</string>
+    <string name="productAction">請輸入產品碼和產品名</string>
+    <!--navigation-->
+    <string name="navigation_drawer_open">開</string>
+    <string name="navigation_drawer_close">關</string>
+    <string name="action_settings">設定</string>
+    <!--navigation Bar Item-->
+    <string name="allreceivingorder">所有收貸訂</string>
+    <string name="allproduct">所有產品</string>
+    <string name="receiving">收貨</string>
+    <string name="inventory">庫存</string>
+    <string name="stockout">出貨</string>
+    <string name="record">記錄</string>
+    <string name="other">其他</string>
+    <!--Login-->
+    <string name="username">用戶名</string>
+    <string name="password">密碼</string>
+    <string name="remember">記住</string>
+    <string name="loginSuccessful">登入成功</string>
+    <string name="loginFail">登入失敗</string>
+    <!--Product-->
+    <string name="productId">產品編號:</string>
+    <string name="productCode">產品代碼:</string>
+    <string name="productName">產品名稱:</string>
+    <string name="partyId">PartyId:</string>
+    <string name="status">狀態:</string>
+    <string name="createDate">創建日期:</string>
+    <string name="closeDate">關閉日期:</string>
+    <string name="remark">備註:</string>
+    <string name="productDescriptionEN">說明(EN):</string>
+    <string name="productDescriptionCH">說明(CH):</string>
+
+    <!--ProductAction-->
+    <string name="addProduct">添加產品</string>
+    <string name="action_productId">產品編號</string>
+    <string name="action_productCode">產品代碼</string>
+    <string name="action_productName">產品名稱</string>
+    <string name="action_partyId">PartyId</string>
+    <string name="action_status">狀態</string>
+    <string name="action_createDate">創建日期</string>
+    <string name="action_closeDate">關閉日期</string>
+    <string name="action_remark">備註</string>
+    <string name="action_productDescriptionEN">說明(EN)</string>
+    <string name="action_productDescriptionCH">說明(CH)</string>
+
+    <!--ProductIncrease-->
+    <string name="increase_addProduct">添加產品</string>
+    <string name="increase_productId">產品編號</string>
+    <string name="increase_productCode">產品代碼</string>
+    <string name="increase_productName">產品名稱</string>
+    <string name="increase_partyId">PartyId</string>
+    <string name="increase_status">狀態</string>
+    <string name="increase_createDate">創建日期</string>
+    <string name="increase_closeDate">關閉日期</string>
+    <string name="increase_remark">備註</string>
+    <string name="increase_productDescriptionEN">說明(EN)</string>
+    <string name="increase_productDescriptionCH">說明(CH)</string>
+
+    <!--InsertProduct-->
+    <string name="insertSuccessful">加入成功</string>
+    <string name="insertFail">成功失敗</string>
+    <string name="queryfail">查詢失敗</string>
+
+    <!--ReceivingOrder-->
+    <string name="receivingOrder_orderId">訂單編號:</string>
+    <string name="receivingOrder_date">收貨日期:</string>
+    <string name="receivingOrder_remark">備註:</string>
+    <string name="receivingOrder_status">狀態:</string>
+    <string name="receivingOrder_createDate">創建日期:</string>
+    <string name="receivingOrder_closeDate">關閉日期:</string>
+    <string name="receivingOrder_actualQty">實際數量</string>
+    <string name="receivingOrder_estimateQty">估計數量:</string>
+    <string name="receivingOrder_itemQty">貨物數量:</string>
+
+    <!--ReceivingItem-->
+    <string name="receivingItem_receivingID">訂單編號:</string>
+    <string name="receivingItem_productId">產品編號:</string>
+    <string name="receivingItem_itemStatus">狀態:</string>
+    <string name="receivingItem_itemCreateDate">創建日期:</string>
+    <string name="receivingItem_itemReceivingDate">收貨日期:</string>
+    <string name="receivingItem_itemGrossWeight">總重量:</string>
+    <string name="receivingItem_itemGrossWeight_Unit">總重量/單位:</string>
+    <string name="receivingItem_itemGrossWeightUnit">單位:</string>
+    <string name="receivingItem_itemQuantity_Unit">數量/單位:</string>
+    <string name="receivingItem_itemRemark">備註:</string>
+    <string name="receivingItem_partyId">PartyId:</string>
+    <string name="receivingItem_orderId">訂單編號:</string>
+    <string name="receivingItem_ProductCode">產品代碼:</string>
+    <string name="receivingItem_ProductName">產品名稱:</string>
+    <!--ReceivingIcerease-->
+    <string name="receiving_increase_title">創建收貨單</string>
+    <!--DeliveryIncrease-->
+    <string name="delivery_increase_title">創建出貨單</string>
+    <!--Delivery Order-->
+    <string name="deliveryOrder_deliveryId">出貨編號:</string>
+    <string name="deliveryOrder_date">出貨日期:</string>
+    <string name="deliveryOrder_remark">備註:</string>
+    <string name="deliveryOrder_status">狀態:</string>
+    <string name="deliveryOrder_createDate">創建日期:</string>
+    <string name="deliveryOrder_closeDate">關閉日期:</string>
+    <string name="deliveryOrder_actualQty">實際數量</string>
+    <string name="deliveryOrder_estimateQty">估計數量:</string>
+    <string name="deliveryOrder_itemQty">商品數量:</string>
+
+    <!--Delivery Item-->
+    <string name="deliveryItem_ProductCode">產品代碼:</string>
+    <string name="deliveryItem_ProductName">產品名稱:</string>
+    <string name="deliveryItem_itemStockOutDate">出貨日期:</string>
+    <string name="deliveryItem_itemGrossWeight_Unit">總重量/單位:</string>
+    <string name="deliveryItem_itemQuantity_Unit">數量/單位:</string>
+    <string name="deliveryItem_itemStatus">狀態:</string>
+    <string name="deliveryItem_itemCreateDate">創建日期:</string>
+    <string name="deliveryItem_itemcloseDate">關閉日期:</string>
+    <string name="deliveryItem_itemRemark">備註:</string>
+
+    <!--Action-->
+    <string name="add_product">添加產品</string>
+    <string name="add_receiving_order">創建收貨單</string>
+    <string name="add_stock_out_order">創建出貨單</string>
+    <string name="add_unit">創建單位</string>
+
+    <!--wifi-->
+    <string name="label_bad_network_connection">網絡連接不良!</string>
+
+    <!--label-->
+    <string name="label_grossweight">總重量:</string>
+    <string name="label_quantity">數量:</string>
+    <string name="label_receivingDate">收貨日期</string>
+    <string name="label_stockoutDate">出貨日期</string>
+    <string name="label_status">狀態:</string>
+    <string name="label_input">請輸入</string>
+    <string name="label_number">數字</string>
+    <string name="label_storage">存儲狀態</string>
+    <string name="label_add">添加</string>
+    <string name="label_delete">刪除</string>
+    <string name="label_edit">編輯</string>
+    <string name="label_save">保存</string>
+    <string name="label_detail">詳情</string>
+    <string name="label_weight_unit">重量單位</string>
+    <string name="label_quantity_unit">數量單位</string>
+    <string name="label_max">最大值:</string>
+    <!--Context-->
+    <!--<string name=""-->
+    <!--title-->
+    <string name="title_input_qty">數量</string>
+    <string name="title_input_grossweight">總重量</string>
+    <string name="title_grossweight_unit">您的重量單位</string>
+    <string name="title_qty_unit">你的數量單位</string>
+    <string name="add_weight_unit">添加重量單位</string>
+    <string name="add_quantity_unit">添加數量單位</string>
+    <string name="title_select_weight_unit">選擇重量單位</string>
+    <string name="title_select_quantity_unit">選擇數量單位</string>
+    <string name="title_edit_receiving">編輯接收</string>
+    <string name="title_edit_delivery">編輯交貨</string>
+
+    <!--Language-->
+    <string name="chinese">中文</string>
+    <string name="english">英文</string>
+
+
+</resources>

@@ -1,4 +1,4 @@
-package com.example.james.rms.Setting;
+package com.example.james.rms.Operation.Adapter;
 
 import android.app.Activity;
 import android.content.Context;
@@ -40,14 +40,14 @@ import butterknife.ButterKnife;
  * Created by jamie on 2017/5/4.
  */
 
-public class SettingWeightListAdapter extends MyBaseSwipeAdapter<WeightProfileModel> {
+public class UnitWeightListAdapter extends MyBaseSwipeAdapter<WeightProfileModel> {
 
     private ListView listView;
     private String partyId;
     //Dao
     private WeightProfileDao weightProfileDao;
 
-    public SettingWeightListAdapter(Context mContext, List<WeightProfileModel> list, ListView listView,String partyId) {
+    public UnitWeightListAdapter(Context mContext, List<WeightProfileModel> list, ListView listView, String partyId) {
         this.mContext = mContext;
         this.list = list;
         this.listView = listView;
@@ -128,9 +128,9 @@ public class SettingWeightListAdapter extends MyBaseSwipeAdapter<WeightProfileMo
                     viewHolder.front_unit.setText(lastestUnit);
                     ((SwipeLayout)(listView.getChildAt(position - listView.getFirstVisiblePosition()))).close(true);
                     ActivityUtil.hideSoftKeyboard((Activity)getmContext());
-                    Log.d("asd","[SettingWeightListAdapter]-[save]-[Successful] : " + weightProfileModel);
+                    Log.d("asd","[UnitWeightListAdapter]-[save]-[Successful] : " + weightProfileModel);
                 }else{
-                    Log.d("asd","[SettingWeightListAdapter]-[save] -[Fail] : " + weightProfileModel);
+                    Log.d("asd","[UnitWeightListAdapter]-[save] -[Fail] : " + weightProfileModel);
                 }
             }
         });

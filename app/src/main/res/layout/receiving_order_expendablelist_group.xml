@@ -227,8 +227,9 @@
 
                     <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
                         android:id="@+id/receivingOrder_image_edit"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
                         android:layout_gravity="center"
                         android:src="@drawable/pencil_color"
                         app:civ_border_width="2dp"
@@ -237,9 +238,10 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:layout_weight="2"
                         android:gravity="center"
                         android:text="@string/label_edit"
-                        android:textSize="15sp" />
+                        android:textSize="@dimen/fooder_button_text_size" />
                 </LinearLayout>
 
                 <!--Delete Button-->
@@ -253,8 +255,9 @@
 
                     <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
                         android:id="@+id/receivingOrder_image_delete"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
                         android:layout_gravity="center"
                         android:src="@drawable/delete_color"
                         app:civ_border_width="2dp"
@@ -263,9 +266,10 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:layout_weight="2"
                         android:gravity="center"
                         android:text="@string/label_delete"
-                        android:textSize="15sp" />
+                        android:textSize="@dimen/fooder_button_text_size"  />
                 </LinearLayout>
 
                 <!---Detail Button-->
@@ -279,19 +283,21 @@
 
                     <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
                         android:id="@+id/receivingOrder_image_detail"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
                         android:layout_gravity="center"
                         android:src="@drawable/nextright_black"
                         app:civ_border_width="2dp"
-                        app:civ_fill_color="@color/blue0895ef" />
+                        app:civ_fill_color="@color/blue0895ef"
+                        android:layout_weight="1"/>
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:layout_weight="2"
                         android:gravity="center"
                         android:text="@string/label_detail"
-                        android:textSize="15sp" />
+                        android:textSize="@dimen/fooder_button_text_size"/>
                 </LinearLayout>
 
             </LinearLayout>

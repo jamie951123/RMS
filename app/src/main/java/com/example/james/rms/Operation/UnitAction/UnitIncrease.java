@@ -1,4 +1,4 @@
-package com.example.james.rms.Setting;
+package com.example.james.rms.Operation.UnitAction;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -11,7 +11,8 @@ import com.daimajia.swipe.util.Attributes;
 import com.example.james.rms.CommonProfile.DialogBox.ClassicDialog;
 import com.example.james.rms.CommonProfile.DialogBox.Service.ClassicDialogService;
 import com.example.james.rms.CommonProfile.Listview.ListViewUtil;
-import com.example.james.rms.CommonProfile.SharePreferences.PartyIdPreferences;
+import com.example.james.rms.CommonProfile.SharePreferences.MyPreferences;
+import com.example.james.rms.CommonProfile.SharePreferences.PreferencesKey;
 import com.example.james.rms.Core.Combine.QuantityProfileCombine;
 import com.example.james.rms.Core.Combine.SettingSearchCombine;
 import com.example.james.rms.Core.Combine.WeightProfileCombine;
@@ -22,6 +23,8 @@ import com.example.james.rms.Core.Dao.WeightProfileDaoImpl;
 import com.example.james.rms.Core.Model.KeyModel;
 import com.example.james.rms.Core.Model.QuantityProfileModel;
 import com.example.james.rms.Core.Model.WeightProfileModel;
+import com.example.james.rms.Operation.Adapter.UnitQuantityListAdapter;
+import com.example.james.rms.Operation.Adapter.UnitWeightListAdapter;
 import com.example.james.rms.R;
 
 import java.util.ArrayList;
@@ -35,26 +38,29 @@ import de.keyboardsurfer.android.widget.crouton.Crouton;
  * Created by jamie on 2017/5/3.
  */
 
-public class SettingContainer extends AppCompatActivity implements View.OnClickListener,ClassicDialogService {
+public class UnitIncrease extends AppCompatActivity implements View.OnClickListener,ClassicDialogService {
 
-    @BindView(R.id.setting_wlistview)
+    @BindView(R.id.wlistview)
     ListView wlistView;
-    @BindView(R.id.setting_qlistview)
+    @BindView(R.id.qlistview)
     ListView qlistView;
-    @BindView(R.id.setting_toolbar)
+    @BindView(R.id.toolbar)
     Toolbar toolbar;
     @BindView(R.id.waddbtn)
     Button waddbtn;
     @BindView(R.id.qaddbtn)
     Button qaddbtn;
 
-    private SettingWeightListAdapter wAdapter;
-    private SettingQuantityListAdapter qAdapter;
+    private UnitWeightListAdapter wAdapter;
+    private UnitQuantityListAdapter qAdapter;
 
     private List<WeightProfileModel> weightProfileModelList = new ArrayList<>();
     private List<QuantityProfileModel> quantityProfileModelList = new ArrayList<>();
+    //MyPreferences
+    private MyPreferences myPreferences;
+    private String combine_partyId;
+    private String combine_partyIdAndStatus;
     private String partyId;
-    private String common_partyId;
 
     // Dao
     private WeightProfileDao weightProfileDao;
@@ -63,7 +69,7 @@ public class SettingContainer extends AppCompatActivity implements View.OnClickL
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.setting);
+        setContentView(R.layout.unit_increase);
         ButterKnife.bind(this);
         //Dao
         weightProfileDao = new WeightProfileDaoImpl(this);
@@ -71,23 +77,24 @@ public class SettingContainer extends AppCompatActivity implements View.OnClickL
         //
         setUpActionBar();
         //Preferences
-        PartyIdPreferences partyIdPreferences = new PartyIdPreferences(this,"loginInformation",MODE_PRIVATE);
-        partyId = partyIdPreferences.getPreferences_PartyId().get("partyId");
-        common_partyId = SettingSearchCombine.combine_partyId(partyId);
+        myPreferences = new MyPreferences(this, PreferencesKey.login_information);
+        partyId =  myPreferences.getPreferences_PartyId().get("partyId");
+        //partyId
+        combine_partyId = SettingSearchCombine.combine_partyId(partyId);
 
         //weight
-        weightProfileModelList = weightProfileDao.findByPartyId(common_partyId);
+        weightProfileModelList = weightProfileDao.findByPartyId(combine_partyId);
         if(weightProfileModelList != null) {
-            wAdapter = new SettingWeightListAdapter(this, weightProfileModelList, wlistView, partyId);
+            wAdapter = new UnitWeightListAdapter(this, weightProfileModelList, wlistView, partyId);
             wlistView.setAdapter(wAdapter);
             wAdapter.setMode(Attributes.Mode.Single);
             waddbtn.setOnClickListener(this);
             ListViewUtil.setListViewHeightBasedOnChildren(wlistView);
         }
         //quantity
-        quantityProfileModelList = quantityProfileDao.findByPartyId(common_partyId);
+        quantityProfileModelList = quantityProfileDao.findByPartyId(combine_partyId);
         if(quantityProfileModelList != null) {
-            qAdapter = new SettingQuantityListAdapter(this, quantityProfileModelList, qlistView, partyId);
+            qAdapter = new UnitQuantityListAdapter(this, quantityProfileModelList, qlistView, partyId);
             qlistView.setAdapter(qAdapter);
             qAdapter.setMode(Attributes.Mode.Single);
             qaddbtn.setOnClickListener(this);
@@ -97,7 +104,7 @@ public class SettingContainer extends AppCompatActivity implements View.OnClickL
 
     private void setUpActionBar() {
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle(R.string.setting);
+        getSupportActionBar().setTitle(R.string.add_unit);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -134,6 +141,7 @@ public class SettingContainer extends AppCompatActivity implements View.OnClickL
             wAdapter.notifyDataSetChanged();
 //            Toast.makeText(this,weightProfileModel.toString(),Toast.LENGTH_SHORT).show();
         }
+        ListViewUtil.setListViewHeightBasedOnChildren(wlistView);
         ListViewUtil.setListViewHeightBasedOnChildren(wlistView);
     }
 

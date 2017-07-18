@@ -3,7 +3,6 @@ package com.example.james.rms.ProductPool.Tab;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -14,9 +13,10 @@ import android.widget.ExpandableListView;
 import com.example.james.rms.CommonProfile.Library.AnimatedExpandableListView;
 import com.example.james.rms.CommonProfile.Listview.ListViewUtil;
 import com.example.james.rms.CommonProfile.MyAdapter.MyBaseFragment;
+import com.example.james.rms.CommonProfile.SharePreferences.MyPreferences;
+import com.example.james.rms.CommonProfile.SharePreferences.PreferencesKey;
 import com.example.james.rms.CommonProfile.Swipe.SwipeUtil;
 import com.example.james.rms.CommonProfile.Util.ObjectUtil;
-import com.example.james.rms.CommonProfile.SharePreferences.PartyIdPreferences;
 import com.example.james.rms.Core.Dao.ProductDao;
 import com.example.james.rms.Core.Dao.ProductDaoImpl;
 import com.example.james.rms.Core.Model.ProductModel;
@@ -44,8 +44,12 @@ public class ProductDetail extends MyBaseFragment implements AdapterView.OnItemC
 
     //Dao
     private ProductDao productDao;
-    //
+    //MyPreferences
+    private MyPreferences myPreferences;
     private String combine_partyId;
+    private String combine_partyIdAndStatus;
+    private String partyId;
+
     private List<ProductModel> productModels;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -59,8 +63,9 @@ public class ProductDetail extends MyBaseFragment implements AdapterView.OnItemC
         SwipeUtil.setColor(laySwipe);
         //
         //Preferences
-        PartyIdPreferences partyIdPreferences = new PartyIdPreferences(getActivity(),"loginInformation",getActivity().MODE_PRIVATE);
-        String partyId =  partyIdPreferences.getPreferences_PartyId().get("partyId");
+        myPreferences = new MyPreferences(getActivity(), PreferencesKey.login_information);
+        partyId =  myPreferences.getPreferences_PartyId().get("partyId");
+        //partyId
         //HttpOK
         combine_partyId = SearchCombine.combine_partyId(partyId);
         getData();

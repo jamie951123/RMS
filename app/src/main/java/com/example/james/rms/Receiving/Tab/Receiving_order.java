@@ -3,7 +3,6 @@ package com.example.james.rms.Receiving.Tab;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -13,9 +12,10 @@ import android.widget.AdapterView;
 import com.example.james.rms.CommonProfile.Library.AnimatedExpandableListView;
 import com.example.james.rms.CommonProfile.Listview.ListViewUtil;
 import com.example.james.rms.CommonProfile.MyAdapter.MyBaseFragment;
+import com.example.james.rms.CommonProfile.SharePreferences.MyPreferences;
+import com.example.james.rms.CommonProfile.SharePreferences.PreferencesKey;
 import com.example.james.rms.CommonProfile.Swipe.SwipeUtil;
 import com.example.james.rms.CommonProfile.Util.ObjectUtil;
-import com.example.james.rms.CommonProfile.SharePreferences.PartyIdPreferences;
 import com.example.james.rms.Controller.NavigationController;
 import com.example.james.rms.Core.Dao.ReceivingOrderDao;
 import com.example.james.rms.Core.Dao.ReceivingOrderDaoImpl;
@@ -46,8 +46,11 @@ public class Receiving_order extends MyBaseFragment implements AdapterView.OnIte
     //Dao
     private ReceivingOrderDao receivingOrderDao;
 
-    //
+    //MyPreferences
+    private MyPreferences myPreferences;
     private String combine_partyId;
+    private String combine_partyIdAndStatus;
+    private String partyId;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -60,8 +63,8 @@ public class Receiving_order extends MyBaseFragment implements AdapterView.OnIte
         laySwipe.setOnRefreshListener(this);
         SwipeUtil.setColor(laySwipe);
         //Preferences
-        PartyIdPreferences partyIdPreferences = new PartyIdPreferences(getActivity(),"loginInformation",getActivity().MODE_PRIVATE);
-        String partyId =  partyIdPreferences.getPreferences_PartyId().get("partyId");
+        myPreferences = new MyPreferences(getActivity(), PreferencesKey.login_information);
+        partyId =  myPreferences.getPreferences_PartyId().get("partyId");
         //partyId
         combine_partyId = ReceivingOrderCombine.combine_partyId(partyId);
 
