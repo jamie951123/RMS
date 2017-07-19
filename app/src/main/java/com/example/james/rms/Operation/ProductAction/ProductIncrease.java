@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.james.rms.CommonProfile.DialogBox.ClassicDialog;
+import com.example.james.rms.CommonProfile.DialogBox.DialogModel;
 import com.example.james.rms.CommonProfile.DialogBox.Service.ClassicDialogService;
 import com.example.james.rms.CommonProfile.SharePreferences.MyPreferences;
 import com.example.james.rms.CommonProfile.SharePreferences.PreferencesKey;
@@ -178,6 +179,9 @@ public class ProductIncrease extends AppCompatActivity implements View.OnClickLi
         String partyId       = this.partyId;
 
 //        ClassicDialog classicDialog = new ClassicDialog(this);
+        DialogModel dialogModel = new DialogModel();
+        dialogModel.setContext(this);
+
         switch (v.getId()){
             case (R.id.increase_submit):
                 if(!checkConCatFieldIsNotNUll(productCode,puductName)){
@@ -198,10 +202,18 @@ public class ProductIncrease extends AppCompatActivity implements View.OnClickLi
                 break;
 
             case (R.id.product_increase_weight_unit):
-                ClassicDialog.showSingleChoice(this,getString(R.string.title_select_weight_unit),null,this.weightProfileModelList, KeyModel.gw,defaultWeightId);
+                dialogModel.setTitle(getString(R.string.title_select_weight_unit));
+                dialogModel.setModeles(weightProfileModelList);
+                dialogModel.setKey(KeyModel.gw);
+                dialogModel.setItemId(defaultWeightId);
+                ClassicDialog.showSingleChoice(dialogModel);
                 break;
             case (R.id.product_increase_quantity_unit):
-                ClassicDialog.showSingleChoice(this,getString(R.string.title_select_quantity_unit),null,this.quantityProfileModelList, KeyModel.qty,defaultQtyId);
+                dialogModel.setTitle(getString(R.string.title_select_quantity_unit));
+                dialogModel.setModeles(quantityProfileModelList);
+                dialogModel.setKey(KeyModel.qty);
+                dialogModel.setItemId(defaultQtyId);
+                ClassicDialog.showSingleChoice(dialogModel);
                 break;
         }
     }

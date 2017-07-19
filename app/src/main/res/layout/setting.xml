@@ -1,33 +1,110 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/grayE8E8E8"
+    android:orientation="vertical">
 
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/setting_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/blue0895ef"
+            app:popupTheme="@style/AppTheme.PopupOverlay">
+
+        </android.support.v7.widget.Toolbar>
+    </android.support.design.widget.AppBarLayout>
+
+    <!--Container-->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/whiteFFFFFF">
+        android:orientation="vertical">
+
+        <!--Color-Column-->
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/grayA3C2C2"
-            android:orientation="horizontal">
-            <Button
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:text="@string/english"
-                android:id="@+id/eng"
-                android:layout_weight="1"/>
+            android:layout_height="@dimen/color_column"
+            android:background="@color/grayE8E8E8"></LinearLayout>
 
-            <Button
+        <!--Version-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/setting_layout_size"
+            android:background="@color/whiteFFFFFF"
+            android:orientation="horizontal">
+
+            <!--Version-Label-->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:padding="@dimen/padding_center"
+                android:text="@string/label_version"
+                android:textSize="@dimen/setting_text_size" />
+
+            <!--Version-Value-->
+            <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:text="@string/chinese"
-                android:id="@+id/language_btn"
-                android:layout_weight="1"/>
+                android:padding="@dimen/padding_center"
+                android:gravity="right"
+                android:text="0.0.1"
+                android:textSize="@dimen/setting_text_size" />
+
         </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/setting_layout_size"
+            android:background="@color/whiteFFFFFF"
+            android:orientation="horizontal">
+
+            <!--Language-Label-->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:padding="@dimen/padding_center"
+                android:text="@string/label_language"
+                android:textSize="@dimen/setting_text_size" />
+
+            <!--Language-Value-->
+                <TextView
+                    android:id="@+id/setting_language"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:drawableRight="@drawable/sort_right_black_25px"
+                    android:gravity="right"
+                    android:padding="@dimen/padding_center"
+                    android:scaleX="0.9"
+                    android:scaleY="0.9"
+                    android:text="@string/label_language"
+                    android:textSize="@dimen/setting_text_size" />
+
+        </LinearLayout>
+
+        <!--<Button-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:text="@string/english" -->
+        <!--android:textSize="@dimen/setting_text_size"-->
+        <!--android:id="@+id/eng" />-->
+        <!--<Button-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:text="@string/chinese"-->
+        <!--android:id="@+id/language_btn"-->
+        <!--android:layout_weight="1"/>-->
+        <!--</LinearLayout>-->
 
 
     </LinearLayout>

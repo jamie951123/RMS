@@ -86,7 +86,7 @@
                 android:layout_height="match_parent"
                 android:maxLines="1"
                 android:id="@+id/saveLoginCheckBox"
-                android:text="Remember"
+                android:text="@string/label_remenber"
                 android:theme="@style/BlueCheck"
                 />
         </LinearLayout>
@@ -119,7 +119,7 @@
             android:textColor="@color/whiteFFFFFF"
             android:textSize="30dp"
             android:typeface="sans"
-            android:text="Cancel" />
+            android:text="@string/cancel" />
 
         <Button
             android:layout_width="match_parent"
@@ -130,6 +130,6 @@
             android:textColor="@color/whiteFFFFFF"
             android:textSize="30dp"
             android:typeface="sans"
-            android:text="Send"/>
+            android:text="@string/label_login"/>
     </LinearLayout>
 </LinearLayout>

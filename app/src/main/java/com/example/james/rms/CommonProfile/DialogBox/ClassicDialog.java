@@ -10,6 +10,8 @@ import android.view.View;
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.example.james.rms.CommonProfile.DialogBox.Service.ClassicDialogService;
+import com.example.james.rms.CommonProfile.Language.LocalizationModel;
+import com.example.james.rms.CommonProfile.Language.LocalizationUtil;
 import com.example.james.rms.CommonProfile.StartActivityForResultKey;
 import com.example.james.rms.Controller.NavigationController;
 import com.example.james.rms.Core.Combine.MovementRecordCombine;
@@ -21,10 +23,12 @@ import com.example.james.rms.Core.Model.WeightProfileModel;
 import com.example.james.rms.Operation.ProductAction.ProductIncrease;
 import com.example.james.rms.R;
 import com.example.james.rms.Operation.UnitAction.UnitIncrease;
+import com.example.james.rms.Setting.Setting;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * Created by james on 15/3/2017.
@@ -186,11 +190,18 @@ public class ClassicDialog {
                 }).show();
     }
 
-    public static void showSingleChoice(final Context context,String title, String hint,final List modeles,final String key,Long itemId){
+    public static void showSingleChoice(DialogModel dialogModel){
+       final List modeles = dialogModel.getModeles();
+       final Context context = dialogModel.getContext();
+       final String key = dialogModel.getKey();
+       final String title = dialogModel.getTitle();
+       final Long itemId = dialogModel.getItemId();
+       final String itemId_str = dialogModel.getItemId_str();
+
         List<String> stringList = new ArrayList<>();
         int defaultSelected= -1;
 
-        if(modeles instanceof List<?>){
+        if(modeles != null && modeles instanceof List<?>){
             for(int i=0; i<modeles.size(); i++){
                 Object obj = modeles.get(i);
                 if (obj instanceof WeightProfileModel) {
@@ -201,6 +212,10 @@ public class ClassicDialog {
                     QuantityProfileModel q = (QuantityProfileModel)obj;
                     stringList.add(q.getQuantityUnit());
                     if(itemId != null && q.getQuantityId().equals(itemId))defaultSelected = i;
+                } else if ( obj instanceof LocalizationModel){
+                    LocalizationModel localizationModel = (LocalizationModel)obj;
+                    stringList.add(localizationModel.getFullName());
+                    if(itemId_str != null && localizationModel.getLanguageCode().equals(itemId_str))defaultSelected = i;
                 }
             }
         }
@@ -247,6 +262,29 @@ public class ClassicDialog {
                                     }
                             }
 
+                        }
+
+                        //Setting
+                        if(context instanceof Setting){
+                            List<LocalizationModel> localizationModels = new ArrayList<>();
+                            for (Object obj : modeles) {
+                                if (obj instanceof LocalizationModel) {
+                                    LocalizationModel localizationModel = (LocalizationModel) obj;
+                                    localizationModels.add(localizationModel);
+                                }
+                            }
+
+                            switch (key){
+                                case KeyModel.language:
+                                    if(localizationModels != null && !localizationModels.isEmpty() && which !=-1) {
+                                        LocalizationUtil.setLanguage(context,localizationModels.get(which).getLanguageCode(),Locale.getDefault().getCountry());
+                                        Intent intent = new Intent();
+                                        intent.setClass(context, NavigationController.class);
+                                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                        context.startActivity(intent);
+                                    }
+                                    break;
+                            }
                         }
                         return true;
                     }

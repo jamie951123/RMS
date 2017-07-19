@@ -8,6 +8,7 @@ public class KeyModel {
     //NumberType
     public final static String qty ="QTY";
     public final static String gw ="GW";
+    public final static String language ="Language";
 
     //Common Field
     public final static String remark = "REMARK";

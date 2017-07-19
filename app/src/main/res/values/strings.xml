@@ -171,6 +171,12 @@
     <string name="label_weight_unit">Weight Unit</string>
     <string name="label_quantity_unit">Quantity Unit</string>
     <string name="label_max">Max:</string>
+    <string name="label_login">Login</string>
+    <string name="label_cancel">Cancel</string>
+    <string name="label_remenber">Remember</string>
+    <string name="label_language">Language</string>
+    <string name="label_version">Version</string>
+
     <!--Context-->
     <!--<string name=""-->
     <!--title-->
@@ -184,9 +190,11 @@
     <string name="title_select_quantity_unit">Select Quantity Unit</string>
     <string name="title_edit_receiving">Edit Receiving</string>
     <string name="title_edit_delivery">Edit Delivery</string>
+    <string name="title_choice_language">Choice Language</string>
 
     <!--Language-->
-    <string name="chinese">Chinese</string>
+    <string name="chinese">中文</string>
     <string name="english">English</string>
+    <string name="label_welcome">Welcome</string>
 
 </resources>

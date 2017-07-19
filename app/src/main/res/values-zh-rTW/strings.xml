@@ -173,6 +173,11 @@
     <string name="label_weight_unit">重量單位</string>
     <string name="label_quantity_unit">數量單位</string>
     <string name="label_max">最大值:</string>
+    <string name="label_login">登入</string>
+    <string name="label_cancel">取消</string>
+    <string name="label_remenber">記住</string>
+    <string name="label_language">語言</string>
+    <string name="label_version">版本</string>
     <!--Context-->
     <!--<string name=""-->
     <!--title-->
@@ -186,10 +191,12 @@
     <string name="title_select_quantity_unit">選擇數量單位</string>
     <string name="title_edit_receiving">編輯接收</string>
     <string name="title_edit_delivery">編輯交貨</string>
+    <string name="title_choice_language">選擇語言</string>
 
     <!--Language-->
     <string name="chinese">中文</string>
     <string name="english">English</string>
+    <string name="label_welcome">歡迎</string>
 
 
 </resources>

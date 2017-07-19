@@ -27,4 +27,12 @@
     <!--receiving_increase_dialog_header-->
     <dimen name="increase_dialog_header">50dp</dimen>
 
+    <!--Setting-->
+    <dimen name="color_column">30dp</dimen>
+    <dimen name="setting_layout_size">40dp</dimen>
+    <dimen name="setting_text_size">18dp</dimen>
+
+    <!--ceneter-->
+    <dimen name="padding_center">8dp</dimen>
+
 </resources>

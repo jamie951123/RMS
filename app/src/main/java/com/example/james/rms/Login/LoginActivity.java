@@ -10,7 +10,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.james.rms.CommonProfile.DialogBox.ClassicDialog;
-import com.example.james.rms.CommonProfile.Localization;
+import com.example.james.rms.CommonProfile.Language.LocalizationUtil;
 import com.example.james.rms.CommonProfile.SharePreferences.MyPreferences;
 import com.example.james.rms.CommonProfile.SharePreferences.PreferencesKey;
 import com.example.james.rms.CommonProfile.Util.ObjectUtil;
@@ -38,9 +38,7 @@ import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 
 import java.util.Date;
-import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -161,7 +159,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                         Log.d("asd","[Login]-[Facebook]-[findByFacebookId]-[Result]  :" + u.toString());
                         myPreferences.setPreferences_loginInformation(u);
                         Log.d("asd","partyId :" + myPreferences.getPreferences_loginInformation().get("partyId"));
-                        Toast.makeText(getApplicationContext(), myPreferences.getPreferences_loginInformation().get("partyId"),Toast.LENGTH_SHORT).show();
                     } else if(facebook_count == 0) {
                         Facebook facebook = new Facebook();
                         facebook.setFacebookId(facebook_userId);
@@ -232,11 +229,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 LoginModel loginModel = userProfileDao.checkLogin(loginValue);
                 if (checkLoginStatus(loginModel)) {
                     myPreferences.setPreferences_loginInformation(loginModel);
-                    Intent intent = new Intent();
-                    intent.setClass(this, NavigationController.class);
-                    startActivity(intent);
+                    goToNavController();
                 }
-                if(loginModel !=null) Toast.makeText(getApplicationContext(), loginModel.getLoginMessage(), Toast.LENGTH_SHORT).show();
                 break;
         }
 
@@ -268,23 +262,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     }
 
     private void goToNavController(){
-        checkCurrentLocalization();
+        LocalizationUtil.checkCurrentLocalization(this,PreferencesKey.localization);
+
+        Toast.makeText(getApplicationContext(), getString(R.string.label_welcome),Toast.LENGTH_SHORT).show();
         Intent intent = new Intent();
         intent.setClass(LoginActivity.this, NavigationController.class);
         startActivity(intent);
-    }
-
-    private void checkCurrentLocalization(){
-        MyPreferences languagePreferences = new MyPreferences(this,PreferencesKey.localization);
-        LinkedHashMap<String,String> language_Map = languagePreferences.getPreferences_Localization();
-        String current_language = Locale.getDefault().getLanguage();
-        String current_country = Locale.getDefault().getCountry();
-        if(language_Map == null || language_Map.size() == 0){
-            languagePreferences.setPreferences_Localization(current_language,current_country);
-        }else{
-            current_language = language_Map.get("language");
-            current_country = language_Map.get("country");
-            Localization.setLanguage(this,current_language,current_country);
-        }
     }
 }
