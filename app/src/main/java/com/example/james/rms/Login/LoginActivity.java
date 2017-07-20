@@ -231,6 +231,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     myPreferences.setPreferences_loginInformation(loginModel);
                     goToNavController();
                 }
+                Toast.makeText(getApplicationContext(), loginModel.getLoginMessage(), Toast.LENGTH_SHORT).show();
                 break;
         }
 
