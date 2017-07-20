@@ -109,39 +109,38 @@
                     <LinearLayout
                         android:id="@+id/receiving_increase_qtylinear"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:layout_height="@dimen/increase_list_item_layout_size"
                         android:layout_weight="1"
                         android:background="@drawable/blueborder"
-                        android:orientation="horizontal">
+                        android:orientation="horizontal"
+                        android:layout_marginTop="@dimen/increase_list_item_layout_margin"
+                        android:layout_marginBottom="@dimen/increase_list_item_layout_margin"
+                        android:padding="@dimen/increase_list_item_edittext_padding">
 
                         <!--Label-QTY-->
                         <TextView
-                            android:layout_width="80dp"
+                            android:layout_width="wrap_content"
                             android:layout_height="match_parent"
-                            android:layout_weight="1"
+                            android:gravity="center"
                             android:text="@string/label_quantity"
                             android:textColor="@color/colorAccent"
-                            android:gravity="center"
-                            android:paddingLeft="@dimen/rl_increase_list_item_edittext"/>
+                            android:textSize="@dimen/increase_list_item_label_size"
+                            android:padding="@dimen/increase_list_item_label_padding"/>
 
                         <!--Value Qty-->
                         <TextView
                             android:id="@+id/receiving_increase_list_item_qty"
-                            android:layout_width="match_parent"
+                            android:layout_width="wrap_content"
                             android:layout_height="match_parent"
-                            android:layout_marginBottom="@dimen/rl_increase_list_item_edittext"
-                            android:layout_marginTop="@dimen/rl_increase_list_item_edittext"
-                            android:gravity="center"
-                            android:layout_weight="2" />
+                            android:padding="@dimen/increase_list_item_edittext_padding"
+                            android:gravity="center" />
 
                         <!--Value Unit-->
                         <TextView
                             android:id="@+id/receiving_increase_list_item_qtyunit"
-                            android:layout_width="match_parent"
+                            android:layout_width="wrap_content"
                             android:layout_height="match_parent"
-                            android:layout_marginBottom="@dimen/rl_increase_list_item_edittext"
-                            android:layout_marginTop="@dimen/rl_increase_list_item_edittext"
-                            android:layout_weight="2"
+                            android:padding="@dimen/increase_list_item_edittext_padding"
                             android:gravity="center" />
                     </LinearLayout>
 
@@ -149,36 +148,38 @@
                     <LinearLayout
                         android:id="@+id/receiving_increase_gwlinear"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:layout_height="@dimen/increase_list_item_layout_size"
                         android:layout_weight="1"
                         android:background="@drawable/blueborder"
                         android:orientation="horizontal"
-                        android:paddingLeft="@dimen/rl_increase_list_item_edittext">
+                        android:layout_marginTop="@dimen/increase_list_item_layout_margin"
+                        android:layout_marginBottom="@dimen/increase_list_item_layout_margin"
+                        android:padding="@dimen/increase_list_item_edittext_padding">
 
+                        <!--Label-GW-->
                         <TextView
-                            android:layout_width="80dp"
+                            android:layout_width="wrap_content"
                             android:layout_height="match_parent"
-                            android:layout_weight="1"
                             android:gravity="center"
                             android:text="@string/label_grossweight"
-                            android:textColor="@color/colorAccent" />
+                            android:textColor="@color/colorAccent"
+                            android:textSize="@dimen/increase_list_item_label_size"
+                            android:padding="@dimen/increase_list_item_label_padding"/>
 
+                        <!--Value-GW-Value-->
                         <TextView
                             android:id="@+id/receiving_increase_list_item_grossweigth"
-                            android:layout_width="match_parent"
+                            android:layout_width="wrap_content"
                             android:layout_height="match_parent"
-                            android:layout_marginBottom="@dimen/rl_increase_list_item_edittext"
-                            android:layout_marginTop="@dimen/rl_increase_list_item_edittext"
-                            android:layout_weight="2"
+                            android:padding="@dimen/increase_list_item_edittext_padding"
                             android:gravity="center" />
 
+                        <!--Value-GW_Unit-->
                         <TextView
                             android:id="@+id/receiving_increase_list_item_gwunit"
-                            android:layout_width="match_parent"
+                            android:layout_width="wrap_content"
                             android:layout_height="match_parent"
-                            android:layout_marginBottom="@dimen/rl_increase_list_item_edittext"
-                            android:layout_marginTop="@dimen/rl_increase_list_item_edittext"
-                            android:layout_weight="2"
+                            android:padding="@dimen/increase_list_item_edittext_padding"
                             android:gravity="center" />
 
                     </LinearLayout>

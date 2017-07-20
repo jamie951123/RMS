@@ -57,7 +57,7 @@
                         android:layout_height="match_parent"
                         android:text="@string/productCode"
                         android:textColor="@color/black1F1F1F"
-                        android:textSize="20sp"
+                        android:textSize="@dimen/dialog_context_size"
                         android:gravity="bottom"
                         android:id="@+id/receiving_increase_dialog_item_productCode"/>
                 </LinearLayout>
@@ -79,7 +79,7 @@
                         android:layout_height="match_parent"
                         android:gravity="top"
                         android:textColor="@color/black1F1F1F"
-                        android:textSize="20sp"
+                        android:textSize="@dimen/dialog_context_size"
                         android:text="@string/productName"
                         android:textStyle="bold"/>
                 </LinearLayout>

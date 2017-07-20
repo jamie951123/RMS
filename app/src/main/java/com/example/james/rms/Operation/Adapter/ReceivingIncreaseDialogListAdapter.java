@@ -42,8 +42,8 @@ public class ReceivingIncreaseDialogListAdapter extends MyBaseAdapter<ReceivingI
             viewHolder = new ReceivingIncreaseDialogListAdapter.ViewHolder(convertView);
             convertView.setTag(viewHolder);
         }
-        viewHolder.receiving_increase_dialog_item_productCode.setText(getItem(position).getProduct().getProductName());
-        viewHolder.receiving_increase_dialog_item_productName.setText(getItem(position).getProduct().getProductCode());
+        viewHolder.receiving_increase_dialog_item_productCode.setText(getItem(position).getProduct().getProductCode());
+        viewHolder.receiving_increase_dialog_item_productName.setText(getItem(position).getProduct().getProductName());
         if(getIsSelected().containsKey(getItem(position).getProductId())){
             viewHolder.receiving_increase_dialog_item_checkbox.setChecked(getIsSelected().get(getItem(position).getProductId()));
 //            if(getIsSelected().get(getItem(position).getProductId())){

@@ -126,7 +126,7 @@
                             android:layout_height="match_parent"
                             android:layout_weight="1"
                             android:orientation="horizontal"
-                            android:paddingLeft="@dimen/rl_increase_list_item_edittext">
+                            android:padding="@dimen/increase_list_item_edittext_padding">
 
                             <!--QTY Label-->
                             <TextView
@@ -153,8 +153,7 @@
                                 android:id="@+id/delivery_increase_item_child_qty"
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
-                                android:layout_marginBottom="@dimen/rl_increase_list_item_edittext"
-                                android:layout_marginTop="@dimen/rl_increase_list_item_edittext"
+
                                 android:gravity="center"
                                 android:textColor="@color/delivery_increase_item_child_value_color" />
 
@@ -162,8 +161,6 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
-                                android:layout_marginBottom="@dimen/rl_increase_list_item_edittext"
-                                android:layout_marginTop="@dimen/rl_increase_list_item_edittext"
                                 android:gravity="center"
                                 android:text="/" />
 
@@ -172,8 +169,7 @@
                                 android:id="@+id/delivery_item_increase_totalQty"
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
-                                android:layout_marginBottom="@dimen/rl_increase_list_item_edittext"
-                                android:layout_marginTop="@dimen/rl_increase_list_item_edittext"
+
                                 android:gravity="center"
                                 android:textColor="@color/delivery_increase_item_child_value_color" />
 
@@ -182,8 +178,7 @@
                                 android:id="@+id/delivery_item_increase_qty_unit"
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
-                                android:layout_marginBottom="@dimen/rl_increase_list_item_edittext"
-                                android:layout_marginTop="@dimen/rl_increase_list_item_edittext"
+
                                 android:gravity="center"
                                 android:textColor="@color/delivery_increase_item_child_value_color" />
                         </LinearLayout>
@@ -205,7 +200,7 @@
                             android:layout_height="match_parent"
                             android:layout_weight="1"
                             android:orientation="horizontal"
-                            android:paddingLeft="@dimen/rl_increase_list_item_edittext">
+                            android:padding="@dimen/increase_list_item_edittext_padding">
 
                             <!--Label-GW-->
                             <TextView
@@ -232,8 +227,6 @@
                                 android:id="@+id/delivery_increase_item_child_gw"
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
-                                android:layout_marginBottom="@dimen/rl_increase_list_item_edittext"
-                                android:layout_marginTop="@dimen/rl_increase_list_item_edittext"
                                 android:gravity="center"
                                 android:textColor="@color/delivery_increase_item_child_value_color" />
 
@@ -241,8 +234,6 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
-                                android:layout_marginBottom="@dimen/rl_increase_list_item_edittext"
-                                android:layout_marginTop="@dimen/rl_increase_list_item_edittext"
                                 android:gravity="center"
                                 android:text="/" />
 
@@ -251,8 +242,6 @@
                                 android:id="@+id/delivery_increase_item_child_totalGW"
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
-                                android:layout_marginBottom="@dimen/rl_increase_list_item_edittext"
-                                android:layout_marginTop="@dimen/rl_increase_list_item_edittext"
                                 android:gravity="center"
                                 android:textColor="@color/delivery_increase_item_child_value_color" />
 
@@ -261,8 +250,6 @@
                                 android:id="@+id/delivery_increase_item_child_gw_unit"
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
-                                android:layout_marginBottom="@dimen/rl_increase_list_item_edittext"
-                                android:layout_marginTop="@dimen/rl_increase_list_item_edittext"
                                 android:gravity="center"
                                 android:textColor="@color/delivery_increase_item_child_value_color" />
 

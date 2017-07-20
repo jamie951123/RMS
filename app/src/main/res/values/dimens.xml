@@ -7,21 +7,28 @@
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="card_margin">6dp</dimen>
-    <dimen name="rl_increase_list_item_edittext">5dp</dimen>
     <dimen name="toolbarsize">16dp</dimen>
     <dimen name="insizecard">10dp</dimen>
 
+    <!--Increase-->
+    <dimen name="increase_list_item_layout_size">20dp</dimen>
+    <dimen name="increase_list_item_layout_margin">3dp</dimen>
+    <dimen name="increase_list_item_edittext_padding">5dp</dimen>
+    <dimen name="increase_list_item_label_size">10sp</dimen>
+    <dimen name="increase_list_item_label_padding">5dp</dimen>
+    <!--Dialog Design-->
+    <dimen name="dialog_context_size">20sp</dimen>
 
     <!--item Design-->
     <dimen name="header_layout_size">30dp</dimen>
-    <dimen name="header_text_size">15dip</dimen>
+    <dimen name="header_text_size">15sp</dimen>
     <dimen name="image_layout_size">60dp</dimen>
     <dimen name="image_size">40dp</dimen>
     <dimen name="context_layout_size">30dp</dimen>
-    <dimen name="context_text_size">12dip</dimen>
+    <dimen name="context_text_size">12sp</dimen>
     <dimen name="fooder_layout_size">60dp</dimen>
     <dimen name="fooder_image_size">30dp</dimen>
-    <dimen name="fooder_button_text_size">14dip</dimen>
+    <dimen name="fooder_button_text_size">14sp</dimen>
 
 
     <!--receiving_increase_dialog_header-->
@@ -30,7 +37,7 @@
     <!--Setting-->
     <dimen name="color_column">30dp</dimen>
     <dimen name="setting_layout_size">40dp</dimen>
-    <dimen name="setting_text_size">18dp</dimen>
+    <dimen name="setting_text_size">18sp</dimen>
 
     <!--ceneter-->
     <dimen name="padding_center">8dp</dimen>
