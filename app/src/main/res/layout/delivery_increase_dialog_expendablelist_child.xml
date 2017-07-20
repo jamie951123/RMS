@@ -138,9 +138,9 @@
 
                     <!--Lable-->
                     <LinearLayout
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_weight="1"
+                        android:layout_weight="3"
                         android:orientation="horizontal">
 
                         <TextView
@@ -155,7 +155,7 @@
 
                     <!--Value-->
                     <LinearLayout
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_weight="2">
 
@@ -194,15 +194,15 @@
 
                     <!--Lable-->
                     <LinearLayout
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_weight="1"
+                        android:layout_weight="3"
                         android:orientation="horizontal">
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/receivingItem_itemGrossWeight_Unit"
+                            android:text="@string/receivingItem_itemWeight_Unit"
                             android:textStyle="bold"
                             android:textSize="@dimen/context_text_size"
                             android:maxLines="2"/>
@@ -211,7 +211,7 @@
 
                     <!--Value-->
                     <LinearLayout
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_weight="2">
 

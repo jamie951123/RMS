@@ -3,6 +3,7 @@ package com.example.james.rms.Operation.Adapter;
 import android.content.Context;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -57,6 +58,7 @@ public class ReceivingIncreaseListAdapter extends MyBaseAdapter<ReceivingItemMod
         }
         String qtyUnit = getItem(position).getProduct().getQuantityProfile() == null?"":getItem(position).getProduct().getQuantityProfile().getQuantityUnit();
         String gwUnit  = getItem(position).getProduct().getWeightprofile() == null?"": getItem(position).getProduct().getWeightprofile().getWeightUnit();
+        viewHolder.imageView.setImageDrawable(ContextCompat.getDrawable(getContext(),R.drawable.mailbox_black));
         viewHolder.receiving_increase_list_item_productCode.setText(getItem(position).getProduct().getProductCode());
         viewHolder.receiving_increase_list_item_productName.setText(getItem(position).getProduct().getProductName());
         viewHolder.qty.setText(ObjectUtil.intToString(getItem(position).getItemQty()));
@@ -135,6 +137,8 @@ public class ReceivingIncreaseListAdapter extends MyBaseAdapter<ReceivingItemMod
     }
 
     public static class ViewHolder{
+        @BindView(R.id.receiving_increase_image)
+        de.hdodenhof.circleimageview.CircleImageView imageView;
         @BindView(R.id.receiving_increase_list_item_productCode)
         TextView receiving_increase_list_item_productCode;
         @BindView(R.id.receiving_increase_list_item_productName)

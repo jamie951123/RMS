@@ -148,23 +148,25 @@
                         </LinearLayout>
 
                         <!-- ItemGrossWeight Unit-->
-                        <!--Label-->
+                        <!--Container-->
                         <LinearLayout
-                            android:layout_width="wrap_content"
+                            android:layout_width="match_parent"
                             android:layout_height="@dimen/context_layout_size"
-                            android:layout_weight="3"
+                            android:layout_weight="2"
                             android:orientation="horizontal">
 
+                            <!--Label-->
                             <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
-                                android:layout_weight="1"
+                                android:layout_weight="2"
+                                android:gravity="center_vertical"
                                 android:orientation="horizontal">
 
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="@string/deliveryItem_itemGrossWeight_Unit"
+                                    android:text="@string/deliveryItem_itemWeight_Unit"
                                     android:textStyle="bold"
                                     android:textSize="@dimen/context_text_size"
                                     android:maxLines="2"/>
@@ -173,8 +175,9 @@
 
                             <!--GW-Value-->
                             <LinearLayout
-                                android:layout_width="wrap_content"
+                                android:layout_width="match_parent"
                                 android:layout_height="match_parent"
+                                android:gravity="center_vertical"
                                 android:layout_weight="1">
 
                                 <TextView
@@ -204,17 +207,17 @@
                         </LinearLayout>
 
                         <!-- ItemQTY Unit-->
-                        <!--Label-->
+                        <!--Container-->
                         <LinearLayout
-                            android:layout_width="wrap_content"
+                            android:layout_width="match_parent"
                             android:layout_height="@dimen/context_layout_size"
-                            android:layout_weight="3"
+                            android:layout_weight="2"
                             android:orientation="horizontal">
-
+                            <!--Label-->
                             <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
-                                android:layout_weight="1"
+                                android:layout_weight="2"
                                 android:orientation="horizontal">
 
                                 <TextView

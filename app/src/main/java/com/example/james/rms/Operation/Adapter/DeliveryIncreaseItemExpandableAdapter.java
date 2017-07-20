@@ -215,7 +215,7 @@ public class DeliveryIncreaseItemExpandableAdapter extends MyExpandableListAdapt
         @BindView(R.id.delivery_increase_item_child_image_linear)
         public LinearLayout image_linear;
         @BindView(R.id.delivery_increase_item_child_image)
-        public com.github.siyamed.shapeimageview.RoundedImageView image;
+        public de.hdodenhof.circleimageview.CircleImageView image;
         @BindView(R.id.delivery_increase_item_child_ProductCode)
         public TextView productCode;
         @BindView(R.id.delivery_increase_item_child_ProductName)

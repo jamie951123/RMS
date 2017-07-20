@@ -46,7 +46,7 @@
                         android:layout_height="match_parent"
                         android:minHeight="30sp"
                         android:background="@color/blueccffff"
-                        android:text="@string/title_grossweight_unit"
+                        android:text="@string/title_weight_unit"
                         android:gravity="center"/>
                 </LinearLayout>
 

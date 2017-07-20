@@ -26,7 +26,7 @@ public class GenericChat {
     public void horizontalBarChart(Context c, HorizontalBarChart horizontalBarChart, List<BarEntry> charDate, List<String>charLabel) {
 
         //one set
-        BarDataSet barDataSet = new BarDataSet(charDate, c.getString(R.string.receivingItem_itemGrossWeight));
+        BarDataSet barDataSet = new BarDataSet(charDate, c.getString(R.string.receivingItem_itemWeight));
         //multiple set
         ArrayList<IBarDataSet> dataSets = new ArrayList<>();
         dataSets.add(barDataSet);

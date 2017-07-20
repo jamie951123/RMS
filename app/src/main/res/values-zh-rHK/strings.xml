@@ -112,9 +112,9 @@
     <string name="receivingItem_itemStatus">狀態:</string>
     <string name="receivingItem_itemCreateDate">創建日期:</string>
     <string name="receivingItem_itemReceivingDate">收貨日期:</string>
-    <string name="receivingItem_itemGrossWeight">總重量:</string>
-    <string name="receivingItem_itemGrossWeight_Unit">總重量/單位:</string>
-    <string name="receivingItem_itemGrossWeightUnit">單位:</string>
+    <string name="receivingItem_itemWeight">重量:</string>
+    <string name="receivingItem_itemWeight_Unit">重量/單位:</string>
+    <string name="receivingItem_itemWeightUnit">單位:</string>
     <string name="receivingItem_itemQuantity_Unit">數量/單位:</string>
     <string name="receivingItem_itemRemark">備註:</string>
     <string name="receivingItem_partyId">PartyId:</string>
@@ -140,7 +140,7 @@
     <string name="deliveryItem_ProductCode">產品代碼:</string>
     <string name="deliveryItem_ProductName">產品名稱:</string>
     <string name="deliveryItem_itemStockOutDate">出貨日期:</string>
-    <string name="deliveryItem_itemGrossWeight_Unit">總重量/單位:</string>
+    <string name="deliveryItem_itemWeight_Unit">重量/單位:</string>
     <string name="deliveryItem_itemQuantity_Unit">數量/單位:</string>
     <string name="deliveryItem_itemStatus">狀態:</string>
     <string name="deliveryItem_itemCreateDate">創建日期:</string>
@@ -157,7 +157,7 @@
     <string name="label_bad_network_connection">網絡連接不良!</string>
 
     <!--label-->
-    <string name="label_grossweight">總重量:</string>
+    <string name="label_weight">重量:</string>
     <string name="label_quantity">數量:</string>
     <string name="label_receivingDate">收貨日期</string>
     <string name="label_stockoutDate">出貨日期</string>
@@ -182,8 +182,8 @@
     <!--<string name=""-->
     <!--title-->
     <string name="title_input_qty">數量</string>
-    <string name="title_input_grossweight">總重量</string>
-    <string name="title_grossweight_unit">您的重量單位</string>
+    <string name="title_input_weight">重量</string>
+    <string name="title_weight_unit">您的重量單位</string>
     <string name="title_qty_unit">你的數量單位</string>
     <string name="add_weight_unit">添加重量單位</string>
     <string name="add_quantity_unit">添加數量單位</string>

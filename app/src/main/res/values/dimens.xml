@@ -14,7 +14,8 @@
     <dimen name="increase_list_item_layout_size">20dp</dimen>
     <dimen name="increase_list_item_layout_margin">3dp</dimen>
     <dimen name="increase_list_item_edittext_padding">5dp</dimen>
-    <dimen name="increase_list_item_label_size">10sp</dimen>
+    <dimen name="increase_list_item_label_size">12sp</dimen>
+    <dimen name="increase_list_item_label_padding_left">5dp</dimen>
     <dimen name="increase_list_item_label_padding">5dp</dimen>
     <!--Dialog Design-->
     <dimen name="dialog_context_size">20sp</dimen>
@@ -26,6 +27,7 @@
     <dimen name="image_size">40dp</dimen>
     <dimen name="context_layout_size">30dp</dimen>
     <dimen name="context_text_size">12sp</dimen>
+    <dimen name="context_text_margin_left">8dp</dimen>
     <dimen name="fooder_layout_size">60dp</dimen>
     <dimen name="fooder_image_size">30dp</dimen>
     <dimen name="fooder_button_text_size">14sp</dimen>
@@ -41,5 +43,6 @@
 
     <!--ceneter-->
     <dimen name="padding_center">8dp</dimen>
+
 
 </resources>

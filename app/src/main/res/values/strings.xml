@@ -111,9 +111,9 @@
     <string name="receivingItem_itemStatus">Status:</string>
     <string name="receivingItem_itemCreateDate">CreateDate:</string>
     <string name="receivingItem_itemReceivingDate">ReceivingDate:</string>
-    <string name="receivingItem_itemGrossWeight">GrossWeight:</string>
-    <string name="receivingItem_itemGrossWeight_Unit">GrossWeight/Unit:</string>
-    <string name="receivingItem_itemGrossWeightUnit">Unit:</string>
+    <string name="receivingItem_itemWeight">Weight:</string>
+    <string name="receivingItem_itemWeight_Unit">Weight/Unit:</string>
+    <string name="receivingItem_itemWeightUnit">Unit:</string>
     <string name="receivingItem_itemQuantity_Unit">Quantity/Unit:</string>
     <string name="receivingItem_itemRemark">Remark:</string>
     <string name="receivingItem_partyId">PartyId:</string>
@@ -139,7 +139,7 @@
     <string name="deliveryItem_ProductCode">ProductCode:</string>
     <string name="deliveryItem_ProductName">ProductName:</string>
     <string name="deliveryItem_itemStockOutDate">StockOutDate:</string>
-    <string name="deliveryItem_itemGrossWeight_Unit">GrossWeight/Unit:</string>
+    <string name="deliveryItem_itemWeight_Unit">Weight/Unit:</string>
     <string name="deliveryItem_itemQuantity_Unit">Quantity/Unit:</string>
     <string name="deliveryItem_itemStatus">Status:</string>
     <string name="deliveryItem_itemCreateDate">CreateDate:</string>
@@ -155,7 +155,7 @@
     <string name="label_bad_network_connection">Bad Network Connection!</string>
 
     <!--label-->
-    <string name="label_grossweight">GW:</string>
+    <string name="label_weight">GW:</string>
     <string name="label_quantity">Qty:</string>
     <string name="label_receivingDate">Receiving Date</string>
     <string name="label_stockoutDate">StockOut Date</string>
@@ -181,8 +181,8 @@
     <!--<string name=""-->
     <!--title-->
     <string name="title_input_qty">Quantity</string>
-    <string name="title_input_grossweight">GrossWeight</string>
-    <string name="title_grossweight_unit">Your Gross Weight Unit</string>
+    <string name="title_input_weight">Weight</string>
+    <string name="title_weight_unit">Your Weight Unit</string>
     <string name="title_qty_unit">Your Quantity Unit</string>
     <string name="add_weight_unit">Add Weight Unit</string>
     <string name="add_quantity_unit">Add Quantity Unit</string>
