@@ -42,6 +42,10 @@ public class ReceivingItemModel {
 
     private ReceivingOrderModel receivingOrder;
 
+    //Own
+    private Integer outStandingQty;
+    private BigDecimal outStandingWeight;
+
     public DeliveryItemModel newDeliveryItemModel(){
         DeliveryItemModel deliveryItemModel = new DeliveryItemModel();
         deliveryItemModel.setReceivingId(this.receivingId);
@@ -66,6 +70,8 @@ public class ReceivingItemModel {
         receivingItemModel.itemQty = this.itemQty;
         receivingItemModel.itemRemark = this.itemRemark;
         receivingItemModel.product = this.product;
+        receivingItemModel.outStandingQty = this.outStandingQty;
+        receivingItemModel.outStandingWeight = this.outStandingWeight;
         return receivingItemModel;
     }
 
@@ -214,6 +220,22 @@ public class ReceivingItemModel {
         this.receivingOrder = receivingOrder;
     }
 
+    public Integer getOutStandingQty() {
+        return outStandingQty;
+    }
+
+    public void setOutStandingQty(Integer outStandingQty) {
+        this.outStandingQty = outStandingQty;
+    }
+
+    public BigDecimal getOutStandingWeight() {
+        return outStandingWeight;
+    }
+
+    public void setOutStandingWeight(BigDecimal outStandingWeight) {
+        this.outStandingWeight = outStandingWeight;
+    }
+
     @Override
     public String toString() {
         return "ReceivingItemModel{" +
@@ -233,6 +255,8 @@ public class ReceivingItemModel {
                 ", product=" + product +
                 ", deliveryItem=" + deliveryItem +
                 ", receivingOrder=" + receivingOrder +
+                ", outStandingQty=" + outStandingQty +
+                ", outStandingWeight=" + outStandingWeight +
                 '}';
     }
 }

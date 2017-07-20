@@ -16,6 +16,13 @@ public class DeliveryItemServePath {
         return serve_path;
     }
 
+    public static String serve_findByPartyIdAndStatus(){
+        String serve = ServeProfile.getServe();
+        String path = ServeProfile.getDe_item_findByPartyIdAndStatus();
+        String serve_path = serve+path;
+        return serve_path;
+    }
+
     public static String serve_findByOrderIdAndStatus(){
         String serve = ServeProfile.getServe();
         String path = ServeProfile.getDe_item_findByOrderIdAndStatus();

@@ -129,6 +129,7 @@ public class DeliveryIncreaseDialogExpandableAdapter extends MyExpandableListAda
         holder.delivery_item_increase_receivingItem_itemGrossWeight_unit.setText(receivingItemModel.getProduct().getWeightprofile()==null?"":receivingItemModel.getProduct().getWeightprofile().getWeightUnit());
         holder.delivery_item_increase_receivingItem_itemQuantity.setText(ObjectUtil.intToString(receivingItemModel.getItemQty()));
         holder.delivery_item_increase_receivingItem_itemQuantity_unit.setText(receivingItemModel.getProduct().getQuantityProfile()==null?"":receivingItemModel.getProduct().getQuantityProfile().getQuantityUnit());
+        holder.weight_outStanding.setText(ObjectUtil.bigDecimalToString(receivingItemModel.getOutStandingWeight()));
 //        holder.child_checkbox.setBackgroundColor(ContextCompat.getColor(getContext(),R.color.blueb3ffff));
         if(expandableSelectedModel.getIsItemSelected().containsKey(receivingItemModel.getReceivingId())){
             holder.child_checkbox.setChecked(expandableSelectedModel.getIsItemSelected().get(receivingItemModel.getReceivingId()));
@@ -198,6 +199,8 @@ public class DeliveryIncreaseDialogExpandableAdapter extends MyExpandableListAda
         public TextView delivery_item_increase_receivingItem_itemQuantity;
         @BindView(R.id.delivery_item_increase_receivingItem_itemQuantity_unit)
         public TextView delivery_item_increase_receivingItem_itemQuantity_unit;
+        @BindView(R.id.delivery_increase_dialog_weight_outStanding)
+        public TextView weight_outStanding;
 
         public ChildHolder(View view){
             ButterKnife.bind(this,view);

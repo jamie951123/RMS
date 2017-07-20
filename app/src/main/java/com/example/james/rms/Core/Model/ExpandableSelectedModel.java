@@ -11,6 +11,7 @@ public class ExpandableSelectedModel {
     private LinkedHashMap<Long, Boolean> orginal_isOrderSelected;
     private LinkedHashMap<Long, Boolean> orginal_isItemSelected;
     private LinkedHashMap<Long, Boolean> isItemSelected;
+
     private int count_dialogBox = 0;
 
     public LinkedHashMap<Long, Boolean> getIsOrderSelected() {

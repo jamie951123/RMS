@@ -46,11 +46,6 @@ public class DeliveryIncreaseItemExpandableAdapter extends MyExpandableListAdapt
         this.mapByReceivingItemId = mapByReceivingItemId;
     }
 
-//    public LinkedHashMap<Long,DeliveryItemModel> getMap(){
-//        LinkedHashMap<Long,DeliveryItemModel> mapByReceivingItemId = new LinkedHashMap<>();
-//        for (ReceivingOrderModel )
-//        getGroup(groupPosition).getReceivingItem().get(childPosition)
-//    }
     @Override
     public View getGroupView(final int groupPosition,final boolean isExpanded, View convertView, ViewGroup parent) {
         GroupHolder holder;

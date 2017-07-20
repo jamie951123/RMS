@@ -31,6 +31,8 @@ import com.example.james.rms.Controller.NavigationController;
 import com.example.james.rms.Core.Combine.DeliveryOrderCombine;
 import com.example.james.rms.Core.Combine.DeliveryOrderSearchCombine;
 import com.example.james.rms.Core.Combine.MovementRecordCombine;
+import com.example.james.rms.Core.Dao.DeliveryItemDao;
+import com.example.james.rms.Core.Dao.DeliveryItemDaoImpl;
 import com.example.james.rms.Core.Dao.DeliveryOrderDao;
 import com.example.james.rms.Core.Dao.DeliveryOrderDaoImpl;
 import com.example.james.rms.Core.Dao.ReceivingOrderDao;
@@ -48,8 +50,10 @@ import com.example.james.rms.ITF.Communicate_Interface;
 import com.example.james.rms.ITF.NumberDialogListener;
 import com.example.james.rms.Operation.Adapter.DeliveryIncreaseItemExpandableAdapter;
 import com.example.james.rms.R;
+import com.facebook.FacebookSdk;
 import com.github.clans.fab.FloatingActionButton;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.LinkedHashMap;
@@ -100,22 +104,25 @@ public class DeliveryIncrease extends AppCompatActivity implements View.OnClickL
     //
     private LinkedHashMap<Long,DeliveryItemModel> orginalMapByReceivingItemId = new LinkedHashMap<>();
     private LinkedHashMap<Long,DeliveryItemModel> latestMapByReceivingItemId = new LinkedHashMap<>();
-
+    //itemOutSatnding
+    private LinkedHashMap<Long,ItemOutStanding> itemOutStandingMap = new LinkedHashMap<>();
     //Dao
     private ReceivingOrderDao receivingOrderDao;
     private DeliveryOrderDao deliveryOrderDao;
-
+    private DeliveryItemDao deliveryItemDao;
     //Combine
     private MovementRecordCombine movementRecordCombine = new MovementRecordCombine(MovementRecord.class);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        FacebookSdk.sdkInitialize(getApplicationContext());
         setContentView(R.layout.delivery_increase);
         ButterKnife.bind(this);
         //Dao
         receivingOrderDao = new ReceivingOrderDaoImpl(this);
         deliveryOrderDao = new DeliveryOrderDaoImpl(this);
+        deliveryItemDao = new DeliveryItemDaoImpl(this);
         //
         datePicker.setOnClickListener(this);
         fab.setOnClickListener(this);
@@ -127,9 +134,13 @@ public class DeliveryIncrease extends AppCompatActivity implements View.OnClickL
         //partyId
         //Combine
         combine_partyIdAndstatus = DeliveryOrderSearchCombine.combine_partyIdAndStatus(partyId,Status.PROGRESS);
-        //
+        //Query
         List<ReceivingOrderModel> receivingOrderModels = receivingOrderDao.findByPartyIdAndStatus(combine_partyIdAndstatus);
         Log.d("asd","receivingOrderModels :" + receivingOrderModels);
+        //itemMapByReceivingItemId
+        getitemOutStandingMapByReceivingItemId();
+
+        //
 
         //Creat Original ReceivingOrder
         order_original = new ArrayList<>();
@@ -137,7 +148,12 @@ public class DeliveryIncrease extends AppCompatActivity implements View.OnClickL
             ReceivingOrderModel rOrder =r.newReceivingOrderModel();
             List<ReceivingItemModel> rItem = new ArrayList<>();
             for(ReceivingItemModel i : rOrder.getReceivingItem()){
-                rItem.add(i.newReceivingItemModel());
+                ReceivingItemModel newReceivingItem = i.newReceivingItemModel();
+                if(itemOutStandingMap.containsKey(newReceivingItem.getReceivingId())){
+                    newReceivingItem.setOutStandingQty(itemOutStandingMap.get(newReceivingItem.getReceivingId()).getQty());
+                    newReceivingItem.setOutStandingWeight(itemOutStandingMap.get(newReceivingItem.getReceivingId()).getWeight());
+                }
+                rItem.add(newReceivingItem);
             }
             rOrder.setReceivingItem(rItem);
             order_original.add(rOrder);
@@ -443,4 +459,54 @@ public class DeliveryIncrease extends AppCompatActivity implements View.OnClickL
         Crouton.cancelAllCroutons();
     }
 
+    private void getitemOutStandingMapByReceivingItemId(){
+        List<DeliveryItemModel> deliveryItemModels = deliveryItemDao.findByPartyIdAndStatus(combine_partyIdAndstatus);
+        Log.d("asd","deliveryItemModels :" + deliveryItemModels);
+        itemOutStandingMap = new LinkedHashMap<>();
+        for(DeliveryItemModel deliveryItemModel : deliveryItemModels){
+            Integer qty = deliveryItemModel.getItemQty() == null?0:deliveryItemModel.getItemQty();
+            BigDecimal w =deliveryItemModel.getItemGrossWeight() == null?new BigDecimal(0):deliveryItemModel.getItemGrossWeight();
+
+            if(itemOutStandingMap.containsKey(deliveryItemModel.getReceivingId())){
+                Integer orginal_qty = itemOutStandingMap.get(deliveryItemModel.getReceivingId()).getQty();
+                BigDecimal orginal_w = itemOutStandingMap.get(deliveryItemModel.getReceivingId()).getWeight();
+                itemOutStandingMap.get(deliveryItemModel.getReceivingId()).setQty(orginal_qty + qty);
+                itemOutStandingMap.get(deliveryItemModel.getReceivingId()).setWeight(orginal_w.add(w));
+            }else{
+                ItemOutStanding itemOutStanding = new ItemOutStanding();
+                itemOutStanding.setQty(qty);
+                itemOutStanding.setWeight(w);
+                itemOutStandingMap.put(deliveryItemModel.getReceivingId(),itemOutStanding);
+            }
+        }
+        Log.d("asd","[DeliveryIncrease]-[ItemOutStandingMap] :" + itemOutStandingMap);
+    }
+     private class ItemOutStanding{
+       private Integer qty;
+       private BigDecimal weight;
+
+         public Integer getQty() {
+             return qty;
+         }
+
+         public void setQty(Integer qty) {
+             this.qty = qty;
+         }
+
+         public BigDecimal getWeight() {
+             return weight;
+         }
+
+         public void setWeight(BigDecimal weight) {
+             this.weight = weight;
+         }
+
+         @Override
+         public String toString() {
+             return "ItemOutStanding{" +
+                     "qty=" + qty +
+                     ", weight=" + weight +
+                     '}';
+         }
+     }
 }

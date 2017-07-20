@@ -12,6 +12,7 @@ import java.util.List;
 public interface DeliveryItemDao {
 //    Find
     List<DeliveryItemModel> findAll();
+    List<DeliveryItemModel> findByPartyIdAndStatus(String deliveryItemSearch_json);
     List<DeliveryItemModel> findByDeliveryItemIdAndStatus();
 
 //    Save

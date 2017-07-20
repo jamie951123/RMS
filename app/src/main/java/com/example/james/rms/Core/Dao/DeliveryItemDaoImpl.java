@@ -59,6 +59,34 @@ public class DeliveryItemDaoImpl extends NetworkModel implements DeliveryItemDao
     }
 
     @Override
+    public List<DeliveryItemModel> findByPartyIdAndStatus(String deliveryItemSearch_json) {
+        Log.d("asd:","[DeliveryItemModel]-findByPartyIdAndStatus(Request--JSON) ");
+        String result = "";
+        List<DeliveryItemModel> deliveryItemModels = new ArrayList<>();
+        try {
+            result = new HttpPostAsync(this).execute(DeliveryItemServePath.serve_findByPartyIdAndStatus(),deliveryItemSearch_json).get();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+        Log.d("asd:","[DeliveryItemModel]-findByPartyIdAndStatus(Response--String): :"+result);
+        if(!ObjectUtil.isCorrectResponse(result)){
+            return null;
+        }
+
+        try{
+            Gson gson = GsonUtil.fromJson();
+            Type listType = new TypeToken<List<DeliveryItemModel>>() {}.getType();
+            deliveryItemModels = gson.fromJson(result,listType);
+            Log.d("asd","[DeliveryItemModel]-findAll(Gson): "+deliveryItemModels);
+        }catch(JsonSyntaxException e){
+            e.printStackTrace();
+        }
+        return deliveryItemModels;
+    }
+
+    @Override
     public List<DeliveryItemModel> findByDeliveryItemIdAndStatus() {
         return null;
     }
