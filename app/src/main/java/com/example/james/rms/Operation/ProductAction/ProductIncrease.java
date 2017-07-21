@@ -15,9 +15,11 @@ import com.example.james.rms.CommonProfile.DialogBox.DialogModel;
 import com.example.james.rms.CommonProfile.DialogBox.Service.ClassicDialogService;
 import com.example.james.rms.CommonProfile.SharePreferences.MyPreferences;
 import com.example.james.rms.CommonProfile.SharePreferences.PreferencesKey;
-import com.example.james.rms.CommonProfile.Util.ObjectUtil;
 import com.example.james.rms.CommonProfile.StartActivityForResultKey;
+import com.example.james.rms.CommonProfile.Util.ObjectUtil;
 import com.example.james.rms.Controller.NavigationController;
+import com.example.james.rms.Core.Combine.MovementRecordCombine;
+import com.example.james.rms.Core.Combine.ProductCombine;
 import com.example.james.rms.Core.Dao.ProductDao;
 import com.example.james.rms.Core.Dao.ProductDaoImpl;
 import com.example.james.rms.Core.Dao.QuantityProfileDao;
@@ -25,11 +27,11 @@ import com.example.james.rms.Core.Dao.QuantityProfileDaoImpl;
 import com.example.james.rms.Core.Dao.WeightProfileDao;
 import com.example.james.rms.Core.Dao.WeightProfileDaoImpl;
 import com.example.james.rms.Core.Model.KeyModel;
+import com.example.james.rms.Core.Model.MovementRecord;
 import com.example.james.rms.Core.Model.ProductModel;
 import com.example.james.rms.Core.Model.QuantityProfileModel;
 import com.example.james.rms.Core.Model.WeightProfileModel;
 import com.example.james.rms.Core.SearchObject.SearchCombine;
-import com.example.james.rms.Core.Combine.ProductCombine;
 import com.example.james.rms.R;
 
 import java.text.DateFormat;
@@ -90,6 +92,11 @@ public class ProductIncrease extends AppCompatActivity implements View.OnClickLi
     private QuantityProfileDao quantityProfileDao;
     private ProductDao productDao;
 
+    //PutExtra
+    private MovementRecord movementRecord;
+    //
+    //Combine
+    private MovementRecordCombine movementRecordCombine = new MovementRecordCombine(MovementRecord.class);
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -114,13 +121,20 @@ public class ProductIncrease extends AppCompatActivity implements View.OnClickLi
         quantityProfileModelList  = quantityProfileDao.findByPartyId(combine_partyId);
 
         String editJson = null;
+        String movementRecord_json = null;
         if (savedInstanceState == null) {
             Bundle extras = getIntent().getExtras();
             if(extras == null) {
                 editJson= null;
+                movementRecord_json = null;
             } else {
                 editJson= extras.getString(StartActivityForResultKey.productModel);
+                movementRecord_json = extras.getString(StartActivityForResultKey.movementRecord);
             }
+        }
+
+        if(ObjectUtil.isNotNullEmpty(movementRecord_json)){
+            movementRecord = movementRecordCombine.jsonToModel(movementRecord_json);
         }
 
         if(ObjectUtil.isNotNullEmpty(editJson)){
@@ -246,6 +260,11 @@ public class ProductIncrease extends AppCompatActivity implements View.OnClickLi
     protected void onDestroy() {
         super.onDestroy();
         Crouton.cancelAllCroutons();
+    }
+
+    @Override
+    public void onBackPressed() {
+        ClassicDialog.showBackPrevious(this,getString(R.string.previous),movementRecord);
     }
 
 }

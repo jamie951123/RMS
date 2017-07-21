@@ -10,6 +10,7 @@ import android.widget.AdapterView;
 import android.widget.GridView;
 
 import com.example.james.rms.CommonProfile.StartActivityForResultKey;
+import com.example.james.rms.CommonProfile.Util.ObjectUtil;
 import com.example.james.rms.Controller.NavigationController;
 import com.example.james.rms.Core.Combine.MovementRecordCombine;
 import com.example.james.rms.Core.Model.MovementRecord;
@@ -35,6 +36,12 @@ public class OperationContainer extends AppCompatActivity implements AdapterView
     @BindView(R.id.operation_gridview)
      GridView gridView;
 
+    //PutExtra
+    private String movementRecord_json;
+    private MovementRecord movementRecord;
+    //Combine
+    private MovementRecordCombine movementRecordCombine = new MovementRecordCombine(MovementRecord.class);
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.operation_container);
@@ -44,6 +51,19 @@ public class OperationContainer extends AppCompatActivity implements AdapterView
         gridView.setNumColumns(1);
         gridView.setAdapter(operationGridAdapter);
         gridView.setOnItemClickListener(this);
+
+        movementRecord_json = null;
+        if (savedInstanceState == null) {
+            Bundle extras = getIntent().getExtras();
+            if (extras == null) {
+                movementRecord_json = null;
+            } else {
+                movementRecord_json = extras.getString(StartActivityForResultKey.movementRecord);
+            }
+        }
+        if(ObjectUtil.isNotNullEmpty(movementRecord_json)){
+            movementRecord = movementRecordCombine.jsonToModel(movementRecord_json);
+        }
     }
 
 
@@ -64,22 +84,22 @@ public class OperationContainer extends AppCompatActivity implements AdapterView
         switch(position){
             case 0:
                 movementRecord.setTargetClass_string(ProductIncrease.class.getCanonicalName());
-                movementRecord.setExist_fragment(StartActivityForResultKey.navProduct);
+                movementRecord.setExist_fragment(this.movementRecord!=null?this.movementRecord.getExist_fragment():StartActivityForResultKey.navProduct);
                 intent = intent.setClass(this, ProductIncrease.class);
                 break;
             case 1:
                 movementRecord.setTargetClass_string(ReceivingIncrease.class.getCanonicalName());
-                movementRecord.setExist_fragment(StartActivityForResultKey.navReceiving);
+                movementRecord.setExist_fragment(this.movementRecord!=null?this.movementRecord.getExist_fragment():StartActivityForResultKey.navReceiving);
                 intent = intent.setClass(this, ReceivingIncrease.class);
                 break;
             case 2:
                 movementRecord.setTargetClass_string(DeliveryIncrease.class.getCanonicalName());
-                movementRecord.setExist_fragment(StartActivityForResultKey.navDelivery);
+                movementRecord.setExist_fragment(this.movementRecord!=null?this.movementRecord.getExist_fragment():StartActivityForResultKey.navDelivery);
                 intent = intent.setClass(this, DeliveryIncrease.class);
                 break;
             case 3:
                 movementRecord.setTargetClass_string(DeliveryIncrease.class.getCanonicalName());
-                movementRecord.setExist_fragment(StartActivityForResultKey.navProduct);
+                movementRecord.setExist_fragment(this.movementRecord!=null?this.movementRecord.getExist_fragment():StartActivityForResultKey.navProduct);
                 intent = intent.setClass(this, UnitIncrease.class);
                 break;
         }
@@ -115,9 +135,13 @@ public class OperationContainer extends AppCompatActivity implements AdapterView
         }
     }
     public void onBackPressed() {
-//        super.onBackPressed();
+        if(movementRecord !=null && NavigationController.class.getCanonicalName().equals(movementRecord.getOriginalClass_string())){
+            super.onBackPressed();
+            return;
+        }
         Intent intent = new Intent();
         intent.setClass(this, NavigationController.class);
+        intent.putExtra(StartActivityForResultKey.movementRecord,movementRecord_json);
         startActivity(intent);
     }
 }

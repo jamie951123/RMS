@@ -116,7 +116,7 @@ public class DeliveryIncreaseItemExpandableAdapter extends MyExpandableListAdapt
             }
         });
 
-        holder.totalQty.setText(ObjectUtil.intToString(receivingItemModel.getItemQty()));
+        holder.totalQty.setText(ObjectUtil.intToString(receivingItemModel.getOutStandingQty()));
         holder.gwlinear.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -124,7 +124,7 @@ public class DeliveryIncreaseItemExpandableAdapter extends MyExpandableListAdapt
 
             }
         });
-        holder.totalGW.setText(ObjectUtil.bigDecimalToString(receivingItemModel.getItemGrossWeight()));
+        holder.totalGW.setText(ObjectUtil.bigDecimalToString(receivingItemModel.getOutStandingWeight()));
 
         if(receivingItemModel.getProduct().getQuantityProfile() !=null && ObjectUtil.isNotNullEmpty(receivingItemModel.getProduct().getQuantityProfile().getQuantityUnit())){
             holder.qty_unit.setText(receivingItemModel.getProduct().getQuantityProfile().getQuantityUnit());
@@ -159,13 +159,15 @@ public class DeliveryIncreaseItemExpandableAdapter extends MyExpandableListAdapt
                 numberDialogModel.setQtyUnit(receivingItemModel.getProduct().getQuantityProfile().getQuantityUnit());
             }
             numberDialogModel.setQty(mapByReceivingItemId.get(rItemId).getItemQty() == null ? 0 : mapByReceivingItemId.get(rItemId).getItemQty());
-            numberDialogModel.setQtyMax(receivingItemModel.getItemQty());
+//            numberDialogModel.setQtyMax(receivingItemModel.getItemQty());
+            numberDialogModel.setQtyMax(receivingItemModel.getOutStandingQty()==null?0:receivingItemModel.getOutStandingQty());
         } else if(key.equalsIgnoreCase(KeyModel.gw)){
             if (receivingItemModel.getProduct().getWeightprofile() != null && ObjectUtil.isNotNullEmpty(receivingItemModel.getProduct().getWeightprofile().getWeightUnit())) {
                 numberDialogModel.setGrossWeightUnit(receivingItemModel.getProduct().getWeightprofile().getWeightUnit());
             }
             numberDialogModel.setGrossWeight(mapByReceivingItemId.get(rItemId).getItemGrossWeight()==null?new BigDecimal(0):mapByReceivingItemId.get(rItemId).getItemGrossWeight() );
-            numberDialogModel.setGwMax(receivingItemModel.getItemGrossWeight());
+//            numberDialogModel.setGwMax(receivingItemModel.getItemGrossWeight());
+            numberDialogModel.setGwMax(receivingItemModel.getOutStandingWeight()==null?new BigDecimal(0):receivingItemModel.getOutStandingWeight());
         }
         listener.from(numberDialogModel,getContext());
         numberDialog.show(fm,key);

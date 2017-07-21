@@ -61,10 +61,12 @@ public class ReceivingItemExpandListAdapter extends MyExpandableListAdapter<Rece
         if(receivingItemModel != null && receivingItemModel.getProduct() != null) {
             viewHolder.receivingItem_ProductCode.setText(receivingItemModel.getProduct().getProductCode());
             viewHolder.receivingItem_ProductName.setText(receivingItemModel.getProduct().getProductName());
-            viewHolder.receivingItem_itemReceivingDate.setText(ObjectUtil.dateToString(receivingItemModel.getItemReceivingDate()));
+            viewHolder.receivingItem_itemReceivingDate.setText(ObjectUtil.dateToString_OnlyDate(receivingItemModel.getItemReceivingDate()));
             viewHolder.receivingItem_itemGrossWeight.setText(ObjectUtil.bigDecimalToString(receivingItemModel.getItemGrossWeight()));
             viewHolder.receivingItem_itemGrossWeightUnit.setText(receivingItemModel.getProduct().getWeightprofile() == null ? "" : receivingItemModel.getProduct().getWeightprofile().getWeightUnit());
             viewHolder.receivingItem_image.setImageDrawable(ContextCompat.getDrawable(getContext(),R.drawable.mailbox_black));
+            viewHolder.receivingItem_itemQty.setText(ObjectUtil.intToString(receivingItemModel.getItemQty()));
+            viewHolder.receivingItem_itemQtyUnit.setText(receivingItemModel.getProduct().getQuantityProfile()==null?"":receivingItemModel.getProduct().getQuantityProfile().getQuantityUnit());
 //            GlideApp.with(getContext())
 //                    .load(R.drawable.mailbox_black)
 //                    .error(R.drawable.question_purple)
@@ -90,6 +92,7 @@ public class ReceivingItemExpandListAdapter extends MyExpandableListAdapter<Rece
                         intent.setClass(getContext(), ReceivingIncrease.class);
                         intent.putExtra(StartActivityForResultKey.receivingOrderModel,receivingOrder_json);
                         intent.putExtra(StartActivityForResultKey.movementRecord,movementRecord_str);
+                        getContext().startActivity(intent);
                         getContext().startActivity(intent);
                     }
                     Log.v("asd", "linear_edit");
@@ -176,6 +179,10 @@ public class ReceivingItemExpandListAdapter extends MyExpandableListAdapter<Rece
         TextView receivingItem_itemGrossWeight;
         @BindView(R.id.receivingItem_itemGrossWeightUnit)
         TextView receivingItem_itemGrossWeightUnit;
+        @BindView(R.id.receivingItem_itemQty)
+        TextView receivingItem_itemQty;
+        @BindView(R.id.receivingItem_itemQtyUnit)
+        TextView receivingItem_itemQtyUnit;
         @BindView(R.id.receiving_item_linear_edit)
         LinearLayout receivingItem_linear_edit;
         @BindView(R.id.receiving_item_linear_delete)

@@ -20,6 +20,7 @@ import com.example.james.rms.Core.Model.MovementRecord;
 import com.example.james.rms.Core.Model.QuantityProfileModel;
 import com.example.james.rms.Core.Model.Status;
 import com.example.james.rms.Core.Model.WeightProfileModel;
+import com.example.james.rms.Operation.OperationContainer;
 import com.example.james.rms.Operation.ProductAction.ProductIncrease;
 import com.example.james.rms.R;
 import com.example.james.rms.Operation.UnitAction.UnitIncrease;
@@ -88,10 +89,8 @@ public class ClassicDialog {
                         try {
                             Intent intent=new Intent();
                             intent.setClass(context,Class.forName(movementRecord.getOriginalClass_string()));
-                            if(movementRecord.getOriginalClass_string().equals(NavigationController.class.getCanonicalName())){
-                                MovementRecordCombine movementRecordCombine = new MovementRecordCombine(MovementRecord.class);
-                                intent.putExtra(StartActivityForResultKey.movementRecord,movementRecordCombine.modelToJson(movementRecord));
-                            }
+                            MovementRecordCombine movementRecordCombine = new MovementRecordCombine(MovementRecord.class);
+                            intent.putExtra(StartActivityForResultKey.movementRecord,movementRecordCombine.modelToJson(movementRecord));
                             context.startActivity(intent);
                         }catch (ClassNotFoundException e){
                             e.printStackTrace();

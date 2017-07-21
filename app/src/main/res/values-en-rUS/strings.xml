@@ -196,5 +196,6 @@
     <string name="chinese">中文</string>
     <string name="english">English</string>
     <string name="label_welcome">Welcome</string>
+    <string name="label_margin">餘量:</string>
 
 </resources>

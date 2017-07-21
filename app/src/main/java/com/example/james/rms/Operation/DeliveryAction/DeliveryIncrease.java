@@ -144,15 +144,26 @@ public class DeliveryIncrease extends AppCompatActivity implements View.OnClickL
 
         //Creat Original ReceivingOrder
         order_original = new ArrayList<>();
+//        boolean isContinueOutter = true;
         for(ReceivingOrderModel r : receivingOrderModels){
             ReceivingOrderModel rOrder =r.newReceivingOrderModel();
             List<ReceivingItemModel> rItem = new ArrayList<>();
             for(ReceivingItemModel i : rOrder.getReceivingItem()){
                 ReceivingItemModel newReceivingItem = i.newReceivingItemModel();
                 if(itemOutStandingMap.containsKey(newReceivingItem.getReceivingId())){
-                    newReceivingItem.setOutStandingQty(itemOutStandingMap.get(newReceivingItem.getReceivingId()).getQty());
-                    newReceivingItem.setOutStandingWeight(itemOutStandingMap.get(newReceivingItem.getReceivingId()).getWeight());
+                    Integer outStanding_qty = null;
+                    BigDecimal outStanding_w = null;
+                    if(newReceivingItem.getItemQty() != null) {
+                        outStanding_qty = newReceivingItem.getItemQty()-itemOutStandingMap.get(newReceivingItem.getReceivingId()).getQty();
+                        newReceivingItem.setOutStandingQty(outStanding_qty);
+                    }
+                    if(newReceivingItem.getItemGrossWeight() != null){
+                        outStanding_w = newReceivingItem.getItemGrossWeight().subtract(itemOutStandingMap.get(newReceivingItem.getReceivingId()).getWeight());
+                        newReceivingItem.setOutStandingWeight(outStanding_w);
+                    }
                 }
+                if(newReceivingItem.getOutStandingQty() == null) newReceivingItem.setOutStandingQty(newReceivingItem.getItemQty());
+                if(newReceivingItem.getOutStandingWeight() == null) newReceivingItem.setOutStandingWeight(newReceivingItem.getItemGrossWeight());
                 rItem.add(newReceivingItem);
             }
             rOrder.setReceivingItem(rItem);
@@ -185,37 +196,45 @@ public class DeliveryIncrease extends AppCompatActivity implements View.OnClickL
         if(ObjectUtil.isNotNullEmpty(movementRecord_json)){
             movementRecord = movementRecordCombine.jsonToModel(movementRecord_json);
         }
-        //Edit
-        if (ObjectUtil.isNotNullEmpty(deliveryOrder_json)) {
-            DeliveryOrderCombine deliveryOrderCombine = new DeliveryOrderCombine(DeliveryOrderModel.class);
-//            deliveryOrderModel = new DeliveryOrderModel();
-            deliveryOrderModel = deliveryOrderCombine.jsonToModel(deliveryOrder_json);
-            toolbar_title.setText(R.string.title_edit_delivery);
-            getDeliveryModelMapWhenEdit(deliveryOrderModel.getDeliveryItem());
-            Log.d("asd","deliveryOrder_json : " + deliveryOrder_json);
-            Log.d("asd","orginalMapByReceivingItemId : " + orginalMapByReceivingItemId);
-            for(ReceivingOrderModel order :order_latest){
-                List<ReceivingItemModel> newItems = new ArrayList<>();
-                    for(ReceivingItemModel item: order.getReceivingItem()) {
-                        if (orginalMapByReceivingItemId.containsKey(item.getReceivingId())) {
-                            newItems.add(item);
-                        }
-                    }
-                    if(!newItems.isEmpty()){
-                        order.setReceivingItem(newItems);
-                        order_listview.add(order);
-                    }
-            }
-            setLatestCheckBox(order_listview);
-//            SetDeliveryOrder Field
-            setAllField(deliveryOrderModel);
-        }
+        //Edit Increase
+        isEditIncrease(deliveryOrder_json);
+
+        //Set ListView
         deliveryIncreaseItemExpandableAdapter = new DeliveryIncreaseItemExpandableAdapter(this,order_listview,orginalMapByReceivingItemId,listView);
         listView.setAdapter(deliveryIncreaseItemExpandableAdapter);
         setUpListView(order_listview);
         Log.v("asd","DeliveryIncrease-[order_original] :" + order_original);
     }
 
+    private void isEditIncrease(String deliveryOrder_json){
+        //Edit
+        if (ObjectUtil.isNotNullEmpty(deliveryOrder_json)) {
+            DeliveryOrderCombine deliveryOrderCombine = new DeliveryOrderCombine(DeliveryOrderModel.class);
+            deliveryOrderModel = deliveryOrderCombine.jsonToModel(deliveryOrder_json);
+            toolbar_title.setText(R.string.title_edit_delivery);
+            getDeliveryModelMapWhenEdit(deliveryOrderModel.getDeliveryItem());
+            Log.d("asd","deliveryOrder_json : " + deliveryOrder_json);
+            Log.d("asd","orginalMapByReceivingItemId : " + orginalMapByReceivingItemId);
+            for(ReceivingOrderModel order :order_original){
+                ReceivingOrderModel receivingOrderModel = order.newReceivingOrderModel();
+                List<ReceivingItemModel> newItems = new ArrayList<>();
+                for(ReceivingItemModel item: order.newReceivingOrderModel().getReceivingItem()) {
+                    if (orginalMapByReceivingItemId.containsKey(item.getReceivingId())) {
+                        item.setOutStandingQty(orginalMapByReceivingItemId.get(item.getReceivingId()).getItemQty()!=null?orginalMapByReceivingItemId.get(item.getReceivingId()).getItemQty() + item.getOutStandingQty():item.getOutStandingQty() ==null?0:item.getOutStandingQty());
+                        item.setOutStandingWeight(orginalMapByReceivingItemId.get(item.getReceivingId()).getItemGrossWeight()!=null?orginalMapByReceivingItemId.get(item.getReceivingId()).getItemGrossWeight().add(item.getOutStandingWeight()):item.getOutStandingWeight() ==null?new BigDecimal(0):item.getOutStandingWeight());
+                        newItems.add(item);
+                    }
+                }
+                if(!newItems.isEmpty()){
+                    receivingOrderModel.setReceivingItem(newItems);
+                    order_listview.add(receivingOrderModel);
+                }
+            }
+            setLatestCheckBox(order_listview);
+//            SetDeliveryOrder Field
+            setAllField(deliveryOrderModel);
+        }
+    }
     private void setAllField(DeliveryOrderModel deliveryOrderModel) {
         remark_edit.setText(ObjectUtil.isNullEmpty(deliveryOrderModel.getRemark())?"":deliveryOrderModel.getRemark());
         datePicker.setText(ObjectUtil.dateToString_OnlyDate(deliveryOrderModel.getStockOutDate()));

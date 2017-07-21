@@ -3,6 +3,7 @@ package com.example.james.rms.Operation.Adapter;
 import android.content.Context;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.CardView;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
@@ -16,6 +17,7 @@ import com.example.james.rms.Core.Model.ReceivingItemModel;
 import com.example.james.rms.Core.Model.ReceivingOrderModel;
 import com.example.james.rms.R;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import butterknife.BindView;
@@ -34,8 +36,25 @@ public class DeliveryIncreaseDialogExpandableAdapter extends MyExpandableListAda
         super(context, dataArrayList);
         this.listView = listView;
         this.expandableSelectedModel =expandableSelectedModel;
+        removeZeroRL(dataArrayList);
     }
 
+    private void removeZeroRL(List<ReceivingOrderModel> dataArrayList){
+        for(int i=0; i<dataArrayList.size() ; i++){
+            ReceivingOrderModel receivingOrderModel = dataArrayList.get(i);
+            for(int j=0; j<receivingOrderModel.getReceivingItem().size();j++){
+                ReceivingItemModel receivingItemModel = receivingOrderModel.getReceivingItem().get(j);
+                if((receivingItemModel.getOutStandingQty() !=null && receivingItemModel.getOutStandingQty()==0) && (receivingItemModel.getOutStandingWeight()!=null && receivingItemModel.getOutStandingWeight().compareTo(new BigDecimal(0)) ==0)){
+                    dataArrayList.get(i).getReceivingItem().remove(j);
+                        continue;
+                }
+            }
+            if(dataArrayList.get(i).getReceivingItem().isEmpty()){
+                dataArrayList.remove(i);
+            }
+        }
+        notifyDataSetChanged();
+    }
     @Override
     public View getGroupView(final int groupPosition, final boolean isExpanded, View convertView, ViewGroup parent) {
         GroupHolder holder;
@@ -130,6 +149,7 @@ public class DeliveryIncreaseDialogExpandableAdapter extends MyExpandableListAda
         holder.delivery_item_increase_receivingItem_itemQuantity.setText(ObjectUtil.intToString(receivingItemModel.getItemQty()));
         holder.delivery_item_increase_receivingItem_itemQuantity_unit.setText(receivingItemModel.getProduct().getQuantityProfile()==null?"":receivingItemModel.getProduct().getQuantityProfile().getQuantityUnit());
         holder.weight_outStanding.setText(ObjectUtil.bigDecimalToString(receivingItemModel.getOutStandingWeight()));
+        holder.qty_outStanding.setText(ObjectUtil.intToString(receivingItemModel.getOutStandingQty()));
 //        holder.child_checkbox.setBackgroundColor(ContextCompat.getColor(getContext(),R.color.blueb3ffff));
         if(expandableSelectedModel.getIsItemSelected().containsKey(receivingItemModel.getReceivingId())){
             holder.child_checkbox.setChecked(expandableSelectedModel.getIsItemSelected().get(receivingItemModel.getReceivingId()));
@@ -201,6 +221,9 @@ public class DeliveryIncreaseDialogExpandableAdapter extends MyExpandableListAda
         public TextView delivery_item_increase_receivingItem_itemQuantity_unit;
         @BindView(R.id.delivery_increase_dialog_weight_outStanding)
         public TextView weight_outStanding;
+        @BindView(R.id.delivery_increase_dialog_qty_outStanding)
+        public TextView qty_outStanding;
+
 
         public ChildHolder(View view){
             ButterKnife.bind(this,view);

@@ -131,7 +131,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:layout_weight="2"
-                                android:text="@string/createDate"
+                                android:text="@string/receivingItem_itemReceivingDate"
                                 android:textSize="@dimen/context_text_size"
                                 android:maxLines="2" />
 
@@ -145,7 +145,7 @@
                                 android:maxLines="2"/>
                         </LinearLayout>
 
-                        <!-- ItemGrossWeight Unit-->
+                        <!-- ItemGrossWeight / Unit-->
                         <!--Container-->
                         <LinearLayout
                             android:layout_width="match_parent"
@@ -202,6 +202,64 @@
                             </LinearLayout>
 
                         </LinearLayout>
+
+                        <!-- ItemQTY / Unit-->
+                        <!--Container-->
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/context_layout_size"
+                            android:layout_weight="2"
+                            android:orientation="horizontal">
+
+                            <!--Label-->
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_weight="2"
+                                android:orientation="horizontal">
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:text="@string/receivingItem_itemQuantity_Unit"
+                                    android:textStyle="bold"
+                                    android:textSize="@dimen/context_text_size"
+                                    android:maxLines="2"/>
+
+                            </LinearLayout>
+
+                            <!--QTY-Value-->
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:orientation="horizontal"
+                                android:layout_weight="1">
+
+                                <TextView
+                                    android:id="@+id/receivingItem_itemQty"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textColor="@color/receiving_item_value_color"
+                                    android:textSize="@dimen/context_text_size"
+                                    android:maxLines="2"/>
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="/"
+                                    android:textSize="@dimen/context_text_size"
+                                    android:maxLines="2"/>
+
+                                <TextView
+                                    android:id="@+id/receivingItem_itemQtyUnit"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textColor="@color/receiving_item_value_color"
+                                    android:textSize="@dimen/context_text_size"
+                                    android:maxLines="2"/>
+                            </LinearLayout>
+
+                            </LinearLayout>
 
                     </LinearLayout>
 

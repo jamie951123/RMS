@@ -77,7 +77,9 @@ public class NavigationController extends AppCompatActivity implements Navigatio
     //PutExtra
     private MovementRecord movementRecord;
 
-    String partyId;
+    //Combine
+    private MovementRecordCombine movementRecordCombine = new MovementRecordCombine(MovementRecord.class);
+    private String partyId;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.navigation_controller);
@@ -101,10 +103,8 @@ public class NavigationController extends AppCompatActivity implements Navigatio
         if (savedInstanceState == null) {
             Bundle extras = getIntent().getExtras();
             if(extras == null) {
-//                requestCode= null;
                 movementRecord_str = null;
             } else {
-//                requestCode= extras.getInt("NavigationController");
                 movementRecord_str = extras.getString(StartActivityForResultKey.movementRecord);
             }
         }
@@ -140,17 +140,6 @@ public class NavigationController extends AppCompatActivity implements Navigatio
         super.onResume();
         //Service
     }
-//    private List<InventoryModel> InventoryConfig(String partyId) {
-//        //partyId
-//        String combine_partyId = InventoryCombine.combine_partyIdAndStatus(partyId, Status.PROGRESS);
-//        //Service
-//        InventoryDao inventoryDao = new InventoryDaoImpl();
-//        List<InventoryModel> inventoryModels = inventoryDao.findByPartyIdAndStatus(combine_partyId);
-//
-//        ViewPagerListener viewPagerListener = (MyBaseFragment) fragments.get(2);
-//        viewPagerListener.transferViewPager(R.id.inventory_item,inventoryModels);
-//        return inventoryModels;
-//    }
 
     private void setUpFragmentType(){
 //        fragments.add(new ReceivingContainer());
@@ -172,13 +161,30 @@ public class NavigationController extends AppCompatActivity implements Navigatio
             public void onClick(View v) {
                 Intent intent = new Intent();
                 intent = intent.setClass(getApplication(), OperationContainer.class);
+                MovementRecord movementRecord = new MovementRecord();
+                movementRecord.setOriginalClass_string(NavigationController.class.getCanonicalName());
+                movementRecord.setTargetClass_string(OperationContainer.class.getCanonicalName());
+                movementRecord.setExist_fragment(currentPageToCode(fragments.get(pager.getCurrentItem()).getClass().getCanonicalName()));
+                intent.putExtra(StartActivityForResultKey.movementRecord,movementRecordCombine.modelToJson(movementRecord));
                 startActivity(intent);
                 Toast.makeText(getApplication(),"fabAdd",Toast.LENGTH_SHORT).show();
             }
         });
 
     }
-
+    private int currentPageToCode(String className){
+        int page = StartActivityForResultKey.navProduct;
+      if(className.equals(ProductContainer.class.getCanonicalName())){
+          page = StartActivityForResultKey.navProduct;
+      }else if(className.equals(ReceivingContainer.class.getCanonicalName())){
+          page = StartActivityForResultKey.navReceiving;
+      }else if(className.equals(InventoryContainer.class.getCanonicalName())){
+          page = StartActivityForResultKey.navInventory;
+      }else if(className.equals(DeliveryContainer.class.getCanonicalName())){
+          page = StartActivityForResultKey.navDelivery;
+      }
+       return page;
+    }
     public void setUpViewPager(){
         navPagerAdapter = new NavPagerAdapter(getSupportFragmentManager(), fragments);
         pager.setAdapter(navPagerAdapter);

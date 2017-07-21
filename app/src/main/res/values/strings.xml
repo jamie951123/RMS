@@ -176,7 +176,7 @@
     <string name="label_remenber">Remember</string>
     <string name="label_language">Language</string>
     <string name="label_version">Version</string>
-
+    <string name="label_margin">Margin:</string>
     <!--Context-->
     <!--<string name=""-->
     <!--title-->
