@@ -37,6 +37,23 @@ public class DeliveryOrderModel {
 
     private List<DeliveryItemModel> deliveryItem;
 
+    public DeliveryOrderModel newDeliveryOrderModel(){
+        DeliveryOrderModel d = new DeliveryOrderModel();
+        d.setOrderId(this.orderId);
+        d.setPartyId(this.partyId);
+        d.setRemark(this.status);
+        d.setStockOutDate(this.stockOutDate);
+        d.setCreateDate(this.createDate);
+        d.setCreateBy(this.createBy);
+        d.setCloseDate(this.closeDate);
+        d.setItemQty(this.itemQty);
+        d.setDoNo(this.doNo);
+        d.setLastModifiedDate(this.lastModifiedDate);
+        d.setLastModifiedBy(this.lastModifiedBy);
+        d.setDeliveryItem(this.deliveryItem);
+        return d;
+    }
+
     public Long getOrderId() {
         return orderId;
     }

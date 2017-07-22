@@ -220,8 +220,13 @@ public class DeliveryIncrease extends AppCompatActivity implements View.OnClickL
                 List<ReceivingItemModel> newItems = new ArrayList<>();
                 for(ReceivingItemModel item: order.newReceivingOrderModel().getReceivingItem()) {
                     if (orginalMapByReceivingItemId.containsKey(item.getReceivingId())) {
-                        item.setOutStandingQty(orginalMapByReceivingItemId.get(item.getReceivingId()).getItemQty()!=null?orginalMapByReceivingItemId.get(item.getReceivingId()).getItemQty() + item.getOutStandingQty():item.getOutStandingQty() ==null?0:item.getOutStandingQty());
-                        item.setOutStandingWeight(orginalMapByReceivingItemId.get(item.getReceivingId()).getItemGrossWeight()!=null?orginalMapByReceivingItemId.get(item.getReceivingId()).getItemGrossWeight().add(item.getOutStandingWeight()):item.getOutStandingWeight() ==null?new BigDecimal(0):item.getOutStandingWeight());
+                        Integer orginal_qty = orginalMapByReceivingItemId.get(item.getReceivingId()).getItemQty()==null?0:orginalMapByReceivingItemId.get(item.getReceivingId()).getItemQty();
+                        Integer orginal_outstanding_qty = item.getOutStandingQty()==null?0:item.getOutStandingQty();
+
+                        BigDecimal orginal_w = orginalMapByReceivingItemId.get(item.getReceivingId()).getItemGrossWeight();
+                        BigDecimal orginal_outstanding_w = item.getOutStandingWeight()==null?new BigDecimal(0):item.getOutStandingWeight();
+                        item.setOutStandingQty(orginal_qty+orginal_outstanding_qty);
+                        item.setOutStandingWeight(orginal_w.add(orginal_outstanding_w));
                         newItems.add(item);
                     }
                 }
@@ -375,6 +380,7 @@ public class DeliveryIncrease extends AppCompatActivity implements View.OnClickL
 
         if (saveResult != null) {
             Intent intent = new Intent();
+            movementRecord.setExist_fragment(R.id.nav_stockOut);
             intent.putExtra(StartActivityForResultKey.movementRecord, movementRecordCombine.modelToJson(movementRecord));
             intent.setClass(this, NavigationController.class);
             startActivity(intent);

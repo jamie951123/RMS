@@ -43,6 +43,26 @@ public class DeliveryItemModel {
 
     private ReceivingItemModel receivingItem;
 
+    public DeliveryItemModel newDeliveryItemModel(){
+        DeliveryItemModel deliveryItemModel = new DeliveryItemModel();
+        deliveryItemModel.deliveryItemId = this.deliveryItemId;
+        deliveryItemModel.itemStatus = this.itemStatus;
+        deliveryItemModel.orderId = this.orderId;
+        deliveryItemModel.partyId = this.partyId;
+        deliveryItemModel.itemStockOutDate = this.itemStockOutDate;
+        deliveryItemModel.itemLastModifiedDate = this.itemLastModifiedDate;
+        deliveryItemModel.itemLastModifiedBy = this.itemLastModifiedBy;
+        deliveryItemModel.itemCloseDate = this.itemCloseDate;
+        deliveryItemModel.itemRemark = this.itemRemark;
+        deliveryItemModel.itemQty = this.itemQty;
+        deliveryItemModel.itemGrossWeight = this.itemGrossWeight;
+        deliveryItemModel.receivingId = this.receivingId;
+        deliveryItemModel.deliveryOrder = this.deliveryOrder;
+        deliveryItemModel.receivingItem = this.receivingItem;
+
+        return deliveryItemModel;
+    }
+
     public Long getDeliveryItemId() {
         return deliveryItemId;
     }
@@ -188,7 +208,6 @@ public class DeliveryItemModel {
                 ", itemGrossWeight=" + itemGrossWeight +
                 ", itemQty=" + itemQty +
                 ", receivingId=" + receivingId +
-                ", deliveryOrder=" + deliveryOrder +
                 ", receivingItem=" + receivingItem +
                 '}';
     }

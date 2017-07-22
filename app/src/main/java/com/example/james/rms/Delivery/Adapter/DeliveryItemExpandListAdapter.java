@@ -44,8 +44,8 @@ public class DeliveryItemExpandListAdapter extends MyExpandableListAdapter<Deliv
     //Dao
     private DeliveryItemDao deliveryItemDao;
 
-    public DeliveryItemExpandListAdapter(Context context, DeliveryOrderModel deliveryOrderModel) {
-        super(context, deliveryOrderModel.getDeliveryItem());
+    public DeliveryItemExpandListAdapter(Context context, DeliveryOrderModel deliveryOrderModel,DeliveryOrderModel sum_DeliveryOrder) {
+        super(context, sum_DeliveryOrder.getDeliveryItem());
         this.deliveryOrderModel = deliveryOrderModel;
         deliveryItemDao = new DeliveryItemDaoImpl((AppCompatActivity)context);
     }

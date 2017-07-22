@@ -220,6 +220,7 @@ public class ReceivingIncrease extends AppCompatActivity implements View.OnClick
             ReceivingOrderModel saveResult = receivingOrderDao.saveOrderAndItem(result_json);
             if (saveResult != null) {
                 Intent intent = new Intent();
+                movementRecord.setExist_fragment(R.id.nav_receiving);
                 intent.putExtra(StartActivityForResultKey.movementRecord, movementRecordCombine.modelToJson(movementRecord));
                 intent.setClass(this, NavigationController.class);
                 startActivity(intent);

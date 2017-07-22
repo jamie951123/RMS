@@ -1,13 +1,14 @@
 package com.example.james.rms.CommonProfile.Util;
 
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
  * Created by Jamie on 14/7/2017.
  */
 
-public class DeepCopyUtil {
+public class DeepCopyUtil<T> {
 
     public static LinkedHashMap<Long, Boolean> copyLinkedHashMap_Long_Boolean(LinkedHashMap<Long, Boolean> original)
     {

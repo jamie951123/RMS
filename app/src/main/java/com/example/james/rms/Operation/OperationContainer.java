@@ -84,22 +84,22 @@ public class OperationContainer extends AppCompatActivity implements AdapterView
         switch(position){
             case 0:
                 movementRecord.setTargetClass_string(ProductIncrease.class.getCanonicalName());
-                movementRecord.setExist_fragment(this.movementRecord!=null?this.movementRecord.getExist_fragment():StartActivityForResultKey.navProduct);
+                movementRecord.setExist_fragment(this.movementRecord!=null?this.movementRecord.getExist_fragment():R.id.nav_all_product);
                 intent = intent.setClass(this, ProductIncrease.class);
                 break;
             case 1:
                 movementRecord.setTargetClass_string(ReceivingIncrease.class.getCanonicalName());
-                movementRecord.setExist_fragment(this.movementRecord!=null?this.movementRecord.getExist_fragment():StartActivityForResultKey.navReceiving);
+                movementRecord.setExist_fragment(this.movementRecord!=null?this.movementRecord.getExist_fragment():R.id.nav_receiving);
                 intent = intent.setClass(this, ReceivingIncrease.class);
                 break;
             case 2:
                 movementRecord.setTargetClass_string(DeliveryIncrease.class.getCanonicalName());
-                movementRecord.setExist_fragment(this.movementRecord!=null?this.movementRecord.getExist_fragment():StartActivityForResultKey.navDelivery);
+                movementRecord.setExist_fragment(this.movementRecord!=null?this.movementRecord.getExist_fragment():R.id.nav_stockOut);
                 intent = intent.setClass(this, DeliveryIncrease.class);
                 break;
             case 3:
                 movementRecord.setTargetClass_string(DeliveryIncrease.class.getCanonicalName());
-                movementRecord.setExist_fragment(this.movementRecord!=null?this.movementRecord.getExist_fragment():StartActivityForResultKey.navProduct);
+                movementRecord.setExist_fragment(this.movementRecord!=null?this.movementRecord.getExist_fragment():R.id.nav_all_product);
                 intent = intent.setClass(this, UnitIncrease.class);
                 break;
         }
