@@ -42,7 +42,7 @@ public class InventoryItemListAdapter  extends MyBaseAdapter<InventoryModel>{
         }
 
         BigDecimal itemGw = getItem(position).getTotalGrossWeight();
-        String itemGwUnit = getItem(position).getWeightUnit();
+        String itemGwUnit = "";
 
         Integer itemQty = getItem(position).getTotalQty();
         String itemQtyUnit = getItem(position).getQuantityUnit();
@@ -50,8 +50,14 @@ public class InventoryItemListAdapter  extends MyBaseAdapter<InventoryModel>{
         viewHolder.productCode.setText(getItem(position).getProductCode());
         viewHolder.productName.setText(getItem(position).getProductName());
         viewHolder.icon.setImageDrawable(ContextCompat.getDrawable(getContext(),R.drawable.inventory));
-        viewHolder.qty.setText(itemQty==null?"":itemQty.toString()+itemQtyUnit);
-        viewHolder.gw.setText(itemGw==null?"":itemGw.toString()+itemGwUnit);
+        viewHolder.qty.setText(itemQty==null?"":itemQty.toString());
+        viewHolder.gw.setText(itemGw==null?"":itemGw.toString());
+        if( getItem(position)!= null && ObjectUtil.isNotNullEmpty( getItem(position).getWeightUnit()))itemGwUnit = getItem(position).getWeightUnit();
+        if( getItem(position)!= null && ObjectUtil.isNotNullEmpty( getItem(position).getQuantityUnit()))itemQtyUnit = getItem(position).getQuantityUnit();
+
+        viewHolder.w_unit.setText(itemGwUnit);
+        viewHolder.qty_unit.setText(itemQtyUnit);
+        
         String item_title = getContext().getString(R.string.label_storage) +"("+(position+1)+")";
         viewHolder.title.setText(item_title);
         return convertView;
@@ -85,8 +91,12 @@ public class InventoryItemListAdapter  extends MyBaseAdapter<InventoryModel>{
         TextView productName;
         @BindView(R.id.inventory_item_qty)
         TextView qty;
+        @BindView(R.id.inventory_item_qtyunit)
+        TextView qty_unit;
         @BindView(R.id.inventory_item_gw)
         TextView gw;
+        @BindView(R.id.inventory_item_gwunit)
+        TextView w_unit;
         @BindView(R.id.inventory_item_title)
         TextView title;
 

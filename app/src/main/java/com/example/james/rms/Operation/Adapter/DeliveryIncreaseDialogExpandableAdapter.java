@@ -143,7 +143,8 @@ public class DeliveryIncreaseDialogExpandableAdapter extends MyExpandableListAda
         holder.delivery_item_increase_receivingItem_image.setImageDrawable(ContextCompat.getDrawable(getContext(),R.drawable.mailbox_black));
         holder.delivery_item_increase_receivingItem_ProductCode.setText(receivingItemModel.getProduct().getProductCode());
         holder.delivery_item_increase_receivingItem_ProductName.setText(receivingItemModel.getProduct().getProductName());
-        holder.delivery_item_increase_receivingItem_itemReceivingDate.setText(ObjectUtil.dateToString_OnlyDate(receivingItemModel.getItemReceivingDate()));
+//        holder.delivery_item_increase_receivingItem_itemReceivingDate.setText(ObjectUtil.dateToString_OnlyDate(receivingItemModel.getItemReceivingDate()));
+        holder.createDate.setText(ObjectUtil.dateToString(receivingItemModel.getItemCreateDate()));
         holder.delivery_item_increase_receivingItem_itemGrossWeight.setText(ObjectUtil.bigDecimalToString(receivingItemModel.getItemGrossWeight()));
         holder.delivery_item_increase_receivingItem_itemGrossWeight_unit.setText(receivingItemModel.getProduct().getWeightprofile()==null?"":receivingItemModel.getProduct().getWeightprofile().getWeightUnit());
         holder.delivery_item_increase_receivingItem_itemQuantity.setText(ObjectUtil.intToString(receivingItemModel.getItemQty()));
@@ -209,8 +210,10 @@ public class DeliveryIncreaseDialogExpandableAdapter extends MyExpandableListAda
         public TextView delivery_item_increase_receivingItem_ProductCode;
         @BindView(R.id.delivery_item_increase_receivingItem_ProductName)
         public TextView delivery_item_increase_receivingItem_ProductName;
-        @BindView(R.id.delivery_item_increase_receivingItem_itemReceivingDate)
-        public TextView delivery_item_increase_receivingItem_itemReceivingDate;
+//        @BindView(R.id.delivery_item_increase_receivingItem_itemReceivingDate)
+//        public TextView delivery_item_increase_receivingItem_itemReceivingDate;
+    @BindView(R.id.delivery_item_increase_receivingItem_itemCreateDate)
+        public TextView createDate;
         @BindView(R.id.delivery_item_increase_receivingItem_itemGrossWeight)
         public TextView delivery_item_increase_receivingItem_itemGrossWeight;
         @BindView(R.id.delivery_item_increase_receivingItem_itemGrossWeight_unit)

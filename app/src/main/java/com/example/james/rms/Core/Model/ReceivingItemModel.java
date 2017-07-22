@@ -63,6 +63,7 @@ public class ReceivingItemModel {
         receivingItemModel.orderId = this.orderId;
         receivingItemModel.partyId = this.partyId;
         receivingItemModel.itemCreateBy = this.itemCreateBy;
+        receivingItemModel.itemCreateDate = this.itemCreateDate;
         receivingItemModel.itemReceivingDate = this.itemReceivingDate;
         receivingItemModel.itemLastModifiedDate = this.itemLastModifiedDate;
         receivingItemModel.itemLModifiedBy = this.itemLModifiedBy;

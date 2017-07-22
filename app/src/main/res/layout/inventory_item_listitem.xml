@@ -135,7 +135,7 @@
                             android:textColor="@color/colorAccent"
                             android:layout_marginTop="@dimen/increase_list_item_layout_margin"
                             android:layout_marginBottom="@dimen/increase_list_item_layout_margin"
-                            android:padding="@dimen/increase_list_item_edittext_padding"/>
+                            android:paddingLeft="@dimen/increase_list_item_edittext_padding"/>
 
                         <TextView
                             android:id="@+id/inventory_item_qty"
@@ -147,7 +147,7 @@
                             android:textSize="@dimen/increase_list_item_label_size"
                             android:layout_marginTop="@dimen/increase_list_item_layout_margin"
                             android:layout_marginBottom="@dimen/increase_list_item_layout_margin"
-                            android:padding="@dimen/increase_list_item_edittext_padding"/>
+                            android:paddingLeft="@dimen/increase_list_item_edittext_padding"/>
 
                         <TextView
                             android:id="@+id/inventory_item_qtyunit"
@@ -158,8 +158,7 @@
                             android:text="QTYUNIT"
                             android:textSize="@dimen/context_text_size"
                             android:layout_marginTop="@dimen/increase_list_item_layout_margin"
-                            android:layout_marginBottom="@dimen/increase_list_item_layout_margin"
-                            android:padding="@dimen/increase_list_item_edittext_padding"/>
+                            android:layout_marginBottom="@dimen/increase_list_item_layout_margin" />
                     </LinearLayout>
 
                     <View
@@ -184,7 +183,7 @@
                             android:textSize="@dimen/context_text_size"
                             android:layout_marginTop="@dimen/increase_list_item_layout_margin"
                             android:layout_marginBottom="@dimen/increase_list_item_layout_margin"
-                            android:padding="@dimen/increase_list_item_edittext_padding"/>
+                            android:paddingLeft="@dimen/increase_list_item_edittext_padding"/>
 
                         <TextView
                             android:id="@+id/inventory_item_gw"
@@ -196,7 +195,7 @@
                             android:textSize="@dimen/context_text_size"
                             android:layout_marginTop="@dimen/increase_list_item_layout_margin"
                             android:layout_marginBottom="@dimen/increase_list_item_layout_margin"
-                            android:padding="@dimen/increase_list_item_edittext_padding"/>
+                            android:paddingLeft="@dimen/increase_list_item_edittext_padding"/>
 
                         <TextView
                             android:id="@+id/inventory_item_gwunit"
@@ -207,8 +206,7 @@
                             android:text="gwUNit"
                             android:textSize="@dimen/context_text_size"
                             android:layout_marginTop="@dimen/increase_list_item_layout_margin"
-                            android:layout_marginBottom="@dimen/increase_list_item_layout_margin"
-                            android:padding="@dimen/increase_list_item_edittext_padding"/>
+                            android:layout_marginBottom="@dimen/increase_list_item_layout_margin" />
 
                     </LinearLayout>
 
