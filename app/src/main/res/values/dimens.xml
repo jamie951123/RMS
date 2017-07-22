@@ -34,7 +34,8 @@
 
 
     <!--receiving_increase_dialog_header-->
-    <dimen name="increase_dialog_header">50dp</dimen>
+    <dimen name="increase_dialog_header_padding">5dp</dimen>
+    <dimen name="increase_dialog_header">60dp</dimen>
 
     <!--Setting-->
     <dimen name="color_column">30dp</dimen>

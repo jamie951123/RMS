@@ -13,7 +13,8 @@
         android:layout_weight="1"
         android:orientation="horizontal"
         android:foreground="?android:attr/selectableItemBackground"
-        android:background="@color/grayA3C2C2">
+        android:background="@color/grayA3C2C2"
+        android:padding="@dimen/increase_dialog_header_padding">
         <!--Left-->
         <!--ImageView-->
         <LinearLayout

@@ -209,6 +209,7 @@ public class ProductIncrease extends AppCompatActivity implements View.OnClickLi
                     Toast.makeText(this,R.string.insert_successful,Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent();
                     intent = intent.setClass(this, NavigationController.class);
+                    intent.putExtra(StartActivityForResultKey.movementRecord, movementRecordCombine.modelToJson(movementRecord));
                     startActivity(intent);
                     break;
                 }

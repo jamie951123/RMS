@@ -2,185 +2,218 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:card_view="http://schemas.android.com/tools"
-    android:orientation="vertical"
-    android:minHeight="100dp"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:minHeight="100dp"
+    android:orientation="vertical">
 
     <!-- Single ListItem -->
     <android.support.v7.widget.CardView
         android:id="@+id/inventory_item_card_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:minHeight="100dp"
-        android:background="@color/whiteFFFFFF"
         android:layout_margin="4dp"
-        card_view:cardCornerRadius="10dp"
-        android:foreground="?android:attr/selectableItemBackground">
+        android:background="@color/whiteFFFFFF"
+        android:foreground="?android:attr/selectableItemBackground"
+        android:minHeight="100dp"
+        card_view:cardCornerRadius="10dp">
 
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@color/maroon800000"
-                android:layout_weight="3">
+                android:layout_weight="3"
+                android:background="@color/maroon800000">
+
                 <TextView
+                    android:id="@+id/inventory_item_title"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:textColor="@color/whiteFFFFFF"
-                    android:textSize="20sp"
                     android:gravity="center"
-                    android:id="@+id/inventory_item_title"/>
-            </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:minHeight="100dp"
-            android:orientation="horizontal">
-
-        <LinearLayout
-            android:minWidth="80dp"
-            android:layout_width="80dp"
-            android:layout_height="match_parent"
-            android:gravity="center">
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/inventory_item_icon"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/mailbox_black"
-                android:layout_gravity="center"
-                app:civ_border_width="2dp"
-                app:civ_fill_color="@color/blue0895ef" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:layout_weight="1">
-
-            <!-- Product Code -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1">
-
-                <TextView
-                    android:id="@+id/inventory_item_productCode"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:gravity="bottom"
-                    android:text="@string/productCode"
-                    android:textColor="@color/black1F1F1F"
+                    android:textColor="@color/whiteFFFFFF"
                     android:textSize="20sp" />
             </LinearLayout>
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="2dp"
-                android:background="@color/blue0895ef"/>
-
-            <!-- Product Name -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1">
-
-                <TextView
-                    android:id="@+id/inventory_item_productName"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:gravity="top"
-                    android:text="@string/productName"
-                    android:textColor="@color/black1F1F1F"
-                    android:textSize="20sp"
-                    android:textStyle="bold" />
-            </LinearLayout>
-        </LinearLayout>
-
-            <View
-                android:layout_width="1dp"
-                android:layout_height="match_parent"
-                android:background="@color/blue0895ef"/>
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:orientation="vertical">
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
+                android:minHeight="100dp"
                 android:orientation="horizontal">
 
-                <TextView
+                <LinearLayout
                     android:layout_width="80dp"
                     android:layout_height="match_parent"
-                    android:layout_weight="1"
                     android:gravity="center"
-                    android:textColor="@color/colorAccent"
-                    android:text="@string/label_quantity"/>
+                    android:minWidth="80dp">
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="2"
-                    android:id="@+id/inventory_item_qty"
-                    android:gravity="center"
-                    android:text="QTY"/>
-                <!--<TextView-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="match_parent"-->
-                    <!--android:layout_weight="2"-->
-                    <!--android:id="@+id/inventory_item_qtyunit"-->
-                    <!--android:gravity="center"-->
-                    <!--android:text="QTYUNIT"/>-->
-            </LinearLayout>
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="@color/blue0895ef"/>
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/inventory_item_icon"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:src="@drawable/mailbox_black"
+                        app:civ_border_width="2dp"
+                        app:civ_fill_color="@color/blue0895ef"
+                        />
+                </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:gravity="center"
-                    android:orientation="horizontal">
+                    android:orientation="vertical">
 
-                    <TextView
-                        android:layout_width="80dp"
+                    <!-- Product Code -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:textColor="@color/colorAccent"
-                        android:text="@string/label_weight"/>
+                        android:layout_weight="1">
 
-                    <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="2"
-                        android:gravity="center"
-                    android:id="@+id/inventory_item_gw"
-                        android:text="GW"/>
-                    <!--<TextView-->
-                        <!--android:layout_width="match_parent"-->
-                        <!--android:layout_height="match_parent"-->
-                        <!--android:layout_weight="2"-->
-                        <!--android:gravity="center"-->
-                        <!--android:id="@+id/inventory_item_gwunit"-->
-                        <!--android:text="gwUNit"/>-->
+                        <TextView
+                            android:id="@+id/inventory_item_productCode"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="bottom"
+                            android:text="@string/productCode"
+                            android:textColor="@color/black1F1F1F"
+                            android:textSize="20sp" />
+                    </LinearLayout>
 
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="2dp"
+                        android:background="@color/blue0895ef" />
+
+                    <!-- Product Name -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1">
+
+                        <TextView
+                            android:id="@+id/inventory_item_productName"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="top"
+                            android:text="@string/productName"
+                            android:textColor="@color/black1F1F1F"
+                            android:textSize="20sp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
                 </LinearLayout>
 
-        </LinearLayout>
-        </LinearLayout>
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:background="@color/blue0895ef" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <!--QtyContainer-->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="2"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:text="@string/label_quantity"
+                            android:textColor="@color/colorAccent"
+                            android:layout_marginTop="@dimen/increase_list_item_layout_margin"
+                            android:layout_marginBottom="@dimen/increase_list_item_layout_margin"
+                            android:padding="@dimen/increase_list_item_edittext_padding"/>
+
+                        <TextView
+                            android:id="@+id/inventory_item_qty"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_weight="2"
+                            android:gravity="center"
+                            android:text="QTY"
+                            android:textSize="@dimen/increase_list_item_label_size"
+                            android:layout_marginTop="@dimen/increase_list_item_layout_margin"
+                            android:layout_marginBottom="@dimen/increase_list_item_layout_margin"
+                            android:padding="@dimen/increase_list_item_edittext_padding"/>
+
+                        <TextView
+                            android:id="@+id/inventory_item_qtyunit"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_weight="2"
+                            android:gravity="center"
+                            android:text="QTYUNIT"
+                            android:textSize="@dimen/context_text_size"
+                            android:layout_marginTop="@dimen/increase_list_item_layout_margin"
+                            android:layout_marginBottom="@dimen/increase_list_item_layout_margin"
+                            android:padding="@dimen/increase_list_item_edittext_padding"/>
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/blue0895ef" />
+
+                    <!--WContainer-->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="2"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:text="@string/label_weight"
+                            android:textColor="@color/colorAccent"
+                            android:textSize="@dimen/context_text_size"
+                            android:layout_marginTop="@dimen/increase_list_item_layout_margin"
+                            android:layout_marginBottom="@dimen/increase_list_item_layout_margin"
+                            android:padding="@dimen/increase_list_item_edittext_padding"/>
+
+                        <TextView
+                            android:id="@+id/inventory_item_gw"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_weight="2"
+                            android:gravity="center"
+                            android:text="GW"
+                            android:textSize="@dimen/context_text_size"
+                            android:layout_marginTop="@dimen/increase_list_item_layout_margin"
+                            android:layout_marginBottom="@dimen/increase_list_item_layout_margin"
+                            android:padding="@dimen/increase_list_item_edittext_padding"/>
+
+                        <TextView
+                            android:id="@+id/inventory_item_gwunit"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_weight="2"
+                            android:gravity="center"
+                            android:text="gwUNit"
+                            android:textSize="@dimen/context_text_size"
+                            android:layout_marginTop="@dimen/increase_list_item_layout_margin"
+                            android:layout_marginBottom="@dimen/increase_list_item_layout_margin"
+                            android:padding="@dimen/increase_list_item_edittext_padding"/>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+            </LinearLayout>
         </LinearLayout>
     </android.support.v7.widget.CardView>
 

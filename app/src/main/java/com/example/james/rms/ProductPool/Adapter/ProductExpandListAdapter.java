@@ -59,6 +59,13 @@ public class ProductExpandListAdapter extends MyExpandableListAdapter<ProductMod
         holder.productName.setText(productModel.getProductName());
         holder.createDate.setText(ObjectUtil.dateToString(productModel.getCreateDate()));
         holder.productImage.setImageDrawable(ContextCompat.getDrawable(getContext(),R.drawable.mailbox_black));
+        String qtyUnit="";
+        String weightUnit="";
+        if(productModel.getQuantityProfile() != null && ObjectUtil.isNotNullEmpty(productModel.getQuantityProfile().getQuantityUnit()))qtyUnit = productModel.getQuantityProfile().getQuantityUnit();
+        if(productModel.getWeightprofile() != null && ObjectUtil.isNotNullEmpty(productModel.getWeightprofile().getWeightUnit()))weightUnit = productModel.getWeightprofile().getWeightUnit();
+
+        holder.qty_unit.setText(qtyUnit);
+        holder.weight_unit.setText(weightUnit);
 //        GlideApp.with(getContext())
 //                .load(R.drawable.mailbox_black)
 //                .error(R.drawable.question_purple)
@@ -183,6 +190,10 @@ public class ProductExpandListAdapter extends MyExpandableListAdapter<ProductMod
         TextView productName;
         @BindView(R.id.product_createDate)
         TextView createDate;
+        @BindView(R.id.product_qty_unit)
+        TextView qty_unit;
+        @BindView(R.id.product_weight_unit)
+        TextView weight_unit;
         @BindView(R.id.product_product_image)
         com.github.siyamed.shapeimageview.RoundedImageView productImage;
         @BindView(R.id.product_linear_edit)

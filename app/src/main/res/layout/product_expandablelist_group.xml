@@ -146,6 +146,58 @@
                                 android:maxLines="2"/>
                         </LinearLayout>
 
+                        <!--WUnit-->
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/context_layout_size"
+                            android:layout_weight="2"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_weight="2"
+                                android:gravity="center_vertical"
+                                android:text="@string/label_weight_unit"
+                                android:textSize="@dimen/context_text_size"
+                                android:maxLines="2"/>
+
+                            <TextView
+                                android:id="@+id/product_weight_unit"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:gravity="center_vertical"
+                                android:textColor="@color/whiteFFFFFF"
+                                android:layout_weight="1"
+                                android:textSize="@dimen/context_text_size"
+                                android:maxLines="2"/>
+                        </LinearLayout>
+
+                        <!--QtyUnit-->
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/context_layout_size"
+                            android:layout_weight="2"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_weight="2"
+                                android:text="@string/label_quantity_unit"
+                                android:textSize="@dimen/context_text_size"
+                                android:maxLines="2"/>
+
+                            <TextView
+                                android:id="@+id/product_qty_unit"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:textColor="@color/whiteFFFFFF"
+                                android:layout_weight="1"
+                                android:textSize="@dimen/context_text_size"
+                                android:maxLines="2"/>
+                        </LinearLayout>
+
                     </LinearLayout>
 
                 </LinearLayout>

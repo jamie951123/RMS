@@ -17,6 +17,11 @@
         android:foreground="?android:attr/selectableItemBackground"
         card_view:cardCornerRadius="10dp">
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
         <!--Main-->
         <LinearLayout
             android:layout_width="match_parent"
@@ -52,7 +57,8 @@
                 android:layout_height="match_parent"
                 android:layout_weight="32"
                 android:orientation="vertical"
-                android:paddingLeft="@dimen/card_margin">
+                android:paddingLeft="@dimen/card_margin"
+                android:paddingTop="@dimen/increase_dialog_header_padding">
 
                 <!-- Product Code -->
                 <LinearLayout
@@ -129,155 +135,155 @@
                         android:maxLines="2"/>
                 </LinearLayout>
 
-                <!-- ItemQuantity Unit-->
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/context_layout_size"
-                    android:layout_weight="3"
-                    android:orientation="horizontal">
+                <!--&lt;!&ndash; ItemQuantity Unit&ndash;&gt;-->
+                <!--<LinearLayout-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="@dimen/context_layout_size"-->
+                    <!--android:layout_weight="3"-->
+                    <!--android:orientation="horizontal">-->
 
-                    <!--Lable-->
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_weight="3"
-                        android:orientation="horizontal">
+                    <!--&lt;!&ndash;Lable&ndash;&gt;-->
+                    <!--<LinearLayout-->
+                        <!--android:layout_width="match_parent"-->
+                        <!--android:layout_height="match_parent"-->
+                        <!--android:layout_weight="3"-->
+                        <!--android:orientation="horizontal">-->
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/receivingItem_itemQuantity_Unit"
-                            android:textStyle="bold"
-                            android:textSize="@dimen/context_text_size"
-                            android:maxLines="2"/>
+                        <!--<TextView-->
+                            <!--android:layout_width="wrap_content"-->
+                            <!--android:layout_height="wrap_content"-->
+                            <!--android:text="@string/receivingItem_itemQuantity_Unit"-->
+                            <!--android:textStyle="bold"-->
+                            <!--android:textSize="@dimen/context_text_size"-->
+                            <!--android:maxLines="2"/>-->
 
-                    </LinearLayout>
+                    <!--</LinearLayout>-->
 
-                    <!--Value-->
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_weight="2">
+                    <!--&lt;!&ndash;Value&ndash;&gt;-->
+                    <!--<LinearLayout-->
+                        <!--android:layout_width="match_parent"-->
+                        <!--android:layout_height="match_parent"-->
+                        <!--android:layout_weight="2">-->
 
-                        <TextView
-                            android:id="@+id/delivery_item_increase_receivingItem_itemQuantity"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textColor="@color/delivery_increase_dialoag_child_value_color"
-                            android:textSize="@dimen/context_text_size"
-                            android:maxLines="2"/>
+                        <!--<TextView-->
+                            <!--android:id="@+id/delivery_item_increase_receivingItem_itemQuantity"-->
+                            <!--android:layout_width="wrap_content"-->
+                            <!--android:layout_height="wrap_content"-->
+                            <!--android:textColor="@color/delivery_increase_dialoag_child_value_color"-->
+                            <!--android:textSize="@dimen/context_text_size"-->
+                            <!--android:maxLines="2"/>-->
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="/"
-                            android:textSize="@dimen/context_text_size"
-                            android:maxLines="2"/>
+                        <!--<TextView-->
+                            <!--android:layout_width="wrap_content"-->
+                            <!--android:layout_height="wrap_content"-->
+                            <!--android:text="/"-->
+                            <!--android:textSize="@dimen/context_text_size"-->
+                            <!--android:maxLines="2"/>-->
 
-                        <TextView
-                            android:id="@+id/delivery_item_increase_receivingItem_itemQuantity_unit"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textColor="@color/delivery_increase_dialoag_child_value_color"
-                            android:textSize="@dimen/context_text_size"
-                            android:maxLines="2"/>
+                        <!--<TextView-->
+                            <!--android:id="@+id/delivery_item_increase_receivingItem_itemQuantity_unit"-->
+                            <!--android:layout_width="wrap_content"-->
+                            <!--android:layout_height="wrap_content"-->
+                            <!--android:textColor="@color/delivery_increase_dialoag_child_value_color"-->
+                            <!--android:textSize="@dimen/context_text_size"-->
+                            <!--android:maxLines="2"/>-->
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="10dp"
-                            android:textColor="@color/redFF3333"
-                            android:text="@string/label_margin"
-                            android:textSize="@dimen/context_text_size"
-                            android:maxLines="2"/>
+                        <!--<TextView-->
+                            <!--android:layout_width="wrap_content"-->
+                            <!--android:layout_height="wrap_content"-->
+                            <!--android:layout_marginLeft="10dp"-->
+                            <!--android:textColor="@color/redFF3333"-->
+                            <!--android:text="@string/label_margin"-->
+                            <!--android:textSize="@dimen/context_text_size"-->
+                            <!--android:maxLines="2"/>-->
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="2dp"
-                            android:textColor="@color/redFF3333"
-                            android:text="W"
-                            android:id="@+id/delivery_increase_dialog_qty_outStanding"
-                            android:textSize="@dimen/context_text_size"
-                            android:maxLines="2"/>
+                        <!--<TextView-->
+                            <!--android:layout_width="wrap_content"-->
+                            <!--android:layout_height="wrap_content"-->
+                            <!--android:layout_marginLeft="2dp"-->
+                            <!--android:textColor="@color/redFF3333"-->
+                            <!--android:text="W"-->
+                            <!--android:id="@+id/delivery_increase_dialog_qty_outStanding"-->
+                            <!--android:textSize="@dimen/context_text_size"-->
+                            <!--android:maxLines="2"/>-->
 
-                    </LinearLayout>
+                    <!--</LinearLayout>-->
 
-                </LinearLayout>
+                <!--</LinearLayout>-->
 
-                <!-- ItemGrossWeight Unit-->
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/context_layout_size"
-                    android:layout_weight="3"
-                    android:orientation="horizontal">
+                <!--&lt;!&ndash; ItemGrossWeight Unit&ndash;&gt;-->
+                <!--<LinearLayout-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="@dimen/context_layout_size"-->
+                    <!--android:layout_weight="3"-->
+                    <!--android:orientation="horizontal">-->
 
-                    <!--Lable-->
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_weight="3"
-                        android:orientation="horizontal">
+                    <!--&lt;!&ndash;Lable&ndash;&gt;-->
+                    <!--<LinearLayout-->
+                        <!--android:layout_width="match_parent"-->
+                        <!--android:layout_height="match_parent"-->
+                        <!--android:layout_weight="3"-->
+                        <!--android:orientation="horizontal">-->
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/receivingItem_itemWeight_Unit"
-                            android:textStyle="bold"
-                            android:textSize="@dimen/context_text_size"
-                            android:maxLines="2"/>
+                        <!--<TextView-->
+                            <!--android:layout_width="wrap_content"-->
+                            <!--android:layout_height="wrap_content"-->
+                            <!--android:text="@string/receivingItem_itemWeight_Unit"-->
+                            <!--android:textStyle="bold"-->
+                            <!--android:textSize="@dimen/context_text_size"-->
+                            <!--android:maxLines="2"/>-->
 
-                    </LinearLayout>
+                    <!--</LinearLayout>-->
 
-                    <!--Value-->
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_weight="2">
+                    <!--&lt;!&ndash;Value&ndash;&gt;-->
+                    <!--<LinearLayout-->
+                        <!--android:layout_width="match_parent"-->
+                        <!--android:layout_height="match_parent"-->
+                        <!--android:layout_weight="2">-->
 
-                        <TextView
-                            android:id="@+id/delivery_item_increase_receivingItem_itemGrossWeight"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textColor="@color/delivery_increase_dialoag_child_value_color" />
+                        <!--<TextView-->
+                            <!--android:id="@+id/delivery_item_increase_receivingItem_itemGrossWeight"-->
+                            <!--android:layout_width="wrap_content"-->
+                            <!--android:layout_height="wrap_content"-->
+                            <!--android:textColor="@color/delivery_increase_dialoag_child_value_color" />-->
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="/"
-                            android:textSize="@dimen/context_text_size"
-                            android:maxLines="2"/>
+                        <!--<TextView-->
+                            <!--android:layout_width="wrap_content"-->
+                            <!--android:layout_height="wrap_content"-->
+                            <!--android:text="/"-->
+                            <!--android:textSize="@dimen/context_text_size"-->
+                            <!--android:maxLines="2"/>-->
 
-                        <TextView
-                            android:id="@+id/delivery_item_increase_receivingItem_itemGrossWeight_unit"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textColor="@color/delivery_increase_dialoag_child_value_color"
-                            android:textSize="@dimen/context_text_size"
-                            android:maxLines="2"/>
+                        <!--<TextView-->
+                            <!--android:id="@+id/delivery_item_increase_receivingItem_itemGrossWeight_unit"-->
+                            <!--android:layout_width="wrap_content"-->
+                            <!--android:layout_height="wrap_content"-->
+                            <!--android:textColor="@color/delivery_increase_dialoag_child_value_color"-->
+                            <!--android:textSize="@dimen/context_text_size"-->
+                            <!--android:maxLines="2"/>-->
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="10dp"
-                            android:textColor="@color/redFF3333"
-                            android:text="@string/label_margin"
-                            android:textSize="@dimen/context_text_size"
-                            android:maxLines="2"/>
+                        <!--<TextView-->
+                            <!--android:layout_width="wrap_content"-->
+                            <!--android:layout_height="wrap_content"-->
+                            <!--android:layout_marginLeft="10dp"-->
+                            <!--android:textColor="@color/redFF3333"-->
+                            <!--android:text="@string/label_margin"-->
+                            <!--android:textSize="@dimen/context_text_size"-->
+                            <!--android:maxLines="2"/>-->
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="2dp"
-                            android:textColor="@color/redFF3333"
-                            android:text="W"
-                            android:id="@+id/delivery_increase_dialog_weight_outStanding"
-                            android:textSize="@dimen/context_text_size"
-                            android:maxLines="2"/>
+                        <!--<TextView-->
+                            <!--android:layout_width="wrap_content"-->
+                            <!--android:layout_height="wrap_content"-->
+                            <!--android:layout_marginLeft="2dp"-->
+                            <!--android:textColor="@color/redFF3333"-->
+                            <!--android:text="W"-->
+                            <!--android:id="@+id/delivery_increase_dialog_weight_outStanding"-->
+                            <!--android:textSize="@dimen/context_text_size"-->
+                            <!--android:maxLines="2"/>-->
 
-                    </LinearLayout>
+                    <!--</LinearLayout>-->
 
-                </LinearLayout>
+                <!--</LinearLayout>-->
 
 
             </LinearLayout>
@@ -300,6 +306,174 @@
             <!--Finsh-->
         </LinearLayout>
 
+            <!--QtyAndWeight-->
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="@color/blue0895ef"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:layout_weight="1"
+                android:padding="10dp">
+
+            <!-- ItemQuantity Unit-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/context_layout_size"
+                android:layout_weight="3"
+                android:orientation="horizontal">
+
+                <!--Lable-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="4"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="@string/receivingItem_itemQuantity_Unit"
+                        android:textStyle="bold"
+                        android:gravity="center"
+                        android:textSize="@dimen/context_text_size"
+                        android:maxLines="2"/>
+
+                </LinearLayout>
+
+                <!--Value-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:layout_weight="2">
+
+                    <TextView
+                        android:id="@+id/delivery_item_increase_receivingItem_itemQuantity"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/delivery_increase_dialoag_child_value_color"
+                        android:textSize="@dimen/context_text_size"
+                        android:maxLines="2"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="/"
+                        android:textSize="@dimen/context_text_size"
+                        android:maxLines="2"/>
+
+                    <TextView
+                        android:id="@+id/delivery_item_increase_receivingItem_itemQuantity_unit"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/delivery_increase_dialoag_child_value_color"
+                        android:textSize="@dimen/context_text_size"
+                        android:maxLines="2"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:textColor="@color/redFF3333"
+                        android:text="@string/label_margin"
+                        android:textSize="@dimen/context_text_size"
+                        android:maxLines="2"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="2dp"
+                        android:textColor="@color/redFF3333"
+                        android:text="W"
+                        android:id="@+id/delivery_increase_dialog_qty_outStanding"
+                        android:textSize="@dimen/context_text_size"
+                        android:maxLines="2"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <!-- ItemGrossWeight Unit-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/context_layout_size"
+                android:layout_weight="3"
+                android:orientation="horizontal">
+
+                <!--Lable-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="4"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center_horizontal"
+                        android:text="@string/receivingItem_itemWeight_Unit"
+                        android:textStyle="bold"
+                        android:textSize="@dimen/context_text_size"
+                        android:maxLines="2"/>
+
+                </LinearLayout>
+
+                <!--Value-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="2">
+
+                    <TextView
+                        android:id="@+id/delivery_item_increase_receivingItem_itemGrossWeight"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/delivery_increase_dialoag_child_value_color" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="/"
+                        android:textSize="@dimen/context_text_size"
+                        android:maxLines="2"/>
+
+                    <TextView
+                        android:id="@+id/delivery_item_increase_receivingItem_itemGrossWeight_unit"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/delivery_increase_dialoag_child_value_color"
+                        android:textSize="@dimen/context_text_size"
+                        android:maxLines="2"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:textColor="@color/redFF3333"
+                        android:text="@string/label_margin"
+                        android:textSize="@dimen/context_text_size"
+                        android:maxLines="2"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="2dp"
+                        android:textColor="@color/redFF3333"
+                        android:text="W"
+                        android:id="@+id/delivery_increase_dialog_weight_outStanding"
+                        android:textSize="@dimen/context_text_size"
+                        android:maxLines="2"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
 
     </android.support.v7.widget.CardView>
 </LinearLayout>
