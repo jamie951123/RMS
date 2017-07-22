@@ -20,6 +20,7 @@ import com.example.james.rms.Core.Dao.InventoryDaoImpl;
 import com.example.james.rms.Core.Model.InventoryModel;
 import com.example.james.rms.Core.Model.Status;
 import com.example.james.rms.Core.SearchObject.SearchCombine;
+import com.example.james.rms.ITF.Model.RefreshModel;
 import com.example.james.rms.ITF.ViewPagerListener;
 import com.example.james.rms.Inventory.Adapter.InventoryItemListAdapter;
 import com.example.james.rms.R;
@@ -93,6 +94,11 @@ public class Inventory_Item extends MyBaseFragment implements ViewPagerListener,
     @Override
     public void transferViewPager(int rid, Object models) {
 
+    }
+
+    @Override
+    public void refresh(RefreshModel refreshModel) {
+        getData();
     }
 
     @Override

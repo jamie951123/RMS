@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.james.rms.CommonProfile.MyAdapter.MyBaseFragment;
+import com.example.james.rms.ITF.Model.RefreshModel;
 import com.example.james.rms.R;
 
 import java.util.List;
@@ -45,6 +46,11 @@ public class InventoryItem2  extends MyBaseFragment {
 
     @Override
     public void transferViewPager(int rid, Object models) {
+
+    }
+
+    @Override
+    public void refresh(RefreshModel refreshModel) {
 
     }
 }

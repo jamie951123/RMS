@@ -25,7 +25,10 @@ import com.example.james.rms.Core.Dao.ReceivingOrderDaoImpl;
 import com.example.james.rms.Core.Model.MovementRecord;
 import com.example.james.rms.Core.Model.ReceivingOrderModel;
 import com.example.james.rms.Core.Model.ResponseMessage;
+import com.example.james.rms.Delivery.DeliveryContainer;
+import com.example.james.rms.ITF.Model.RefreshModel;
 import com.example.james.rms.ITF.ViewPagerListener;
+import com.example.james.rms.Inventory.Tab.InventoryContainer;
 import com.example.james.rms.Operation.ReceivingAction.ReceivingIncrease;
 import com.example.james.rms.R;
 import com.google.gson.Gson;
@@ -64,7 +67,7 @@ public class ReceivingOrderExpandListAdapter extends MyExpandableListAdapter<Rec
         holder.receivingOrder_date.setText(ObjectUtil.dateToString_OnlyDate(receivingOrderModel.getReceivingDate()));
 //        holder.receivingOrder_actualQty.setText(ObjectUtil.intToString(receivingOrderModel.getActualQty()));
 //        holder.receivingOrder_estimateQty.setText(ObjectUtil.intToString(receivingOrderModel.getEstimateQty()));
-        holder.receivingOrder_itemQty.setText(ObjectUtil.intToString(receivingOrderModel.getItemQty()));
+        holder.receivingOrder_itemQty.setText(ObjectUtil.intToString(receivingOrderModel.getReceivingItem()==null?0:receivingOrderModel.getReceivingItem().size()));
         holder.receivingOrder_image.setImageDrawable(ContextCompat.getDrawable(getContext(),R.drawable.input));
 
 //        GlideApp.with(getContext())
@@ -81,7 +84,7 @@ public class ReceivingOrderExpandListAdapter extends MyExpandableListAdapter<Rec
                 String receivingOrder_json = receivingOrderCombine.modelToJson(receivingOrderModel);
                 if(ObjectUtil.isNotNullEmpty(receivingOrder_json)) {
                     //MovementRecord
-                    String movementRecord_str = CommonFactory.movementFactory_str(NavigationController.class.getCanonicalName(),ReceivingIncrease.class.getCanonicalName(),StartActivityForResultKey.navReceiving);
+                    String movementRecord_str = CommonFactory.movementFactory_str(NavigationController.class.getCanonicalName(),ReceivingIncrease.class.getCanonicalName(),R.id.nav_receiving);
                     //
                     Intent intent = new Intent();
                     intent.setClass(getContext(), ReceivingIncrease.class);
@@ -119,6 +122,8 @@ public class ReceivingOrderExpandListAdapter extends MyExpandableListAdapter<Rec
                     if(responseMessage != null && ResponseStatus.getSuccessful().equalsIgnoreCase(responseMessage.getMessage_status())){
                         getFilteredData().remove(groupPosition);
                         notifyDataSetChanged();
+                        refresh(DeliveryContainer.class.getCanonicalName(),R.layout.delivery_order);
+                        refresh(InventoryContainer.class.getCanonicalName(),R.layout.inventort_item);
                     }
 
                 }catch (Exception e){
@@ -213,5 +218,13 @@ public class ReceivingOrderExpandListAdapter extends MyExpandableListAdapter<Rec
         public ChildHolder(View view){
             ButterKnife.bind(this,view);
         }
+    }
+
+    private void refresh(String className,int rid){
+        ViewPagerListener viewPagerListener = (NavigationController)getContext();
+        RefreshModel refreshModel = new RefreshModel();
+        refreshModel.setClassName(className);
+        refreshModel.setRid(rid);
+        viewPagerListener.refresh(refreshModel);
     }
 }

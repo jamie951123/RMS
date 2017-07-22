@@ -22,7 +22,9 @@ import com.example.james.rms.Core.Dao.DeliveryOrderDao;
 import com.example.james.rms.Core.Dao.DeliveryOrderDaoImpl;
 import com.example.james.rms.Core.Model.DeliveryOrderModel;
 import com.example.james.rms.Core.Model.ResponseMessage;
+import com.example.james.rms.ITF.Model.RefreshModel;
 import com.example.james.rms.ITF.ViewPagerListener;
+import com.example.james.rms.Inventory.Tab.InventoryContainer;
 import com.example.james.rms.Operation.DeliveryAction.DeliveryIncrease;
 import com.example.james.rms.R;
 
@@ -58,7 +60,7 @@ public class DeliveryOrderExpandListAdapter extends MyExpandableListAdapter<Deli
         }
         holder.deliveryOrder_orderId.setText(ObjectUtil.longToString(deliveryOrderModel.getOrderId()));
         holder.deliveryOrder_date.setText(ObjectUtil.dateToString_OnlyDate(deliveryOrderModel.getStockOutDate()));
-        holder.deliveryOrder_itemQty.setText(ObjectUtil.intToString(deliveryOrderModel.getItemQty()));
+        holder.deliveryOrder_itemQty.setText(ObjectUtil.intToString(deliveryOrderModel.getDeliveryItem()==null?0:deliveryOrderModel.getDeliveryItem().size()));
         holder.deliveryOrder_image.setImageDrawable(ContextCompat.getDrawable(getContext(),R.drawable.output));
 //        GlideApp.with(getContext())
 //                .load(R.drawable.output)
@@ -71,7 +73,7 @@ public class DeliveryOrderExpandListAdapter extends MyExpandableListAdapter<Deli
             @Override
             public void onClick(View v) {
                 //Movement Record
-                String movementRecord_str = CommonFactory.movementFactory_str(NavigationController.class.getCanonicalName(),DeliveryIncrease.class.getCanonicalName(),StartActivityForResultKey.navDelivery);
+                String movementRecord_str = CommonFactory.movementFactory_str(NavigationController.class.getCanonicalName(),DeliveryIncrease.class.getCanonicalName(),R.id.nav_stockOut);
 
                 //
                 Intent intent = new Intent();
@@ -96,6 +98,7 @@ public class DeliveryOrderExpandListAdapter extends MyExpandableListAdapter<Deli
                     if (responseMessage != null && ResponseStatus.getSuccessful().equalsIgnoreCase(responseMessage.getMessage_status())) {
                         getFilteredData().remove(groupPosition);
                         notifyDataSetChanged();
+                        refresh(InventoryContainer.class.getCanonicalName(),R.layout.inventort_item);
                     }
                 }catch (Exception e){
                     e.printStackTrace();
@@ -199,6 +202,14 @@ public class DeliveryOrderExpandListAdapter extends MyExpandableListAdapter<Deli
         public ChildHolder(View view){
             ButterKnife.bind(this,view);
         }
+    }
+
+    private void refresh(String className,int rid){
+        ViewPagerListener viewPagerListener = (NavigationController)getContext();
+        RefreshModel refreshModel = new RefreshModel();
+        refreshModel.setClassName(className);
+        refreshModel.setRid(rid);
+        viewPagerListener.refresh(refreshModel);
     }
 
 }

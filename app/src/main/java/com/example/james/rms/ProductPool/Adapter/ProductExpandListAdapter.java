@@ -11,16 +11,19 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.example.james.rms.CommonProfile.CommonFactory;
 import com.example.james.rms.CommonProfile.MyAdapter.MyExpandableListAdapter;
 import com.example.james.rms.CommonProfile.ResponseStatus;
 import com.example.james.rms.CommonProfile.StartActivityForResultKey;
 import com.example.james.rms.CommonProfile.Util.ObjectUtil;
+import com.example.james.rms.Controller.NavigationController;
 import com.example.james.rms.Core.Combine.ProductCombine;
 import com.example.james.rms.Core.Dao.ProductDao;
 import com.example.james.rms.Core.Dao.ProductDaoImpl;
 import com.example.james.rms.Core.Model.ProductModel;
 import com.example.james.rms.Core.Model.ResponseMessage;
 import com.example.james.rms.Operation.ProductAction.ProductIncrease;
+import com.example.james.rms.Operation.ReceivingAction.ReceivingIncrease;
 import com.example.james.rms.R;
 
 import java.util.List;
@@ -66,11 +69,15 @@ public class ProductExpandListAdapter extends MyExpandableListAdapter<ProductMod
         holder.linear_edit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                String movementRecord_str = CommonFactory.movementFactory_str(NavigationController.class.getCanonicalName(),ReceivingIncrease.class.getCanonicalName(),R.id.nav_all_product);
+
                 ProductCombine productCombine = new ProductCombine(ProductModel.class);
                 String editModel = productCombine.modelToJson(getFilteredData().get(groupPosition));
                 Intent intent = new Intent();
                 intent.setClass(getContext(), ProductIncrease.class);
                 intent.putExtra(StartActivityForResultKey.productModel,editModel);
+                intent.putExtra(StartActivityForResultKey.movementRecord,movementRecord_str);
+
                 getContext().startActivity(intent);
                 Log.d("asd",editModel);
             }

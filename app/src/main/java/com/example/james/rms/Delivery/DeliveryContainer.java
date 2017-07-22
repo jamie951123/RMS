@@ -7,10 +7,12 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.james.rms.CommonProfile.MyAdapter.MyBaseFragment;
+import com.example.james.rms.Controller.CommunicateService.NavToRL;
 import com.example.james.rms.Controller.MyViewPager;
 import com.example.james.rms.Delivery.Adapter.DeliveryContainer_adapter;
 import com.example.james.rms.Delivery.Tab.Delivery_Item;
 import com.example.james.rms.Delivery.Tab.Delivery_Order;
+import com.example.james.rms.ITF.Model.RefreshModel;
 import com.example.james.rms.R;
 
 import java.util.ArrayList;
@@ -23,7 +25,7 @@ import butterknife.ButterKnife;
  * Created by Jamie on 15/6/2017.
  */
 
-public class DeliveryContainer extends MyBaseFragment {
+public class DeliveryContainer extends MyBaseFragment implements NavToRL {
 
     @BindView(R.id.delivery_container_pages)
     MyViewPager pager;
@@ -39,7 +41,7 @@ public class DeliveryContainer extends MyBaseFragment {
         fragments.add(new Delivery_Item());
         deliveryContainer_adapter = new DeliveryContainer_adapter(getFragmentManager(),fragments);
         pager.setAdapter(deliveryContainer_adapter);
-//        pager.setPagingEnabled(false);
+        pager.setPagingEnabled(false);
         return rootView;
     }
 
@@ -76,5 +78,31 @@ public class DeliveryContainer extends MyBaseFragment {
                 pager.setCurrentItem(1);
                 break;
         }
+    }
+
+    @Override
+    public void refresh(RefreshModel refreshModel) {
+        Fragment fragment = null;
+        switch (refreshModel.getRid()){
+            case R.layout.delivery_order:
+                fragment = fragments.get(0);
+                break;
+            case R.layout.delivery_item:
+                fragment = fragments.get(1);
+                break;
+        }
+        if(fragment != null){
+            MyBaseFragment myBaseFragment = (MyBaseFragment) fragment;
+            myBaseFragment.refresh(refreshModel);
+        }
+    }
+
+    @Override
+    public boolean changeCurrentPage() {
+        if(pager.getCurrentItem() ==0){
+            return false;
+        }
+        pager.setCurrentItem(0);
+        return true;
     }
 }

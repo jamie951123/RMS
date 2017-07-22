@@ -11,6 +11,7 @@ import com.example.james.rms.CommonProfile.MyAdapter.MyBaseFragment;
 import com.example.james.rms.CommonProfile.Util.ObjectUtil;
 import com.example.james.rms.Core.Model.ReceivingItemModel;
 import com.example.james.rms.Core.Model.ReceivingOrderModel;
+import com.example.james.rms.ITF.Model.RefreshModel;
 import com.example.james.rms.R;
 import com.example.james.rms.Receiving.Adapter.ReceivingItemExpandListAdapter;
 import com.github.mikephil.charting.charts.HorizontalBarChart;
@@ -80,6 +81,11 @@ public class Receiving_item extends MyBaseFragment {
 
         GenericChat genericChat = new GenericChat();
         genericChat.horizontalBarChart(getActivity(),horizontalBarChart,getCharDate(),getLabel());
+
+    }
+
+    @Override
+    public void refresh(RefreshModel refreshModel) {
 
     }
 

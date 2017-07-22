@@ -21,6 +21,7 @@ import com.example.james.rms.Core.Dao.DeliveryOrderDaoImpl;
 import com.example.james.rms.Core.Model.DeliveryOrderModel;
 import com.example.james.rms.Core.Model.Status;
 import com.example.james.rms.Delivery.Adapter.DeliveryOrderExpandListAdapter;
+import com.example.james.rms.ITF.Model.RefreshModel;
 import com.example.james.rms.R;
 
 import java.util.List;
@@ -97,6 +98,11 @@ public class Delivery_Order extends MyBaseFragment implements SwipeRefreshLayout
     @Override
     public void transferViewPager(int rid, Object model) {
 
+    }
+
+    @Override
+    public void refresh(RefreshModel refreshModel) {
+        getData();
     }
 
     @Override

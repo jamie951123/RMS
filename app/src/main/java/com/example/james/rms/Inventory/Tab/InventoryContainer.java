@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 
 import com.example.james.rms.CommonProfile.MyAdapter.MyBaseFragment;
 import com.example.james.rms.Controller.MyViewPager;
+import com.example.james.rms.ITF.Model.RefreshModel;
 import com.example.james.rms.ITF.ViewPagerListener;
 import com.example.james.rms.Inventory.Adapter.InventoryContainer_Adapter;
 import com.example.james.rms.R;
@@ -37,6 +38,7 @@ public class InventoryContainer extends MyBaseFragment implements ViewPagerListe
         fragments.add(new InventoryItem2());
         adapter = new InventoryContainer_Adapter(getActivity().getSupportFragmentManager(),fragments);
         pager.setAdapter(adapter);
+        pager.setPagingEnabled(false);
         return rootView;
     }
 
@@ -76,5 +78,22 @@ public class InventoryContainer extends MyBaseFragment implements ViewPagerListe
     @Override
     public void transferViewPager(int rid, Object models) {
 
+    }
+
+    @Override
+    public void refresh(RefreshModel refreshModel) {
+        Fragment fragment = null;
+        switch (refreshModel.getRid()){
+            case R.layout.inventort_item:
+                fragment = fragments.get(0);
+                break;
+            case R.layout.inventory_item2:
+                fragment = fragments.get(1);
+                break;
+        }
+        if(fragment != null){
+            MyBaseFragment myBaseFragment = (MyBaseFragment) fragment;
+            myBaseFragment.refresh(refreshModel);
+        }
     }
 }

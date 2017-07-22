@@ -24,8 +24,13 @@ import com.example.james.rms.Core.Dao.ReceivingItemDaoImpl;
 import com.example.james.rms.Core.Model.ReceivingItemModel;
 import com.example.james.rms.Core.Model.ReceivingOrderModel;
 import com.example.james.rms.Core.Model.ResponseMessage;
+import com.example.james.rms.Delivery.DeliveryContainer;
+import com.example.james.rms.ITF.Model.RefreshModel;
+import com.example.james.rms.ITF.ViewPagerListener;
+import com.example.james.rms.Inventory.Tab.InventoryContainer;
 import com.example.james.rms.Operation.ReceivingAction.ReceivingIncrease;
 import com.example.james.rms.R;
+import com.example.james.rms.Receiving.ReceivingContainer;
 import com.google.gson.Gson;
 
 import butterknife.BindView;
@@ -86,7 +91,7 @@ public class ReceivingItemExpandListAdapter extends MyExpandableListAdapter<Rece
                     }
                     if(ObjectUtil.isNotNullEmpty(receivingOrder_json)) {
                         //MovementRecord
-                        String movementRecord_str = CommonFactory.movementFactory_str(NavigationController.class.getCanonicalName(),ReceivingIncrease.class.getCanonicalName(),StartActivityForResultKey.navReceiving);
+                        String movementRecord_str = CommonFactory.movementFactory_str(NavigationController.class.getCanonicalName(),ReceivingIncrease.class.getCanonicalName(),R.id.nav_receiving);
                         //
                         Intent intent = new Intent();
                         intent.setClass(getContext(), ReceivingIncrease.class);
@@ -108,6 +113,9 @@ public class ReceivingItemExpandListAdapter extends MyExpandableListAdapter<Rece
                     if (responseMessage != null && ResponseStatus.getSuccessful().equalsIgnoreCase(responseMessage.getMessage_status())) {
                         getFilteredData().remove(groupPosition);
                         notifyDataSetChanged();
+                        refresh(ReceivingContainer.class.getCanonicalName(),R.layout.receiving_order);
+                        refresh(DeliveryContainer.class.getCanonicalName(),R.layout.delivery_order);
+                        refresh(InventoryContainer.class.getCanonicalName(),R.layout.inventort_item);
                     }
                     Log.d("asd", "[ReceivingItemExpandListAdapter]-responseMessage : " + responseMessage);
                 }
@@ -206,5 +214,13 @@ public class ReceivingItemExpandListAdapter extends MyExpandableListAdapter<Rece
         public ChildHolder(View view){
             ButterKnife.bind(this,view);
         }
+    }
+
+    private void refresh(String className ,int rid){
+        ViewPagerListener viewPagerListener = (NavigationController)getContext();
+        RefreshModel refreshModel = new RefreshModel();
+        refreshModel.setClassName(className);
+        refreshModel.setRid(rid);
+        viewPagerListener.refresh(refreshModel);
     }
 }

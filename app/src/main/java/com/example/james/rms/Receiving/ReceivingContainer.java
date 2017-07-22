@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import com.example.james.rms.CommonProfile.MyAdapter.MyBaseFragment;
 import com.example.james.rms.Controller.CommunicateService.NavToRL;
 import com.example.james.rms.Controller.MyViewPager;
+import com.example.james.rms.ITF.Model.RefreshModel;
 import com.example.james.rms.R;
 import com.example.james.rms.Receiving.Adapter.ReceivingContainer_Adapter;
 import com.example.james.rms.Receiving.Tab.Receiving_item;
@@ -36,7 +37,7 @@ public class ReceivingContainer extends MyBaseFragment implements NavToRL {
         fragments.add(new Receiving_item());
         receivingContainer_adapter = new ReceivingContainer_Adapter(getFragmentManager(),fragments);
         pager.setAdapter(receivingContainer_adapter);
-//        pager.setPagingEnabled(false);
+        pager.setPagingEnabled(false);
         return rootView;
     }
 
@@ -74,6 +75,24 @@ public class ReceivingContainer extends MyBaseFragment implements NavToRL {
                 pager.setCurrentItem(1);
                 break;
         }
+    }
+
+    @Override
+    public void refresh(RefreshModel refreshModel) {
+        Fragment fragment = null;
+        switch (refreshModel.getRid()){
+            case R.layout.receiving_order:
+                fragment = fragments.get(0);
+                break;
+            case R.layout.receiving_item:
+                fragment = fragments.get(1);
+                break;
+        }
+        if(fragment != null){
+            MyBaseFragment myBaseFragment = (MyBaseFragment) fragment;
+            myBaseFragment.refresh(refreshModel);
+        }
+
     }
 
     @Override

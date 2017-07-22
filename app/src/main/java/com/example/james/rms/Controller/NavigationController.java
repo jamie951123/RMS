@@ -33,6 +33,7 @@ import com.example.james.rms.Controller.CommunicateService.NavToRL;
 import com.example.james.rms.Core.Combine.MovementRecordCombine;
 import com.example.james.rms.Core.Model.MovementRecord;
 import com.example.james.rms.Delivery.DeliveryContainer;
+import com.example.james.rms.ITF.Model.RefreshModel;
 import com.example.james.rms.ITF.ViewPagerListener;
 import com.example.james.rms.Inventory.Tab.InventoryContainer;
 import com.example.james.rms.Login.LoginActivity;
@@ -118,16 +119,16 @@ public class NavigationController extends AppCompatActivity implements Navigatio
             switch (requestCode) {
                 case StartActivityForResultKey.navNull:
                     break;
-                case StartActivityForResultKey.navProduct:
+                case R.id.nav_all_product:
                     changeFragmentAndTitle(R.id.nav_all_product);
                     break;
-                case StartActivityForResultKey.navReceiving:
+                case R.id.nav_receiving:
                     changeFragmentAndTitle(R.id.nav_receiving);
                     break;
-                case StartActivityForResultKey.navInventory:
+                case R.id.nav_inventory:
                     changeFragmentAndTitle(R.id.nav_inventory);
                     break;
-                case StartActivityForResultKey.navDelivery:
+                case R.id.nav_stockOut:
                     changeFragmentAndTitle(R.id.nav_stockOut);
                     break;
                 default:
@@ -142,11 +143,11 @@ public class NavigationController extends AppCompatActivity implements Navigatio
     }
 
     private void setUpFragmentType(){
-//        fragments.add(new ReceivingContainer());
-        fragments.add(new ProductContainer());
         fragments.add(new ReceivingContainer());
-        fragments.add(new InventoryContainer());
         fragments.add(new DeliveryContainer());
+        fragments.add(new InventoryContainer());
+        fragments.add(new ProductContainer());
+
     }
 
     private void FabSetting() {
@@ -173,15 +174,15 @@ public class NavigationController extends AppCompatActivity implements Navigatio
 
     }
     private int currentPageToCode(String className){
-        int page = StartActivityForResultKey.navProduct;
+        int page = R.id.nav_all_product;
       if(className.equals(ProductContainer.class.getCanonicalName())){
-          page = StartActivityForResultKey.navProduct;
+          page = R.id.nav_all_product;
       }else if(className.equals(ReceivingContainer.class.getCanonicalName())){
-          page = StartActivityForResultKey.navReceiving;
+          page = R.id.nav_receiving;
       }else if(className.equals(InventoryContainer.class.getCanonicalName())){
-          page = StartActivityForResultKey.navInventory;
+          page = R.id.nav_inventory;
       }else if(className.equals(DeliveryContainer.class.getCanonicalName())){
-          page = StartActivityForResultKey.navDelivery;
+          page = R.id.nav_stockOut;
       }
        return page;
     }
@@ -191,16 +192,15 @@ public class NavigationController extends AppCompatActivity implements Navigatio
         pager.setOffscreenPageLimit(fragments.size());
         //setTouchEvent
         pager.setPagingEnabled(false);
-        pager.setCurrentItem(0,true);
+//        pager.setCurrentItem(0,true);
+        changeFragmentAndTitle(currentPageToCode(fragments.get(pager.getCurrentItem()).getClass().getCanonicalName()));
     }
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
-
         changeFragmentAndTitle(id);
-
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
@@ -209,20 +209,24 @@ public class NavigationController extends AppCompatActivity implements Navigatio
 
     private void changeFragmentAndTitle(int id) {
         if (id == R.id.nav_all_product) {
-            pager.setCurrentItem(0);
-            toolbar.setTitle(R.string.allproduct);
+            pager.setCurrentItem(3);
+//            toolbar.setTitle(R.string.allproduct);
+            getSupportActionBar().setTitle(R.string.allproduct);
             navigationView.setCheckedItem(R.id.nav_all_product);
         } else if (id == R.id.nav_receiving) {
-            pager.setCurrentItem(1);
-            toolbar.setTitle(R.string.receiving);
+            pager.setCurrentItem(0);
+//            toolbar.setTitle(R.string.receiving);
+            getSupportActionBar().setTitle(R.string.receiving);
             navigationView.setCheckedItem(R.id.nav_receiving);
         } else if (id == R.id.nav_inventory) {
             pager.setCurrentItem(2);
             toolbar.setTitle(R.string.inventory);
+            getSupportActionBar().setTitle(R.string.inventory);
             navigationView.setCheckedItem(R.id.nav_inventory);
         } else if (id == R.id.nav_stockOut) {
-            pager.setCurrentItem(3);
-            toolbar.setTitle(R.string.stockout);
+            pager.setCurrentItem(1);
+//            toolbar.setTitle(R.string.stockout);
+            getSupportActionBar().setTitle(R.string.stockout);
             navigationView.setCheckedItem(R.id.nav_stockOut);
 //        } else if (id == R.id.nav_record) {
             //            toolbar.setTitle(R.string.record);
@@ -256,7 +260,7 @@ public class NavigationController extends AppCompatActivity implements Navigatio
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
-        getSupportActionBar().setTitle(R.string.allproduct);
+//        getSupportActionBar().setTitle("");
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -301,10 +305,15 @@ public class NavigationController extends AppCompatActivity implements Navigatio
         } else {
             Log.v("asd","pager :" +pager.getCurrentItem());
             boolean isFirst = false;
+            Fragment fragment = fragments.get(pager.getCurrentItem());
+            NavToRL navToRl = null;
             switch (pager.getCurrentItem()){
+                case 0:
+                    navToRl = (ReceivingContainer)fragment;
+                    isFirst = navToRl.changeCurrentPage();
+                    break;
                 case 1:
-                    Fragment fragment = fragments.get(pager.getCurrentItem());
-                    NavToRL navToRl = (ReceivingContainer)fragment;
+                    navToRl = (DeliveryContainer)fragment;
                     isFirst = navToRl.changeCurrentPage();
                     break;
             }
@@ -377,6 +386,19 @@ public class NavigationController extends AppCompatActivity implements Navigatio
             e.printStackTrace();
         }
 
+    }
+
+    @Override
+    public void refresh(RefreshModel refreshModel) {
+        for(int i=0; i<fragments.size();i++){
+            fragments.get(i).getClass().getCanonicalName();
+            if(refreshModel.getClassName().equals(fragments.get(i).getClass().getCanonicalName())){
+                Fragment fragment = fragments.get(i);
+                MyBaseFragment myBaseFragment = (MyBaseFragment)fragment;
+                myBaseFragment.refresh(refreshModel);
+                break;
+            }
+        }
     }
 
     @Override

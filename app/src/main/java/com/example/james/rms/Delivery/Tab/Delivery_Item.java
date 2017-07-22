@@ -15,6 +15,7 @@ import com.example.james.rms.Core.Combine.DeliveryItemCombine;
 import com.example.james.rms.Core.Model.DeliveryItemModel;
 import com.example.james.rms.Core.Model.DeliveryOrderModel;
 import com.example.james.rms.Delivery.Adapter.DeliveryItemExpandListAdapter;
+import com.example.james.rms.ITF.Model.RefreshModel;
 import com.example.james.rms.R;
 import com.github.mikephil.charting.charts.HorizontalBarChart;
 import com.github.mikephil.charting.data.BarEntry;
@@ -99,6 +100,11 @@ public class Delivery_Item extends MyBaseFragment{
         GenericChat genericChat = new GenericChat();
         getCharDateAndLabel();
         genericChat.horizontalBarChart(getActivity(),horizontalBarChart,barEntries,theName);
+    }
+
+    @Override
+    public void refresh(RefreshModel refreshModel) {
+
     }
 
     public void getCharDateAndLabel(){

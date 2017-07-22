@@ -20,6 +20,7 @@ import com.example.james.rms.Controller.NavigationController;
 import com.example.james.rms.Core.Dao.ReceivingOrderDao;
 import com.example.james.rms.Core.Dao.ReceivingOrderDaoImpl;
 import com.example.james.rms.Core.Model.ReceivingOrderModel;
+import com.example.james.rms.ITF.Model.RefreshModel;
 import com.example.james.rms.ITF.ViewPagerListener;
 import com.example.james.rms.R;
 import com.example.james.rms.Receiving.Adapter.ReceivingOrderExpandListAdapter;
@@ -116,6 +117,11 @@ public class Receiving_order extends MyBaseFragment implements AdapterView.OnIte
     @Override
     public void transferViewPager(int rid, Object models) {
 
+    }
+
+    @Override
+    public void refresh(RefreshModel refreshModel) {
+        getData();
     }
 
     @Override

@@ -23,6 +23,10 @@ import com.example.james.rms.Core.Dao.DeliveryItemDaoImpl;
 import com.example.james.rms.Core.Model.DeliveryItemModel;
 import com.example.james.rms.Core.Model.DeliveryOrderModel;
 import com.example.james.rms.Core.Model.ResponseMessage;
+import com.example.james.rms.Delivery.DeliveryContainer;
+import com.example.james.rms.ITF.Model.RefreshModel;
+import com.example.james.rms.ITF.ViewPagerListener;
+import com.example.james.rms.Inventory.Tab.InventoryContainer;
 import com.example.james.rms.Operation.DeliveryAction.DeliveryIncrease;
 import com.example.james.rms.R;
 import com.github.siyamed.shapeimageview.RoundedImageView;
@@ -69,7 +73,7 @@ public class DeliveryItemExpandListAdapter extends MyExpandableListAdapter<Deliv
             @Override
             public void onClick(View view) {
                 //Movement Record
-                String movementRecord_str = CommonFactory.movementFactory_str(NavigationController.class.getCanonicalName(),DeliveryIncrease.class.getCanonicalName(),StartActivityForResultKey.navDelivery);
+                String movementRecord_str = CommonFactory.movementFactory_str(NavigationController.class.getCanonicalName(),DeliveryIncrease.class.getCanonicalName(),R.id.nav_stockOut);
 
                 //
                 Intent intent = new Intent();
@@ -92,6 +96,8 @@ public class DeliveryItemExpandListAdapter extends MyExpandableListAdapter<Deliv
                 if (responseMessage != null && ResponseStatus.getSuccessful().equalsIgnoreCase(responseMessage.getMessage_status())) {
                     getFilteredData().remove(groupPosition);
                     notifyDataSetChanged();
+                    refresh(DeliveryContainer.class.getCanonicalName(),R.layout.delivery_order);
+                    refresh(InventoryContainer.class.getCanonicalName(),R.layout.inventort_item);
                 }
                 Log.d("asd", "[ReceivingItemExpandListAdapter]-responseMessage : " + responseMessage);
             }
@@ -181,6 +187,14 @@ public class DeliveryItemExpandListAdapter extends MyExpandableListAdapter<Deliv
         public ChildHolder(View view){
             ButterKnife.bind(this,view);
         }
+    }
+
+    private void refresh(String className,int rid){
+        ViewPagerListener viewPagerListener = (NavigationController)getContext();
+        RefreshModel refreshModel = new RefreshModel();
+        refreshModel.setClassName(className);
+        refreshModel.setRid(rid);
+        viewPagerListener.refresh(refreshModel);
     }
 
 //End Class

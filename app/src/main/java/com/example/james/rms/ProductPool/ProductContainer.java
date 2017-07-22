@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 
 import com.example.james.rms.CommonProfile.MyAdapter.MyBaseFragment;
 import com.example.james.rms.Controller.MyViewPager;
+import com.example.james.rms.ITF.Model.RefreshModel;
 import com.example.james.rms.ProductPool.Adapter.ProductContainer_Adapter;
 import com.example.james.rms.ProductPool.Tab.ProductDetail;
 import com.example.james.rms.R;
@@ -71,5 +72,19 @@ public class ProductContainer extends MyBaseFragment{
     @Override
     public void transferViewPager(int rid, Object models) {
 
+    }
+
+    @Override
+    public void refresh(RefreshModel refreshModel) {
+        Fragment fragment = null;
+        switch (refreshModel.getRid()){
+            case R.layout.product_detail:
+                fragment = fragments.get(0);
+                break;
+        }
+        if(fragment != null){
+            MyBaseFragment myBaseFragment = (MyBaseFragment) fragment;
+            myBaseFragment.refresh(refreshModel);
+        }
     }
 }

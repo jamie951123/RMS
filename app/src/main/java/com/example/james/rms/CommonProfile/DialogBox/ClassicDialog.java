@@ -13,6 +13,7 @@ import com.example.james.rms.CommonProfile.DialogBox.Service.ClassicDialogServic
 import com.example.james.rms.CommonProfile.Language.LocalizationModel;
 import com.example.james.rms.CommonProfile.Language.LocalizationUtil;
 import com.example.james.rms.CommonProfile.StartActivityForResultKey;
+import com.example.james.rms.CommonProfile.Util.ObjectUtil;
 import com.example.james.rms.Controller.NavigationController;
 import com.example.james.rms.Core.Combine.MovementRecordCombine;
 import com.example.james.rms.Core.Model.KeyModel;
@@ -88,7 +89,7 @@ public class ClassicDialog {
                     public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
                         try {
                             Intent intent=new Intent();
-                            intent.setClass(context,Class.forName(movementRecord.getOriginalClass_string()));
+                            intent.setClass(context,Class.forName(ObjectUtil.isNotNullEmpty(movementRecord.getOriginalClass_string())?movementRecord.getOriginalClass_string():NavigationController.class.getCanonicalName()));
                             MovementRecordCombine movementRecordCombine = new MovementRecordCombine(MovementRecord.class);
                             intent.putExtra(StartActivityForResultKey.movementRecord,movementRecordCombine.modelToJson(movementRecord));
                             context.startActivity(intent);

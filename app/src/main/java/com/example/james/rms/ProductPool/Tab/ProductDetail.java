@@ -21,6 +21,7 @@ import com.example.james.rms.Core.Dao.ProductDao;
 import com.example.james.rms.Core.Dao.ProductDaoImpl;
 import com.example.james.rms.Core.Model.ProductModel;
 import com.example.james.rms.Core.SearchObject.SearchCombine;
+import com.example.james.rms.ITF.Model.RefreshModel;
 import com.example.james.rms.ProductPool.Adapter.ProductExpandListAdapter;
 import com.example.james.rms.R;
 
@@ -118,6 +119,11 @@ public class ProductDetail extends MyBaseFragment implements AdapterView.OnItemC
     @Override
     public void transferViewPager(int rid, Object models) {
 
+    }
+
+    @Override
+    public void refresh(RefreshModel refreshModel) {
+        getData();
     }
 
     @Override
