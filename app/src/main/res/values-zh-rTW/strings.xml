@@ -199,6 +199,11 @@
     <string name="english">English</string>
     <string name="label_welcome">歡迎</string>
     <string name="label_margin">餘量:</string>
+    <string name="label_empty_value">空值</string>
+    <string name="label_receiving_order">收貨單</string>
+    <string name="label_stockout_order">出貨單</string>
+    <string name="label_full_qty">數量</string>
+    <string name="label_full_weight">重量</string>
 
 
 </resources>

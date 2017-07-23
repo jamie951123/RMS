@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/backgroundE8E8E8"
     android:orientation="vertical"
-    tools:context="com.example.james.rms.Receiving.Tab.Receiving_order">
+    tools:context=".Main.Receiving.Tab.Receiving_order">
 
     <!--&lt;!&ndash; Single ListItem &ndash;&gt;-->
     <android.support.v4.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"

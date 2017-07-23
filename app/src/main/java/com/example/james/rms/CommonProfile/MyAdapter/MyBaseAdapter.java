@@ -74,7 +74,7 @@ public abstract class MyBaseAdapter<T> extends BaseAdapter implements RmsCompare
             if(isFiltering){
                 for (int i = 0; i < originalData.size(); i++) {
                     T item = originalData.get(i);
-                    boolean isFilterValue = productNameMatch(item,string.toString());
+                    boolean isFilterValue = productNameMatch(item,string.toString(),i);
                     if (isFilterValue) list.add(item);
                 }
             }else {

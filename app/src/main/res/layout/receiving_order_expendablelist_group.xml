@@ -27,12 +27,13 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_weight="1"
                 android:background="@color/blue0895ef"
                 android:orientation="vertical"
                 android:paddingBottom="@dimen/card_margin">
 
                 <!--Header-->
-                <!-- Receiving Order Id -->
+                <!--Receiving Order Header-->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/header_layout_size"
@@ -44,11 +45,29 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:gravity="center"
-                        android:text="test"
+                        android:text="@string/label_receiving_order"
                         android:textColor="@color/receiving_order_value_color"
                         android:textSize="@dimen/header_text_size"
                         android:textStyle="bold" />
                 </LinearLayout>
+
+                <!-- Receiving Order Id -->
+                <!--<LinearLayout-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="@dimen/header_layout_size"-->
+                    <!--android:layout_weight="1"-->
+                    <!--android:minHeight="@dimen/header_layout_size">-->
+
+                    <!--<TextView-->
+                        <!--android:id="@+id/receivingOrder_orderId"-->
+                        <!--android:layout_width="match_parent"-->
+                        <!--android:layout_height="match_parent"-->
+                        <!--android:gravity="center"-->
+                        <!--android:text="test"-->
+                        <!--android:textColor="@color/receiving_order_value_color"-->
+                        <!--android:textSize="@dimen/header_text_size"-->
+                        <!--android:textStyle="bold" />-->
+                <!--</LinearLayout>-->
 
                 <View
                     android:layout_width="match_parent"
@@ -61,7 +80,8 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:orientation="horizontal"
-                    android:paddingTop="@dimen/insizecard">
+                    android:paddingTop="@dimen/insizecard"
+                    android:paddingBottom="@dimen/insizecard">
                     <!--Left-->
                     <!--ImageView-->
                     <LinearLayout
@@ -205,13 +225,63 @@
 
             </LinearLayout>
 
+            <!--Good Display-->
+            <!--Header-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/display_layout_size"
+                android:id="@+id/receivingOrder_goods_hearder_linear"
+                android:orientation="horizontal"
+                android:paddingLeft="@dimen/card_margin"
+                android:paddingTop="@dimen/card_margin"
+                android:paddingBottom="@dimen/card_margin">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="@string/receivingItem_ProductName"
+                    android:textSize="@dimen/display_context_size"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:maxLines="2"
+                    android:text="@string/label_quantity_unit"
+                    android:textSize="@dimen/display_context_size"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:maxLines="2"
+                    android:layout_weight="1"
+                    android:text="@string/label_weight_unit"
+                    android:textSize="@dimen/display_context_size"/>
+
+            </LinearLayout>
+
+            <!--DisplayListView-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@color/grayE8E8E8">
+
+                <ListView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/receivingOrder_goods_display_listview"/>
+            </LinearLayout>
 
             <!--Fooder-->
             <!--Action LinearLayout-->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/fooder_layout_size"
-                android:layout_weight="1"
                 android:orientation="horizontal"
                 android:paddingBottom="@dimen/card_margin"
                 android:paddingTop="@dimen/card_margin">

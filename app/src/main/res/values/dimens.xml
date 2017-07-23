@@ -45,5 +45,7 @@
     <!--ceneter-->
     <dimen name="padding_center">8dp</dimen>
 
-
+    <!--GoodsDisplay-->
+    <dimen name="display_layout_size">30dp</dimen>
+    <dimen name="display_context_size">12sp</dimen>
 </resources>

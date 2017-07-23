@@ -85,7 +85,7 @@ public class ReceivingIncreaseListAdapter extends MyBaseAdapter<ReceivingItemMod
     }
 
     @Override
-    public boolean productNameMatch(ReceivingItemModel receivingItemModel, String value) {
+    public boolean productNameMatch(ReceivingItemModel receivingItemModel, String value,int position) {
         boolean result = receivingItemModel.getProduct().getProductName().toUpperCase().contains(value.toUpperCase());
         return result;
     }

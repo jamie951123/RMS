@@ -170,7 +170,7 @@ public class DeliveryIncreaseDialogExpandableAdapter extends MyExpandableListAda
     }
 
     @Override
-    public boolean productNameMatch(ReceivingOrderModel receivingOrderModel, String string) {
+    public boolean productNameMatch(ReceivingOrderModel receivingOrderModel, String string,int position) {
         return false;
     }
 

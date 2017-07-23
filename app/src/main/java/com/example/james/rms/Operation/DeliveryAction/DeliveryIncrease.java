@@ -223,7 +223,7 @@ public class DeliveryIncrease extends AppCompatActivity implements View.OnClickL
                         Integer orginal_qty = orginalMapByReceivingItemId.get(item.getReceivingId()).getItemQty()==null?0:orginalMapByReceivingItemId.get(item.getReceivingId()).getItemQty();
                         Integer orginal_outstanding_qty = item.getOutStandingQty()==null?0:item.getOutStandingQty();
 
-                        BigDecimal orginal_w = orginalMapByReceivingItemId.get(item.getReceivingId()).getItemGrossWeight();
+                        BigDecimal orginal_w = orginalMapByReceivingItemId.get(item.getReceivingId()).getItemGrossWeight()==null?new BigDecimal(0):orginalMapByReceivingItemId.get(item.getReceivingId()).getItemGrossWeight();
                         BigDecimal orginal_outstanding_w = item.getOutStandingWeight()==null?new BigDecimal(0):item.getOutStandingWeight();
                         item.setOutStandingQty(orginal_qty+orginal_outstanding_qty);
                         item.setOutStandingWeight(orginal_w.add(orginal_outstanding_w));

@@ -28,14 +28,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="3"
-                android:background="@color/maroon800000">
+                android:background="@color/organeF5D0A9">
 
                 <TextView
                     android:id="@+id/inventory_item_title"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:gravity="center"
-                    android:textColor="@color/whiteFFFFFF"
+                    android:textColor="@color/blue0895ef"
                     android:textSize="20sp" />
             </LinearLayout>
 
@@ -127,9 +127,9 @@
                         android:orientation="horizontal">
 
                         <TextView
-                            android:layout_width="wrap_content"
+                            android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:layout_weight="1"
+                            android:layout_weight="2"
                             android:gravity="center"
                             android:text="@string/label_quantity"
                             android:textColor="@color/colorAccent"
@@ -137,28 +137,30 @@
                             android:layout_marginBottom="@dimen/increase_list_item_layout_margin"
                             android:paddingLeft="@dimen/increase_list_item_edittext_padding"/>
 
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:layout_marginTop="@dimen/increase_list_item_layout_margin"
+                            android:layout_marginBottom="@dimen/increase_list_item_layout_margin">
+
                         <TextView
                             android:id="@+id/inventory_item_qty"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
-                            android:layout_weight="2"
                             android:gravity="center"
                             android:text="QTY"
-                            android:textSize="@dimen/increase_list_item_label_size"
-                            android:layout_marginTop="@dimen/increase_list_item_layout_margin"
-                            android:layout_marginBottom="@dimen/increase_list_item_layout_margin"
-                            android:paddingLeft="@dimen/increase_list_item_edittext_padding"/>
+                            android:textSize="@dimen/increase_list_item_label_size" />
 
                         <TextView
                             android:id="@+id/inventory_item_qtyunit"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
-                            android:layout_weight="2"
                             android:gravity="center"
                             android:text="QTYUNIT"
                             android:textSize="@dimen/context_text_size"
-                            android:layout_marginTop="@dimen/increase_list_item_layout_margin"
-                            android:layout_marginBottom="@dimen/increase_list_item_layout_margin" />
+                            android:paddingLeft="@dimen/increase_list_item_edittext_padding"/>
+                            </LinearLayout>
                     </LinearLayout>
 
                     <View
@@ -174,9 +176,9 @@
                         android:orientation="horizontal">
 
                         <TextView
-                            android:layout_width="wrap_content"
+                            android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:layout_weight="1"
+                            android:layout_weight="2"
                             android:gravity="center"
                             android:text="@string/label_weight"
                             android:textColor="@color/colorAccent"
@@ -185,29 +187,30 @@
                             android:layout_marginBottom="@dimen/increase_list_item_layout_margin"
                             android:paddingLeft="@dimen/increase_list_item_edittext_padding"/>
 
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginTop="@dimen/increase_list_item_layout_margin"
+                            android:layout_marginBottom="@dimen/increase_list_item_layout_margin"
+                            android:layout_weight="1">
                         <TextView
                             android:id="@+id/inventory_item_gw"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
-                            android:layout_weight="2"
                             android:gravity="center"
                             android:text="GW"
-                            android:textSize="@dimen/context_text_size"
-                            android:layout_marginTop="@dimen/increase_list_item_layout_margin"
-                            android:layout_marginBottom="@dimen/increase_list_item_layout_margin"
-                            android:paddingLeft="@dimen/increase_list_item_edittext_padding"/>
+                            android:textSize="@dimen/context_text_size" />
 
                         <TextView
                             android:id="@+id/inventory_item_gwunit"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
-                            android:layout_weight="2"
                             android:gravity="center"
                             android:text="gwUNit"
                             android:textSize="@dimen/context_text_size"
-                            android:layout_marginTop="@dimen/increase_list_item_layout_margin"
-                            android:layout_marginBottom="@dimen/increase_list_item_layout_margin" />
+                            android:paddingLeft="@dimen/increase_list_item_edittext_padding"/>
 
+                        </LinearLayout>
                     </LinearLayout>
 
                 </LinearLayout>

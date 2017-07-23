@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:background="@color/backgroundE8E8E8"
-    tools:context="com.example.james.rms.Inventory.Tab.InventoryContainer">
+    tools:context=".Main.Inventory.Tab.InventoryContainer">
 
     <com.example.james.rms.Controller.MyViewPager
         android:layout_width="match_parent"

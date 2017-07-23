@@ -188,6 +188,7 @@
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
+                                    android:id="@+id/receivingItem_weight_empty"
                                     android:text="/"
                                     android:textSize="@dimen/context_text_size"
                                     android:maxLines="2"/>
@@ -246,6 +247,7 @@
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
+                                    android:id="@+id/receivingItem_qty_empty"
                                     android:text="/"
                                     android:textSize="@dimen/context_text_size"
                                     android:maxLines="2"/>

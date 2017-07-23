@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:id="@+id/delivery_item"
     android:background="@color/backgroundE8E8E8"
-    tools:context="com.example.james.rms.Delivery.Tab.Delivery_Item">
+    tools:context=".Main.Delivery.Tab.Delivery_Item">
 
     <RelativeLayout
         android:layout_width="match_parent"

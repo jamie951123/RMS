@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/backgroundE8E8E8"
-    tools:context="com.example.james.rms.Delivery.DeliveryContainer">
+    tools:context=".Main.Delivery.DeliveryContainer">
 
     <com.example.james.rms.Controller.MyViewPager
         android:layout_width="match_parent"

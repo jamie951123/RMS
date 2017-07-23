@@ -73,10 +73,10 @@
         </activity>
         <!--Product-->
         <activity
-            android:name=".ProductPool.ProductContainer"
+            android:name=".Main.ProductPool.ProductContainer"
             android:configChanges="locale|orientation"
             android:screenOrientation="portrait" />
-        <activity android:name=".ProductPool.Tab.ProductDetail" />
+        <activity android:name=".Main.ProductPool.Tab.ProductDetail" />
         <!--Navigation-->
         <activity
             android:name=".Controller.NavigationController"
@@ -84,7 +84,7 @@
             android:screenOrientation="portrait" />
         <!--Receiving-->
         <activity
-            android:name=".Receiving.ReceivingContainer"
+            android:name=".Main.Receiving.ReceivingContainer"
             android:configChanges="orientation"
             android:screenOrientation="portrait" />
         <!--Operation-->
@@ -121,7 +121,7 @@
             android:screenOrientation="portrait"></activity>
 
         <!--Setting-->
-        <activity android:name=".Setting.Setting"
+        <activity android:name=".Main.Setting.Setting"
             android:configChanges="orientation"
             android:screenOrientation="portrait"></activity>
 

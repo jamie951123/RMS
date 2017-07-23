@@ -177,6 +177,13 @@
     <string name="label_language">Language</string>
     <string name="label_version">Version</string>
     <string name="label_margin">Margin:</string>
+    <string name="label_empty_value">Empty Value</string>
+    <string name="label_receiving_order">Receiving Order</string>
+    <string name="label_stockout_order">StockOut Order</string>
+    <string name="label_full_weight">Weight</string>
+    <string name="label_full_qty">Quantity</string>
+
+
     <!--Context-->
     <!--<string name=""-->
     <!--title-->

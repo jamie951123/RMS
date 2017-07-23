@@ -21,11 +21,10 @@ import com.example.james.rms.Core.Model.MovementRecord;
 import com.example.james.rms.Core.Model.QuantityProfileModel;
 import com.example.james.rms.Core.Model.Status;
 import com.example.james.rms.Core.Model.WeightProfileModel;
-import com.example.james.rms.Operation.OperationContainer;
 import com.example.james.rms.Operation.ProductAction.ProductIncrease;
 import com.example.james.rms.R;
 import com.example.james.rms.Operation.UnitAction.UnitIncrease;
-import com.example.james.rms.Setting.Setting;
+import com.example.james.rms.Main.Setting.Setting;
 
 import java.util.ArrayList;
 import java.util.Date;

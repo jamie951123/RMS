@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/backgroundE8E8E8"
-    tools:context="com.example.james.rms.Receiving.Tab.Receiving_item">
+    tools:context=".Main.Receiving.Tab.Receiving_item">
 
     <RelativeLayout
         android:layout_width="match_parent"

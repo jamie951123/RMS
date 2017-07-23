@@ -184,7 +184,7 @@ public class DeliveryIncreaseItemExpandableAdapter extends MyExpandableListAdapt
     }
 
     @Override
-    public boolean productNameMatch(ReceivingOrderModel receivingOrderModel, String string) {
+    public boolean productNameMatch(ReceivingOrderModel receivingOrderModel, String string,int position) {
         return false;
     }
 

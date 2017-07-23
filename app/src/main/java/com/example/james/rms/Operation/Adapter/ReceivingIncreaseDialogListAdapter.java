@@ -68,7 +68,7 @@ public class ReceivingIncreaseDialogListAdapter extends MyBaseAdapter<ReceivingI
     }
 
     @Override
-    public boolean productNameMatch(ReceivingItemModel receivingItemModel, String value) {
+    public boolean productNameMatch(ReceivingItemModel receivingItemModel, String value,int position) {
         return ObjectUtil.isNullEmpty(receivingItemModel.getProduct().getProductName()) ? false : receivingItemModel.getProduct().getProductName().toUpperCase().contains(value.toUpperCase());
     }
 

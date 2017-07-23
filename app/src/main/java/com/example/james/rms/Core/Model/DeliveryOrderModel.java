@@ -1,7 +1,5 @@
 package com.example.james.rms.Core.Model;
 
-import com.example.james.rms.Delivery.Tab.Delivery_Item;
-
 import java.util.Date;
 import java.util.List;
 
