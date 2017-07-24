@@ -1,6 +1,7 @@
 package com.example.james.rms.Operation.Adapter;
 
 import android.content.Context;
+import android.media.UnsupportedSchemeException;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.CardView;
 import android.util.Log;
@@ -18,6 +19,7 @@ import com.example.james.rms.Core.Model.ReceivingOrderModel;
 import com.example.james.rms.R;
 
 import java.math.BigDecimal;
+import java.util.Collections;
 import java.util.List;
 
 import butterknife.BindView;
@@ -44,15 +46,25 @@ public class DeliveryIncreaseDialogExpandableAdapter extends MyExpandableListAda
             ReceivingOrderModel receivingOrderModel = dataArrayList.get(i);
             for(int j=0; j<receivingOrderModel.getReceivingItem().size();j++){
                 ReceivingItemModel receivingItemModel = receivingOrderModel.getReceivingItem().get(j);
-                if((receivingItemModel.getOutStandingQty() !=null && receivingItemModel.getOutStandingQty()==0) && (receivingItemModel.getOutStandingWeight()!=null && receivingItemModel.getOutStandingWeight().compareTo(new BigDecimal(0)) ==0)){
-                    dataArrayList.get(i).getReceivingItem().remove(j);
-                        continue;
+                Integer outStandingQty = receivingItemModel.getOutStandingQty();
+                BigDecimal outStandingWeight = receivingItemModel.getOutStandingWeight();
+
+                if((outStandingQty != null && outStandingQty >0) || (outStandingWeight != null && outStandingWeight.compareTo(new BigDecimal(0))>1)){
+
+                }else{
+                    dataArrayList.get(i).getReceivingItem().set(j,null);
                 }
             }
+            try{
+                dataArrayList.get(i).getReceivingItem().removeAll(Collections.singleton(null));
+            }catch (Exception e){
+                e.printStackTrace();
+            }
             if(dataArrayList.get(i).getReceivingItem().isEmpty()){
-                dataArrayList.remove(i);
+                dataArrayList.set(i,null);
             }
         }
+        dataArrayList.removeAll(Collections.singleton(null));
         notifyDataSetChanged();
     }
     @Override
