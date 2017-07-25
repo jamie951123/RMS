@@ -9,6 +9,9 @@ import android.widget.TextView;
 import com.example.james.rms.CommonProfile.DialogBox.ClassicDialog;
 import com.example.james.rms.CommonProfile.DialogBox.DialogModel;
 import com.example.james.rms.CommonProfile.Language.LocalizationUtil;
+import com.example.james.rms.CommonProfile.SharePreferences.MyPreferences;
+import com.example.james.rms.CommonProfile.SharePreferences.PreferencesKey;
+import com.example.james.rms.CommonProfile.Util.ObjectUtil;
 import com.example.james.rms.Core.Model.KeyModel;
 import com.example.james.rms.R;
 
@@ -26,10 +29,14 @@ public class Setting extends AppCompatActivity implements View.OnClickListener{
     Toolbar toolbar;
     @BindView(R.id.setting_language)
     TextView setting_language;
-
+    @BindView(R.id.setting_date_duration)
+    TextView setting_date_duration;
     //
     private String current_language;
     private String full_language;
+
+    //MyPreferences
+    private MyPreferences settingPreference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,10 +44,15 @@ public class Setting extends AppCompatActivity implements View.OnClickListener{
         setContentView(R.layout.setting);
         ButterKnife.bind(this);
 
+        //Preference
+        settingPreference = new MyPreferences(this, PreferencesKey.setting);
+
+        String duration = ObjectUtil.intToString((Integer) settingPreference.getPreferences_Setting().get("dateRange"));
         //Language
         current_language = Locale.getDefault().getLanguage();
         full_language = LocalizationUtil.getCodeToFullLanguage(this,current_language);
         setting_language.setText(full_language);
+        setting_date_duration.setText(ObjectUtil.isNotNullEmpty(duration)?duration+getString(R.string.label_days):"");
         //
         setting_language.setOnClickListener(this);
         //

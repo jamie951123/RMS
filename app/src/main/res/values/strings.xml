@@ -184,6 +184,7 @@
     <string name="label_full_qty">Quantity</string>
     <string name="label_date_range">Search Date Range</string>
     <string name="label_date_duration">Search Date Duration</string>
+    <string name="label_days">Days</string>
 
 
     <!--Context-->

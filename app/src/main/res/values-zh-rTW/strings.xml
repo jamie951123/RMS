@@ -206,6 +206,7 @@
     <string name="label_full_weight">重量</string>
     <string name="label_date_range">搜索日期範圍</string>
     <string name="label_date_duration">搜索天數</string>
+    <string name="label_days">天</string>
 
 
 </resources>

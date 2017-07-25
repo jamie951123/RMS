@@ -204,5 +204,6 @@
     <string name="label_full_weight">重量</string>
     <string name="label_date_range">Search Date Range</string>
     <string name="label_date_duration">Search Date Duration</string>
+    <string name="label_days">Days</string>
 
 </resources>

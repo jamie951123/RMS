@@ -98,7 +98,7 @@
             android:layout_height="@dimen/color_column"
             android:background="@color/grayE8E8E8"></LinearLayout>
 
-        <!--Date Range-->
+        <!--Date Duation-->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="@dimen/setting_layout_size"
@@ -119,7 +119,7 @@
                 android:layout_height="match_parent"
                 android:padding="@dimen/padding_center"
                 android:gravity="right"
-                android:text="0.0.1"
+                android:id="@+id/setting_date_duration"
                 android:textSize="@dimen/setting_text_size" />
 
         </LinearLayout>
