@@ -92,19 +92,38 @@
 
         </LinearLayout>
 
-        <!--<Button-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="match_parent"-->
-        <!--android:text="@string/english" -->
-        <!--android:textSize="@dimen/setting_text_size"-->
-        <!--android:id="@+id/eng" />-->
-        <!--<Button-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="match_parent"-->
-        <!--android:text="@string/chinese"-->
-        <!--android:id="@+id/language_btn"-->
-        <!--android:layout_weight="1"/>-->
-        <!--</LinearLayout>-->
+        <!--Color-Column-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/color_column"
+            android:background="@color/grayE8E8E8"></LinearLayout>
+
+        <!--Date Range-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/setting_layout_size"
+            android:background="@color/whiteFFFFFF"
+            android:orientation="horizontal">
+
+            <!--Date-Label-->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:padding="@dimen/padding_center"
+                android:text="@string/label_date_range"
+                android:textSize="@dimen/setting_text_size" />
+
+            <!--Date-Value-->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="@dimen/padding_center"
+                android:gravity="right"
+                android:text="0.0.1"
+                android:textSize="@dimen/setting_text_size" />
+
+        </LinearLayout>
+
 
 
     </LinearLayout>

@@ -6,6 +6,9 @@ package com.example.james.rms.CommonProfile.SharePreferences;
 
 public class PreferencesKey {
     final public static String login_information = "login_information";
+    final public static String facebook = "facebook";
     final public static String localization = "Localization";
+    final public static String setting = "setting";
+
 
 }

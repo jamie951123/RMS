@@ -182,6 +182,7 @@
     <string name="label_stockout_order">StockOut Order</string>
     <string name="label_full_weight">Weight</string>
     <string name="label_full_qty">Quantity</string>
+    <string name="label_date_range">Search Date Range</string>
 
 
     <!--Context-->

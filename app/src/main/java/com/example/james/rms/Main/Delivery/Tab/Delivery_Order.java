@@ -131,6 +131,7 @@ public class Delivery_Order extends MyBaseFragment implements SwipeRefreshLayout
             deliveryOrderExpandListAdapter = new DeliveryOrderExpandListAdapter(getActivity(), deliveryOrderModels);
             listView.setAdapter(deliveryOrderExpandListAdapter);
             listView.setGroupIndicator(null);
+            listView.setOnTouchListener(this);
         }
     }
 

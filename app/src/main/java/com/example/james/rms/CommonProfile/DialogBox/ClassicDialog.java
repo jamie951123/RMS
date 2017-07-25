@@ -276,7 +276,10 @@ public class ClassicDialog {
                             switch (key){
                                 case KeyModel.language:
                                     if(localizationModels != null && !localizationModels.isEmpty() && which !=-1) {
-                                        LocalizationUtil.setLanguage(context,localizationModels.get(which).getLanguageCode(),Locale.getDefault().getCountry());
+                                        String locationCode = localizationModels.get(which).getLanguageCode();
+                                        String countryCode = Locale.getDefault().getCountry();
+                                        if("zh".equalsIgnoreCase(locationCode))countryCode = "HK";
+                                        LocalizationUtil.setLanguage(context,locationCode,countryCode);
                                         Intent intent = new Intent();
                                         intent.setClass(context, NavigationController.class);
                                         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);

@@ -202,5 +202,6 @@
     <string name="label_stockout_order">出貨單</string>
     <string name="label_full_qty">數量</string>
     <string name="label_full_weight">重量</string>
+    <string name="label_date_range">Search Date Range</string>
 
 </resources>

@@ -22,6 +22,13 @@ public class UserProfileServePath {
         return serve_path;
     }
 
+    public static String serve_findByPartyId(){
+        String serve = ServeProfile.getServe();
+        String path = ServeProfile.getLogin_findByPartyId();
+        String serve_path = serve+path;
+        return serve_path;
+    }
+
     public static String serve_findbyFacebookId(){
         String serve = ServeProfile.getServe();
         String path = ServeProfile.getLogin_findByFacebookId();

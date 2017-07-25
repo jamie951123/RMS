@@ -30,6 +30,16 @@ public class UserProfile{
 
     private Facebook facebook;
 
+    private SettingModel setting;
+
+    public SettingModel getSetting() {
+        return setting;
+    }
+
+    public void setSetting(SettingModel setting) {
+        this.setting = setting;
+    }
+
     public Facebook getFacebook() {
         return facebook;
     }
@@ -132,6 +142,7 @@ public class UserProfile{
                 ", lastModifiedBy='" + lastModifiedBy + '\'' +
                 ", closeDate=" + closeDate +
                 ", facebook=" + facebook +
+                ", setting=" + setting +
                 '}';
     }
 }

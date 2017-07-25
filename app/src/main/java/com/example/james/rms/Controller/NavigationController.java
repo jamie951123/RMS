@@ -74,7 +74,7 @@ public class NavigationController extends AppCompatActivity implements Navigatio
     private List<Fragment> fragments = new ArrayList<>();
     //
     private MyPreferences myPreferences;
-
+    private MyPreferences facebookPreference;
     //PutExtra
     private MovementRecord movementRecord;
 
@@ -92,11 +92,12 @@ public class NavigationController extends AppCompatActivity implements Navigatio
         setUpViewPager();
         //Preferences
         myPreferences = new MyPreferences(this, PreferencesKey.login_information);
+        facebookPreference = new MyPreferences(this,PreferencesKey.facebook);
         //
-        String username = myPreferences.getPreferences_loginInformation().get("username");
+        String name = facebookPreference.getPreferences_facebook().get("name");
         View hearder = navigationView.getHeaderView(0);
         TextView navUsername  = (TextView) hearder.findViewById(R.id.navUserName);
-        navUsername.setText(username);
+        navUsername.setText(ObjectUtil.isNotNullEmpty(name)?name:"");
         FabSetting();
 
         Integer requestCode = null;

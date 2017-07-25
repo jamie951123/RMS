@@ -8,6 +8,7 @@ import com.example.james.rms.CommonProfile.Util.ObjectUtil;
 import com.example.james.rms.Core.Model.LoginModel;
 import com.example.james.rms.Core.Model.NetworkModel;
 import com.example.james.rms.Core.Model.UserProfile;
+import com.example.james.rms.Core.SearchObject.UserProfileSearchObject;
 import com.example.james.rms.Core.ServePath.UserProfileServePath;
 import com.example.james.rms.NetWork.HttpGetAsync;
 import com.example.james.rms.NetWork.HttpPostAsync;
@@ -59,8 +60,32 @@ public class UserProfileDaoImpl extends NetworkModel implements UserProfileDao {
     }
 
     @Override
-    public List<LoginModel> findByPartyId() {
-        return null;
+    public UserProfile findByPartyId(String userProfileSearchObject_json) {
+        String url = UserProfileServePath.serve_findByPartyId();
+        Log.d("asd","[UserProfile]-findByPartyId--Request(JSON) :"+ userProfileSearchObject_json);
+        String result = "";
+        try {
+            result = new HttpPostAsync(this).execute(url,userProfileSearchObject_json).get();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+        Log.d("asd","[UserProfile]-findByPartyId(Response): "+result);
+        if(!ObjectUtil.isCorrectResponse(result)){
+            return null;
+        }
+        //
+        UserProfile userProfile = new UserProfile();
+        try{
+            Gson gson = GsonUtil.fromJson();
+            userProfile = gson.fromJson(result,UserProfile.class);
+            Log.d("asd","[UserProfile]-findByPartyId(Gson): "+userProfile);
+        }catch (Exception e){
+            Log.d("asd","[UserProfile]-findByPartyId(Gson)-[Error]-[json to Gson Error] : ");
+            e.printStackTrace();
+        }
+        return userProfile;
     }
 
     @Override

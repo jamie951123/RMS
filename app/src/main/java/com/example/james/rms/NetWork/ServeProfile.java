@@ -15,6 +15,7 @@ public class ServeProfile {
 //public static String serve                                    = "http://10.16.81.188:1123/";
     //Login
     final static String login_findAll = "rms/login/findAll";
+    final static String login_findByPartyId = "rms/login/findByPartyId";
     final static String login_checklogin = "rms/login/checklogin";
     final static String login_findByFacebookId = "rms/login/findByFacebookId";
     final static String login_save = "rms/login/save";
@@ -367,5 +368,9 @@ public class ServeProfile {
 
     public static String getRe_item_deleteByReceivingIds() {
         return re_item_deleteByReceivingIds;
+    }
+
+    public static String getLogin_findByPartyId() {
+        return login_findByPartyId;
     }
 }

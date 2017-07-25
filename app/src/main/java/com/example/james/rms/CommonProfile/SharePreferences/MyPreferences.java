@@ -4,7 +4,9 @@ import android.content.Context;
 import android.content.SharedPreferences;
 
 import com.example.james.rms.CommonProfile.Util.ObjectUtil;
+import com.example.james.rms.Core.Model.Facebook;
 import com.example.james.rms.Core.Model.LoginModel;
+import com.example.james.rms.Core.Model.SettingModel;
 import com.example.james.rms.Core.Model.UserProfile;
 
 import java.util.HashMap;
@@ -31,18 +33,6 @@ public class MyPreferences {
         sharedPreferences.edit().putString("username" , username).apply();
         sharedPreferences.edit().putString("password" , password).apply();
 
-    }
-    public void setPreferences_loginInformation(LoginModel loginModel){
-//        clear_loginInformation();
-        sharedPreferences.edit().putString("loginStatus" , loginModel.getLoginStatus()).apply();
-        sharedPreferences.edit().putString("loginMessage" , loginModel.getLoginMessage()).apply();
-        sharedPreferences.edit().putLong("userProfileId" , loginModel.getUserProfile().getUserProfileId()).apply();
-        sharedPreferences.edit().putString("username" , loginModel.getUserProfile().getUsername()).apply();
-        sharedPreferences.edit().putString("password" , loginModel.getUserProfile().getPassword()).apply();
-        sharedPreferences.edit().putString("partyId" , loginModel.getUserProfile().getPartyId()).apply();
-        sharedPreferences.edit().putString("status" , loginModel.getUserProfile().getStatus()).apply();
-        sharedPreferences.edit().putString("createDate" , ObjectUtil.dateToString(loginModel.getUserProfile().getCreateDate())).apply();
-        sharedPreferences.edit().putString("closeDate" , ObjectUtil.dateToString(loginModel.getUserProfile().getCloseDate())).apply();
     }
 
     public void setPreferences_loginInformation(UserProfile userProfile){
@@ -79,6 +69,38 @@ public class MyPreferences {
         return sharedPreferences.edit().remove("partyId").commit();
     }
 
+    //Settring
+    public void setPreferences_Setting(SettingModel setting){
+        clear();
+        if(setting != null) {
+            sharedPreferences.edit().putInt("dateRange", setting.getDateRange()).apply();
+        }
+    }
+    public LinkedHashMap<String,Object> getPreferences_Setting(){
+        int dateRange = sharedPreferences.getInt("dateRange" , 0);
+
+        LinkedHashMap<String, Object> map = new LinkedHashMap<String, Object>();
+        if(dateRange != 0 )map.put("dateRange",dateRange);
+        return map;
+    }
+
+    //FaceBook
+
+    public void setPreferences_facebook(Facebook facebook){
+        clear();
+        if(facebook != null) {
+            sharedPreferences.edit().putString("name", facebook.getName()).apply();
+        }
+    }
+
+    public LinkedHashMap<String,String> getPreferences_facebook(){
+        String name = sharedPreferences.getString("name" , "");
+
+        LinkedHashMap<String, String> map = new LinkedHashMap<String, String>();
+        if(ObjectUtil.isNotNullEmpty(name))map.put("name",name);
+        return map;
+    }
+
 
     //Localization
     public LinkedHashMap<String,String> getPreferences_Localization(){
@@ -97,6 +119,7 @@ public class MyPreferences {
         sharedPreferences.edit().putString("country" , country).apply();
     }
 
+    //Clear
     public void clear(){
         sharedPreferences.edit().clear().commit();
     }
