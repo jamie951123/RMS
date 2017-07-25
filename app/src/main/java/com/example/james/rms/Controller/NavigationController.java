@@ -29,7 +29,7 @@ import com.example.james.rms.CommonProfile.SharePreferences.MyPreferences;
 import com.example.james.rms.CommonProfile.SharePreferences.PreferencesKey;
 import com.example.james.rms.CommonProfile.StartActivityForResultKey;
 import com.example.james.rms.CommonProfile.Util.ObjectUtil;
-import com.example.james.rms.Controller.CommunicateService.NavToRL;
+import com.example.james.rms.Controller.CommunicateService.NavBackPressed;
 import com.example.james.rms.Core.Combine.MovementRecordCombine;
 import com.example.james.rms.Core.Model.MovementRecord;
 import com.example.james.rms.Main.Delivery.DeliveryContainer;
@@ -307,15 +307,15 @@ public class NavigationController extends AppCompatActivity implements Navigatio
             Log.v("asd","pager :" +pager.getCurrentItem());
             boolean isFirst = false;
             Fragment fragment = fragments.get(pager.getCurrentItem());
-            NavToRL navToRl = null;
+            NavBackPressed navBackPressed = null;
             switch (pager.getCurrentItem()){
                 case 0:
-                    navToRl = (ReceivingContainer)fragment;
-                    isFirst = navToRl.changeCurrentPage();
+                    navBackPressed = (ReceivingContainer)fragment;
+                    isFirst = navBackPressed.changeCurrentPage();
                     break;
                 case 1:
-                    navToRl = (DeliveryContainer)fragment;
-                    isFirst = navToRl.changeCurrentPage();
+                    navBackPressed = (DeliveryContainer)fragment;
+                    isFirst = navBackPressed.changeCurrentPage();
                     break;
             }
             if(!isFirst){

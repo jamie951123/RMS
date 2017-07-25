@@ -7,7 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.james.rms.CommonProfile.MyAdapter.MyBaseFragment;
-import com.example.james.rms.Controller.CommunicateService.NavToRL;
+import com.example.james.rms.Controller.CommunicateService.NavBackPressed;
 import com.example.james.rms.Controller.MyViewPager;
 import com.example.james.rms.ITF.Model.RefreshModel;
 import com.example.james.rms.R;
@@ -21,7 +21,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class ReceivingContainer extends MyBaseFragment implements NavToRL {
+public class ReceivingContainer extends MyBaseFragment implements NavBackPressed {
 
     @BindView(R.id.receiving_container_pages)
     MyViewPager pager;
