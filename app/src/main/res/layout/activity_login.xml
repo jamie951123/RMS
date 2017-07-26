@@ -11,7 +11,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="93"></LinearLayout>
+        android:layout_weight="73"></LinearLayout>
+
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -31,6 +32,7 @@
             app:civ_border_color="@color/whiteFFFFFF"
             app:civ_fill_color="@color/blue0895ef"/>
     </LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -80,6 +82,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:paddingLeft="10mm"
+        android:paddingRight="10mm"
         android:gravity="center_horizontal"
         android:layout_weight="83">
 
@@ -97,6 +101,19 @@
                 android:theme="@style/BlueCheck"
                 />
         </LinearLayout>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_gravity="center"
+            android:id="@+id/btnLogin"
+            android:background="@color/blue0895ef"
+            android:textColor="@color/whiteFFFFFF"
+            android:textSize="20sp"
+            android:typeface="sans"
+            android:text="@string/label_login"/>
+
     </LinearLayout>
 
     <LinearLayout
@@ -110,33 +127,36 @@
             android:layout_height="match_parent"
             android:id="@+id/facebooklogin"/>
     </LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="45"
+        android:layout_weight="65"
         android:orientation="horizontal"
-        android:gravity="bottom">
+        android:gravity="top">
 
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:id="@+id/btnCancel"
-            android:background="@color/blue0895ef"
-            android:textColor="@color/whiteFFFFFF"
-            android:textSize="30dp"
-            android:typeface="sans"
-            android:text="@string/cancel" />
+        <!--<Button-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_weight="1"-->
+            <!--android:id="@+id/btnCancel"-->
+            <!--android:background="@color/blue0895ef"-->
+            <!--android:textColor="@color/whiteFFFFFF"-->
+            <!--android:textSize="30dp"-->
+            <!--android:typeface="sans"-->
+            <!--android:text="@string/cancel" />-->
 
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:id="@+id/btnLogin"
-            android:background="@color/blue0895ef"
-            android:textColor="@color/whiteFFFFFF"
-            android:textSize="30dp"
-            android:typeface="sans"
-            android:text="@string/label_login"/>
+        <!--<Button-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_weight="1"-->
+            <!--android:id="@+id/btnLogin"-->
+            <!--android:background="@color/blue0895ef"-->
+            <!--android:textColor="@color/whiteFFFFFF"-->
+            <!--android:textSize="30dp"-->
+            <!--android:typeface="sans"-->
+            <!--android:text="@string/label_login"/>-->
     </LinearLayout>
+
+
 </LinearLayout>

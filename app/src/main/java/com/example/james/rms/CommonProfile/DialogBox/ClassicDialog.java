@@ -6,6 +6,7 @@ import android.support.annotation.NonNull;
 import android.text.InputType;
 import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
@@ -21,6 +22,7 @@ import com.example.james.rms.Core.Model.MovementRecord;
 import com.example.james.rms.Core.Model.QuantityProfileModel;
 import com.example.james.rms.Core.Model.Status;
 import com.example.james.rms.Core.Model.WeightProfileModel;
+import com.example.james.rms.NetWork.ServeProfile;
 import com.example.james.rms.Operation.ProductAction.ProductIncrease;
 import com.example.james.rms.R;
 import com.example.james.rms.Operation.UnitAction.UnitIncrease;
@@ -121,27 +123,23 @@ public class ClassicDialog {
                 })
                 .show();
     }
-    public static void showReceivingPreInsertBox(final Context context){
-        materialDialog = new MaterialDialog.Builder(context)
-                .title(R.string.createReceivingOrder)
-                .content(R.string.createQusetion)
-                .canceledOnTouchOutside(false)
-                .positiveText(R.string.yes)
-                .onPositive(new MaterialDialog.SingleButtonCallback() {
-                    @Override
-                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                        dialog.dismiss();
-                    }
-                })
-                .onNegative(new MaterialDialog.SingleButtonCallback() {
-                    @Override
-                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                        dialog.dismiss();
-                    }
-                })
-                .show();
-    }
 
+    public static void showBasicInputBox(final DialogModel dialogModel){
+        new MaterialDialog.Builder(dialogModel.getContext())
+                .title(dialogModel.getTitle())
+                .content(null)
+                .inputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_CLASS_TEXT)
+                .input(dialogModel.getContent(), dialogModel.getContent(), new MaterialDialog.InputCallback() {
+                    @Override
+                    public void onInput(MaterialDialog dialog, CharSequence input) {
+                        if(input != null){
+                            ServeProfile.setServe(input.toString());
+                            Toast.makeText(dialog.getContext(),input,Toast.LENGTH_SHORT).show();
+                        }
+                        // Do something
+                    }
+                }).show();
+    }
     public static void showInputBox(final Context context,String title, final String content, String hint,final String key,final String partyId){
         new MaterialDialog.Builder(context)
                 .title(title)

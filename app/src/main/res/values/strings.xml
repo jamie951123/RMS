@@ -185,6 +185,7 @@
     <string name="label_date_range">Search Date Range</string>
     <string name="label_date_duration">Search Date Duration</string>
     <string name="label_days">Days</string>
+    <string name="label_fill_server_address">Fill Server Address</string>
 
 
     <!--Context-->

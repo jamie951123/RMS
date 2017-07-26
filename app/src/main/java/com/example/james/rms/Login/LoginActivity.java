@@ -10,6 +10,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.james.rms.CommonProfile.DialogBox.ClassicDialog;
+import com.example.james.rms.CommonProfile.DialogBox.DialogModel;
 import com.example.james.rms.CommonProfile.Language.LocalizationUtil;
 import com.example.james.rms.CommonProfile.SharePreferences.MyPreferences;
 import com.example.james.rms.CommonProfile.SharePreferences.PreferencesKey;
@@ -28,6 +29,7 @@ import com.example.james.rms.Core.Model.Status;
 import com.example.james.rms.Core.Model.UserProfile;
 import com.example.james.rms.Core.SearchObject.FacebookSearchObject;
 import com.example.james.rms.Main.Setting.Setting;
+import com.example.james.rms.NetWork.ServeProfile;
 import com.example.james.rms.R;
 import com.example.james.rms.Service.LoginActivityService;
 import com.facebook.AccessToken;
@@ -57,14 +59,14 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     private AppCompatActivity appCompatActivity;
 
+    @BindView(R.id.login_image)
+    de.hdodenhof.circleimageview.CircleImageView login_image;
     @BindView(R.id.editUsername)
     EditText editUsername;
     @BindView(R.id.editPassword)
     EditText editPassword;
     @BindView(R.id.btnLogin)
     Button btnLogin;
-    @BindView(R.id.btnCancel)
-    Button btnCancel;
     @BindView(R.id.saveLoginCheckBox)
     android.support.v7.widget.AppCompatCheckBox saveLoginCheckBox;
     @BindView(R.id.facebooklogin)
@@ -107,7 +109,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         settingPreference = new MyPreferences(this,PreferencesKey.setting);
         facebookPreference = new MyPreferences(this,PreferencesKey.facebook);
         //
-        btnCancel.setOnClickListener(this);
+        login_image.setOnClickListener(this);
         btnLogin.setOnClickListener(this);
         //
         loginActivityService.autoLogin();
@@ -192,10 +194,15 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         String password = editPassword.getText().toString();
 //        ClassicDialog.showIndeterminate(this,R.color.blue0895ef,getString(R.string.loading),getString(R.string.waiting));
         switch (v.getId()){
-            case R.id.btnCancel:
-                List<UserProfile> loginModels = userProfileDao.findAll();
-                if(loginModels != null)
-                Toast.makeText(getApplicationContext(),loginModels.toString(),Toast.LENGTH_SHORT).show();
+            case R.id.login_image:
+//                List<UserProfile> loginModels = userProfileDao.findAll();
+//                if(loginModels != null)
+//                Toast.makeText(getApplicationContext(),loginModels.toString(),Toast.LENGTH_SHORT).show();
+                DialogModel dialogModel = new DialogModel();
+                dialogModel.setContext(this);
+                dialogModel.setTitle(getString(R.string.label_fill_server_address));
+                dialogModel.setContent(ServeProfile.getServe());
+                ClassicDialog.showBasicInputBox(dialogModel);
                 break;
 
             case R.id.btnLogin:
@@ -279,7 +286,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             if(loginModel != null && loginModel.getUserProfile()!=null && loginModel.getUserProfile().getSetting() != null)settingPreference.setPreferences_Setting(loginModel.getUserProfile().getSetting() );
             goToNavController();
         }
-        Toast.makeText(getApplicationContext(), loginModel.getLoginMessage(), Toast.LENGTH_SHORT).show();
+        if(loginModel != null)Toast.makeText(getApplicationContext(), loginModel.getLoginMessage(), Toast.LENGTH_SHORT).show();
     }
 
     @Override

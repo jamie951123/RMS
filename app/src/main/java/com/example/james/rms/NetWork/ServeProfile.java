@@ -5,14 +5,9 @@ package com.example.james.rms.NetWork;
  */
 
 public class ServeProfile {
-    public static String serve = "http://123.203.119.83:1123/";
+//    public static String serve = "http://123.203.119.83:1123/";    // HOME
 
-//    public static String serve = "http://123.203.112.174:1123/";
-//    public static String serve                                    = "http://123.203.112.174:1123/RMS_Serve/";
-
-    //    public static String serve                                    = "http://123.203.117.130:1123/";
-//    public static String serve                                    = "http://192.168.43.36:1123/";
-//public static String serve                                    = "http://10.16.81.188:1123/";
+    public static String serve = "http://192.168.43.36:1123/"; //Mobile
     //Login
     final static String login_findAll = "rms/login/findAll";
     final static String login_findByPartyId = "rms/login/findByPartyId";

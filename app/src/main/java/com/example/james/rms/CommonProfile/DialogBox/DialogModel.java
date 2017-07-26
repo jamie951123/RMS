@@ -17,6 +17,17 @@ public class DialogModel {
     private Long itemId;
     private String itemId_str;
 
+    //Edit
+    private String content;
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+
     public Context getContext() {
         return context;
     }
