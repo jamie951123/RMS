@@ -49,7 +49,7 @@ public class DeliveryIncreaseDialogExpandableAdapter extends MyExpandableListAda
                 Integer outStandingQty = receivingItemModel.getOutStandingQty();
                 BigDecimal outStandingWeight = receivingItemModel.getOutStandingWeight();
 
-                if((outStandingQty != null && outStandingQty >0) || (outStandingWeight != null && outStandingWeight.compareTo(new BigDecimal(0))>1)){
+                if((outStandingQty != null && outStandingQty >0) || (outStandingWeight != null && outStandingWeight.compareTo(new BigDecimal(0))>-1)){
 
                 }else{
                     dataArrayList.get(i).getReceivingItem().set(j,null);
