@@ -37,7 +37,7 @@ public class ProductDaoImpl extends NetworkModel implements ProductDao {
         String result = "";
         List<ProductModel> products = new ArrayList<>();
         try {
-            result = new HttpGetAsync(this).execute(ProductServerPath.serve_findAll()).get();
+            result = new HttpGetAsync(this).execute(ProductServerPath.INSTANCE.serve_findAll()).get();
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {
@@ -64,7 +64,7 @@ public class ProductDaoImpl extends NetworkModel implements ProductDao {
         String result = "";
         ProductModel product = new ProductModel();
         try {
-            result = new HttpPostAsync(this).execute(ProductServerPath.serve_findByProductId(),json).get();
+            result = new HttpPostAsync(this).execute(ProductServerPath.INSTANCE.serve_findByProductId(),json).get();
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {
@@ -90,7 +90,7 @@ public class ProductDaoImpl extends NetworkModel implements ProductDao {
         String result = "";
         List<ProductModel> products = new ArrayList<>();
         try {
-            result = new HttpPostAsync(this).execute(ProductServerPath.serve_findByPartyId(),json).get();
+            result = new HttpPostAsync(this).execute(ProductServerPath.INSTANCE.serve_findByPartyId(),json).get();
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {
@@ -117,7 +117,7 @@ public class ProductDaoImpl extends NetworkModel implements ProductDao {
         Log.d("asd:","[ProductModel]-insertProduct-[Request (JSON)]: :"+json);
         String result = "";
         try {
-            result = new HttpPostAsync(this).execute(ProductServerPath.serve_insertProduct(),json).get();
+            result = new HttpPostAsync(this).execute(ProductServerPath.INSTANCE.serve_insertProduct(),json).get();
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {
@@ -145,7 +145,7 @@ public class ProductDaoImpl extends NetworkModel implements ProductDao {
         Log.d("asd:","[ProductModel]-updateWeightIdNullByWeightIdAndPartyId-[Request (JSON)]: :"+json);
         String result = "";
         try {
-            result = new HttpPostAsync(this).execute(ProductServerPath.serve_updateWeightIdNullByWeightIdAndPartyId(),json).get();
+            result = new HttpPostAsync(this).execute(ProductServerPath.INSTANCE.serve_updateWeightIdNullByWeightIdAndPartyId(),json).get();
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {
@@ -168,7 +168,7 @@ public class ProductDaoImpl extends NetworkModel implements ProductDao {
         Log.d("asd:","[ProductModel]-updateQuantityIdNullByWeightIdAndPartyId-[Request (JSON)]: :"+json);
         String result = "";
         try {
-            result = new HttpPostAsync(this).execute(ProductServerPath.serve_updateQuantityIdNullByQuantityIdAndPartyId(),json).get();
+            result = new HttpPostAsync(this).execute(ProductServerPath.INSTANCE.serve_updateQuantityIdNullByQuantityIdAndPartyId(),json).get();
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {
@@ -191,7 +191,7 @@ public class ProductDaoImpl extends NetworkModel implements ProductDao {
         Log.d("asd:","[ProductModel]-updateQuantityIdAndWeightIdNullByProductId-[Request (JSON)]: :"+json);
         String result = "";
         try {
-            result = new HttpPostAsync(this).execute(ProductServerPath.serve_updateQuantityIdAndWeightIdNullByProductId(),json).get();
+            result = new HttpPostAsync(this).execute(ProductServerPath.INSTANCE.serve_updateQuantityIdAndWeightIdNullByProductId(),json).get();
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {
@@ -214,7 +214,7 @@ public class ProductDaoImpl extends NetworkModel implements ProductDao {
         Log.d("asd:","[ProductModel]-deleteByProductId-[Request (JSON)]: :"+json);
         String result = "";
         try {
-            result = new HttpPostAsync(this).execute(ProductServerPath.serve_deleteByProductId(),json).get();
+            result = new HttpPostAsync(this).execute(ProductServerPath.INSTANCE.serve_deleteByProductId(),json).get();
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {
@@ -243,7 +243,7 @@ public class ProductDaoImpl extends NetworkModel implements ProductDao {
         Log.d("asd:","[ProductModel]-delete-[Request (JSON)]: :"+product_json);
         String result = "";
         try {
-            result = new HttpPostAsync(this).execute(ProductServerPath.serve_delete(),product_json).get();
+            result = new HttpPostAsync(this).execute(ProductServerPath.INSTANCE.serve_delete(),product_json).get();
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {

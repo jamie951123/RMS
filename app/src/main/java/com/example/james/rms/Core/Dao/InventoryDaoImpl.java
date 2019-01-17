@@ -33,7 +33,7 @@ public class InventoryDaoImpl extends NetworkModel implements InventoryDao {
         Log.d("asd","[InventoryModel]-findByPartyIdAndStatus(Request--JSON):" + json);
         String result = "";
         try {
-            result = new HttpPostAsync(this).execute(InventoryServePath.serve_findByPartyIdAndStatus(),json).get();
+            result = new HttpPostAsync(this).execute(InventoryServePath.INSTANCE.serve_findByPartyIdAndStatus(),json).get();
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {
@@ -65,7 +65,7 @@ public class InventoryDaoImpl extends NetworkModel implements InventoryDao {
         Log.d("asd","[InventoryModel]-findByPartyIdAndStatusOrderByProductIdAsc(Request--JSON):" + json);
         String result = "";
         try {
-            result = new HttpPostAsync(this).execute(InventoryServePath.serve_findByPartyIdAndStatusOrderByProductIdAsc(),json).get();
+            result = new HttpPostAsync(this).execute(InventoryServePath.INSTANCE.serve_findByPartyIdAndStatusOrderByProductIdAsc(),json).get();
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {

@@ -1,11 +1,12 @@
 apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
 
 android {
     compileSdkVersion 25
     buildToolsVersion "28.0.3"
     defaultConfig {
         applicationId "com.example.james.rms"
-        minSdkVersion 19
+        minSdkVersion 21
         targetSdkVersion 25
         versionCode 1
         versionName "1.0"
@@ -42,7 +43,7 @@ dependencies {
     implementation 'com.android.support:recyclerview-v7:25.2.0'
     //Listview card
     implementation 'com.android.support:cardview-v7:25.2.0'
-    testCompile 'junit:junit:4.12'
+    testImplementation 'junit:junit:4.12'
 
     //daimajia swipeListview
     implementation "com.daimajia.swipelayout:library:1.2.0@aar"
@@ -57,7 +58,7 @@ dependencies {
 
     //NetWork HttpOK
     implementation 'com.squareup.okhttp3:okhttp:3.6.0'
-    testCompile 'com.squareup.okhttp3:mockwebserver:3.6.0'
+    testImplementation 'com.squareup.okhttp3:mockwebserver:3.6.0'
 
     //fab button
     implementation 'com.github.clans:fab:1.6.4'
@@ -82,11 +83,12 @@ dependencies {
     implementation 'com.google.code.gson:gson:2.8.0'
 
     //Facebook
-    compile 'com.facebook.android:facebook-android-sdk:4.16.0'
+    implementation 'com.facebook.android:facebook-android-sdk:4.16.0'
 
     //Crouton
     implementation('de.keyboardsurfer.android.widget:crouton:1.8.5@aar') {
         // exclusion is not necessary, but generally a good idea.
         exclude group: 'com.google.android', module: 'support-v4'
     }
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 }

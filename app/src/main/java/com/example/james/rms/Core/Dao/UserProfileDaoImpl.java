@@ -32,7 +32,7 @@ public class UserProfileDaoImpl extends NetworkModel implements UserProfileDao {
 
     @Override
     public List<UserProfile> findAll() {
-        String url = UserProfileServePath.serve_findAll();
+        String url = UserProfileServePath.INSTANCE.serve_findAll();
         String result="";
         List<UserProfile> userProfile = new ArrayList<>();
         try {
@@ -61,7 +61,7 @@ public class UserProfileDaoImpl extends NetworkModel implements UserProfileDao {
 
     @Override
     public UserProfile findByPartyId(String userProfileSearchObject_json) {
-        String url = UserProfileServePath.serve_findByPartyId();
+        String url = UserProfileServePath.INSTANCE.serve_findByPartyId();
         Log.d("asd","[UserProfile]-findByPartyId--Request(JSON) :"+ userProfileSearchObject_json);
         String result = "";
         try {
@@ -90,7 +90,7 @@ public class UserProfileDaoImpl extends NetworkModel implements UserProfileDao {
 
     @Override
     public UserProfile findByFacebookId(String userProfileSearchObject_json) {
-        String url = UserProfileServePath.serve_findbyFacebookId();
+        String url = UserProfileServePath.INSTANCE.serve_findbyFacebookId();
         Log.d("asd","[UserProfile]-findByFacebookId--Request(JSON) :"+ userProfileSearchObject_json);
         String result = "";
         try {
@@ -123,7 +123,7 @@ public class UserProfileDaoImpl extends NetworkModel implements UserProfileDao {
         String result = "";
         result = "";
         try {
-            result = new HttpPostAsync(this).execute(UserProfileServePath.serve_checkLogin(),userProfile_json).get();
+            result = new HttpPostAsync(this).execute(UserProfileServePath.INSTANCE.serve_checkLogin(),userProfile_json).get();
 //    new HttpPostAsyncUI(this).execute(UserProfileServePath.serve_checkLogin(),userProfile_json);
         } catch (Exception e) {
             e.printStackTrace();
@@ -146,7 +146,7 @@ public class UserProfileDaoImpl extends NetworkModel implements UserProfileDao {
 
     @Override
     public UserProfile save(String userProfile_json) {
-        String url = UserProfileServePath.serve_save();
+        String url = UserProfileServePath.INSTANCE.serve_save();
 
         Log.d("asd","[UserProfile]-save--Request(JSON) :"+ userProfile_json);
         String result = "";

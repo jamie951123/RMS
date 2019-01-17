@@ -50,7 +50,7 @@ public class Setting extends AppCompatActivity implements View.OnClickListener{
         String duration = ObjectUtil.intToString((Integer) settingPreference.getPreferences_Setting().get("dateRange"));
         //Language
         current_language = Locale.getDefault().getLanguage();
-        full_language = LocalizationUtil.getCodeToFullLanguage(this,current_language);
+        full_language = LocalizationUtil.INSTANCE.getCodeToFullLanguage(this,current_language);
         setting_language.setText(full_language);
         setting_date_duration.setText(ObjectUtil.isNotNullEmpty(duration)?duration+getString(R.string.label_days):"");
         //
@@ -67,7 +67,7 @@ public class Setting extends AppCompatActivity implements View.OnClickListener{
                 dialogModel.setContext(this);
                 dialogModel.setTitle(getString(R.string.title_choice_language));
                 dialogModel.setItemId_str(current_language);
-                dialogModel.setModeles(LocalizationUtil.getLocalizationModel(this));
+                dialogModel.setModeles(LocalizationUtil.INSTANCE.getLocalizationModel(this));
                 dialogModel.setKey(KeyModel.language);
                 ClassicDialog.showSingleChoice(dialogModel);
                 break;

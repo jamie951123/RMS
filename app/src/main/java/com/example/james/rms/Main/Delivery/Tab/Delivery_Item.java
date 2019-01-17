@@ -6,7 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.james.rms.CommonProfile.Graphics.GenericChat;
+import com.example.james.rms.CommonProfile.Graphics.GenericChart;
 import com.example.james.rms.CommonProfile.Graphics.Model.BarChatModel;
 import com.example.james.rms.CommonProfile.Library.AnimatedExpandableListView;
 import com.example.james.rms.CommonProfile.MyAdapter.MyBaseFragment;
@@ -102,9 +102,9 @@ public class Delivery_Item extends MyBaseFragment{
         listView.setAdapter(deliveryItemExpandListAdapter);
         listView.setGroupIndicator(null);
 
-        GenericChat genericChat = new GenericChat();
+        GenericChart genericChart = new GenericChart();
         BarChatModel barChatModel = getCharDate(sumDeliveryOrder.getDeliveryItem());
-        genericChat.horizontalBarChart(getActivity(),horizontalBarChart,barChatModel);
+        genericChart.horizontalBarChart(getActivity(),horizontalBarChart,barChatModel);
     }
 
     private DeliveryOrderModel copyModel(DeliveryOrderModel deliveryOrderModel){

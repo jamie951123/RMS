@@ -201,7 +201,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 DialogModel dialogModel = new DialogModel();
                 dialogModel.setContext(this);
                 dialogModel.setTitle(getString(R.string.label_fill_server_address));
-                dialogModel.setContent(ServeProfile.getServe());
+                dialogModel.setContent(ServeProfile.INSTANCE.getServe());
                 ClassicDialog.showBasicInputBox(dialogModel);
                 break;
 
@@ -238,7 +238,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     }
 
     private void goToNavController(){
-        LocalizationUtil.checkCurrentLocalization(this,PreferencesKey.localization);
+        LocalizationUtil.INSTANCE.checkCurrentLocalization(this,PreferencesKey.localization);
 
         Toast.makeText(getApplicationContext(), getString(R.string.label_welcome),Toast.LENGTH_SHORT).show();
         Intent intent = new Intent();

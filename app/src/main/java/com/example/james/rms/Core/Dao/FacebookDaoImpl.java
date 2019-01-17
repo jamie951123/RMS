@@ -30,7 +30,7 @@ public class FacebookDaoImpl extends NetworkModel implements FacebookDao {
 
     @Override
     public List<Facebook> findAll() {
-        String url = FacebookServerPath.serve_findAll();
+        String url = FacebookServerPath.INSTANCE.serve_findAll();
         String result = "";
         try {
             result = new HttpGetAsync(this).execute(url).get();
@@ -58,7 +58,7 @@ public class FacebookDaoImpl extends NetworkModel implements FacebookDao {
 
     @Override
     public Facebook findByFacebookId(String facebookSearch_json) {
-        String url = FacebookServerPath.serve_findbyFacebookId();
+        String url = FacebookServerPath.INSTANCE.serve_findbyFacebookId();
         Log.d("asd","[Facebook]-findByFacebookId--Request(JSON) :"+ facebookSearch_json);
         String result = "";
         try {
@@ -86,7 +86,7 @@ public class FacebookDaoImpl extends NetworkModel implements FacebookDao {
 
     @Override
     public Integer countFacebookId(String facebookSearch_json) {
-        String url = FacebookServerPath.serve_countFacebookId();
+        String url = FacebookServerPath.INSTANCE.serve_countFacebookId();
         Log.d("asd","[Facebook]-countFacebookId--Request(JSON) :"+ facebookSearch_json);
         String result = "";
         try {

@@ -5,7 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.james.rms.CommonProfile.Graphics.GenericChat;
+import com.example.james.rms.CommonProfile.Graphics.GenericChart;
 import com.example.james.rms.CommonProfile.Graphics.Model.BarChatModel;
 import com.example.james.rms.CommonProfile.Library.AnimatedExpandableListView;
 import com.example.james.rms.CommonProfile.MyAdapter.MyBaseFragment;
@@ -19,7 +19,6 @@ import com.github.mikephil.charting.charts.HorizontalBarChart;
 import com.github.mikephil.charting.data.BarEntry;
 
 import java.util.ArrayList;
-import java.util.LinkedHashMap;
 import java.util.List;
 
 import butterknife.BindView;
@@ -81,8 +80,8 @@ public class Receiving_item extends MyBaseFragment {
 
 //        listView.setDivider(null);
 
-        GenericChat genericChat = new GenericChat();
-        genericChat.horizontalBarChart(getActivity(),horizontalBarChart,getCharDate());
+        GenericChart genericChart = new GenericChart();
+        genericChart.horizontalBarChart(getActivity(),horizontalBarChart,getCharDate());
 
     }
 

@@ -35,7 +35,7 @@ public class ReceivingOrderDaoImpl extends NetworkModel implements ReceivingOrde
         String result = "";
         Log.d("asd","[ReceivingOrderModel]-findByPartyId(Request--JSON) :" + json);
         try {
-            result = new HttpPostAsync(this).execute(ReceivingOrderServePath.findByPartyId(),json).get();
+            result = new HttpPostAsync(this).execute(ReceivingOrderServePath.INSTANCE.findByPartyId(),json).get();
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {
@@ -67,7 +67,7 @@ public class ReceivingOrderDaoImpl extends NetworkModel implements ReceivingOrde
         String result = "";
         Log.d("asd","[ReceivingOrderModel]-findByPartyIdAndStatus(Request--JSON) :" + json);
         try {
-            result = new HttpPostAsync(this).execute(ReceivingOrderServePath.findByPartyIdAndStatus(),json).get();
+            result = new HttpPostAsync(this).execute(ReceivingOrderServePath.INSTANCE.findByPartyIdAndStatus(),json).get();
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {
@@ -99,7 +99,7 @@ public class ReceivingOrderDaoImpl extends NetworkModel implements ReceivingOrde
         String result = "";
         Log.d("asd","[ReceivingOrderModel]-findByOrderIdAndStatus(Request--JSON) :" + json);
         try {
-            result = new HttpPostAsync(this).execute(ReceivingOrderServePath.findByOrderIdAndStatus(),json).get();
+            result = new HttpPostAsync(this).execute(ReceivingOrderServePath.INSTANCE.findByOrderIdAndStatus(),json).get();
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {
@@ -131,7 +131,7 @@ public class ReceivingOrderDaoImpl extends NetworkModel implements ReceivingOrde
         String result = "";
         Log.d("asd", "[ReceivingOrderModel]- save(Request--JSON) :" + json);
         try {
-            result = new HttpPostAsync(this).execute(ReceivingOrderServePath.save(), json).get();
+            result = new HttpPostAsync(this).execute(ReceivingOrderServePath.INSTANCE.save(), json).get();
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {
@@ -180,7 +180,7 @@ public class ReceivingOrderDaoImpl extends NetworkModel implements ReceivingOrde
         Log.d("asd","[ReceivingOrderModel]-saveOrderAndItem(Request--JSON) :" + json);
         String result ="";
         try{
-            result = new HttpPostAsync(this).execute(ReceivingOrderServePath.saveOrderAndItem(),json).get();
+            result = new HttpPostAsync(this).execute(ReceivingOrderServePath.INSTANCE.saveOrderAndItem(),json).get();
         }catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {
@@ -212,7 +212,7 @@ public class ReceivingOrderDaoImpl extends NetworkModel implements ReceivingOrde
         Log.d("asd:","[ReceivingOrderModel]-delete-[Request (JSON)]: :"+receivingOrder_json);
         String result = "";
         try {
-            result = new HttpPostAsync(this).execute(ReceivingOrderServePath.delete(),receivingOrder_json).get();
+            result = new HttpPostAsync(this).execute(ReceivingOrderServePath.INSTANCE.delete(),receivingOrder_json).get();
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {

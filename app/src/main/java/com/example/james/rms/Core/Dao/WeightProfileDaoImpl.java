@@ -31,7 +31,7 @@ public class WeightProfileDaoImpl extends NetworkModel implements WeightProfileD
 
     @Override
     public List<WeightProfileModel> findAll() {
-        String url = WeightServePath.serve_findAll();
+        String url = WeightServePath.INSTANCE.serve_findAll();
         String result="";
         try {
             result = new HttpGetAsync(this).execute(url).get();
@@ -62,7 +62,7 @@ public class WeightProfileDaoImpl extends NetworkModel implements WeightProfileD
         Log.d("asd","[WeightProfileModel]-findByPartyId(Request--JSON):" + json);
         String result = "";
         try {
-            result = new HttpPostAsync(this).execute(WeightServePath.serve_findByPartyId(),json).get();
+            result = new HttpPostAsync(this).execute(WeightServePath.INSTANCE.serve_findByPartyId(),json).get();
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {
@@ -95,7 +95,7 @@ public class WeightProfileDaoImpl extends NetworkModel implements WeightProfileD
         Log.d("asd","[WeightProfileModel]-delete(Request--JSON):" + json);
         String result = "";
         try {
-            result = new HttpPostAsync(this).execute(WeightServePath.serve_delete(),json).get();
+            result = new HttpPostAsync(this).execute(WeightServePath.INSTANCE.serve_delete(),json).get();
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {
@@ -126,7 +126,7 @@ public class WeightProfileDaoImpl extends NetworkModel implements WeightProfileD
         Log.d("asd","[WeightProfileModel]-save(Request--JSON):" + json);
         String result = "";
         try {
-            result = new HttpPostAsync(this).execute(WeightServePath.serve_save(),json).get();
+            result = new HttpPostAsync(this).execute(WeightServePath.INSTANCE.serve_save(),json).get();
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {

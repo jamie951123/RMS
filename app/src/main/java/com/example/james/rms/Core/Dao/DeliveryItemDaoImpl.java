@@ -36,7 +36,7 @@ public class DeliveryItemDaoImpl extends NetworkModel implements DeliveryItemDao
         String result = "";
         List<DeliveryItemModel> deliveryItemModels = new ArrayList<>();
         try {
-            result = new HttpGetAsync(this).execute(DeliveryItemServePath.serve_findAll()).get();
+            result = new HttpGetAsync(this).execute(DeliveryItemServePath.INSTANCE.serve_findAll()).get();
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {
@@ -64,7 +64,7 @@ public class DeliveryItemDaoImpl extends NetworkModel implements DeliveryItemDao
         String result = "";
         List<DeliveryItemModel> deliveryItemModels = new ArrayList<>();
         try {
-            result = new HttpPostAsync(this).execute(DeliveryItemServePath.serve_findByPartyIdAndStatus(),deliveryItemSearch_json).get();
+            result = new HttpPostAsync(this).execute(DeliveryItemServePath.INSTANCE.serve_findByPartyIdAndStatus(),deliveryItemSearch_json).get();
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {
@@ -107,7 +107,7 @@ public class DeliveryItemDaoImpl extends NetworkModel implements DeliveryItemDao
         String result = "";
         ResponseMessage responseMessage = new ResponseMessage();
         try {
-            result = new HttpPostAsync(this).execute(DeliveryItemServePath.serve_delete(),deliveryItemModel_json).get();
+            result = new HttpPostAsync(this).execute(DeliveryItemServePath.INSTANCE.serve_delete(),deliveryItemModel_json).get();
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {

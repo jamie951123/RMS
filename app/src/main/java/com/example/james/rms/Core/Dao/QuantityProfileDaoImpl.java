@@ -32,7 +32,7 @@ public class QuantityProfileDaoImpl extends NetworkModel implements QuantityProf
 
     @Override
     public List<QuantityProfileModel> findAll() {
-        String url = QuantityServePath.serve_findAll();
+        String url = QuantityServePath.INSTANCE.serve_findAll();
         String result="";
         try {
             result = new HttpGetAsync(this).execute(url).get();
@@ -63,7 +63,7 @@ public class QuantityProfileDaoImpl extends NetworkModel implements QuantityProf
         Log.d("asd","[QuantityProfileModel]-findByPartyId(Request--JSON):" + json);
         String result = "";
         try {
-            result = new HttpPostAsync(this).execute(QuantityServePath.serve_findByPartyId(),json).get();
+            result = new HttpPostAsync(this).execute(QuantityServePath.INSTANCE.serve_findByPartyId(),json).get();
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {
@@ -96,7 +96,7 @@ public class QuantityProfileDaoImpl extends NetworkModel implements QuantityProf
         Log.d("asd","[QuantityProfileModel]-delete(Request--JSON):" + json);
         String result = "";
         try {
-            result = new HttpPostAsync(this).execute(QuantityServePath.serve_quantityDelete(),json).get();
+            result = new HttpPostAsync(this).execute(QuantityServePath.INSTANCE.serve_quantityDelete(),json).get();
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {
@@ -127,7 +127,7 @@ public class QuantityProfileDaoImpl extends NetworkModel implements QuantityProf
         Log.d("asd","[QuantityProfileModel]-save(Request--JSON):" + json);
         String result = "";
         try {
-            result = new HttpPostAsync(this).execute(QuantityServePath.serve_save(),json).get();
+            result = new HttpPostAsync(this).execute(QuantityServePath.INSTANCE.serve_save(),json).get();
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {

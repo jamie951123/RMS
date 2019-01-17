@@ -35,7 +35,7 @@ public class ReceivingItemDaoImpl extends NetworkModel implements ReceivingItemD
         Log.d("asd","[ReceivingItemModel]-findReceivingItemByPartyId(Request--JSON):" + json);
         String result = "";
         try {
-            result = new HttpPostAsync(this).execute(ReceivingItemServePath.findReceivingItemByPartyId(),json).get();
+            result = new HttpPostAsync(this).execute(ReceivingItemServePath.INSTANCE.findReceivingItemByPartyId(),json).get();
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {
@@ -68,7 +68,7 @@ public class ReceivingItemDaoImpl extends NetworkModel implements ReceivingItemD
         String result ="";
         Log.d("asd","[ReceivingItemModel]-insertIntoReceivingItem(Request--JSON) :" + json);
         try{
-            result = new HttpPostAsync(this).execute(ReceivingItemServePath.saves(),json).get();
+            result = new HttpPostAsync(this).execute(ReceivingItemServePath.INSTANCE.saves(),json).get();
         }catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {
@@ -100,7 +100,7 @@ public class ReceivingItemDaoImpl extends NetworkModel implements ReceivingItemD
         Log.d("asd:","[ReceivingItemModel]-delete-[Request (JSON)]: :"+receivingItem_json);
         String result = "";
         try {
-            result = new HttpPostAsync(this).execute(ReceivingItemServePath.delete(),receivingItem_json).get();
+            result = new HttpPostAsync(this).execute(ReceivingItemServePath.INSTANCE.delete(),receivingItem_json).get();
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {

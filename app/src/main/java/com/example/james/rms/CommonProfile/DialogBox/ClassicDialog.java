@@ -133,7 +133,7 @@ public class ClassicDialog {
                     @Override
                     public void onInput(MaterialDialog dialog, CharSequence input) {
                         if(input != null){
-                            ServeProfile.setServe(input.toString());
+                            ServeProfile.INSTANCE.setServe(input.toString());
                             Toast.makeText(dialog.getContext(),input,Toast.LENGTH_SHORT).show();
                         }
                         // Do something
@@ -277,7 +277,7 @@ public class ClassicDialog {
                                         String locationCode = localizationModels.get(which).getLanguageCode();
                                         String countryCode = Locale.getDefault().getCountry();
                                         if("zh".equalsIgnoreCase(locationCode))countryCode = "HK";
-                                        LocalizationUtil.setLanguage(context,locationCode,countryCode);
+                                        LocalizationUtil.INSTANCE.setLanguage(context,locationCode,countryCode);
                                         Intent intent = new Intent();
                                         intent.setClass(context, NavigationController.class);
                                         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);

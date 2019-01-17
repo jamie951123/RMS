@@ -37,7 +37,7 @@ public class DeliveryOrderDaoImpl extends NetworkModel implements DeliveryOrderD
         String result = "";
         List<DeliveryOrderModel> deliveryOrderModels = new ArrayList<>();
         try {
-            result = new HttpGetAsync(this).execute(DeliveryOrderServePath.serve_findAll()).get();
+            result = new HttpGetAsync(this).execute(DeliveryOrderServePath.INSTANCE.serve_findAll()).get();
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {
@@ -64,7 +64,7 @@ public class DeliveryOrderDaoImpl extends NetworkModel implements DeliveryOrderD
         String result = "";
         List<DeliveryOrderModel> deliveryOrderModels = new ArrayList<>();
         try {
-            result = new HttpPostAsync(this).execute(DeliveryOrderServePath.serve_findByPartyIdAndStatus(),deliverySearchObject).get();
+            result = new HttpPostAsync(this).execute(DeliveryOrderServePath.INSTANCE.serve_findByPartyIdAndStatus(),deliverySearchObject).get();
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {
@@ -91,7 +91,7 @@ public class DeliveryOrderDaoImpl extends NetworkModel implements DeliveryOrderD
         String result = "";
         List<DeliveryOrderModel> deliveryOrderModels = new ArrayList<>();
         try {
-            result = new HttpPostAsync(this).execute(DeliveryOrderServePath.serve_findByOrderIdAndStatus(),deliverySearchObject).get();
+            result = new HttpPostAsync(this).execute(DeliveryOrderServePath.INSTANCE.serve_findByOrderIdAndStatus(),deliverySearchObject).get();
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {
@@ -118,7 +118,7 @@ public class DeliveryOrderDaoImpl extends NetworkModel implements DeliveryOrderD
         String result = "";
         DeliveryOrderModel deliveryOrderModel = new DeliveryOrderModel();
         try {
-            result = new HttpPostAsync(this).execute(DeliveryOrderServePath.serve_save(),deliveryOrderModel_json).get();
+            result = new HttpPostAsync(this).execute(DeliveryOrderServePath.INSTANCE.serve_save(),deliveryOrderModel_json).get();
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {
@@ -144,7 +144,7 @@ public class DeliveryOrderDaoImpl extends NetworkModel implements DeliveryOrderD
         String result = "";
         DeliveryOrderModel deliveryOrderModel = new DeliveryOrderModel();
         try {
-            result = new HttpPostAsync(this).execute(DeliveryOrderServePath.serve_saveOrderAndItem(),deliveryOrderModel_json).get();
+            result = new HttpPostAsync(this).execute(DeliveryOrderServePath.INSTANCE.serve_saveOrderAndItem(),deliveryOrderModel_json).get();
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {
@@ -170,7 +170,7 @@ public class DeliveryOrderDaoImpl extends NetworkModel implements DeliveryOrderD
         String result = "";
         ResponseMessage responseMessage = new ResponseMessage();
         try {
-            result = new HttpPostAsync(this).execute(DeliveryOrderServePath.serve_delete(),DeliveryOrderModel).get();
+            result = new HttpPostAsync(this).execute(DeliveryOrderServePath.INSTANCE.serve_delete(),DeliveryOrderModel).get();
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {

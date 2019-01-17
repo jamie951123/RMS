@@ -3,7 +3,7 @@ package com.example.james.rms.Core.Model;
 /**
  * Created by Jamie on 3/7/2017.
  */
-
+@Deprecated
 public enum OperationType {
     IN("IN"),
     OUT("OUT");
