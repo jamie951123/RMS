@@ -70,7 +70,7 @@ public class Delivery_Order extends MyBaseFragment implements SwipeRefreshLayout
         laySwipe.setOnRefreshListener(this);
         SwipeUtil.setColor(laySwipe);
         //Preferences
-        myPreferences = new MyPreferences(getActivity(), PreferencesKey.login_information);
+        myPreferences = new MyPreferences(getActivity(), PreferencesKey.INSTANCE.getLogin_information());
         String partyId =  myPreferences.getPreferences_PartyId().get("partyId");
         //
         //partyId

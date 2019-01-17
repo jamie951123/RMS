@@ -118,7 +118,7 @@ public class ReceivingIncrease extends AppCompatActivity implements View.OnClick
         //clear open dialogbox count when enter the receivingIncrease Activity
         setUpToolbar();
         //Preferences
-        myPreferences = new MyPreferences(this, PreferencesKey.login_information);
+        myPreferences = new MyPreferences(this, PreferencesKey.INSTANCE.getLogin_information());
         partyId =  myPreferences.getPreferences_PartyId().get("partyId");
         //HttpOK
         combine_partyId = ReceivingOrderCombine.combine_partyId(partyId);

@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:background="@color/grayE8E8E8"
     android:orientation="vertical">
 
@@ -46,15 +47,19 @@
                 android:layout_height="match_parent"
                 android:padding="@dimen/padding_center"
                 android:text="@string/label_version"
-                android:textSize="@dimen/setting_text_size" />
+                android:textSize="@dimen/setting_text_size"
+                android:textColor="@color/black1F1F1F"/>
 
             <!--Version-Value-->
             <TextView
+                android:id="@+id/txv_version"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:padding="@dimen/padding_center"
+                android:paddingTop="@dimen/padding_center"
+                android:paddingBottom="@dimen/padding_center"
+                android:paddingRight="30sp"
                 android:gravity="right"
-                android:text="0.0.1"
+                tools:text="0.0.1"
                 android:textSize="@dimen/setting_text_size" />
 
         </LinearLayout>
@@ -75,11 +80,12 @@
                 android:layout_height="match_parent"
                 android:padding="@dimen/padding_center"
                 android:text="@string/label_language"
-                android:textSize="@dimen/setting_text_size" />
+                android:textSize="@dimen/setting_text_size"
+                android:textColor="@color/black1F1F1F"/>
 
             <!--Language-Value-->
                 <TextView
-                    android:id="@+id/setting_language"
+                    android:id="@+id/txv_setting_language"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:drawableRight="@drawable/sort_right_black_25px"
@@ -111,7 +117,8 @@
                 android:layout_height="match_parent"
                 android:padding="@dimen/padding_center"
                 android:text="@string/label_date_duration"
-                android:textSize="@dimen/setting_text_size" />
+                android:textSize="@dimen/setting_text_size"
+                android:textColor="@color/black1F1F1F"/>
 
             <!--Date-Value-->
             <TextView
@@ -119,7 +126,7 @@
                 android:layout_height="match_parent"
                 android:padding="@dimen/padding_center"
                 android:gravity="right"
-                android:id="@+id/setting_date_duration"
+                android:id="@+id/txv_setting_date_duration"
                 android:textSize="@dimen/setting_text_size" />
 
         </LinearLayout>

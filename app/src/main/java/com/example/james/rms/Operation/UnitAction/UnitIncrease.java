@@ -77,7 +77,7 @@ public class UnitIncrease extends AppCompatActivity implements View.OnClickListe
         //
         setUpActionBar();
         //Preferences
-        myPreferences = new MyPreferences(this, PreferencesKey.login_information);
+        myPreferences = new MyPreferences(this, PreferencesKey.INSTANCE.getLogin_information());
         partyId =  myPreferences.getPreferences_PartyId().get("partyId");
         //partyId
         combine_partyId = SettingSearchCombine.combine_partyId(partyId);

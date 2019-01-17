@@ -64,7 +64,7 @@ public class Receiving_order extends MyBaseFragment implements AdapterView.OnIte
         laySwipe.setOnRefreshListener(this);
         SwipeUtil.setColor(laySwipe);
         //Preferences
-        myPreferences = new MyPreferences(getActivity(), PreferencesKey.login_information);
+        myPreferences = new MyPreferences(getActivity(), PreferencesKey.INSTANCE.getLogin_information());
         partyId =  myPreferences.getPreferences_PartyId().get("partyId");
         //partyId
         combine_partyId = ReceivingOrderCombine.combine_partyId(partyId);

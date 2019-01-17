@@ -41,7 +41,7 @@ import com.example.james.rms.Operation.OperationContainer;
 import com.example.james.rms.Main.ProductPool.ProductContainer;
 import com.example.james.rms.R;
 import com.example.james.rms.Main.Receiving.ReceivingContainer;
-import com.example.james.rms.Main.Setting.Setting;
+import com.example.james.rms.Main.Setting.SettingActivity;
 import com.facebook.login.LoginManager;
 import com.github.clans.fab.FloatingActionButton;
 import com.github.clans.fab.FloatingActionMenu;
@@ -91,8 +91,8 @@ public class NavigationController extends AppCompatActivity implements Navigatio
         setUpFragmentType();
         setUpViewPager();
         //Preferences
-        myPreferences = new MyPreferences(this, PreferencesKey.login_information);
-        facebookPreference = new MyPreferences(this,PreferencesKey.facebook);
+        myPreferences = new MyPreferences(this, PreferencesKey.INSTANCE.getLogin_information());
+        facebookPreference = new MyPreferences(this, PreferencesKey.INSTANCE.getFacebook());
         //
         String name = facebookPreference.getPreferences_facebook().get("name");
         View hearder = navigationView.getHeaderView(0);
@@ -235,7 +235,7 @@ public class NavigationController extends AppCompatActivity implements Navigatio
             //            toolbar.setTitle(R.string.setting);
             navigationView.setCheckedItem(R.id.nav_setting);
             Intent intent = new Intent();
-            intent.setClass(this, Setting.class);
+            intent.setClass(this, SettingActivity.class);
             startActivity(intent);
         } else if (id == R.id.nav_logout) {
             navigationView.setCheckedItem(R.id.nav_logout);

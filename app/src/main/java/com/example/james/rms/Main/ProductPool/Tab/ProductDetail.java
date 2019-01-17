@@ -64,7 +64,7 @@ public class ProductDetail extends MyBaseFragment implements AdapterView.OnItemC
         SwipeUtil.setColor(laySwipe);
         //
         //Preferences
-        myPreferences = new MyPreferences(getActivity(), PreferencesKey.login_information);
+        myPreferences = new MyPreferences(getActivity(), PreferencesKey.INSTANCE.getLogin_information());
         partyId =  myPreferences.getPreferences_PartyId().get("partyId");
         //partyId
         //HttpOK

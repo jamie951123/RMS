@@ -62,6 +62,9 @@ object LocalizationUtil {
         return full_language
     }
 
+    /**
+     * return 2 choices . eng & chi
+     */
     fun getLocalizationModel(context: Context): List<LocalizationModel> {
         val languages = ArrayList<LocalizationModel>()
         var localizationModel = LocalizationModel()

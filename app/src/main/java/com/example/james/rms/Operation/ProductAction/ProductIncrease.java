@@ -113,7 +113,7 @@ public class ProductIncrease extends AppCompatActivity implements View.OnClickLi
         product_increase_weight_unit.setOnClickListener(this);
         product_increase_quantity_unit.setOnClickListener(this);
         //Preferences
-        myPreferences = new MyPreferences(this, PreferencesKey.login_information);
+        myPreferences = new MyPreferences(this, PreferencesKey.INSTANCE.getLogin_information());
         partyId =  myPreferences.getPreferences_PartyId().get("partyId");
         //HttpOK
         String combine_partyId = SearchCombine.combine_partyId(partyId);

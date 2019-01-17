@@ -22,11 +22,11 @@ import com.example.james.rms.Core.Model.MovementRecord;
 import com.example.james.rms.Core.Model.QuantityProfileModel;
 import com.example.james.rms.Core.Model.Status;
 import com.example.james.rms.Core.Model.WeightProfileModel;
+import com.example.james.rms.Main.Setting.SettingActivity;
 import com.example.james.rms.NetWork.ServeProfile;
 import com.example.james.rms.Operation.ProductAction.ProductIncrease;
 import com.example.james.rms.R;
 import com.example.james.rms.Operation.UnitAction.UnitIncrease;
-import com.example.james.rms.Main.Setting.Setting;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -262,7 +262,7 @@ public class ClassicDialog {
                         }
 
                         //Setting
-                        if(context instanceof Setting){
+                        if(context instanceof SettingActivity){
                             List<LocalizationModel> localizationModels = new ArrayList<>();
                             for (Object obj : modeles) {
                                 if (obj instanceof LocalizationModel) {

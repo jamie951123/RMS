@@ -59,7 +59,7 @@ public class Delivery_Item extends MyBaseFragment{
         View rootView = inflater.inflate(R.layout.delivery_item,container , false);
         ButterKnife.bind(this,rootView);
         //Preferences
-        myPreferences = new MyPreferences(getActivity(), PreferencesKey.login_information);
+        myPreferences = new MyPreferences(getActivity(), PreferencesKey.INSTANCE.getLogin_information());
         String partyId =  myPreferences.getPreferences_PartyId().get("partyId");
         //
         //partyId

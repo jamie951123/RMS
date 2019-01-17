@@ -28,7 +28,6 @@ import com.example.james.rms.Core.Model.SettingModel;
 import com.example.james.rms.Core.Model.Status;
 import com.example.james.rms.Core.Model.UserProfile;
 import com.example.james.rms.Core.SearchObject.FacebookSearchObject;
-import com.example.james.rms.Main.Setting.Setting;
 import com.example.james.rms.NetWork.ServeProfile;
 import com.example.james.rms.R;
 import com.example.james.rms.Service.LoginActivityService;
@@ -46,7 +45,6 @@ import com.facebook.login.widget.LoginButton;
 
 import org.json.JSONObject;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
@@ -105,9 +103,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         userProfileDao = new UserProfileDaoImpl(this);
         facebookDao = new FacebookDaoImpl(this);
         //Preferences
-        myPreferences = new MyPreferences(this, PreferencesKey.login_information);
-        settingPreference = new MyPreferences(this,PreferencesKey.setting);
-        facebookPreference = new MyPreferences(this,PreferencesKey.facebook);
+        myPreferences = new MyPreferences(this, PreferencesKey.INSTANCE.getLogin_information());
+        settingPreference = new MyPreferences(this, PreferencesKey.INSTANCE.getSetting());
+        facebookPreference = new MyPreferences(this, PreferencesKey.INSTANCE.getFacebook());
         //
         login_image.setOnClickListener(this);
         btnLogin.setOnClickListener(this);
@@ -238,7 +236,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     }
 
     private void goToNavController(){
-        LocalizationUtil.INSTANCE.checkCurrentLocalization(this,PreferencesKey.localization);
+        LocalizationUtil.INSTANCE.checkCurrentLocalization(this, PreferencesKey.INSTANCE.getLocalization());
 
         Toast.makeText(getApplicationContext(), getString(R.string.label_welcome),Toast.LENGTH_SHORT).show();
         Intent intent = new Intent();

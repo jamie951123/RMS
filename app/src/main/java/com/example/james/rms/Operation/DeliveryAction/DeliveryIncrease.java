@@ -129,7 +129,7 @@ public class DeliveryIncrease extends AppCompatActivity implements View.OnClickL
         this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         setUpToolbar();
         //Preferences
-        myPreferences = new MyPreferences(this, PreferencesKey.login_information);
+        myPreferences = new MyPreferences(this, PreferencesKey.INSTANCE.getLogin_information());
         partyId =  myPreferences.getPreferences_PartyId().get("partyId");
         //partyId
         //Combine
