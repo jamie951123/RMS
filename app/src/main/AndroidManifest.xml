@@ -51,7 +51,6 @@
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
             <intent-filter>
@@ -66,10 +65,10 @@
 
             <!--Facebook-->
             <intent-filter>
-            <action android:name="android.intent.action.VIEW" />
-            <category android:name="android.intent.category.DEFAULT" />
-            <category android:name="android.intent.category.BROWSABLE" />
-            <data android:scheme="@string/fb_login_protocol_scheme" />
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="@string/fb_login_protocol_scheme" />
             </intent-filter>
         </activity>
         <!--Product-->
@@ -77,7 +76,8 @@
             android:name=".Main.ProductPool.ProductContainer"
             android:configChanges="locale|orientation"
             android:screenOrientation="portrait" />
-        <activity android:name=".Main.ProductPool.Tab.ProductDetail" />
+        <activity
+            android:name=".Main.ProductPool.Tab.ProductDetail" />
         <!--Navigation-->
         <activity
             android:name=".Controller.NavigationController"
@@ -117,19 +117,22 @@
             <!--</intent-filter>-->
         </activity>
         <!--Unit-->
-        <activity android:name=".Operation.UnitAction.UnitIncrease"
+        <activity
+            android:name=".Operation.UnitAction.UnitIncrease"
             android:configChanges="orientation"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait"/>
 
         <!--Setting-->
-        <activity android:name=".Main.Setting.Setting"
+        <activity
+            android:name=".Main.Setting.Setting"
             android:configChanges="orientation"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait"/>
 
         <meta-data android:name="com.example.james.rms.CommonProfile.MyAdapter.MyAppGlideModule"
             android:value="AppGlideModule"/>
 
-        <provider android:authorities="com.facebook.app.FacebookContentProvider1234"
+        <provider
+            android:authorities="com.facebook.app.FacebookContentProvider1234"
             android:name="com.facebook.FacebookContentProvider"
             android:exported="true" />
 

@@ -1,0 +1,5 @@
+Bug
+
+1. In the setting page, the language selector display the wrong current language when you use chinese lang and
+reopen the app. (2019-01-17)
+
