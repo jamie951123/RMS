@@ -7,7 +7,7 @@ package com.example.james.rms.NetWork;
 public class ServeProfile {
 //    public static String serve = "http://123.203.119.83:1123/";    // HOME
 
-    public static String serve = "http://192.168.43.36:1123/"; //Mobile
+    public static String serve = "http://192.168.1.100:8080/"; //Mobile
     //Login
     final static String login_findAll = "rms/login/findAll";
     final static String login_findByPartyId = "rms/login/findByPartyId";
