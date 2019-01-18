@@ -8,7 +8,7 @@
     android:minWidth="1000dp"
     android:minHeight="450dp"
     android:orientation="vertical"
-    tools:context="com.example.james.rms.Operation.ReceivingAction.ReceivingIncrease">
+    tools:context="com.example.james.rms.operation.receiving_action.ReceivingIncreaseAct">
 
     <LinearLayout
         android:background="@color/blue0895ef"

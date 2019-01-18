@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/backgroundE8E8E8"
     android:orientation="vertical"
-    tools:context=".Main.Receiving.Tab.Receiving_order">
+    tools:context=".main.receiving.tab.ReceivingOrderFrag">
 
     <!--&lt;!&ndash; Single ListItem &ndash;&gt;-->
     <android.support.v4.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -23,10 +23,10 @@
             android:paddingRight="@dimen/card_margin"
             android:paddingTop="@dimen/card_margin">
 
-            <com.example.james.rms.CommonProfile.Library.AnimatedExpandableListView
+            <com.example.james.rms.common.Library.AnimatedExpandableListView
                 android:id="@+id/receiving_order_listView"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"></com.example.james.rms.CommonProfile.Library.AnimatedExpandableListView>
+                android:layout_height="match_parent"></com.example.james.rms.common.Library.AnimatedExpandableListView>
         </LinearLayout>
 
     </android.support.v4.widget.SwipeRefreshLayout>

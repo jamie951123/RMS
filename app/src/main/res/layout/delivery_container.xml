@@ -6,13 +6,13 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/backgroundE8E8E8"
-    tools:context=".Main.Delivery.DeliveryContainer">
+    tools:context=".main.delivery.DeliveryContainerFrag">
 
-    <com.example.james.rms.Controller.MyViewPager
+    <com.example.james.rms.controller.MyViewPager
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1"
         android:id="@+id/delivery_container_pages">
-    </com.example.james.rms.Controller.MyViewPager>
+    </com.example.james.rms.controller.MyViewPager>
 
 </LinearLayout>

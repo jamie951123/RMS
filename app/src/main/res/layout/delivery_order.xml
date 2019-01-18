@@ -16,10 +16,10 @@
         android:paddingRight="@dimen/card_margin"
         android:paddingTop="@dimen/card_margin"
         android:layout_weight="1">
-        <com.example.james.rms.CommonProfile.Library.AnimatedExpandableListView
+        <com.example.james.rms.common.Library.AnimatedExpandableListView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/de_order_listview"></com.example.james.rms.CommonProfile.Library.AnimatedExpandableListView>
+            android:id="@+id/de_order_listview"></com.example.james.rms.common.Library.AnimatedExpandableListView>
     </LinearLayout>
 
     </android.support.v4.widget.SwipeRefreshLayout>

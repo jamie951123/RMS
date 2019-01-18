@@ -44,9 +44,9 @@
             android:theme="@android:style/Theme.Translucent.NoTitleBar"
             android:label="@string/app_name" />
 
-        <!--LoginActivity-->
+        <!--LoginAct-->
         <activity
-            android:name=".Login.LoginActivity"
+            android:name=".ui.login.LoginAct"
             android:exported="true"
             android:configChanges="locale|orientation"
             android:screenOrientation="portrait">
@@ -74,26 +74,26 @@
         </activity>
         <!--Product-->
         <activity
-            android:name=".Main.ProductPool.ProductContainer"
+            android:name=".main.product_pool.ProductContainerFrag"
             android:configChanges="locale|orientation"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".Main.ProductPool.Tab.ProductDetail" />
+            android:name=".main.product_pool.tab.ProductDetailFrag" />
         <!--Navigation-->
         <activity
-            android:name=".Controller.NavigationController"
+            android:name=".controller.NavigationAct"
             android:configChanges="locale|orientation"
             android:screenOrientation="portrait" />
         <!--Receiving-->
         <activity
-            android:name=".Main.Receiving.ReceivingContainer"
+            android:name=".main.receiving.ReceivingFrag"
             android:configChanges="orientation"
             android:screenOrientation="portrait" />
         <!--Operation-->
-        <activity android:name=".Operation.OperationContainer"
+        <activity android:name=".operation.OperationAct"
             android:configChanges="orientation"
             android:screenOrientation="portrait" />
-        <activity android:name=".Operation.ProductAction.ProductIncrease"
+        <activity android:name=".operation.product_action.ProductIncreaseAct"
             android:configChanges="orientation"
             android:screenOrientation="portrait">
             <!--<intent-filter>-->
@@ -104,11 +104,11 @@
 
         </activity>
         <!--DeliveryOrder-->
-        <activity android:name=".Operation.DeliveryAction.DeliveryIncrease"
+        <activity android:name=".operation.delivery_action.DeliveryIncreaseAct"
             android:configChanges="orientation"
             android:screenOrientation="portrait">
             </activity>
-        <activity android:name=".Operation.ReceivingAction.ReceivingIncrease"
+        <activity android:name=".operation.receiving_action.ReceivingIncreaseAct"
             android:configChanges="orientation"
             android:screenOrientation="portrait">
             <!--<intent-filter>-->
@@ -119,17 +119,17 @@
         </activity>
         <!--Unit-->
         <activity
-            android:name=".Operation.UnitAction.UnitIncrease"
+            android:name=".operation.unit_action.UnitIncrease"
             android:configChanges="orientation"
             android:screenOrientation="portrait"/>
 
         <!--Setting-->
         <activity
-            android:name=".Main.Setting.SettingActivity"
+            android:name=".main.setting.SettingAct"
             android:configChanges="orientation"
             android:screenOrientation="portrait"/>
 
-        <meta-data android:name="com.example.james.rms.CommonProfile.MyAdapter.MyAppGlideModule"
+        <meta-data android:name="com.example.james.rms.common.adapter.MyAppGlideModule"
             android:value="AppGlideModule"/>
 
         <provider

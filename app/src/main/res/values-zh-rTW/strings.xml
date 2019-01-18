@@ -123,7 +123,7 @@
     <string name="receivingItem_ProductName">產品名稱:</string>
     <!--ReceivingIcerease-->
     <string name="receiving_increase_title">創建收貨單</string>
-    <!--DeliveryIncrease-->
+    <!--DeliveryIncreaseAct-->
     <string name="delivery_increase_title">創建出貨單</string>
     <!--Delivery Order-->
     <string name="deliveryOrder_deliveryId">出貨編號:</string>

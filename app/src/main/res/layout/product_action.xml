@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     android:background="@color/backgroundE8E8E8"
-    tools:context="com.example.james.rms.Operation.ProductAction.ProductIncrease">
+    tools:context="com.example.james.rms.operation.product_action.ProductIncreaseAct">
 <LinearLayout
     android:id="@+id/product_action"
     android:layout_width="match_parent"

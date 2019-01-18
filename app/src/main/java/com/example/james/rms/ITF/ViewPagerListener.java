@@ -1,6 +1,6 @@
 package com.example.james.rms.ITF;
 
-import com.example.james.rms.ITF.Model.RefreshModel;
+import com.example.james.rms.ITF.model.RefreshModel;
 
 import java.util.List;
 

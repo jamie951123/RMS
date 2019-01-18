@@ -122,7 +122,7 @@
     <string name="receivingItem_ProductName">ProductName:</string>
     <!--ReceivingIcerease-->
     <string name="receiving_increase_title">Create ReceivingOrder</string>
-    <!--DeliveryIncrease-->
+    <!--DeliveryIncreaseAct-->
     <string name="delivery_increase_title">Create DeliveryOrder</string>
     <!--Delivery Order-->
     <string name="deliveryOrder_deliveryId">DeliveryID:</string>
