@@ -81,6 +81,7 @@ public class NavigationController extends AppCompatActivity implements Navigatio
     //Combine
     private MovementRecordCombine movementRecordCombine = new MovementRecordCombine(MovementRecord.class);
     private String partyId;
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.navigation_controller);
@@ -94,10 +95,10 @@ public class NavigationController extends AppCompatActivity implements Navigatio
         myPreferences = new MyPreferences(this, PreferencesKey.INSTANCE.getLogin_information());
         facebookPreference = new MyPreferences(this, PreferencesKey.INSTANCE.getFacebook());
         //
-        String name = facebookPreference.getPreferences_facebook().get("name");
+
         View hearder = navigationView.getHeaderView(0);
         TextView navUsername  = (TextView) hearder.findViewById(R.id.navUserName);
-        navUsername.setText(ObjectUtil.isNotNullEmpty(name)?name:"");
+        navUsername.setText(getUsername());
         FabSetting();
 
         Integer requestCode = null;
@@ -143,6 +144,15 @@ public class NavigationController extends AppCompatActivity implements Navigatio
         //Service
     }
 
+    /**
+     * get username or facebook login username
+     * @return
+     */
+    private String getUsername(){
+        String from_fb_name = facebookPreference.getPreferences_facebook().get("name");
+        String from_name = myPreferences.getPreferences_loginInformation().get("username");
+        return ObjectUtil.isNotNullEmpty(from_name)?from_name:from_fb_name;
+    }
     private void setUpFragmentType(){
         fragments.add(new ReceivingContainer());
         fragments.add(new DeliveryContainer());

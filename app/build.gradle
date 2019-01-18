@@ -4,6 +4,17 @@ apply plugin: 'kotlin-android'
 android {
     compileSdkVersion 26
     buildToolsVersion "28.0.3"
+
+    signingConfigs{
+        release {
+            keyAlias OS_KEY_ALIAS
+            keyPassword OS_KEY_PASSWORD
+            storeFile file(OS_KEYSTORE_FILE)
+            storePassword OS_KEYSTORE_PASSWORD
+        }
+
+    }
+
     defaultConfig {
         applicationId "com.example.james.rms"
         minSdkVersion 21
@@ -16,6 +27,10 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfigs.release
+        }
+        debug{
+            signingConfigs.release
         }
     }
 
