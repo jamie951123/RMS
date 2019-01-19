@@ -129,6 +129,8 @@
             android:configChanges="orientation"
             android:screenOrientation="portrait"/>
 
+        <activity android:name="com.soundcloud.android.crop.CropImageActivity" />
+
         <meta-data android:name="com.example.james.rms.common.adapter.MyAppGlideModule"
             android:value="AppGlideModule"/>
 

@@ -1,6 +1,8 @@
 package com.example.james.rms.operation.product_action;
 
+import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -14,6 +16,7 @@ import com.example.james.rms.common.DialogBox.ClassicDialog;
 import com.example.james.rms.common.DialogBox.DialogModel;
 import com.example.james.rms.common.DialogBox.service.ClassicDialogService;
 import com.example.james.rms.common.SharePreferences.MyPreferences;
+import com.example.james.rms.constant.Constant;
 import com.example.james.rms.constant.PreferencesKey;
 import com.example.james.rms.common.StartActivityForResultKey;
 import com.example.james.rms.common.util.ObjectUtil;
@@ -33,7 +36,10 @@ import com.example.james.rms.core.model.QuantityProfileModel;
 import com.example.james.rms.core.model.WeightProfileModel;
 import com.example.james.rms.core.search_object.SearchCombine;
 import com.example.james.rms.R;
+import com.soundcloud.android.crop.Crop;
 
+import java.io.File;
+import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -97,6 +103,8 @@ public class ProductIncreaseAct extends AppCompatActivity implements View.OnClic
     //
     //Combine
     private MovementRecordCombine movementRecordCombine = new MovementRecordCombine(MovementRecord.class);
+
+    Uri imageOutputUri;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -145,6 +153,13 @@ public class ProductIncreaseAct extends AppCompatActivity implements View.OnClic
         }
 
         setActionDate();
+
+        increase_imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Crop.pickImage(ProductIncreaseAct.this);
+            }
+        });
 
     }
 
@@ -258,6 +273,35 @@ public class ProductIncreaseAct extends AppCompatActivity implements View.OnClic
         Log.v("asd","settingPagesQty :" + quantityProfileModel.toString());
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if(requestCode == Crop.REQUEST_PICK){
+            if (resultCode == RESULT_OK){
+                Uri pickUrl = data.getData();
+                triggerCropImage(pickUrl);
+            }
+        }
+        if (requestCode == Crop.REQUEST_CROP && resultCode == RESULT_OK) {
+            updateProductImage(imageOutputUri);
+        }
+    }
+
+    private void updateProductImage(Uri imageUri) {
+        increase_imageView.setImageURI(imageUri);
+    }
+
+    public void triggerCropImage(Uri sourceUri){
+        File folder = this.getDir(Constant.APP_NAME, Context.MODE_PRIVATE);
+        try {
+            File outputFile = File.createTempFile("product","jpg",folder);
+            imageOutputUri = Uri.fromFile(outputFile);
+            Crop.of(sourceUri, imageOutputUri).asSquare().start(this);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
     @Override
     protected void onDestroy() {
         super.onDestroy();
