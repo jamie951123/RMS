@@ -12,10 +12,12 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.example.james.rms.common.DialogBox.ClassicDialog;
 import com.example.james.rms.common.DialogBox.DialogModel;
 import com.example.james.rms.common.DialogBox.service.ClassicDialogService;
 import com.example.james.rms.common.SharePreferences.MyPreferences;
+import com.example.james.rms.common.adapter.GlideApp;
 import com.example.james.rms.constant.Constant;
 import com.example.james.rms.constant.PreferencesKey;
 import com.example.james.rms.common.StartActivityForResultKey;
@@ -287,7 +289,11 @@ public class ProductIncreaseAct extends AppCompatActivity implements View.OnClic
     }
 
     private void updateProductImage(Uri imageUri) {
-        increase_imageView.setImageURI(imageUri);
+
+        GlideApp.with(this)
+                .load(imageUri)
+                .into(increase_imageView);
+//        increase_imageView.setImageURI(imageUri);
     }
 
     public void triggerCropImage(Uri sourceUri){
