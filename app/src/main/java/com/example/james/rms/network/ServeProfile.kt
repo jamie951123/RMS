@@ -9,92 +9,114 @@ object ServeProfile {
     //    public static String serve = "http://123.203.119.83:1123/";    // HOME
 
     var serve = "http://192.168.1.100:8080/" //Mobile
-    //Login
-    val login_findAll = "rms/login/findAll"
-    val login_findByPartyId = "rms/login/findByPartyId"
-    val login_checklogin = "rms/login/checklogin"
-    val login_findByFacebookId = "rms/login/findByFacebookId"
-    val login_save = "rms/login/save"
+
+    object Login {
+        const val login_findAll = "rms/login/findAll"
+        const val login_findByPartyId = "rms/login/findByPartyId"
+        const val login_checklogin = "rms/login/checklogin"
+        const val login_findByFacebookId = "rms/login/findByFacebookId"
+        const val login_save = "rms/login/save"
+    }
 
     //    Facebook
-    val facebook_findAll = "rms/facebook/findAll"
-    val facebook_findByFacebookId = "rms/facebook/findByFacebookId"
-    val facebook_countFacebookId = "rms/facebook/countFacebookId"
+    object Facebook {
+        const val facebook_findAll = "rms/facebook/findAll"
+        const val facebook_findByFacebookId = "rms/facebook/findByFacebookId"
+        const val facebook_countFacebookId = "rms/facebook/countFacebookId"
+    }
 
     //Product
-    val product_findAll = "rms/product/findAll"
-    val product_findByPartyId = "rms/product/findByPartyId"
-    val product_findByProductId = "rms/product/findByProductId"
-    val product_save = "rms/product/save"
-    val product_deleteByProductId = "rms/product/deleteByProductId"
-    val product_delete = "rms/product/delete"
-    val product_updateWeightIdNullByWeightIdAndPartyId = "rms/product/updateWeightIdNullByWeightIdAndPartyId"
-    val product_updateQuantityIdNullByQuantityIdAndPartyId = "rms/product/updateQuantityIdNullByQuantityIdAndPartyId"
-    val product_updateQuantityIdAndWeightIdNullByProductId = "rms/product/updateQuantityIdAndWeightIdNullByProductId"
+    object Product {
+        const val product_findAll = "rms/product/findAll"
+        const val product_findByPartyId = "rms/product/findByPartyId"
+        const val product_findByProductId = "rms/product/findByProductId"
+        const val product_save = "rms/product/save"
+        const val product_deleteByProductId = "rms/product/deleteByProductId"
+        const val product_delete = "rms/product/delete"
+        const val product_updateWeightIdNullByWeightIdAndPartyId = "rms/product/updateWeightIdNullByWeightIdAndPartyId"
+        const val product_updateQuantityIdNullByQuantityIdAndPartyId = "rms/product/updateQuantityIdNullByQuantityIdAndPartyId"
+        const val product_updateQuantityIdAndWeightIdNullByProductId = "rms/product/updateQuantityIdAndWeightIdNullByProductId"
+    }
 
     //ReceivingOrder
-    val re_order_findAll = "rms/receiving/order/findAll"
-    val re_order_findByPartyId = "rms/receiving/order/findByPartyId"
-    val re_order_findByPartyIdAndStatus = "rms/receiving/order/findByPartyIdAndStatus"
-    val re_order_findByOrderIdAndStatus = "rms/receiving/order/findByOrderIdAndStatus"
-    val re_order_findByOrderId = "rms/receiving/order/findByOrderId"
-    val re_order_delete = "rms/receiving/order/delete"
-    val re_order_save = "rms/receiving/order/save"
-    val re_saveOrderAndItem = "rms/receiving/order/saveOrderAndItem"
+    object ReceivingOrder {
+        const val re_order_findAll = "rms/receiving/order/findAll"
+        const val re_order_findByPartyId = "rms/receiving/order/findByPartyId"
+        const val re_order_findByPartyIdAndStatus = "rms/receiving/order/findByPartyIdAndStatus"
+        const val re_order_findByOrderIdAndStatus = "rms/receiving/order/findByOrderIdAndStatus"
+        const val re_order_findByOrderId = "rms/receiving/order/findByOrderId"
+        const val re_order_delete = "rms/receiving/order/delete"
+        const val re_order_save = "rms/receiving/order/save"
+        const val re_saveOrderAndItem = "rms/receiving/order/saveOrderAndItem"
+    }
 
     //ReceivingItem
-    val re_item_findAll = "rms/receiving/item/findAll"
-    val re_item_findByPartyId = "rms/receiving/item/findByPartyId"
-    val re_item_findByReceivingID = "rms/receiving/item/findByReceivingID"
-    val re_item_save = "rms/receiving/item/save"
-    val re_item_saves = "rms/receiving/item/saves"
-    val re_item_deleteByOrderId = "rms/receiving/item/deleteByOrderId"
-    val re_item_updateOrderIdNullByOrderId = "rms/receiving/item/updateOrderIdNullByOrderId"
-    val re_item_deleteByProductId = "rms/receiving/item/deleteByProductId"
-    val re_item_delete = "rms/receiving/item/delete"
-    val re_item_deletes = "rms/receiving/item/deletes"
-    val re_item_deleteByReceivingIds = "rms/receiving/item/deleteByReceivingIds"
+    object ReceivingItem {
+        const val re_item_findAll = "rms/receiving/item/findAll"
+        const val re_item_findByPartyId = "rms/receiving/item/findByPartyId"
+        const val re_item_findByReceivingID = "rms/receiving/item/findByReceivingID"
+        const val re_item_save = "rms/receiving/item/save"
+        const val re_item_saves = "rms/receiving/item/saves"
+        const val re_item_deleteByOrderId = "rms/receiving/item/deleteByOrderId"
+        const val re_item_updateOrderIdNullByOrderId = "rms/receiving/item/updateOrderIdNullByOrderId"
+        const val re_item_deleteByProductId = "rms/receiving/item/deleteByProductId"
+        const val re_item_delete = "rms/receiving/item/delete"
+        const val re_item_deletes = "rms/receiving/item/deletes"
+        const val re_item_deleteByReceivingIds = "rms/receiving/item/deleteByReceivingIds"
+    }
 
     //WeightProfile
-    val weight_findAll = "rms/weight/findAll"
-    val weight_findByPartyId = "rms/weight/findByPartyId"
-    val weight_delete = "rms/weight/delete"
-    val weight_save = "rms/weight/save"
+    object WeightProfile {
+        const val weight_findAll = "rms/weight/findAll"
+        const val weight_findByPartyId = "rms/weight/findByPartyId"
+        const val weight_delete = "rms/weight/delete"
+        const val weight_save = "rms/weight/save"
+    }
 
     //QuantityProfile
-    val quantity_findAll = "rms/quantity/findAll"
-    val quantity_findByPartyId = "rms/quantity/findByPartyId"
-    val quantity_delete = "rms/quantity/delete"
-    val quantity_save = "rms/quantity/save"
-    val quantity_updateQtyByQuantityIdAndPartyIdAndQtyUnit = "rms/quantity/updateQtyByQuantityIdAndPartyIdAndQtyUnit"
+    object QuantityProfile {
+        const val quantity_findAll = "rms/quantity/findAll"
+        const val quantity_findByPartyId = "rms/quantity/findByPartyId"
+        const val quantity_delete = "rms/quantity/delete"
+        const val quantity_save = "rms/quantity/save"
+        const val quantity_updateQtyByQuantityIdAndPartyIdAndQtyUnit = "rms/quantity/updateQtyByQuantityIdAndPartyIdAndQtyUnit"
+    }
 
     //Inventory
-    val inventory_findAll = "rms/inventory/findAll"
-    val inventory_findByPartyId = "rms/inventory/findByPartyId"
-    val inventory_findByPartyIdAndStatus = "rms/inventory/findByPartyIdAndStauts"
-    val inventory_findByPartyIdAndStatusOrderByProductIdAsc = "rms/inventory/findByPartyIdAndStatusOrderByProductIdAsc"
-    val inventory_save = "rms/inventory/save"
-    val inventory_saves = "rms/inventory/saves"
-    val inventory_deleteByProductId = "rms/inventory/deleteByProductId"
+    object Inventory {
+        const val inventory_findAll = "rms/inventory/findAll"
+        const val inventory_findByPartyId = "rms/inventory/findByPartyId"
+        const val inventory_findByPartyIdAndStatus = "rms/inventory/findByPartyIdAndStauts"
+        const val inventory_findByPartyIdAndStatusOrderByProductIdAsc = "rms/inventory/findByPartyIdAndStatusOrderByProductIdAsc"
+        const val inventory_save = "rms/inventory/save"
+        const val inventory_saves = "rms/inventory/saves"
+        const val inventory_deleteByProductId = "rms/inventory/deleteByProductId"
+    }
 
     //InventorySum
-    val inventorySum_findByPartyIdAndStatus = "rms/inventorysum/findByPartyIdAndStatus"
-    val inventorySum_findByPartyIdAndStatusOrderByProductId = "rms/inventorysum/findByPartyIdAndStatusOrderProductId"
+    object InventorySum {
+        const val inventorySum_findByPartyIdAndStatus = "rms/inventorysum/findByPartyIdAndStatus"
+        const val inventorySum_findByPartyIdAndStatusOrderByProductId = "rms/inventorysum/findByPartyIdAndStatusOrderProductId"
+    }
 
     //DeliveryOrderFrag
-    val de_order_findAll = "rms/delivery/order/findAll"
-    val de_order_findByPartyIdAndStatus = "rms/delivery/order/findByPartyIdAndStauts"
-    val de_order_findByOrderIdAndStatus = "rms/delivery/order/findByOrderIdAndStatus"
-    val de_order_delete = "rms/delivery/order/delete"
-    val de_order_save = "rms/delivery/order/save"
-    val de_saveOrderAndItem = "rms/delivery/order/saveOrderAndItem"
+    object DeliveryOrder {
+        const val de_order_findAll = "rms/delivery/order/findAll"
+        const val de_order_findByPartyIdAndStatus = "rms/delivery/order/findByPartyIdAndStauts"
+        const val de_order_findByOrderIdAndStatus = "rms/delivery/order/findByOrderIdAndStatus"
+        const val de_order_delete = "rms/delivery/order/delete"
+        const val de_order_save = "rms/delivery/order/save"
+        const val de_saveOrderAndItem = "rms/delivery/order/saveOrderAndItem"
 
+    }
 
     //DeliveryItemFrag
-    val de_item_findAll = "rms/delivery/item/findAll"
-    val de_item_findByPartyIdAndStatus = "rms/delivery/item/findByPartyIdAndStauts"
-    val de_item_findByOrderIdAndStatus = "rms/delivery/item/findByOrderIdAndStatus"
-    val de_item_delete = "rms/delivery/item/delete"
-    val de_item_save = "rms/delivery/item/save"
-    val de_item_saves = "rms/delivery/item/save"
+    object DeliveryItem {
+        const val de_item_findAll = "rms/delivery/item/findAll"
+        const val de_item_findByPartyIdAndStatus = "rms/delivery/item/findByPartyIdAndStauts"
+        const val de_item_findByOrderIdAndStatus = "rms/delivery/item/findByOrderIdAndStatus"
+        const val de_item_delete = "rms/delivery/item/delete"
+        const val de_item_save = "rms/delivery/item/save"
+        const val de_item_saves = "rms/delivery/item/save"
+    }
 }

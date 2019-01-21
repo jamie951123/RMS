@@ -11,17 +11,17 @@ object InventoryServePath {
         get() = ServeProfile.serve
 
     fun serve_findByPartyIdAndStatus(): String {
-        val path = ServeProfile.inventorySum_findByPartyIdAndStatus
+        val path = ServeProfile.InventorySum.inventorySum_findByPartyIdAndStatus
         return serve + path
     }
 
     fun serve_findByPartyIdAndStatusOrderByProductId(): String {
-        val path = ServeProfile.inventorySum_findByPartyIdAndStatusOrderByProductId
+        val path = ServeProfile.InventorySum.inventorySum_findByPartyIdAndStatusOrderByProductId
         return serve + path
     }
 
     fun serve_findByPartyIdAndStatusOrderByProductIdAsc(): String {
-        val path = ServeProfile.inventory_findByPartyIdAndStatusOrderByProductIdAsc
+        val path = ServeProfile.Inventory.inventory_findByPartyIdAndStatusOrderByProductIdAsc
         return serve + path
     }
 

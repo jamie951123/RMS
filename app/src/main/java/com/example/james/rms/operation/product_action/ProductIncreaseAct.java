@@ -13,15 +13,15 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.example.james.rms.R;
 import com.example.james.rms.common.DialogBox.ClassicDialog;
 import com.example.james.rms.common.DialogBox.DialogModel;
 import com.example.james.rms.common.DialogBox.service.ClassicDialogService;
 import com.example.james.rms.common.SharePreferences.MyPreferences;
-import com.example.james.rms.common.adapter.GlideApp;
-import com.example.james.rms.constant.Constant;
-import com.example.james.rms.constant.PreferencesKey;
 import com.example.james.rms.common.StartActivityForResultKey;
 import com.example.james.rms.common.util.ObjectUtil;
+import com.example.james.rms.constant.Constant;
+import com.example.james.rms.constant.PreferencesKey;
 import com.example.james.rms.controller.NavigationAct;
 import com.example.james.rms.core.combine.MovementRecordCombine;
 import com.example.james.rms.core.combine.ProductCombine;
@@ -37,7 +37,6 @@ import com.example.james.rms.core.model.ProductModel;
 import com.example.james.rms.core.model.QuantityProfileModel;
 import com.example.james.rms.core.model.WeightProfileModel;
 import com.example.james.rms.core.search_object.SearchCombine;
-import com.example.james.rms.R;
 import com.soundcloud.android.crop.Crop;
 
 import java.io.File;
@@ -289,11 +288,9 @@ public class ProductIncreaseAct extends AppCompatActivity implements View.OnClic
     }
 
     private void updateProductImage(Uri imageUri) {
-
-        GlideApp.with(this)
+        Glide.with(this)
                 .load(imageUri)
                 .into(increase_imageView);
-//        increase_imageView.setImageURI(imageUri);
     }
 
     public void triggerCropImage(Uri sourceUri){

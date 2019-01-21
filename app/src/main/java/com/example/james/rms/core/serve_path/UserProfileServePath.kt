@@ -10,27 +10,27 @@ object UserProfileServePath {
     val serve = ServeProfile.serve
 
     fun serve_checkLogin(): String {
-        val path = ServeProfile.login_checklogin
+        val path = ServeProfile.Login.login_checklogin
         return serve + path
     }
 
     fun serve_findAll(): String {
-        val path = ServeProfile.login_findAll
+        val path = ServeProfile.Login.login_findAll
         return serve + path
     }
 
     fun serve_findByPartyId(): String {
-        val path = ServeProfile.login_findByPartyId
+        val path = ServeProfile.Login.login_findByPartyId
         return serve + path
     }
 
     fun serve_findbyFacebookId(): String {
-        val path = ServeProfile.login_findByFacebookId
+        val path = ServeProfile.Login.login_findByFacebookId
         return serve + path
     }
 
     fun serve_save(): String {
-        val path = ServeProfile.login_save
+        val path = ServeProfile.Login.login_save
         return serve + path
     }
 

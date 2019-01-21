@@ -7,7 +7,10 @@ import com.example.james.rms.core.model.Facebook;
  */
 
 public interface LoginActivityService {
+
     void autoLogin();
+
     void fb_Login(Facebook facebook);
+
     void buttonLogin(String username, String password);
 }

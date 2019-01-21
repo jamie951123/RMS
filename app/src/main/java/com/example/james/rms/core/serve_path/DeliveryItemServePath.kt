@@ -12,18 +12,18 @@ object DeliveryItemServePath {
         get() = ServeProfile.serve
 
     //    Find
-    fun serve_findAll(): String = serve + ServeProfile.de_item_findAll
+    fun serve_findAll(): String = serve + ServeProfile.DeliveryItem.de_item_findAll
 
 
-    fun serve_findByPartyIdAndStatus(): String = serve + ServeProfile.de_item_findByPartyIdAndStatus
+    fun serve_findByPartyIdAndStatus(): String = serve + ServeProfile.DeliveryItem.de_item_findByPartyIdAndStatus
 
-    fun serve_findByOrderIdAndStatus(): String  = serve + ServeProfile.de_item_findByOrderIdAndStatus
+    fun serve_findByOrderIdAndStatus(): String  = serve + ServeProfile.DeliveryItem.de_item_findByOrderIdAndStatus
 
     //    Save
-    fun serve_save(): String = serve + ServeProfile.de_item_save
+    fun serve_save(): String = serve + ServeProfile.DeliveryItem.de_item_save
 
-    fun serve_saves(): String = serve + ServeProfile.de_item_saves
+    fun serve_saves(): String = serve + ServeProfile.DeliveryItem.de_item_saves
 
-    fun serve_delete(): String = serve + ServeProfile.de_item_delete
+    fun serve_delete(): String = serve + ServeProfile.DeliveryItem.de_item_delete
 
 }

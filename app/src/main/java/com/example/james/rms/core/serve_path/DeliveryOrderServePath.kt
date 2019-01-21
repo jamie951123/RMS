@@ -12,24 +12,24 @@ object DeliveryOrderServePath {
 
     //Find
     fun serve_findAll(): String {
-        return serve + ServeProfile.de_order_findAll
+        return serve + ServeProfile.DeliveryOrder.de_order_findAll
     }
 
     fun serve_findByPartyIdAndStatus(): String {
-        return serve + ServeProfile.de_order_findByPartyIdAndStatus
+        return serve + ServeProfile.DeliveryOrder.de_order_findByPartyIdAndStatus
     }
 
     fun serve_findByOrderIdAndStatus(): String {
-        return serve + ServeProfile.de_order_findByOrderIdAndStatus
+        return serve + ServeProfile.DeliveryOrder.de_order_findByOrderIdAndStatus
     }
 
     //Save
     fun serve_save(): String {
-        return serve + ServeProfile.de_order_save
+        return serve + ServeProfile.DeliveryOrder.de_order_save
     }
 
     fun serve_saveOrderAndItem(): String {
-        return serve + ServeProfile.de_saveOrderAndItem
+        return serve + ServeProfile.DeliveryOrder.de_saveOrderAndItem
     }
 
     //Update
@@ -37,6 +37,6 @@ object DeliveryOrderServePath {
 
     //Delete
     fun serve_delete(): String {
-        return serve + ServeProfile.de_order_delete
+        return serve + ServeProfile.DeliveryOrder.de_order_delete
     }
 }

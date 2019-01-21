@@ -10,22 +10,22 @@ object ReceivingOrderServePath {
 
 
     fun findByPartyId(): String {
-        val path = ServeProfile.re_order_findByPartyId
+        val path = ServeProfile.ReceivingOrder.re_order_findByPartyId
         return serve + path
     }
 
     fun findByPartyIdAndStatus(): String {
-        val path = ServeProfile.re_order_findByPartyIdAndStatus
+        val path = ServeProfile.ReceivingOrder.re_order_findByPartyIdAndStatus
         return serve + path
     }
 
     fun findByOrderIdAndStatus(): String {
-        val path = ServeProfile.re_order_findByOrderIdAndStatus
+        val path = ServeProfile.ReceivingOrder.re_order_findByOrderIdAndStatus
         return serve + path
     }
 
     fun save(): String {
-        val path = ServeProfile.re_order_save
+        val path = ServeProfile.ReceivingOrder.re_order_save
         return serve + path
     }
 
@@ -37,12 +37,12 @@ object ReceivingOrderServePath {
     //    }
 
     fun saveOrderAndItem(): String {
-        val path = ServeProfile.re_saveOrderAndItem
+        val path = ServeProfile.ReceivingOrder.re_saveOrderAndItem
         return serve + path
     }
 
     fun delete(): String {
-        val path = ServeProfile.re_order_delete
+        val path = ServeProfile.ReceivingOrder.re_order_delete
         return serve + path
     }
 

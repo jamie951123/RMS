@@ -10,15 +10,16 @@ object FacebookServerPath {
     val serve: String
         get() = ServeProfile.serve
 
+
     fun serve_findAll(): String {
-        return serve + ServeProfile.facebook_findAll
+        return serve + ServeProfile.Facebook.facebook_findAll
     }
 
     fun serve_findbyFacebookId(): String {
-        return serve + ServeProfile.facebook_findByFacebookId
+        return serve + ServeProfile.Facebook.facebook_findByFacebookId
     }
 
     fun serve_countFacebookId(): String {
-        return serve + ServeProfile.facebook_countFacebookId
+        return serve + ServeProfile.Facebook.facebook_countFacebookId
     }
 }

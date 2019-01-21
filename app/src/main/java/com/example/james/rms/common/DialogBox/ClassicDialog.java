@@ -124,6 +124,10 @@ public class ClassicDialog {
                 .show();
     }
 
+    /**
+     * Show a dialog to change server address
+     * @param dialogModel
+     */
     public static void showBasicInputBox(final DialogModel dialogModel){
         new MaterialDialog.Builder(dialogModel.getContext())
                 .title(dialogModel.getTitle())

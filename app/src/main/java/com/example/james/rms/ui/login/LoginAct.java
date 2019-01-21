@@ -53,7 +53,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import de.keyboardsurfer.android.widget.crouton.Crouton;
 
-public class LoginAct extends AppCompatActivity implements View.OnClickListener,LoginActivityService {
+public class LoginAct extends AppCompatActivity implements View.OnClickListener,LoginActivityService,LoginContract.View {
 
     private AppCompatActivity appCompatActivity;
 
@@ -70,6 +70,7 @@ public class LoginAct extends AppCompatActivity implements View.OnClickListener,
     @BindView(R.id.facebooklogin)
     LoginButton fb_login;
 
+    private LoginContract.Presenter presenter;
     //MyPreferences
     private MyPreferences myPreferences;
     private MyPreferences settingPreference;
@@ -187,6 +188,21 @@ public class LoginAct extends AppCompatActivity implements View.OnClickListener,
     }
 
     @Override
+    public void onLoginSuccess() {
+        // TODO: 22/1/2019
+    }
+
+    @Override
+    public void onLoginFail() {
+        // TODO: 22/1/2019
+    }
+
+    @Override
+    public void setPresenter(LoginContract.Presenter presenter) {
+        this.presenter = presenter;
+    }
+
+    @Override
     public void onClick(View v) {
         String username = editUsername.getText().toString();
         String password = editPassword.getText().toString();
@@ -204,15 +220,17 @@ public class LoginAct extends AppCompatActivity implements View.OnClickListener,
                 break;
 
             case R.id.btn_login:
+                // do login in api
                 loginActivityService.buttonLogin(username,password);
                 break;
         }
 
     }
 
+
     @Override
     public void onBackPressed() {
-//        super.onBackPressed();
+        //show dialog to confirm leave
         ClassicDialog.showLeave(this,getString(R.string.leave));
     }
 
@@ -246,6 +264,7 @@ public class LoginAct extends AppCompatActivity implements View.OnClickListener,
 
     @Override
     public void autoLogin() {
+        // if set to remember username and pw , set it
         if( myPreferences.getPreferences_loginInformation() != null){
             saveLoginCheckBox.setChecked(true);
             String username = myPreferences.getPreferences_loginInformation().get("username");
