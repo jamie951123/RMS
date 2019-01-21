@@ -13,6 +13,8 @@ interface LoginContract {
     interface Presenter:BasePresenter{
 
         fun login(username:String,password:String)
+
+        fun validateServerStatus()
     }
 
     interface View:BaseView<Presenter>{
@@ -20,5 +22,7 @@ interface LoginContract {
         fun onLoginSuccess()
 
         fun onLoginFail()
+
+        fun onServerStatusReturn(online:Boolean)
     }
 }

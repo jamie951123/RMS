@@ -10,6 +10,7 @@
     <dimen name="toolbarsize">16dp</dimen>
     <dimen name="insizecard">10dp</dimen>
 
+    <dimen name="login_page_edge_padding">40dp</dimen>
     <!--Increase-->
     <dimen name="increase_list_item_layout_size">20dp</dimen>
     <dimen name="increase_list_item_layout_margin">3dp</dimen>

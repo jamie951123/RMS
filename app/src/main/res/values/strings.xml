@@ -172,6 +172,7 @@
     <string name="label_quantity_unit">Quantity Unit</string>
     <string name="label_max">Max:</string>
     <string name="label_login">Login</string>
+    <string name="label_register">Register</string>
     <string name="label_cancel">Cancel</string>
     <string name="label_remenber">Remember</string>
     <string name="label_language">Language</string>

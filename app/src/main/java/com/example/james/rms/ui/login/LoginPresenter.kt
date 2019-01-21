@@ -3,6 +3,9 @@ package com.example.james.rms.ui.login
 import android.content.Context
 import com.example.james.rms.common.SharePreferences.MyPreferences
 import com.example.james.rms.constant.PreferencesKey
+import com.example.james.rms.core.model.Facebook
+import com.example.james.rms.core.model.SettingModel
+import com.example.james.rms.core.model.UserProfile
 
 /**
  * Created by steve_000 on 22/1/2019.
@@ -27,6 +30,15 @@ class LoginPresenter(context: Context, val view: LoginContract.View) : LoginCont
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
+    override fun validateServerStatus() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    private fun setPreferences(userProfile: UserProfile?, settingModel: SettingModel?, facebook: Facebook?) {
+        if (userProfile != null) myPreferences.setPreferences_loginInformation(userProfile)
+        if (settingModel != null) settingPreference.setPreferences_Setting(settingModel)
+        if (facebook != null) facebookPreference.setPreferences_facebook(facebook)
+    }
     /**
      * Clear all 3 preference
      */

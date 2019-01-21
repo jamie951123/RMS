@@ -206,5 +206,6 @@
     <string name="label_date_duration">Search Date Duration</string>
     <string name="label_days">Days</string>
     <string name="label_fill_server_address">Fill Server Address</string>
+    <string name="label_register">注册</string>
 
 </resources>

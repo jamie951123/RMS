@@ -208,6 +208,7 @@
     <string name="label_date_duration">搜索天數</string>
     <string name="label_days">天</string>
     <string name="label_fill_server_address">填寫服務器地址</string>
+    <string name="label_register">注册</string>
 
 
 </resources>

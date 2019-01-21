@@ -31,6 +31,7 @@ import com.example.james.rms.core.search_object.FacebookSearchObject;
 import com.example.james.rms.network.ServeProfile;
 import com.example.james.rms.R;
 import com.example.james.rms.service.LoginActivityService;
+import com.example.james.rms.ui.register.RegisterAct;
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
@@ -65,6 +66,8 @@ public class LoginAct extends AppCompatActivity implements View.OnClickListener,
     EditText editPassword;
     @BindView(R.id.btn_login)
     Button btnLogin;
+    @BindView(R.id.btn_register)
+    Button btnRegister;
     @BindView(R.id.saveLoginCheckBox)
     android.support.v7.widget.AppCompatCheckBox saveLoginCheckBox;
     @BindView(R.id.facebooklogin)
@@ -110,9 +113,12 @@ public class LoginAct extends AppCompatActivity implements View.OnClickListener,
         //
         login_image.setOnClickListener(this);
         btnLogin.setOnClickListener(this);
+        btnRegister.setOnClickListener(this);
         //
         loginActivityService.autoLogin();
         facebookLogin();
+
+
     }
 
     public void facebookLogin(){
@@ -222,6 +228,10 @@ public class LoginAct extends AppCompatActivity implements View.OnClickListener,
             case R.id.btn_login:
                 // do login in api
                 loginActivityService.buttonLogin(username,password);
+                break;
+            case R.id.btn_register:
+                Intent intent = new Intent(this, RegisterAct.class);
+                startActivity(intent);
                 break;
         }
 
@@ -366,7 +376,12 @@ public class LoginAct extends AppCompatActivity implements View.OnClickListener,
         }
     }
 
-    private void setPreferences(UserProfile userProfile, SettingModel settingModel,Facebook facebook){
+    @Override
+    public void onServerStatusReturn(boolean online) {
+
+    }
+
+    private void setPreferences(UserProfile userProfile, SettingModel settingModel, Facebook facebook){
         if(userProfile != null) myPreferences.setPreferences_loginInformation(userProfile);
         if(settingModel != null) settingPreference.setPreferences_Setting(settingModel);
         if(facebook !=null) facebookPreference.setPreferences_facebook(facebook);
