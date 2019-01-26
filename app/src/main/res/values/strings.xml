@@ -2,9 +2,7 @@
 <resources>
     <string name="locale">zhUS</string>
     <string name="app_name">RMS</string>
-    <!--Facebook-->
-    <string name="facebook_app_id">129140231016831</string>
-    <string name="fb_login_protocol_scheme">fb129140231016831</string>
+
     <!--Common-->
     <string name="loading">Loading</string>
     <string name="waiting">Please wait...</string>

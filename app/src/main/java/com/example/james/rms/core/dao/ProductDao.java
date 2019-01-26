@@ -3,6 +3,7 @@ package com.example.james.rms.core.dao;
 import com.example.james.rms.core.model.ProductModel;
 import com.example.james.rms.core.model.ResponseMessage;
 
+import java.io.File;
 import java.util.List;
 
 /**
@@ -19,7 +20,7 @@ public interface ProductDao {
     List<ProductModel> findByPartyId(String json);
 
     //Save
-    ProductModel save(String json);
+    ProductModel save(String json, File file);
 
     //Update
     Integer updateWeightIdNullByWeightIdAndPartyId(String json);

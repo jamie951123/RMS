@@ -3,9 +3,6 @@
     <string name="locale">zhHK</string>
 
     <string name="app_name">RMS</string>
-    Facebook
-    <string name="facebook_app_id">129140231016831</string>
-    <string name="fb_login_protocol_scheme">fb129140231016831</string>
     <!--Common-->
     <string name="loading">加載中...</string>
     <string name="waiting">請等等...</string>

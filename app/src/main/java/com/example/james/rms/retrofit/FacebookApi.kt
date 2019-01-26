@@ -1,6 +1,7 @@
 package com.example.james.rms.retrofit
 
 import com.example.james.rms.core.model.Facebook
+import com.example.james.rms.core.search_object.FacebookSearchObject
 import com.example.james.rms.network.ServeProfile
 import retrofit2.Call
 import retrofit2.http.POST
@@ -14,7 +15,7 @@ interface FacebookApi {
     @POST(ServeProfile.Facebook.facebook_findAll)
     fun findAll(): Call<List<Facebook>>
     @POST(ServeProfile.Facebook.facebook_findByFacebookId)
-    fun findByFacebookId(facebookSearch_json: String): Call<Facebook>
+    fun findByFacebookId(facebookSearchObject: FacebookSearchObject): Call<Facebook>
     @POST(ServeProfile.Facebook.facebook_countFacebookId)
     fun countFacebookId(facebookSearch_json: String): Call<Int?>
 }

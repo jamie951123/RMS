@@ -1,12 +1,15 @@
 package com.example.james.rms.operation.product_action;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.webkit.PermissionRequest;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -37,6 +40,7 @@ import com.example.james.rms.core.model.ProductModel;
 import com.example.james.rms.core.model.QuantityProfileModel;
 import com.example.james.rms.core.model.WeightProfileModel;
 import com.example.james.rms.core.search_object.SearchCombine;
+import com.example.james.rms.util.PermissionUtils;
 import com.soundcloud.android.crop.Crop;
 
 import java.io.File;
@@ -56,6 +60,7 @@ import de.keyboardsurfer.android.widget.crouton.Crouton;
 
 public class ProductIncreaseAct extends AppCompatActivity implements View.OnClickListener, ClassicDialogService {
 
+    private final int REQ_PERMISSION = 111;
     @BindView(R.id.increase_imageView)
     ImageView increase_imageView;
     @BindView(R.id.increase_puductCode)
@@ -158,7 +163,10 @@ public class ProductIncreaseAct extends AppCompatActivity implements View.OnClic
         increase_imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Crop.pickImage(ProductIncreaseAct.this);
+                PermissionUtils.requestPermissions(
+                        ProductIncreaseAct.this,
+                        new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, REQ_PERMISSION);
+
             }
         });
 
@@ -220,7 +228,7 @@ public class ProductIncreaseAct extends AppCompatActivity implements View.OnClic
                 }
                 String result = ProductCombine.combine_AddProduct(productId,productCode,puductName,descriptionCN,
                         descriptionEN,remark,createDate,partyId,defaultWeightId,defaultQtyId);
-                ProductModel productModel = productDao.save(result);
+                ProductModel productModel = productDao.save(result, new File(imageOutputUri.getPath()));
                 if(productModel != null) {
                     Toast.makeText(this,R.string.insert_successful,Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent();
@@ -305,6 +313,17 @@ public class ProductIncreaseAct extends AppCompatActivity implements View.OnClic
         }
 
     }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if(grantResults[0]== PackageManager.PERMISSION_GRANTED){
+            Log.v("AAAAAAAA","Permission: "+permissions[0]+ "was "+grantResults[0]);
+            //resume tasks needing this permission (pick image and crop)
+            Crop.pickImage(ProductIncreaseAct.this);
+        }
+    }
+
     @Override
     protected void onDestroy() {
         super.onDestroy();

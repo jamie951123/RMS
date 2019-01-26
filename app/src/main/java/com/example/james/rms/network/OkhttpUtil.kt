@@ -10,10 +10,11 @@ import okhttp3.OkHttpClient
 object OkhttpUtil {
 
     private var client:OkHttpClient? = null
-
+    @JvmStatic
     fun getDefaultClient(): OkHttpClient {
         if(client == null){
             client = OkHttpClient.Builder()
+                    .addInterceptor(MyLoggingInterceptor())
                     .build()
         }
         return client!!

@@ -19,14 +19,17 @@ import android.widget.ExpandableListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.james.rms.common.SharePreferences.MyPreferences;
-import com.example.james.rms.constant.PreferencesKey;
-import com.example.james.rms.common.util.DeepCopyUtil;
+import com.example.james.rms.ITF.CommunicateInterface;
+import com.example.james.rms.ITF.NumberDialogListener;
+import com.example.james.rms.R;
 import com.example.james.rms.common.DialogBox.ClassicDialog;
 import com.example.james.rms.common.DialogBox.MyDatePicker;
 import com.example.james.rms.common.Library.AnimatedExpandableListView;
-import com.example.james.rms.common.util.ObjectUtil;
+import com.example.james.rms.common.SharePreferences.MyPreferences;
 import com.example.james.rms.common.StartActivityForResultKey;
+import com.example.james.rms.common.util.DeepCopyUtil;
+import com.example.james.rms.common.util.ObjectUtil;
+import com.example.james.rms.constant.PreferencesKey;
 import com.example.james.rms.controller.NavigationAct;
 import com.example.james.rms.core.combine.DeliveryOrderCombine;
 import com.example.james.rms.core.combine.DeliveryOrderSearchCombine;
@@ -46,11 +49,7 @@ import com.example.james.rms.core.model.ReceivingItemModel;
 import com.example.james.rms.core.model.ReceivingOrderModel;
 import com.example.james.rms.core.model.Status;
 import com.example.james.rms.core.transfer_model.NumberDialogModel;
-import com.example.james.rms.ITF.CommunicateInterface;
-import com.example.james.rms.ITF.NumberDialogListener;
 import com.example.james.rms.operation.adapter.DeliveryIncreaseItemExpandableAdapter;
-import com.example.james.rms.R;
-import com.facebook.FacebookSdk;
 import com.github.clans.fab.FloatingActionButton;
 
 import java.math.BigDecimal;
@@ -116,7 +115,6 @@ public class DeliveryIncreaseAct extends AppCompatActivity implements View.OnCli
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        FacebookSdk.sdkInitialize(getApplicationContext());
         setContentView(R.layout.act_delivery_increase);
         ButterKnife.bind(this);
         //Dao

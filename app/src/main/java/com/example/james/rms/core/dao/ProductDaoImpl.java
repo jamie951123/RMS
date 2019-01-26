@@ -11,14 +11,25 @@ import com.example.james.rms.core.model.ResponseMessage;
 import com.example.james.rms.core.serve_path.ProductServerPath;
 import com.example.james.rms.network.HttpGetAsync;
 import com.example.james.rms.network.HttpPostAsync;
+import com.example.james.rms.network.ProductImagePostAsync;
+import com.example.james.rms.network.RetrofitUtil;
+import com.example.james.rms.retrofit.ProductApi;
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 import com.google.gson.reflect.TypeToken;
 
+import java.io.File;
+import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
+
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
+import retrofit2.Call;
+import retrofit2.Response;
 
 /**
  * Created by james on 26/3/2017.
@@ -26,9 +37,11 @@ import java.util.concurrent.ExecutionException;
 
 public class ProductDaoImpl extends NetworkModel implements ProductDao {
 
+    private ProductApi productApi;
 
     public ProductDaoImpl(AppCompatActivity appCompatActivity) {
         super(appCompatActivity);
+        productApi = RetrofitUtil.getDefaultRetrofit().create(ProductApi.class);
     }
 
     @Override
@@ -113,11 +126,13 @@ public class ProductDaoImpl extends NetworkModel implements ProductDao {
         return products;
     }
 
-    public ProductModel save(String json){
+    public ProductModel save(String json, File file){
         Log.d("asd:","[ProductModel]-insertProduct-[Request (JSON)]: :"+json);
         String result = "";
         try {
             result = new HttpPostAsync(this).execute(ProductServerPath.INSTANCE.serve_insertProduct(),json).get();
+
+            String imageResult = new ProductImagePostAsync(file).execute().get();
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {
@@ -130,7 +145,7 @@ public class ProductDaoImpl extends NetworkModel implements ProductDao {
 
         ProductModel productModel = new ProductModel();
         try{
-            Gson gson = new Gson();
+            Gson gson = GsonUtil.fromJson();
             productModel = gson.fromJson(result,ProductModel.class);
         }catch (JsonSyntaxException e){
             e.printStackTrace();

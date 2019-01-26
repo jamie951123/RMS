@@ -4,6 +4,7 @@ import com.example.james.rms.core.model.LoginModel
 import com.example.james.rms.core.model.UserProfile
 import com.example.james.rms.data.LoginDataSource
 import com.example.james.rms.network.OkhttpUtil
+import com.example.james.rms.network.RetrofitUtil
 import com.example.james.rms.network.ServeProfile
 import com.example.james.rms.retrofit.UserProfileApi
 import retrofit2.Call
@@ -19,11 +20,8 @@ import retrofit2.converter.gson.GsonConverterFactory
  */
 class LoginRemoteDataSource() : LoginDataSource {
 
-    val retrofit = Retrofit.Builder()
-            .baseUrl(ServeProfile.serve)
-            .client(OkhttpUtil.getDefaultClient())
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
+    val retrofit = RetrofitUtil.getDefaultRetrofit()
+
     private val api: UserProfileApi = retrofit.create(UserProfileApi::class.java)
 
     override fun login(username:String,password:String,callback: LoginDataSource.Callback) {

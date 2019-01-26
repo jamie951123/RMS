@@ -9,12 +9,13 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.james.rms.R;
 import com.example.james.rms.common.DialogBox.ClassicDialog;
 import com.example.james.rms.common.DialogBox.DialogModel;
 import com.example.james.rms.common.Language.LocalizationUtil;
 import com.example.james.rms.common.SharePreferences.MyPreferences;
-import com.example.james.rms.constant.PreferencesKey;
 import com.example.james.rms.common.util.ObjectUtil;
+import com.example.james.rms.constant.PreferencesKey;
 import com.example.james.rms.controller.NavigationAct;
 import com.example.james.rms.core.combine.FacebookSearchCombine;
 import com.example.james.rms.core.combine.UserProfileCombine;
@@ -29,17 +30,15 @@ import com.example.james.rms.core.model.Status;
 import com.example.james.rms.core.model.UserProfile;
 import com.example.james.rms.core.search_object.FacebookSearchObject;
 import com.example.james.rms.network.ServeProfile;
-import com.example.james.rms.R;
 import com.example.james.rms.service.LoginActivityService;
 import com.example.james.rms.ui.register.RegisterAct;
+import com.example.james.rms.ui.test_upload.TestUploadPhotoAct;
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
-import com.facebook.FacebookSdk;
 import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
-import com.facebook.appevents.AppEventsLogger;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
@@ -92,8 +91,6 @@ public class LoginAct extends AppCompatActivity implements View.OnClickListener,
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        FacebookSdk.sdkInitialize(getApplicationContext());
-        AppEventsLogger.activateApp(this);
         setContentView(R.layout.act_login);
         ButterKnife.bind(this);
         appCompatActivity = this;
@@ -230,7 +227,8 @@ public class LoginAct extends AppCompatActivity implements View.OnClickListener,
                 loginActivityService.buttonLogin(username,password);
                 break;
             case R.id.btn_register:
-                Intent intent = new Intent(this, RegisterAct.class);
+//                Intent intent = new Intent(this, RegisterAct.class);
+                Intent intent = new Intent(this, TestUploadPhotoAct.class);
                 startActivity(intent);
                 break;
         }

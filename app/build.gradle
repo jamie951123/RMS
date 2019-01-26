@@ -22,6 +22,8 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        resValue "string", "facebook_app_id", "\"129140231016831\""
+        resValue "string", "fb_login_protocol_scheme", "\"fb129140231016831\""
     }
     buildTypes {
         release {
@@ -33,6 +35,17 @@ android {
             signingConfigs.release
         }
     }
+    flavorDimensions "version"
+    productFlavors {
+        eric {
+            resValue "string", "facebook_app_id", "\"391120678321420\""
+            resValue "string", "fb_login_protocol_scheme", "\"fb391120678321420\""
+        }
+        jame {
+
+        }
+    }
+
 
     lintOptions {
         checkReleaseBuilds false

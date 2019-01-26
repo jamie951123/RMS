@@ -36,6 +36,7 @@ object ServeProfile {
         const val product_updateWeightIdNullByWeightIdAndPartyId = "rms/product/updateWeightIdNullByWeightIdAndPartyId"
         const val product_updateQuantityIdNullByQuantityIdAndPartyId = "rms/product/updateQuantityIdNullByQuantityIdAndPartyId"
         const val product_updateQuantityIdAndWeightIdNullByProductId = "rms/product/updateQuantityIdAndWeightIdNullByProductId"
+        const val product_uploadImage = "rms/product/uploadProductImage"
     }
 
     //ReceivingOrder

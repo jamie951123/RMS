@@ -1,5 +1,7 @@
 package com.example.james.rms.core.model;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.util.Date;
 
 /**

@@ -1,6 +1,8 @@
 package com.example.james.rms
 
 import android.app.Application
+import com.facebook.FacebookSdk
+import com.facebook.appevents.AppEventsLogger
 import com.facebook.stetho.Stetho
 
 /**
@@ -8,9 +10,12 @@ import com.facebook.stetho.Stetho
  * for project RMS
  * package name com.example.james.rms
  */
-class App:Application() {
+class App : Application() {
     override fun onCreate() {
         super.onCreate()
         Stetho.initializeWithDefaults(this)
+        //facebook
+        FacebookSdk.sdkInitialize(getApplicationContext());
+        AppEventsLogger.activateApp(this)
     }
 }
